@@ -1,0 +1,46 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Counter-Strike Team Coacher.vcxproj, Empiria.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  ThreadManager.cpp
+h:\codes\daicastle 2d\base\empiria\random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(100): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(101): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(138): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(148): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(156): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(205): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\threadmanager.cpp(10): warning C4018: '<=': signed/unsigned mismatch
+  Map.cpp
+h:\codes\daicastle 2d\base\empiria\random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(100): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(101): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(138): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(148): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(156): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(205): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\map.cpp(8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\map.cpp(9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\map.cpp(13): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\map.cpp(20): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  main.cpp
+h:\codes\daicastle 2d\base\empiria\random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(100): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(101): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(138): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(148): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(156): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(205): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\daicastle.h(274): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\daicastle.h(441): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\daicastle.h(450): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\main.cpp(20): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\main.cpp(97): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\main.cpp(94): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'

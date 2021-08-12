@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Interfaces">
+      <UniqueIdentifier>{caab3131-a706-4ed8-b2ce-5f3263248856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShootBallz">
+      <UniqueIdentifier>{2a9eb30d-fd72-4ee4-aa4c-d3935e17dd5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShootBallz\NewVers">
+      <UniqueIdentifier>{18b47e1f-9fcc-474a-b500-405a5655e6cc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="fastParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileSys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ITek.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IWindow.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Structs.h">
+      <Filter>ShootBallz</Filter>
+    </ClInclude>
+    <ClInclude Include="DaiCastle.h">
+      <Filter>ShootBallz</Filter>
+    </ClInclude>
+    <ClInclude Include="AStar.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DCN_Map.h">
+      <Filter>ShootBallz\NewVers</Filter>
+    </ClInclude>
+    <ClInclude Include="DC_Map.h">
+      <Filter>ShootBallz</Filter>
+    </ClInclude>
+    <ClInclude Include="gameHeaders.h">
+      <Filter>ShootBallz</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>ShootBallz</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadManager.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IAudio.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="DC_Demo.h">
+      <Filter>ShootBallz</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ITek.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileSys.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fastParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IWindow.cpp">
+      <Filter>Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="DC_TextureManager.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="DC_Map.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="DC_Match.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="DC_Item.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="DC_Unit.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="DC_Effects.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="DC_Botdata.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="AStar.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DC_MatchOtherStuff.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="DC_Storm.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="DC_MapEditor.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="DCN_Map.cpp">
+      <Filter>ShootBallz\NewVers</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadManager.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IAudio.cpp">
+      <Filter>Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="DC_Config.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="DC_Console.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="DC_Game.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="DC_Menu.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="DC_Demo.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="DC_DemoPlayer.cpp">
+      <Filter>ShootBallz</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
