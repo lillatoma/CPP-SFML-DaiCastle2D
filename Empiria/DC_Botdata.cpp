@@ -346,39 +346,6 @@ bool dc_match::BotHeal(int id)
 
 }
 
-void dc_match::BotPickupNearbyLoot(int id)
-{
-
-	int slot = players[id].hasFreeSlot();
-	if (slot == -1)
-	{
-		for (int i = 0; i < map.items.size(); i++)
-		{
-			if(!map.items[i].iType > 3)
-				for(int j = 0; j < 5; j++)
-					if(((BotData[id].item_ranges[j].is_between(map.items[i].id) && !BotData[id].item_ranges[j].is_between(players[id].Items[j].id)) || (BotData[id].item_ranges[j].is_between(map.items[i].id) && BotData[id].item_ranges[j].is_between(players[id].Items[j].id) && map.items[i].iRarity > players[id].Items[j].iRarity)))
-						PlayerPickupItem(id, j, i);
-					else;
-			else
-				for (int j = 0; j < 5; j++)
-					if (((BotData[id].item_ranges[j].is_between(map.items[i].id) && !BotData[id].item_ranges[j].is_between(players[id].Items[j].id)) || (BotData[id].item_ranges[j].is_between(map.items[i].id) && BotData[id].item_ranges[j].is_between(players[id].Items[j].id) && map.items[i].iRarity >= players[id].Items[j].iRarity && players[id].Items[j].iBullets != players[id].Items[j].iMaxBullets)))
-						PlayerPickupItem(id, j, i);
-
-		}
-	}
-	else
-	{
-		for (int i = 0; i < map.items.size(); i++)
-		{
-
-
-
-			PlayerPickupItem(id, slot, i);
-
-		}
-	}
-}
-
 void dc_match::BotDodge(int id,int diff)
 {
 	if (id < 0 || id > 99)return;
@@ -712,7 +679,9 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 	{
 		for (int i = 0; i < map.chests.size(); i++)
 		{ if(!map.chests[i].bOpen)
-			BotData[id].Changables.RestOfChests.push_back(i);
+			{ 
+				BotData[id].Changables.RestOfChests.push_back(i);
+			}
 		}
 	}
 

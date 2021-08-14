@@ -2013,7 +2013,7 @@ void dc_match::PlayerShootWeapon(int player)
 
 	if (players[player].Items[players[player].iSelectedWeapon].iType > 3 && players[player].fHealTime <= 0)
 	{
-		if(players[player].GetVelocity() <= 2.f)
+		if(players[player].CalculateVelocity() <= 2.f)
 		PlayerUseHeal(player);
 		return;
 	}
@@ -4452,71 +4452,6 @@ bool dc_match::OverItem()
 		return true;
 	}
 	return false;
-	for (int i = 0; i < map.items.size(); i++)
-	{
-		auto &ch = map.items[i];
-
-		//ConLog("\n%.1f %.1f",ch.vPosition.x,ch.vPosition.y);
-		if (ch.vPosition.x > mx - 2 && ch.vPosition.x < mx + 2 && ch.vPosition.y > my - 2 && ch.vPosition.y < my + 2)
-		{
-			float _x = mx - ch.vPosition.x;
-			float _y = my - ch.vPosition.y;
-			//ConLog("\n In the goods");
-			if (g_Mouse.IsBetween(g_Resolution.x / 2 - _x*blocksize.x, g_Resolution.y / 2 - _y*blocksize.y, 32 * scale, 32 * scale, g_Mouse.Coords.x, g_Mouse.Coords.y))
-			{
-				IWindow::RenderOverlay(g_Resolution.x / 2 - _x*blocksize.x, g_Resolution.y / 2 - _y*blocksize.y, 32 * scale, 32 * scale, 255, 255, 255, 48);
-				int slot = players[0].hasFreeSlot();
-				if (slot != -1)
-				{
-
-					if (g_Mouse.hasReleased())
-					{
-						PlayerPickupItem(0, slot, i);
-						return true;
-					}
-				}
-				else if (ch.iType > 3)
-				{
-					if (g_Mouse.hasReleased())
-					{
-						auto nonheal = players[0].getFirstNonHealSlot();
-						if (nonheal != -1)PlayerPickupItem(0, nonheal, i);
-					}
-				}
-				
-				{
-
-					
-					if (g_Mouse.hasJustClicked())
-					{
-						st_item = ch;
-						break;
-					}
-				}
-				
-			}
-
-		}
-	}
-
-	if (st_item.bValidated)
-	{
-		int boxsize = g_Resolution.y*0.11f;
-		for (int i = 0; i < 5; i++)
-		{
-			if (g_Mouse.IsBetween(g_Resolution.x - boxsize * 6 + i *boxsize*1.2, g_Resolution.y - boxsize - g_Resolution.x*0.01f, boxsize, boxsize, g_Mouse.Coords.x, g_Mouse.Coords.y))
-			{
-				if (g_Mouse.hasReleased())
-				{
-					PlayerPickupItem(0, i, map.get_item_id(st_item));
-
-					//ch.bOwned = true;
-				}
-			}
-		}
-		return true;
-	}
-	return false;
 }
 
 void dc_match::PlayerMove(int player, float angle)
@@ -4979,7 +4914,7 @@ void dc_match::LoopPlayers()
 		if (players[i].fFreeFallHeight <= 0.f) {
 			auto l = GetLength(players[i].vVelocity*diff);
 			players[i].DistanceTillNextFootStep -= l;
-			players[i].Stats.DistanceWalked += l;
+			players[i].Stats.fDistanceWalked += l;
 
 			
 			if (!players[i].bOnBus && players[i].Stats.LandingPosition == sf::Vector2f(-1.f, -1.f))
@@ -4991,7 +4926,7 @@ void dc_match::LoopPlayers()
 		players[i].Stats.fTimeAlive += diff;
 
 
-		if (players[i].GetVelocity() > 2.f)
+		if (players[i].CalculateVelocity() > 2.f)
 		{
 			if (players[i].Items[players[i].iSelectedWeapon].bValidated)players[i].fBloomSize -= (players[i].Items[players[i].iSelectedWeapon].fBloomMovingDecrease * diff);
 			if (players[i].Items[players[i].iSelectedWeapon].bValidated && players[i].fBloomSize < players[i].Items[players[i].iSelectedWeapon].fBloomMovingMinSize)
@@ -5034,7 +4969,7 @@ void dc_match::LoopPlayers()
 						weapon.id = 10000; heal.id = 0;
 						while (weapon.IsConsumable())
 						{
-							int r = weapon.GetRandom();
+							int r = weapon.GetRandomWeaponID();
 							pos = map.chests[players[i].iOpeningChest].vPosition + sf::Vector2f(-RandFloat()*0.25f, RandFloat()*0.5f - 0.25f);
 							weapon.create(r, pos);
 							//weapon.vPosition = pos;
@@ -5045,7 +4980,7 @@ void dc_match::LoopPlayers()
 						map.items.push_back(weapon);
 						while (!heal.IsConsumable())
 						{
-							int r = heal.GetRandom();
+							int r = heal.GetRandomWeaponID();
 							pos = map.chests[players[i].iOpeningChest].vPosition + sf::Vector2f(RandFloat()*0.25f, RandFloat()*0.5f - 0.25f);
 							heal.create(r, pos);
 							//heal.vPosition = pos;
@@ -5080,20 +5015,20 @@ void dc_match::LoopPlayers()
 							if (j <= 1)
 							{
 								Items[j].id = 10000;
-								int r = Items[j].GetRandom();
+								int r = Items[j].GetRandomWeaponID();
 								while (Items[j].IsConsumable() || Items[j].iRarity < 4)
 								{
-									int r = Items[j].GetRandom();
+									int r = Items[j].GetRandomWeaponID();
 									Items[j].create(r, pos+0.5f*angle2vec(j*72.f));
 								}
 							}
 							else
 							{
 								Items[j].id = 0;
-								int r = Items[j].GetRandom();
+								int r = Items[j].GetRandomWeaponID();
 								while (!Items[j].IsConsumable() || Items[j].iRarity < 0)
 								{
-									int r = Items[j].GetRandom();
+									int r = Items[j].GetRandomWeaponID();
 									Items[j].create(r, pos + 0.5f*angle2vec(j*72.f));
 								}
 							}
@@ -5284,7 +5219,7 @@ void dc_match::DoCheatStuff()
 	{
 		dc_item weapon;
 
-		auto id = weapon.GetRandom();
+		auto id = weapon.GetRandomWeaponID();
 		players[0].Items[players[0].iSelectedWeapon].create(id, sf::Vector2f());
 
 

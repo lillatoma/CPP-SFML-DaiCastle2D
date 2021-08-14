@@ -823,7 +823,7 @@ void dc_game::EvaluateMatch()
 	ThePlayer.TotalMatches++;
 
 	float intPart = 0;
-	float fPart = modf(Match->players[0].Stats.DistanceWalked, &intPart);
+	float fPart = modf(Match->players[0].Stats.fDistanceWalked, &intPart);
 	ThePlayer.DistanceTravelledLow += fPart;
 	while (ThePlayer.DistanceTravelledLow > 1)
 	{

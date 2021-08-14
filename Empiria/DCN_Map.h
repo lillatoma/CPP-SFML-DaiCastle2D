@@ -6,7 +6,6 @@ struct dcn_map
 {
 	std::vector<dc_blockline> lines;
 	std::vector<dc_chest> chests;
-	std::vector<dc_floorloot> floorloots;
 	std::vector<dc_item> items; //onground;
 	std::vector<dc_label> labels;
 

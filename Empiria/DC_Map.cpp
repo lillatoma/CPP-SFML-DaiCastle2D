@@ -205,20 +205,10 @@ void dc_map::beginshadows(sf::RenderTexture* T,float mx, float my, float width)
 		lastRes = g_Resolution;
 	}
 
-
 	sf::Vector2f blocksize((float)(g_Resolution.x) / width, (float)(g_Resolution.x) / width);
 	float scale = (float)(blocksize.x) / 128;
 
-
-
-
-
-
-
-
 	float height = width*g_Resolution.y / g_Resolution.x;
-
-
 
 	float dx = mx - (int)mx;
 	float dy = my - (int)my;
@@ -590,26 +580,26 @@ void dc_map::drawitems(sf::RenderTexture* T,float mx, float my, float width)
 
 bool it_comp(dc_item a, dc_item b) { return a.bOwned < b.bOwned; }
 
-void dc_map::mark_for_delete(dc_item it)
-{
-	for (int i = 0; i < items.size(); i++)
-		if (it == items[i])
-		{
-			items[i].bOwned = true;
-			delete_items();
-			break;
-		}
-	
-}
+//void dc_map::mark_for_delete(dc_item it)
+//{
+//	for (int i = 0; i < items.size(); i++)
+//		if (it == items[i])
+//		{
+//			items[i].bOwned = true;
+//			delete_items();
+//			break;
+//		}
+//	
+//}
 
-int dc_map::get_item_id(dc_item it)
-{
-	for (int i = 0; i < items.size(); i++)
-		if (it == items[i])
-		{
-			return i;
-		}
-}
+//int dc_map::get_item_id(dc_item it)
+//{
+//	for (int i = 0; i < items.size(); i++)
+//		if (it == items[i])
+//		{
+//			return i;
+//		}
+//}
 
 void dc_map::delete_items()
 {
@@ -684,21 +674,7 @@ void dc_map::delete_line(sf::Vector2f s, sf::Vector2f e, int typ)
 void dc_map::begin_lines()
 {
 	all_lines.clear();
-	if(false)for (int x = 0; x < size.x; x++)
-	{
-		for (int y = 0; y < size.y; y++)
-		{
-			if (lines[y].blocks[x].walls[0].iHealth > 0)
-			{
-				all_lines.push_back(l_t(sf::Vector2f(x, y), sf::Vector2f(x, y + 1),0));
-			}
-			if (lines[y].blocks[x].walls[1].iHealth > 0)
-			{
-				all_lines.push_back(l_t(sf::Vector2f(x, y), sf::Vector2f(x+1, y),1));
-			}
-		}
-	}
-	ConLog("\nall Lines Size: %d", all_lines.size());
+
 	for (int x = 0; x < size.x; x++)
 	{
 		for (int y = 0; y < size.y; y++)
@@ -719,26 +695,26 @@ void dc_map::begin_lines()
 
 }
 
-void dc_map::update_lines()
-{
-	//return;
-	all_lines.clear();
-	for (int x = 0; x < size.x; x++)
-	{
-		for (int y = 0; y < size.y; y++)
-		{
-			if (lines[y].blocks[x].walls[0].iHealth > 0)
-			{
-				all_lines.push_back(l_t(sf::Vector2f(x, y), sf::Vector2f(x, y + 1), 0));
-			}
-			if (lines[y].blocks[x].walls[1].iHealth > 0)
-			{
-				all_lines.push_back(l_t(sf::Vector2f(x, y), sf::Vector2f(x + 1, y), 1));
-			}
-		}
-	}
-	ConLog("\nall Lines Size: %d", all_lines.size());
-}
+//void dc_map::update_lines()
+//{
+//	//return;
+//	all_lines.clear();
+//	for (int x = 0; x < size.x; x++)
+//	{
+//		for (int y = 0; y < size.y; y++)
+//		{
+//			if (lines[y].blocks[x].walls[0].iHealth > 0)
+//			{
+//				all_lines.push_back(l_t(sf::Vector2f(x, y), sf::Vector2f(x, y + 1), 0));
+//			}
+//			if (lines[y].blocks[x].walls[1].iHealth > 0)
+//			{
+//				all_lines.push_back(l_t(sf::Vector2f(x, y), sf::Vector2f(x + 1, y), 1));
+//			}
+//		}
+//	}
+//	ConLog("\nall Lines Size: %d", all_lines.size());
+//}
 
 inline float GetT1(sf::Vector2f rs, sf::Vector2f rd, sf::Vector2f ws, sf::Vector2f wd)
 {

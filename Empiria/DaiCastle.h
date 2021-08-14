@@ -2,38 +2,48 @@
 #include "AStar.h"
 #include "DC_Demo.h"
 
-
+//////////////////////////////////////////////
+///Data holder of a projectile/sniper bullet object
+//////////////////////////////////////////////
 struct dc_projectile
 {
-	int ProjectileIndex;
-	int originid;
-	sf::Vector2f start, end;
-	float projectile_speed;
-	float timeAlive = 0.f;
-	int DamageEnd, DamageStart;
-	int wpnListIndex;
-	//char wpnName[128];
+	int ProjectileIndex; //This is for demos
+	int originid; //unit who shot the projectile
+	sf::Vector2f start, end; //origin, and final destination if there is nothing to catch the projectile
+	float projectile_speed; 
+	float timeAlive = 0.f; //used to calculate current position
+	int DamageEnd, DamageStart; 
+	int wpnListIndex; //to get more data if needed
 };
 
+//////////////////////////////////////////////
+///Data holder of an explosive's projectile
+//////////////////////////////////////////////
 struct dc_explosive
 {
-	int ExplosiveIndex;
-	sf::Vector2f start, end;
-	int originid;
+	int ExplosiveIndex; //This is for demos
+	sf::Vector2f start, end; //origin, and final destination if there is nothing to catch the projectile
+	int originid; //unit who shot the projectile
 	int userid;
-	int stickid;
+	int stickid; //unused
 	float projectile_speed;
 	int projectiletype; //0 - Rocket, 1 - GL Grenade, 2 - HandGrenade, 3 - Sticky
-	float explosionRange;
+	float explosionRange; //Radius in which the explosion affects its environment
 	float timeAlive = 0.f;
-	float timeMax;
+	float timeMax; //Maximum amount of time the explosive is alive
 
 	int DamageEnd, DamageStart;
-	int wpnListIndex;
+	int wpnListIndex; //to get more data if needed
 	//char wpnName[128];
 };
 
-
+//////////////////////////////////////////////
+///Data holder of an item
+///Notably there is two different categories: weapons and heals
+///Heals heal you
+///Weapons damage other units. 
+///There are pistols, submachineguns, assault rifles, machineguns, rifles, sniper rifles, and explosives.
+//////////////////////////////////////////////
 struct dc_item
 {
 	int ListIndex;
@@ -90,15 +100,31 @@ struct dc_item
 	int id;
 	int GameIdx = -1;
 
-	static int GetRandom();
+	//////////////////////////////////////////////
+	/// Returns a random ID based on the lootpool
+	//////////////////////////////////////////////
+	static int GetRandomWeaponID();
 
+	//////////////////////////////////////////////
+	/// Creates a copy of the dc_item with ListIndex 'type' on this object, and changes the position to 'pos'
+	//////////////////////////////////////////////
 	void create(int type, sf::Vector2f pos);
 
-	//void copy()
-
+	//////////////////////////////////////////////
+	/// Hardcoded. Sets up all weapons.
+	//////////////////////////////////////////////
 	static void define_all();
+	//////////////////////////////////////////////
+	/// DPS calculation
+	//////////////////////////////////////////////
 	float GetPrimitiveDPS(float distance);
+	//////////////////////////////////////////////
+	/// DPS calculation
+	//////////////////////////////////////////////
 	float GetRealDPS(float distance, bool fsawait);
+	//////////////////////////////////////////////
+	/// DPS calculation, the best approximation
+	//////////////////////////////////////////////
 	float CalculateDPS(float distance, bool standing);
 	bool IsConsumable()
 	{
@@ -140,11 +166,16 @@ struct dc_item
 	{
 		return (ListIndex >= 72 && ListIndex <= 78);
 	}
-
+	//////////////////////////////////////////////
+	/// Unused
+	//////////////////////////////////////////////
 	bool is_for_bot(dc_item* It);
 
 	dc_item() {};
-
+	//////////////////////////////////////////////
+	/// Similar to create(..)
+	/// Creates a copy of the dc_item with ListIndex 'ListIndex' and places it into pos
+	//////////////////////////////////////////////
 	dc_item(int ListIndex, sf::Vector2f pos);
 
 };
@@ -170,11 +201,14 @@ struct dc_elimdata
 	int WeaponListindex;
 };
 
+//////////////////////////////////////////////
+/// Struct that holds statistics for a player
+//////////////////////////////////////////////
 struct dc_stats
 {
 	int iEliminations = 0;
 	int iPlacement = 0;
-	float DistanceWalked = 0.f;
+	float fDistanceWalked = 0.f;
 	int iDamageDealt = 0;
 	int iDamageTaken = 0;
 	float fTimeAlive = 0.f;
@@ -234,51 +268,65 @@ struct dc_slurptypeheal
 	float fHealTimeLeft;
 };
 
+//////////////////////////////////////////////
+/// Representing object for a unit of a player or AI
+//////////////////////////////////////////////
 struct dc_unit
 {
-	bool bGodMode = false;
-	bool bOnBus = false;
-	float fFreeFallHeight = 0.f;
-	sf::Vector2f vPosition;
-	int iHealth = 100;
-	int iShield = 0;
-	int iSmallBullets = 0;
-	int iMediumBullets = 0;
-	int iHeavyBullets = 0;
-	int iShotgunBullets = 0;
+	bool bGodMode = false; //Cheat
+	bool bOnBus = false; 
+	float fFreeFallHeight = 0.f; //Starting from 100, it descends to 0
+	sf::Vector2f vPosition; // position in the world
+	int iHealth = 100; //Ranging from 0 - 100
+	int iShield = 0; //Ranging from 0 - 100
 	dc_item Items[5];
-	bool bMoved = false;
-	sf::Vector2f vVelocity = sf::Vector2f(0,0);
-	float fAngle = 0;
-	int iSelectedWeapon = 0;
-	float fPulloutDelay = 0.f;
-	float fShootDelay = 0.f;
-	float fBloomSize = 0.f;
-	float fFSADelay = 0.f;
+	bool bMoved = false; //If the player moved in a frame
+	sf::Vector2f vVelocity = sf::Vector2f(0,0); 
+	float fAngle = 0; //Where the unit facing
+	int iSelectedWeapon = 0; //Which item is equipped
+	float fPulloutDelay = 0.f; //The weapon needs this much time to be pulled out
+	float fShootDelay = 0.f; //Fire rate delay. Can shoot next bullet this much seconds later.
+	float fBloomSize = 0.f; //Size of the bullet spread
+	float fFSADelay = 0.f; //The spread can get smaller this much seconds later.
 	bool bReloading = false;
-	float fReloadDelay = 0.f;
-	int iSkinTexture = 0;
-	int iGliderTexture = 0;
-	int iWeaponWrapTexture = 0;
+	float fReloadDelay = 0.f; //The weapon gets reloaded this much seconds later. Either fully reloaded, or bullets added in mag
+	int iSkinTexture = 0; //Texture ID for Skin
+	int iGliderTexture = 0; //Texture ID for Glider
+	int iWeaponWrapTexture = 0;//Texture ID for Weapon Wrap
 
-	int iOpeningAirdrop = -1;
-	int iOpeningChest = -1;
-	float fOpeningTime = 0.f;
-	float fHealTime = 0.f;
-	int hasFreeSlot();
-	int getFirstNonHealSlot();
+	int iOpeningAirdrop = -1; //Airdrop index of an airdrop being opened. When not opening an airdrop, it's -1
+	int iOpeningChest = -1; //Chest index of a chest being opened. When not opening a chest, it's -1
+	float fOpeningTime = 0.f; //Time needed to open a chest or airdrop
+	float fHealTime = 0.f; //Time needed for a heal to take effects
+	
 	dc_stats Stats;
 	dc_clock StormClock;
 	float StormSpentTime;
 	float DistanceTillNextFootStep = 1.f;
-
-
 	int gotHitLastPlayerID = -1;
 	int gotHitLastItemID = -1;
 	dc_clock gothitLastClock;
-
 	char szName[64] = "Player";
 
+	//////////////////////////////////////////////
+	/// Returns if the unit has a free item slot
+	//////////////////////////////////////////////
+	int hasFreeSlot();
+	//////////////////////////////////////////////
+	/// Returns the index of the first weapon
+	//////////////////////////////////////////////
+	int getFirstNonHealSlot();
+
+
+
+
+
+	//////////////////////////////////////////////
+	/// Reduces the health of the unit by 'dmg'
+	/// If 'ignore_shield' is false, the shield will absorb the damage first
+	/// Otherwise the unit's health is affected direcly
+	/// The unit can't be damaged if it is still on the bus, or has god mode.
+	//////////////////////////////////////////////
 	void Damage(int dmg, bool ignore_shield = false)
 	{
 		if (bOnBus || bGodMode)return;
@@ -300,16 +348,27 @@ struct dc_unit
 			if (iHealth < 0)iHealth = 0;
 		}
 	}
-	float GetVelocity()
+	//////////////////////////////////////////////
+	/// Calculates the linear euclidean velocity
+	//////////////////////////////////////////////
+	float CalculateVelocity()
 	{
 		return sqrt(vVelocity.x*vVelocity.x + vVelocity.y*vVelocity.y);
 	}
+	//////////////////////////////////////////////
+	/// Returns true if one of the unit's valid items is a weapon
+	/// Returns false if none of the unit's valid items is a weapon
+	//////////////////////////////////////////////
 	bool hasWeapon();
 
 	dc_item& GetCurrentWeapon()
 	{
 		return Items[iSelectedWeapon];
 	}
+	//////////////////////////////////////////////
+	/// Returns how heavy the current selected item is
+	/// Used to 'drag' the unit
+	//////////////////////////////////////////////
 	float GetCurrentWeaponWeight()
 	{
 		if (Items[iSelectedWeapon].bValidated)
@@ -318,11 +377,28 @@ struct dc_unit
 		}
 		else return 0.f;
 	}
+
+	//////////////////////////////////////////////
+	/// Returns true if one of the unit's valid items has ListIndex of 'listid'
+	/// Returns false if none of the unit's valid items has ListIndex of 'listid'
+	//////////////////////////////////////////////
 	int hasSpecificItem(int listid);
+	//////////////////////////////////////////////
+	/// Returns true if one of the unit's valid heals can heal health
+	/// Returns false if none of the unit's valid heals can heal health
+	//////////////////////////////////////////////
 	int hasWhiteheal();
+	//////////////////////////////////////////////
+	/// Returns true if one of the unit's valid heals can heal shield
+	/// Returns false if none of the unit's valid heals can heal shield
+	//////////////////////////////////////////////
 	int hasShieldheal();
 
-	std::vector<dc_slurptypeheal> SlurpContainer;
+	std::vector<dc_slurptypeheal> SlurpContainer; //This is a holder for slurp type heals
+
+	//////////////////////////////////////////////
+	/// Simulates slurp effect for each active slurp-type-heal if 'diffTime' seconds have passed
+	//////////////////////////////////////////////
 	void SimulateSlurp(float diffTime)
 	{
 		for (int i = SlurpContainer.size() - 1; i >= 0; i--)
@@ -341,40 +417,47 @@ struct dc_unit
 	}
 };
 
-struct dc_chest //DONT CHANGE ANYTHING
+//////////////////////////////////////////////
+/// Data of a chest on the map
+/// DONT CHANGE ANYTHING, IT CAUSES THE MAP TO LOAD IN AN UNHANDLED WAY
+//////////////////////////////////////////////
+struct dc_chest 
 {
 	sf::Vector2f vPosition;
 	bool bOpen;
 	char fill[3];
-	//int ChestRarity = 0; //0 - Common, 1 - Uncommon, 2 - Rare (2 util drops)
 };
 
 
 
 inline bool operator==(dc_chest a, dc_chest b) { return a.vPosition == b.vPosition &&a.bOpen == b.bOpen; }
 
-struct dc_floorloot
-{
-	sf::Vector2f vPosition;
-};
-
+//////////////////////////////////////////////
+/// Data of a wall of a block
+//////////////////////////////////////////////
 struct dc_wall
 {
-	int iHealth = 0;
-	int iTexture = 0;
+	int iHealth = 0; //If health is > 0, wall is active, else its not
+	int iTexture = 0; //Unused
 };
 
+//////////////////////////////////////////////
+/// Data of a block on the map
+//////////////////////////////////////////////
 struct dc_block
 {
-	int iTexture = 0;
-	dc_wall walls[2];
+	int iTexture = 0; //Texture of ground
+	dc_wall walls[2]; //Right and bottom walls
 };
 
-struct dc_blockline
+struct dc_blockline //Because multi-dimensional arrays work in a weird way.
 {
 	std::vector<dc_block> blocks;
 };
 
+//////////////////////////////////////////////
+/// Holds the data of a raytrace.
+//////////////////////////////////////////////
 struct dc_tracedata
 {
 	sf::Vector2f start;
@@ -386,26 +469,10 @@ struct dc_tracedata
 	int targetid = -1;
 };
 
-struct dc_intrange
-{
-	int min, max;
-
-	dc_intrange()
-	{
-
-	}
-
-	dc_intrange(int n, int x)
-	{
-		min = n; max = x;
-	}
-
-	inline bool is_between(int ch)
-	{
-		return ch >= min && ch <= max;
-	}
-};
-
+//////////////////////////////////////////////
+/// Holds the data of a named POI on the map
+/// POI : Point of Interest
+//////////////////////////////////////////////
 struct dc_label
 {
 	sf::Vector2f vPosition;
@@ -418,12 +485,16 @@ inline bool operator==(dc_label a, dc_label b)
 	return a.size = b.size && a.vPosition == b.vPosition && !strncmp(a.n, b.n, 64);
 }
 
+//////////////////////////////////////////////
+/// Object for the map
+/// It is built up by blocklines, and the blocklines are built up by blocks
+/// It holds all the data of chests, labels, and dropped items
+//////////////////////////////////////////////
 struct dc_map
 {
 	std::vector<dc_blockline> lines;
 	//char AccidentPadding[1024];
 	std::vector<dc_chest> chests;
-	std::vector<dc_floorloot> floorloots;
 	std::vector<dc_item> items; //onground;
 	std::vector<dc_label> labels;
 
@@ -433,54 +504,154 @@ struct dc_map
 
 	int day_time = 0;
 
-
+	//////////////////////////////////////////////
+	/// Simulates the day/night cycle of the map
+	/// It only updates if 100ms have passed after the last update
+	//////////////////////////////////////////////
 	void simulate_day();
+
+	//////////////////////////////////////////////
+	/// Returns the modifier color for the current daytime
+	//////////////////////////////////////////////
 	sf::Color get_modulation_color();
+
+	//////////////////////////////////////////////
+	/// Returns the angle of shadow for the current daytime
+	//////////////////////////////////////////////
 	float get_shadow_angle();
+	//////////////////////////////////////////////
+	/// Returns the length of shadows for the current daytime
+	//////////////////////////////////////////////
 	float get_shadow_length();
 
-
+	//////////////////////////////////////////////
+	/// Generates a blank map with size sx*sy
+	/// It deletes the previous map from memory
+	//////////////////////////////////////////////
 	void define(int sx, int sy);
+	//////////////////////////////////////////////
+	/// Draws the map if the middle of the screen is (mx,my)
+	/// The width represents how many blocks are drawn in a line horizontally
+	//////////////////////////////////////////////
 	void draw(float mx, float my, float width);
+	//////////////////////////////////////////////
+	/// Draws the map if the middle of the screen is (mx,my)
+	/// The width represents how many blocks are drawn in a line horizontally
+	/// This function is used for demo layer rendering
+	/// It renders the map if 'map' is true
+	/// It renders chests if 'chests' is true
+	/// It draws shadows if 'shadow' is true
+	//////////////////////////////////////////////
 	void draw(sf::RenderTexture* T, float mx, float my, float width, bool map,bool chests, bool shadow);
 	
+	//////////////////////////////////////////////
+	/// Draws the shadows on a new white texture
+	/// This function was needed because shadows tended to overlap each other
+	/// This function is used for demo layer rendering
+	//////////////////////////////////////////////
 	void beginshadows(sf::RenderTexture* R, float mx, float my, float width);
+	//////////////////////////////////////////////
+	/// Draws the shadows on a new white texture
+	/// This function was needed because shadows tended to overlap each other
+	//////////////////////////////////////////////
 	void beginshadows(float mx, float my, float width);
 
-	void drawitems(float mx, float my, float width);
-	void drawitems(sf::RenderTexture* T,float mx, float my, float width);
-	void delete_items();
-	void mark_for_delete(dc_item it);
-	int get_item_id(dc_item it);
 
+	//////////////////////////////////////////////
+	/// Draws the items if the middle of the screen is (mx,my)
+	/// the width represents how many blocks are drawn in a line horizontally
+	//////////////////////////////////////////////
+	void drawitems(float mx, float my, float width);
+	//////////////////////////////////////////////
+	/// Draws the items if the middle of the screen is (mx,my)
+	/// the width represents how many blocks are drawn in a line horizontally
+	/// This function is used for demo layer rendering
+	//////////////////////////////////////////////
+	void drawitems(sf::RenderTexture* T,float mx, float my, float width);
+
+	//////////////////////////////////////////////
+	/// Deletes the items from the vector that are picked up to save memory
+	//////////////////////////////////////////////
+	void delete_items();
+
+	//////////////////////////////////////////////
+	/// Deletes the items from the vector that are picked up to save memory
+	//////////////////////////////////////////////
+
+
+	//////////////////////////////////////////////
+	/// Creates all small lines for every wall and puts them to chunks
+	//////////////////////////////////////////////
 	void begin_lines();
-	void update_lines();
+	//////////////////////////////////////////////
+	/// Deletes a line with startpoint s, endpoint e, and type typ
+	//////////////////////////////////////////////
 	void delete_line(sf::Vector2f s, sf::Vector2f e, int typ);
 
+	//////////////////////////////////////////////
+	/// Loads the map with name 'n'
+	/// TODO: Multi-map support
+	//////////////////////////////////////////////
 	void load(char* n);
 
+	//////////////////////////////////////////////
+	/// Draws the entire map on a small screen in the middle
+	/// It shows the current location of the player's unit
+	/// It has an option to show all alive units (if show_only_player is false)
+	/// Draws the Storm on top of it
+	//////////////////////////////////////////////
 	void show_minimap(float &mx, float &my, float width, bool show_only_player,sf::Vector2f StormMid, float StormRadius);
+
+	//////////////////////////////////////////////
+	/// Draws the close surroundings on a small screen in the top right
+	/// Draws the Storm on top of it
+	//////////////////////////////////////////////
 	void show_minimapui(float &mx, float &my, float width, float busx, float busy, float busr, sf::Vector2f StormMid, float StormRadius);
 
-
+	//////////////////////////////////////////////
+	/// Converts the point (x,y) on screen to (rx,ry) on map if the middle of the screen is (mx,my) on map and 'width' amount of blocks are drawn horizontally
+	/// Returns the point (rx,ry)
+	//////////////////////////////////////////////
 	static sf::Vector2f screen_to_world(float mx, float my, float width, float x, float y);
+	//////////////////////////////////////////////
+	/// Converts the point the mouse is at on screen to (rx,ry) on map if the middle of the screen is (mx,my) on map and 'width' amount of blocks are drawn horizontally
+	/// Returns the point (rx,ry)
+	//////////////////////////////////////////////
 	static sf::Vector2f cursor_to_world(float mx, float my, float width);
+	//////////////////////////////////////////////
+	/// Converts the point (x,y) on map to (rx,ry) on screen if the middle of the screen is (mx,my) on map and 'width' amount of blocks are drawn horizontally
+	/// Returns the point (rx,ry)
+	//////////////////////////////////////////////
 	static sf::Vector2f world_to_screen(float mx, float my, float width,float x, float y);
+
+	//////////////////////////////////////////////
+	/// Traces a ray from point 'a' to point 'b'
+	/// Returns all effective data
+	//////////////////////////////////////////////
 	dc_tracedata trace_ray(sf::Vector2f a, sf::Vector2f b);
 
+	//////////////////////////////////////////////
+	/// Returns true if the point I is on the map
+	//////////////////////////////////////////////
 	bool is_on_map(sf::Vector2i I)
 	{
 		return (I.x >= 0 && I.x < size.x && I.y >= 0 && I.y < size.y);
 	}
-
+	//////////////////////////////////////////////
+	/// Returns true if the point I is on the map
+	//////////////////////////////////////////////
 	bool is_on_map(sf::Vector2f I)
 	{
 		return (I.x >= 0 && I.x < size.x && I.y >= 0 && I.y < size.y);
 	}
 };
 
+///Globally loaded for a faster copy at match-start
 extern dc_map g_Map;
 
+//////////////////////////////////////////////
+/// Data of a line of a bullet
+//////////////////////////////////////////////
 struct dc_shoteffect
 {
 	sf::Vector2f start;
@@ -492,7 +663,9 @@ struct dc_shoteffect
 	dc_shoteffect() {};
 	dc_shoteffect(sf::Vector2f s, sf::Vector2f e, float begin) { start = s; end = e; clockBegin = begin; }
 };
-
+//////////////////////////////////////////////
+/// Data of how much damage was dealt
+//////////////////////////////////////////////
 struct dc_damageeffect
 {
 	sf::Vector2f position;
@@ -502,7 +675,9 @@ struct dc_damageeffect
 
 	void draw(float mx, float my, float width, float ServerTime);
 };
-
+//////////////////////////////////////////////
+/// Data of a player being eliminated by the spectated player
+//////////////////////////////////////////////
 struct dc_killnoticeeffect
 {
 	int Killer = -1, Target=-1;
@@ -517,7 +692,9 @@ struct dc_killnoticeeffect
 
 	void draw(float y, int cfollows, float y2, float ServerTime);
 };
-
+//////////////////////////////////////////////
+/// Data of a player's unit dying
+//////////////////////////////////////////////
 struct dc_deatheffect
 {
 	int iTexture = 0;
@@ -528,6 +705,9 @@ struct dc_deatheffect
 	void draw(float mx, float my, float width, float ServerTime);
 };
 
+//////////////////////////////////////////////
+/// Data of a player's unit's shieldbreak
+//////////////////////////////////////////////
 struct dc_shieldbreakeffect
 {
 	float clockBegin;
@@ -536,6 +716,9 @@ struct dc_shieldbreakeffect
 	void draw(float mx, float my, float width, float ServerTime);
 };
 
+//////////////////////////////////////////////
+/// Data of a recent airdrop
+//////////////////////////////////////////////
 struct dc_airdropeffect
 {
 	float clockBegin;
@@ -543,6 +726,9 @@ struct dc_airdropeffect
 	void draw(float ServerTime);
 };
 
+//////////////////////////////////////////////
+/// Data of a recent change in storm behaviour
+//////////////////////////////////////////////
 struct dc_stormclosingeffect
 {
 	float clockBegin;
@@ -550,6 +736,9 @@ struct dc_stormclosingeffect
 	void draw(float ServerTime);
 };
 
+//////////////////////////////////////////////
+/// Container object for all effects
+//////////////////////////////////////////////
 struct dc_effects
 {
 	std::vector<dc_damageeffect> dmg_effects;
@@ -561,6 +750,9 @@ struct dc_effects
 	std::vector<dc_stormclosingeffect> sce_effects;
 };
 
+//////////////////////////////////////////////
+/// Data for a computer controlled player if they can notice another player
+//////////////////////////////////////////////
 struct dc_bottarget
 {
 	int playerid;
@@ -570,16 +762,20 @@ struct dc_bottarget
 	dc_bottarget(int i) { playerid = i; NoticeTime.Update(); DeleteTime.Update(); }
 };
 
+//////////////////////////////////////////////
+/// All the data of a computer-controlled player that could change
+//////////////////////////////////////////////
 struct dc_botchangable
 {
-	std::vector<int> RestOfChests;
-	float fTimeTillReact = 0.f;
-	float fTimeTillThink = 0.f;
-	sf::Vector2f DistantTargetPoint;
+	std::vector<int> RestOfChests; //The bot remembers which chests they see open, the rest of the chests can be okay
+	float fTimeTillReact = 0.f; //Time needed for the bot to shoot at an opponent
+	float fTimeTillThink = 0.f; //Time needed for the bot till its next action
+	sf::Vector2f DistantTargetPoint; //Next point to go
 	int DistantTargetType = 0; // 1 - Chest, 2 - Item, 3 - Zone, 4 - Raid, 5 - Bail, 6 - Rush, 7 - Airdrop Cover, 8 - Airdrop Open, 9 - Forceheal
-	int DistantTargetChestID = -1;
-	int DistantTargetAirdropID = -1;
-	int DistantTargetItemID = -1;
+	int DistantTargetChestID = -1; //If DistantTargetType == 1
+	int DistantTargetAirdropID = -1; //If DistantTargetType == 7 or 8
+	int DistantTargetItemID = -1; //If DistantTargetType == 2
+	//These clocks are not resource effective, but easy to work with
 	dc_clock ChestCheckClock;
 	dc_clock PathFindClock;
 	dc_clock WeaponSwapCheckClock;
@@ -587,18 +783,18 @@ struct dc_botchangable
 	dc_clock NoBailOFClock;
 	dc_clock SortInventoryClock;
 	std::vector<int> BailTarget;
-	float BailDistance = 40;
-	bool bHealing = false;
-	bool AreChestsAvailable = true;
-	bool forceHeal = false;
-	int forceHealHealID = 0;
-	std::vector<int> NoticedPlayerIDs;
-	std::vector<int> TargetedPlayerIDs;
-	std::vector<dc_bottarget> NoticedPlayers;
-	std::vector<dc_bottarget> TargetedPlayers;
+	float BailDistance = 40; //The distance how far the bot goes if the situation is not good
+	bool bHealing = false; //If the bot starte healing
+	bool AreChestsAvailable = true; //Possibly the same as RestOfChests.size() == 0
+	bool forceHeal = false; //These force heals are due to a glitch in the thinking process of the bots
+	int forceHealHealID = 0; //These force heals are due to a glitch in the thinking process of the bots
+	std::vector<int> NoticedPlayerIDs; //IDs of other players that were noticed by the bot
+	std::vector<int> TargetedPlayerIDs; //IDs of other players that are attackable by the bot
+	std::vector<dc_bottarget> NoticedPlayers; //Target data of other players that were noticed by the bot
+	std::vector<dc_bottarget> TargetedPlayers; //Target data of other players that are attackable by the bot
 
-	int SideStepType = 0; //0, 2 Stay, 1 MoveLeft, 3 MoveRight
-	float SideStepTimeLeft;
+	int SideStepType = 0; //0, 2 Stay; 1 MoveLeft; 3 MoveRight
+	float SideStepTimeLeft; //How much time is left until sidestep behaviour changes
 
 	bool movepathBugged = false;
 
@@ -608,67 +804,51 @@ struct dc_botdata
 {
 	dc_botchangable Changables;
 	int botDifficulty; // 0 - Easy, 1 - Normal, 2 - Hard, 3 - Expert
-	float JumpoffTime;
-	float JumpoffDist;
-	float DescendSpeedInMind;
-	bool hasJumpedoffTotally = false;
-	sf::Vector2f JumpToPosition;
+	float JumpoffTime; //How much time after being able to jump out of the bus will the bot actually jump out
+	float JumpoffDist; //How far the bot is willing to jump from the bus
+	float DescendSpeedInMind; //How fast the bot thinks it can descend - causes intended calculation error with lower difficulty bots
+	bool hasJumpedoffTotally = false; //This is not changed often
+	sf::Vector2f JumpToPosition; //Where the bot will land
 	float fBotThinkDelay; //Time when not doing anything, except targeting/shooting
 	float fReactionTime; //80-120% of reactiontime (when they noticed and can attack player);
-	float fEnemyNoticeTime;
-	float fChestRange = 10.f;
-	float fItemRange = 10.f;
-	float fPlayerRange = 20.f;
-	float fAirDropInterestDistance;
-	float fAirDropGuardMaxRange;
-	float fAirDropGuardMinModifier;
+	float fEnemyNoticeTime; //How long the bot takes to notice another player if they are in their range
+	float fChestRange = 10.f; //How far the bot can see the chests
+	float fItemRange = 10.f; //How far the bot can see the items
+	float fPlayerRange = 20.f; //How far the bo can see the players
+	float fAirDropInterestDistance; //How far the bot is willing to go for an airdrop
+	float fAirDropGuardMaxRange; //How closely the bot is guarding a falling airdrop - max limit
+	float fAirDropGuardMinModifier; //How closely the bot is guarding a falling airdrop - must be between 0 and 1
 
-	std::vector<int> WeaponPreferences[5];
-	bool SuckerForExtraHeals;
-	int GoodEnoughRanking[5];
+	std::vector<int> WeaponPreferences[5]; //Order of items that the bot likes for each slot
+	bool SuckerForExtraHeals; //If the bot wants to get full heals in their inventory
+	int GoodEnoughRanking[5]; //How good the inventory of the bot should be to 'feel' good about it
 	int FightType[5]; //0 - moving, 1 - standing, 2 - heal
-	int HealUseMinimums[6];
-	int HealUseMaximums[6];
+	int HealUseMinimums[6]; //When the bot uses heal - min amount
+	int HealUseMaximums[6]; //When the bot uses heal - max amount
 	int BotZoneFearLevel = 2; //0 - only in storm, 1 - when storm is close, 2 - on time, 3 - early, 4 - very early
-	int MinimumHealthToRaid;
-	float JustInCaseWeaponDistance;
-	float fAimCorrectSpeedPenalty;
-	float fAimCorrectness[5] = { 10.f,10.f,10.f,10.f,10.f }; //TODO: This
-	float fAimSpeed[5] = { 70.f,70.f,70.f,70.f,70.f }; //TODO: This
-	bool PrecisionWait;
-	float fAimPrecision[5] = { 20.f,30.f,50.f,90.f,100.f };
-	float fAimSpeedCasual;
-	float fAimCorrectnessCasual;
+	int MinimumHealthToRaid; //Minimum health needed to randomly walk on the map for eliminations
+	float JustInCaseWeaponDistance; //What distance the bot thinks is useful if they can't directly see another player
+	float fAimCorrectSpeedPenalty; 
+	float fAimCorrectness[5] = { 10.f,10.f,10.f,10.f,10.f }; //How accurate the bot needs to be to shoot
+	float fAimSpeed[5] = { 70.f,70.f,70.f,70.f,70.f }; //How fast the bot turns to their target
+	bool PrecisionWait; //If the bot likes to wait until their spread is small
+	float fAimPrecision[5] = { 20.f,30.f,50.f,90.f,100.f }; //If the target is in the correct radius, how fast they continue to aim
+	float fAimSpeedCasual; //How fast the bot turns to their non-player target
+	float fAimCorrectnessCasual;  //How accurately the bot turns to their non-player target
 
 	int FightStyleInFight = 0; //0 - Rusher, 1 - Placeholder, 2 - Bailer
 	//int FightStyleOffFight = 0; //0 - Rusher, 1 - Placeholder, 2 - Bailer
-	int RushHealthMinOF = 0;
-	int BailHealthMaxOF = 0;
-	int BailHealthMaxIF = 0;
-	float SideStepMinTime;
-	float SideStepMaxTime;
-	float StillStayMinTime;
-	float StillStayMaxTime;
-	float InaccuracyMax;
-	float BotMemoryAfterDie;
-	float BotMemoryAfterVanish;
+	int RushHealthMinOF = 0; //How much health the bot needs to rush other players - OF is for off-fight
+	int BailHealthMaxOF = 0; //How much health is the maximum for the bot to not bail - OF is for off-fight
+	int BailHealthMaxIF = 0; //How much health is the maximum for the bot to not bail - IF is for in-fight
+	float SideStepMinTime; //Minimum time for side-step behaviour change
+	float SideStepMaxTime; //Maximum time for side-step behaviour change
+	float StillStayMinTime; //Minimum time for side-step behaviour change when it stays still
+	float StillStayMaxTime; //Maximum time for side-step behaviour change when it stays still
+	float InaccuracyMax; //Maximum amount of random inaccuracy
+	float BotMemoryAfterDie; //How long the bot remembers another player after it kills another player - so the bot keeps shooting for a while
+	float BotMemoryAfterVanish; //How long the bot remembers another player after it loses another player out of sight - so the bot keeps shooting for a while
 	
-
-
-	//float fAimSpeed = 72.f;
-	//float fAimCorrectness = 1.5f;
-	dc_intrange item_ranges[5] = { dc_intrange(201,201),dc_intrange(111,111),dc_intrange(101,151),dc_intrange(1000,1002),dc_intrange(1002,1005) };
-	bool uses_all_heals;
-	bool uses_fsa = true;
-	int target_id = -1;
-
-	int dodge_dir = 0;
-	float dodge_time_left = 0.f;
-
-
-	int has_somewhere_to_move = false; //0-no, 1-yes,2-chest,3-weapon
-	int chest_id = -1;
-	bool is_currently_waiting_for_fsa = false;
 	std::vector<sf::Vector2f> move_path;
 };
 

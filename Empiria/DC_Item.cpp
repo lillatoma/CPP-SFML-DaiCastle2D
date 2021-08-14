@@ -10,7 +10,7 @@ void add_to_lootpool(int what, int howmany)
 }
 
 
-int dc_item::GetRandom()
+int dc_item::GetRandomWeaponID()
 {
 	return lootpool[Random(0, lootpool.size() - 1)];
 }

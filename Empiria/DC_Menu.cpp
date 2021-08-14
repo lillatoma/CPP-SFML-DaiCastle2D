@@ -1276,7 +1276,7 @@ void dc_game::DrawShowStatsMenu()
 
 	{
 		sprintf(BufferText, "Distance walked: ");
-		sprintf(BufferPrint, "%.1fm\0", Match->players[0].Stats.DistanceWalked);
+		sprintf(BufferPrint, "%.1fm\0", Match->players[0].Stats.fDistanceWalked);
 		auto Dim = IWindow::GetTextSize(BufferText, 0.04f*g_Resolution.y);
 
 		IWindow::RenderTextB(0.01f*g_Resolution.x, 0.56f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);

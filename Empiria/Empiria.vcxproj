@@ -117,8 +117,6 @@
   <ItemGroup>
     <ClInclude Include="AStar.h" />
     <ClInclude Include="DaiCastle.h" />
-    <ClInclude Include="DCN_Map.h" />
-    <ClInclude Include="DC_Map.h" />
     <ClInclude Include="DC_Demo.h" />
     <ClInclude Include="fastParser.h" />
     <ClInclude Include="FileSys.h" />
@@ -134,7 +132,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AStar.cpp" />
-    <ClCompile Include="DCN_Map.cpp" />
     <ClCompile Include="DC_Botdata.cpp" />
     <ClCompile Include="DC_Config.cpp" />
     <ClCompile Include="DC_Console.cpp" />

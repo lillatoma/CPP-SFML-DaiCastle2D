@@ -19,9 +19,6 @@
     <Filter Include="ShootBallz">
       <UniqueIdentifier>{2a9eb30d-fd72-4ee4-aa4c-d3935e17dd5a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ShootBallz\NewVers">
-      <UniqueIdentifier>{18b47e1f-9fcc-474a-b500-405a5655e6cc}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fastParser.h">
@@ -50,12 +47,6 @@
     </ClInclude>
     <ClInclude Include="AStar.h">
       <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DCN_Map.h">
-      <Filter>ShootBallz\NewVers</Filter>
-    </ClInclude>
-    <ClInclude Include="DC_Map.h">
-      <Filter>ShootBallz</Filter>
     </ClInclude>
     <ClInclude Include="gameHeaders.h">
       <Filter>ShootBallz</Filter>
@@ -124,9 +115,6 @@
     </ClCompile>
     <ClCompile Include="DC_MapEditor.cpp">
       <Filter>ShootBallz</Filter>
-    </ClCompile>
-    <ClCompile Include="DCN_Map.cpp">
-      <Filter>ShootBallz\NewVers</Filter>
     </ClCompile>
     <ClCompile Include="ThreadManager.cpp">
       <Filter>Resource Files</Filter>
