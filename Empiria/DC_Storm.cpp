@@ -27,7 +27,7 @@ int dc_match::GetNextStormDamage()
 	return s_damage[GetCurrentStormPhase() + 1];
 }
 
-float dc_match::GetCurrentStormRadius()
+float dc_match::GetCurrentStormDiameter()
 {
 	int phase = GetCurrentStormPhase();
 	float previous_rad = s_size[phase - 1];
@@ -50,7 +50,7 @@ sf::Vector2f dc_match::GetCurrentStormMiddle()
 	return (current_time*next_mid + (phase_timelength - current_time)*previous_mid) / phase_timelength;
 }
 
-float dc_match::GetNextStormRadius()
+float dc_match::GetNextStormDiameter()
 {
 	int phase = GetCurrentStormPhase();
 	return s_size[phase];
@@ -169,5 +169,5 @@ float dc_match::IsPointInStorm(sf::Vector2f p)
 	//ConLog("\np: %.2f %.2f ~ SMiddle %.2f %.2f | %.2f %.2f:", p.x, p.y, GetCurrentStormMiddle().x, GetCurrentStormMiddle().y,
 	//	(GetDistance(p, GetCurrentStormMiddle())),GetCurrentStormRadius());
 
-	return max(0,(GetDistance(p, GetCurrentStormMiddle()) - GetCurrentStormRadius()/2));
+	return max(0,(GetDistance(p, GetCurrentStormMiddle()) - GetCurrentStormDiameter()/2));
 }

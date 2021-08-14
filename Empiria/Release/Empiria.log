@@ -17,106 +17,121 @@ h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': c
 h:\codes\daicastle 2d\base\empiria\includes.h(366): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
 h:\codes\daicastle 2d\base\empiria\includes.h(409): warning C4018: '<': signed/unsigned mismatch
 h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
-h:\codes\daicastle 2d\base\empiria\DaiCastle.h(760): warning C4018: '<': signed/unsigned mismatch
-h:\codes\daicastle 2d\base\empiria\DaiCastle.h(769): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
 DC_Botdata.cpp(138): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(161): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(162): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(171): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(185): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(194): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-DC_Botdata.cpp(204): warning C4018: '<': signed/unsigned mismatch
 DC_Botdata.cpp(291): warning C4804: '>': unsafe use of type 'bool' in operation
 DC_Botdata.cpp(522): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 DC_Botdata.cpp(523): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 DC_Botdata.cpp(564): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(680): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(703): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-DC_Botdata.cpp(770): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-DC_Botdata.cpp(772): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-DC_Botdata.cpp(772): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-DC_Botdata.cpp(773): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-DC_Botdata.cpp(797): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Botdata.cpp(677): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(700): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Botdata.cpp(767): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Botdata.cpp(769): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Botdata.cpp(769): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+DC_Botdata.cpp(770): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+DC_Botdata.cpp(794): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Botdata.cpp(845): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 DC_Botdata.cpp(848): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 DC_Botdata.cpp(851): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(854): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(864): warning C4822: 'dc_match::BotBegin::InventoryType::InventoryType': local class member function does not have a body
-DC_Botdata.cpp(892): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(900): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(905): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(941): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(949): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(954): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(991): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(999): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1004): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1036): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1043): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1053): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(1061): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1066): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1098): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1105): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1119): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1126): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1138): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Botdata.cpp(861): warning C4822: 'dc_match::BotBegin::InventoryType::InventoryType': local class member function does not have a body
+DC_Botdata.cpp(889): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Botdata.cpp(897): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(902): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(938): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Botdata.cpp(946): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(951): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(988): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Botdata.cpp(996): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1001): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1033): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1040): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1050): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Botdata.cpp(1058): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1063): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1095): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1102): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1116): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1123): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1135): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Botdata.cpp(1205): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 DC_Botdata.cpp(1208): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 DC_Botdata.cpp(1211): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(1214): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Botdata.cpp(1225): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 DC_Botdata.cpp(1228): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 DC_Botdata.cpp(1231): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(1234): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(1346): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(1354): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(1358): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(1513): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1540): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1575): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1591): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1343): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Botdata.cpp(1351): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Botdata.cpp(1355): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Botdata.cpp(1510): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1537): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1572): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1588): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1596): warning C4018: '<': signed/unsigned mismatch
 DC_Botdata.cpp(1599): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1602): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1660): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Botdata.cpp(1657): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Botdata.cpp(1662): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
 DC_Botdata.cpp(1665): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-DC_Botdata.cpp(1668): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-DC_Botdata.cpp(1681): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1688): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Botdata.cpp(1678): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1685): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Botdata.cpp(1690): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Botdata.cpp(1691): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
 DC_Botdata.cpp(1693): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-DC_Botdata.cpp(1694): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-DC_Botdata.cpp(1696): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-DC_Botdata.cpp(1712): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(1719): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-DC_Botdata.cpp(1724): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-DC_Botdata.cpp(1726): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-DC_Botdata.cpp(1830): warning C4800: 'int *': forcing value to bool 'true' or 'false' (performance warning)
-DC_Botdata.cpp(2185): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2223): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2306): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2351): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2364): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2378): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2402): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2429): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(2430): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(2431): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-DC_Botdata.cpp(2441): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2540): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2610): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2663): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2687): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2719): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2734): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2818): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Botdata.cpp(1709): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(1716): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Botdata.cpp(1721): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Botdata.cpp(1723): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Botdata.cpp(1827): warning C4800: 'int *': forcing value to bool 'true' or 'false' (performance warning)
+DC_Botdata.cpp(2182): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2220): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2303): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2348): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2361): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2375): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2399): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2426): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Botdata.cpp(2427): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Botdata.cpp(2428): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Botdata.cpp(2438): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2537): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2607): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2660): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2684): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2716): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2731): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2815): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 h:\codes\daicastle 2d\base\empiria\includes.h(326): warning C4018: '<': signed/unsigned mismatch
-  DC_Botdata.cpp(1537): note: see reference to function template instantiation 'int GetIndex<int>(std::vector<int,std::allocator<_Ty>> &,Ty)' being compiled
+  DC_Botdata.cpp(1534): note: see reference to function template instantiation 'int GetIndex<int>(std::vector<int,std::allocator<_Ty>> &,Ty)' being compiled
           with
           [
               _Ty=int,
               Ty=int
           ]
+  main.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(65): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(66): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(107): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(252): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(253): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(366): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(409): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+main.cpp(56): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Generating code
-  122 of 5431 functions ( 2.2%) were compiled, the rest were copied from previous compilation.
-    30 functions were new in current compilation
-    51 functions had inline decision re-evaluated but remain unchanged
+  430 of 5428 functions ( 7.9%) were compiled, the rest were copied from previous compilation.
+    3 functions were new in current compilation
+    178 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Empiria.vcxproj -> H:\Codes\DaiCastle 2D\Base\Release\DaiCastle.exe
   Empiria.vcxproj -> H:\Codes\DaiCastle 2D\Base\Release\DaiCastle.pdb (Full PDB)

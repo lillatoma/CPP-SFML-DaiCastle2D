@@ -112,7 +112,7 @@ void dc_match::ClearUnreachableItems()
 	{
 		float FurthestOutDistance = 0.f;
 		sf::Vector2f CurrentStormMiddle = GetCurrentStormMiddle();
-		float CurrentStormRadius = GetCurrentStormRadius();
+		float CurrentStormRadius = GetCurrentStormDiameter();
 		for (int i = 0; i < 100; i++)
 		{
 			if (players[i].iHealth <= 0)continue;

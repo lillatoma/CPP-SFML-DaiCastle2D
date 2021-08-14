@@ -197,30 +197,6 @@ void dc_match::DrawMap(sf::Vector2f V)
 	//map.draw(players[camera_follows].vPosition.x, players[camera_follows].vPosition.y, camera_width);
 	map.draw(V.x, V.y, camera_width);
 	DrawAirDrop(V);
-	return;
-	if (!players[camera_follows].Items[players[camera_follows].iSelectedWeapon].bValidated)return;
-
-	auto start = players[camera_follows].vPosition;
-	sf::Vector2f anglevector(cos(players[camera_follows].fAngle*PI / 180), -sin(players[camera_follows].fAngle*PI / 180));
-	anglevector *= players[camera_follows].Items[players[camera_follows].iSelectedWeapon].fRange;
-	auto end = start+anglevector;
-	auto trace = map.trace_ray(start, end);
-	auto trace_end = trace.end;
-
-	//ConLog("\n%.2f %.2f  -> %.2f %.2f", start.x, start.y, trace_end.x, trace_end.y);
-	//auto s = map.world_to_screen(players[camera_follows].vPosition.x, players[camera_follows].vPosition.y, camera_width, start.x, start.y);
-	//auto e = map.world_to_screen(players[camera_follows].vPosition.x, players[camera_follows].vPosition.y, camera_width, trace_end.x, trace_end.y);
-	auto s = map.world_to_screen(V.x, V.y, camera_follows, start.x, start.y);
-	auto e = map.world_to_screen(V.x, V.y, camera_follows, trace.end.x, trace.end.y);
-	//ConLog("\n%.2f %.2f  -> %.2f %.2f", s.x, s.y, e.x, e.y);
-	sf::Vertex v[] =
-	{
-		sf::Vertex(s,sf::Color(255,0,0,255),sf::Vector2f()),
-		sf::Vertex(e, sf::Color(255, 0, 0, 255), sf::Vector2f())
-	};
-	g_Window->draw(v, 2, sf::PrimitiveType::Lines);
-	//IWindow::RenderOverlay(0, 0, 30, 30, 30, 30, 30, 255);
-	//ConLog("\n%.2f %.2f", end.x, end.y);
 }
 
 void dc_match::DrawPlayerIndicator(sf::Vector2f V)
@@ -1691,11 +1667,11 @@ void dc_match::PlayerShootWeapon0(int player)
 		dc_shoteffect sf;
 		sf.clockBegin = ServerTime;
 		sf.start = trace.start;
-		if (trace.hit_object)
+		if (trace.hit_object) //If it hit a wall
 		{
 			playertrace = TracePlayers(players[player].vPosition, trace.end, player);
 
-			if (playertrace.hit_target)
+			if (playertrace.hit_target) // We still want to check if there is a player closer
 			{
 				players[player].Stats.iShotsHit++;
 
@@ -2007,7 +1983,7 @@ void dc_match::PlayerShootWeapon(int player)
 		|| players[player].Items[players[player].iSelectedWeapon].iBullets <= 0
 		|| players[player].fOpeningTime > 0.f 
 		|| players[player].fPulloutDelay > 0.f 
-		|| (players[player].fReloadDelay > 0.f && players[player].GetCurrentWeapon().iReloadMethod == 1)
+		|| (players[player].fReloadDelay > 0.f && players[player].GetCurrentWeapon().iReloadMethod == 1)//This last one allows the user to shoot a shotgun if the magazine isn't empty while reloading (the reloading cancels)
 		|| players[player].fShootDelay > 0.f 
 		|| players[player].fHealTime > 0.f)return;
 
@@ -2035,26 +2011,6 @@ void dc_match::DrawCrosshair(sf::Vector2f V)
 	float centdist = GetDistance(sf::Vector2f(MouseC.x, MouseC.y), sf::Vector2f(g_Resolution.x / 2, g_Resolution.y / 2));
 	float cradius = centdist * tan(players[0].fBloomSize * PI / 180.0);
 
-
-	/*
-	auto cursor_in_world = map.cursor_to_world(players[0].vPosition.x, players[0].vPosition.y, camera_width);
-
-	auto mid = cursor_in_world*0.5f + players[0].vPosition*0.5f;
-
-
-	float dist = GetDistance(players[0].vPosition, cursor_in_world);
-
-	float circleradius = dist * tan(players[0].fBloomSize * PI / 180.0);
-
-	auto mouse_moved = cursor_in_world + sf::Vector2f(circleradius, 0);
-
-	auto moved_on_screen = map.world_to_screen(mid.x,mid.y, camera_width, mouse_moved.x, mouse_moved.y);
-
-	ConLog("PP: %.2f|%.2f ||||| CW: %.2f|%.2f |||| MW: %.2f | %.2f", players[0].vPosition.x, players[0].vPosition.y,cursor_in_world.x, cursor_in_world.y, moved_on_screen.x, moved_on_screen.y);
-
-
-	auto cR = GetDistance(moved_on_screen, sf::Vector2f(MouseC.x,MouseC.y));
-		*/
 
 	sf::CircleShape c;
 	c.setRadius(cradius + 2.f);
@@ -2976,11 +2932,6 @@ void dc_match::DrawMark(sf::Vector2f Coords, sf::Color Color, bool ignore_onscre
 		IWindow::RenderTextBMiddle(XX - 0.025f*g_Resolution.y, YY - 0.075f*g_Resolution.y, 0.05f*g_Resolution.y, 0.05f*g_Resolution.y, Buffer, 16, 0, 0, 0, 255);
 
 		//TODO:OutlineEffect;
-
-
-
-
-
 	}
 
 }
@@ -3047,7 +2998,7 @@ void dc_match::DrawMinimap()
 {
 	if (show_minimap)
 	{
-		map.show_minimap(players[camera_follows].vPosition.x, players[camera_follows].vPosition.y, camera_width, true,GetCurrentStormMiddle(),GetCurrentStormRadius()/2);
+		map.show_minimap(players[camera_follows].vPosition.x, players[camera_follows].vPosition.y, camera_width, true,GetCurrentStormMiddle(),GetCurrentStormDiameter()/2);
 
 		static sf::Sprite markersprite;
 		markersprite.setTexture(*g_Textures.get(51));
@@ -3173,7 +3124,7 @@ void dc_match::DrawMinimap()
 		auto dirvec = BusEndPosition - BusStartPosition;
 
 		auto busang = vec2angle(dirvec.x, dirvec.y) + 180.f;
-		map.show_minimapui(players[camera_follows].vPosition.x, players[camera_follows].vPosition.y, camera_width+players[camera_follows].bOnBus*60.f, BusCurrentPosition.x, BusCurrentPosition.y, busang,GetCurrentStormMiddle(),GetCurrentStormRadius()/2);
+		map.show_minimapui(players[camera_follows].vPosition.x, players[camera_follows].vPosition.y, camera_width+players[camera_follows].bOnBus*60.f, BusCurrentPosition.x, BusCurrentPosition.y, busang,GetCurrentStormMiddle(),GetCurrentStormDiameter()/2);
 	
 		//DrawCirclePlayer
 		sf::CircleShape Cshape;
@@ -3187,7 +3138,7 @@ void dc_match::DrawMinimap()
 		
 		auto CurrentPhase = GetCurrentStormPhase();
 		auto CurrentStormMid = GetCurrentStormMiddle();
-		auto CurrentRadius = GetCurrentStormRadius() / 2;
+		auto CurrentRadius = GetCurrentStormDiameter() / 2;
 
 		sf::Vector2f StormMid[] = { CurrentStormMid,StormMids[CurrentPhase],StormMids[CurrentPhase + 1] };
 		float Radiuses[] = { CurrentRadius,s_size[CurrentPhase] / 2,s_size[CurrentPhase + 1] / 2 };
@@ -3378,8 +3329,8 @@ void dc_match::DrawStormOnMiniMap()
 
 	sf::Vector2f CurrentStormMid = GetCurrentStormMiddle();
 	sf::Vector2f NextStormMid = GetNextStormMiddle();
-	float CurrentRadius = GetCurrentStormRadius()/2;
-	float NextRadius = GetNextStormRadius()/2;
+	float CurrentRadius = GetCurrentStormDiameter()/2;
+	float NextRadius = GetNextStormDiameter()/2;
 
 	int CurrentPhase = GetCurrentStormPhase();
 	if (CurrentPhase == 17)return;
@@ -3543,11 +3494,11 @@ void dc_match::DrawStorm(sf::Vector2f V)
 
 	//ConLog("\n%.1f %.1f | %.1f %.1f # %.1f %.1f %.1f %.1f", TL.x, TL.y, BR.x, BR.y, IsPointInStorm(TL), IsPointInStorm(TR), IsPointInStorm(BL), IsPointInStorm(BR));
 
-	if (IsPointInStorm(TL) && IsPointInStorm(TR) && IsPointInStorm(BL) && IsPointInStorm(BR) && screendiaminworld <= GetCurrentStormRadius())
+	if (IsPointInStorm(TL) && IsPointInStorm(TR) && IsPointInStorm(BL) && IsPointInStorm(BR) && screendiaminworld <= GetCurrentStormDiameter())
 	{
 		IWindow::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, StormColor.r, StormColor.g, StormColor.b, StormColor.a);
 	}
-	else if (screendiaminworld > GetCurrentStormRadius() && (sMidonScreen.x < -g_Resolution.x/2 || sMidonScreen.x > 1.5f*g_Resolution.x || sMidonScreen.y < -g_Resolution.y/2 || sMidonScreen.y > 1.5f*g_Resolution.y  ))
+	else if (screendiaminworld > GetCurrentStormDiameter() && (sMidonScreen.x < -g_Resolution.x/2 || sMidonScreen.x > 1.5f*g_Resolution.x || sMidonScreen.y < -g_Resolution.y/2 || sMidonScreen.y > 1.5f*g_Resolution.y  ))
 		IWindow::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, StormColor.r, StormColor.g, StormColor.b, StormColor.a);
 	else
 	{
@@ -3557,7 +3508,7 @@ void dc_match::DrawStorm(sf::Vector2f V)
 		std::vector<sf::Vector2f> RightInters;
 
 		auto M = GetCurrentStormMiddle();
-		auto r = GetCurrentStormRadius() / 2;
+		auto r = GetCurrentStormDiameter() / 2;
 
 		std::vector<float> Angles;
 		for (int i = 0; i < TopInters.size(); i++)
@@ -3715,7 +3666,7 @@ void dc_match::DrawStorm(sf::RenderTexture* T,sf::Vector2f V)
 
 	//ConLog("\n%.1f %.1f | %.1f %.1f # %.1f %.1f %.1f %.1f", TL.x, TL.y, BR.x, BR.y, IsPointInStorm(TL), IsPointInStorm(TR), IsPointInStorm(BL), IsPointInStorm(BR));
 
-	if (IsPointInStorm(TL) && IsPointInStorm(TR) && IsPointInStorm(BL) && IsPointInStorm(BR) && screendiaminworld <= GetCurrentStormRadius())
+	if (IsPointInStorm(TL) && IsPointInStorm(TR) && IsPointInStorm(BL) && IsPointInStorm(BR) && screendiaminworld <= GetCurrentStormDiameter())
 	{
 		sf::RectangleShape rect;
 		rect.setPosition(0, 0);
@@ -3723,7 +3674,7 @@ void dc_match::DrawStorm(sf::RenderTexture* T,sf::Vector2f V)
 		rect.setFillColor(StormColor);
 		T->draw(rect);
 	}
-	else if (screendiaminworld > GetCurrentStormRadius() && (sMidonScreen.x < -g_Resolution.x / 2 || sMidonScreen.x > 1.5f*g_Resolution.x || sMidonScreen.y < -g_Resolution.y / 2 || sMidonScreen.y > 1.5f*g_Resolution.y))
+	else if (screendiaminworld > GetCurrentStormDiameter() && (sMidonScreen.x < -g_Resolution.x / 2 || sMidonScreen.x > 1.5f*g_Resolution.x || sMidonScreen.y < -g_Resolution.y / 2 || sMidonScreen.y > 1.5f*g_Resolution.y))
 	{
 		sf::RectangleShape rect;
 		rect.setPosition(0, 0);
@@ -3734,7 +3685,7 @@ void dc_match::DrawStorm(sf::RenderTexture* T,sf::Vector2f V)
 	else
 	{
 		auto M = GetCurrentStormMiddle();
-		auto r = GetCurrentStormRadius() / 2;
+		auto r = GetCurrentStormDiameter() / 2;
 
 		std::vector<sf::Vector2f> Points;
 		std::vector<sf::Vector2f> PointsOuter;
@@ -4075,7 +4026,7 @@ void dc_match::CheckCollisions(int i, float t)
 	}
 }
 
-void dc_match::Start(int aax, int aay, int bs)
+void dc_match::Start(int bs)
 {
 	map.load("BigSize");
 	ConLog("\nMap generated...");
@@ -4904,29 +4855,29 @@ void dc_match::LoopPlayers()
 	for (int i = 0; i < 100; i++)
 	{
 		if (players[i].iHealth <= 0)continue;
-		if (players[i].fFreeFallHeight > 0)PlayerDescent(i, diff, 1.5f);
+		if (players[i].fFreeFallHeight > 0)PlayerDescent(i, diff, 1.5f); //Automatic descend
 
-		players[i].SimulateSlurp(diff);
+		players[i].SimulateSlurp(diff); //For healing
 		CheckCollisions(i, diff);
 		players[i].vPosition.x += players[i].vVelocity.x * diff;
-		players[i].vPosition.y -= players[i].vVelocity.y * diff;
+		players[i].vPosition.y -= players[i].vVelocity.y * diff; //This is inverted
 
 		if (players[i].fFreeFallHeight <= 0.f) {
-			auto l = GetLength(players[i].vVelocity*diff);
-			players[i].DistanceTillNextFootStep -= l;
+			auto l = GetLength(players[i].vVelocity*diff); //length of how much they moved
+			players[i].DistanceTillNextFootStep -= l; //For footstep sounds
 			players[i].Stats.fDistanceWalked += l;
 
 			
 			if (!players[i].bOnBus && players[i].Stats.LandingPosition == sf::Vector2f(-1.f, -1.f))
-				players[i].Stats.LandingPosition = players[i].vPosition;
+				players[i].Stats.LandingPosition = players[i].vPosition; //If there is no landing position, andd they are on land, we set the first landing position
 		}
-		players[i].bMoved = false;
+		players[i].bMoved = false; //We reset the bMoved, because it is inrelevant without input in this frame
 
 		if(players[i].fFreeFallHeight <= 0.f)
-		players[i].Stats.fTimeAlive += diff;
+		players[i].Stats.fTimeAlive += diff; //Time alive only counts after a unit landed
 
 
-		if (players[i].CalculateVelocity() > 2.f)
+		if (players[i].CalculateVelocity() > 2.f) //Too fast movement will make the spreaad bigger, and cancel healing, spread reducing is calculated with moving bloom decrease
 		{
 			if (players[i].Items[players[i].iSelectedWeapon].bValidated)players[i].fBloomSize -= (players[i].Items[players[i].iSelectedWeapon].fBloomMovingDecrease * diff);
 			if (players[i].Items[players[i].iSelectedWeapon].bValidated && players[i].fBloomSize < players[i].Items[players[i].iSelectedWeapon].fBloomMovingMinSize)
@@ -4936,7 +4887,7 @@ void dc_match::LoopPlayers()
 
 			players[i].fHealTime = 0.f;
 		}
-		else
+		else //spread reducing is calculated with standing bloom decrease
 		{
 			if (players[i].Items[players[i].iSelectedWeapon].bValidated)players[i].fBloomSize -= (players[i].Items[players[i].iSelectedWeapon].fBloomStandingDecrease * diff);
 
@@ -4945,29 +4896,32 @@ void dc_match::LoopPlayers()
 
 		}
 
+		//Setting the min limit of bloom in case it gets lower
 		if (players[i].fBloomSize < players[i].Items[players[i].iSelectedWeapon].fBloomMinSize)players[i].fBloomSize = players[i].Items[players[i].iSelectedWeapon].fBloomMinSize;
 		if (players[i].fBloomSize > players[i].Items[players[i].iSelectedWeapon].fBloomMaxSize)players[i].fBloomSize = players[i].Items[players[i].iSelectedWeapon].fBloomMaxSize;
 
-
+		//Auto-reload if there is no more bullets in the weapon
 		if (players[i].GetCurrentWeapon().bValidated && !players[i].GetCurrentWeapon().IsConsumable() && players[i].Items[players[i].iSelectedWeapon].iBullets <= 0 && players[i].fReloadDelay <= 0.f)
 		{
 			players[i].fReloadDelay = players[i].Items[players[i].iSelectedWeapon].fReloadTime;
 		}
 
+		//In case the unit is opening something
 		if (players[i].iOpeningChest != -1 || players[i].iOpeningAirdrop != -1)
 		{
 			players[i].fOpeningTime -= diff;
-			if (players[i].fOpeningTime < 0.f)
+			if (players[i].fOpeningTime < 0.f) //This means that it has been opened
 			{
 				if (players[i].iOpeningChest != -1)
 				{
-					if (!map.chests[players[i].iOpeningChest].bOpen && GetDistance(players[i].vPosition, map.chests[players[i].iOpeningChest].vPosition) < 2.f)
+					//Checking if the chest hasn't been opened by another unit, and if it's still in range
+					if (!map.chests[players[i].iOpeningChest].bOpen && GetDistance(players[i].vPosition, map.chests[players[i].iOpeningChest].vPosition) < 2.f) 
 					{
 						map.chests[players[i].iOpeningChest].bOpen = true;
-						dc_item weapon, heal;
+						dc_item weapon, heal; //In a chest we want to spawn a weapon and a consumable
 						auto pos = map.chests[players[i].iOpeningChest].vPosition;
 						weapon.id = 10000; heal.id = 0;
-						while (weapon.IsConsumable())
+						while (weapon.IsConsumable()) // should have used do-while
 						{
 							int r = weapon.GetRandomWeaponID();
 							pos = map.chests[players[i].iOpeningChest].vPosition + sf::Vector2f(-RandFloat()*0.25f, RandFloat()*0.5f - 0.25f);
@@ -4978,7 +4932,7 @@ void dc_match::LoopPlayers()
 						Demo_SnapshotUpdateItemSpawn(weapon.GameIdx, weapon.ListIndex, weapon.vPosition);
 						Demo_SnapshotUpdateItemDrop(weapon.GameIdx,weapon.vPosition);
 						map.items.push_back(weapon);
-						while (!heal.IsConsumable())
+						while (!heal.IsConsumable()) // should have used do-while
 						{
 							int r = heal.GetRandomWeaponID();
 							pos = map.chests[players[i].iOpeningChest].vPosition + sf::Vector2f(RandFloat()*0.25f, RandFloat()*0.5f - 0.25f);
@@ -5012,6 +4966,7 @@ void dc_match::LoopPlayers()
 
 						for (int j = 0; j < 5; j++)
 						{
+							//For an airdrop, we spawn 2 heals, and 3 legendary or better weapons
 							if (j <= 1)
 							{
 								Items[j].id = 10000;
@@ -5044,6 +4999,7 @@ void dc_match::LoopPlayers()
 				players[i].iOpeningAirdrop = -1;
 			}
 		}
+		//Reducing some delays
 		else if (players[i].fPulloutDelay > 0.f)
 		{
 			players[i].fPulloutDelay -= diff;
@@ -5051,13 +5007,16 @@ void dc_match::LoopPlayers()
 		else if (players[i].fReloadDelay > 0.f)
 		{
 			players[i].fReloadDelay -= diff;
-			if (players[i].fReloadDelay <= 0.f && players[i].GetCurrentWeapon().iReloadMethod == 1)
+			//If the reload delay is over, and the reload method is Full-Magazine
+			if (players[i].fReloadDelay <= 0.f && players[i].GetCurrentWeapon().iReloadMethod == 1) 
 			{
 				players[i].Items[players[i].iSelectedWeapon].iBullets = players[i].Items[players[i].iSelectedWeapon].iMaxBullets;
 			}
+			//If the reload delay is over, and the reload method is One-Bullet
 			else if (players[i].fReloadDelay <= 0.f && players[i].GetCurrentWeapon().iReloadMethod == 2)
 			{
 				players[i].Items[players[i].iSelectedWeapon].iBullets++;
+				//Continuing reloading if the mag is not full
 				if (players[i].Items[players[i].iSelectedWeapon].iBullets < players[i].Items[players[i].iSelectedWeapon].iMaxBullets)
 					players[i].fReloadDelay += players[i].GetCurrentWeapon().fReloadTime;
 			}
@@ -5109,7 +5068,8 @@ void dc_match::LoopPlayers()
 		}
 		else if (players[i].fHealTime > 0.f)players[i].fHealTime = 0.f;
 		
-		
+		//Damaging if the player is in storm
+		//Damaging only starts if the unit has been in storm for more than a second
 		if (IsPointInStorm(players[i].vPosition))
 		{
 			players[i].StormSpentTime += diff;
@@ -5117,8 +5077,10 @@ void dc_match::LoopPlayers()
 			{
 				players[i].StormSpentTime -= 1.f;
 				players[i].Damage(GetCurrentStormDamage(),true);
+				//If the unit dies to storm
 				if (players[i].iHealth <= 0)
 				{
+					//If the unit hasn't taken damage for 15 seconds
 					if (players[i].gothitLastClock.GetDiff() > 1000.f*KILL_OWNERTIME)
 					{
 						dc_killnoticeeffect kl;
@@ -5128,6 +5090,7 @@ void dc_match::LoopPlayers()
 						kl.Target = i;
 						effects.kilnot_effects.push_back(kl);
 					}
+					//If the unit has taken damage in the last 15 seconds, that means, that the elimination goes to the previous person who shot them
 					else
 					{
 						players[players[i].gotHitLastPlayerID].Stats.iEliminations++;
@@ -5146,35 +5109,22 @@ void dc_match::LoopPlayers()
 		{
 			players[i].StormClock.Update();
 			players[i].StormSpentTime = 0.f;
-		}
-		/*
-		if (stormclock.GetDiff() > 1000)
-		{
-			if (players[i].vPosition.x < 0 || players[i].vPosition.y < 0 || players[i].vPosition.x >= 1000 || players[i].vPosition.y >= 1000 || map.lines[players[i].vPosition.y].blocks[players[i].vPosition.x].iTexture == 6)
-			{
-				players[i].Damage(5);
-				if (players[i].iHealth <= 0)PlayerKill(i);
-
-
-
-			}
-			stormclock.Update();
-		}*/
-		
-
+		}	
+		//This one is for challenge progress
+		//Checking if the player is in any named location
 		PlayerCheckCurrentLocationForData(i);
 	}
 	for (int i = 0; i < 100; i++)
 	{
+		//0 is for the player, they are controlled in an unique way
 		if (i == 0)Control(diff);
 		else if (players[i].iHealth> 0) {
-
-
-			//g_Threads.Run(DistinctBotLoop, this, diff);
+			//If cheats enabled, and bot_stop is > 1, bot's are frozen
+			//Otherwise they act
 			if(g_Config.ch_bot_stop.Value < 1.f || g_Config.gm_cheats.Value < 1.f)BotThink(i, diff);
 
 		}
-		if (players[i].iHealth > 0 && !players[i].bMoved)
+		if (players[i].iHealth > 0 && !players[i].bMoved) //If the unit hasn't moved, we slow them down in a smooth way
 		{
 
 			players[i].vVelocity.x = players[i].vVelocity.x * pow(UNIT_SLOWDOWN_FACTOR, diff * 1000);
@@ -5182,10 +5132,10 @@ void dc_match::LoopPlayers()
 
 		}
 
-		if (playercount <= 5)FinishMatch();
 	}
 
-
+	//When the game is close to end, we check for it
+	if (playercount <= 5)FinishMatch();
 }
 
 void dc_match::ScrollMap()
@@ -5249,7 +5199,7 @@ void dc_match::DoCheatStuff()
 
 
 		char plubuf[320];
-		sprintf(plubuf, "Watching (%d) %s\nTargeting %d\nPosition: %.2f %.2f\nVelocity: %.2f %.2f", camera_follows, players[camera_follows].szName, BotData[camera_follows].target_id, players[camera_follows].vPosition.x, players[camera_follows].vPosition.y, players[camera_follows].vVelocity.x, players[camera_follows].vVelocity.y);
+		sprintf(plubuf, "Watching (%d) %s\nTargeting %d\nPosition: %.2f %.2f\nVelocity: %.2f %.2f", camera_follows, players[camera_follows].szName, 0, players[camera_follows].vPosition.x, players[camera_follows].vPosition.y, players[camera_follows].vVelocity.x, players[camera_follows].vVelocity.y);
 		//if (BotData[camera_follows].move_path.size() > 0)
 		sprintf(plubuf, "%s\nMoving to (%d): %.2f %.2f", plubuf, BotData[camera_follows].Changables.DistantTargetType, BotData[camera_follows].Changables.DistantTargetPoint.x, BotData[camera_follows].Changables.DistantTargetPoint.y);
 		sprintf(plubuf, "%s\nleft chests: %d", plubuf, BotData[camera_follows].Changables.RestOfChests.size());

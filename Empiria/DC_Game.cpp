@@ -195,7 +195,7 @@ void dc_game::StartNewMatch()
 			Match->players[0].iSkinTexture = ThePlayer.SelectedSkin;
 			Match->players[0].iWeaponWrapTexture = ThePlayer.SelectedWrap;
 
-			Match->Start(1, 1, 100);
+			Match->Start(100);
 			Match->KeyBinds = &this->Binds;
 		}
 		else
@@ -221,7 +221,7 @@ void dc_game::StartNewMatch()
 			Match->players[0].iSkinTexture = ThePlayer.SelectedSkin;
 			Match->players[0].iWeaponWrapTexture = ThePlayer.SelectedWrap;
 
-			Match->Start(1, 1, 100);
+			Match->Start(100);
 			Match->KeyBinds = &this->Binds;
 		}
 

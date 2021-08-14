@@ -298,7 +298,7 @@ int dc_demo_metadata::ReadFrom(char* p)
 void dc_match::Demo_Convert(dc_match* m, dc_demo_metadata Metadata)
 {
 	dc_demo Demo;
-	ConLog("\nDemo Converting started");
+	//ConLog("\nDemo Converting started");
 
 	dc_ticksnapshot LastSnapShot;
 	while (!m->Demo_ShouldEnd)

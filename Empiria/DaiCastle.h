@@ -820,7 +820,7 @@ struct dc_botdata
 	float fAirDropGuardMinModifier; //How closely the bot is guarding a falling airdrop - must be between 0 and 1
 
 	std::vector<int> WeaponPreferences[5]; //Order of items that the bot likes for each slot
-	bool SuckerForExtraHeals; //If the bot wants to get full heals in their inventory
+	bool SuckerForExtraHeals; //If the bot wants to get full heals in their inventory before raiding
 	int GoodEnoughRanking[5]; //How good the inventory of the bot should be to 'feel' good about it
 	int FightType[5]; //0 - moving, 1 - standing, 2 - heal
 	int HealUseMinimums[6]; //When the bot uses heal - min amount
@@ -852,6 +852,10 @@ struct dc_botdata
 	std::vector<sf::Vector2f> move_path;
 };
 
+//////////////////////////////////////////////
+/// Info of weapon damage dealt by one bullet/pellet
+/// Introduced for multishot weapons, like shotguns to reduce damage effects
+//////////////////////////////////////////////
 struct damageinfo_t
 {
 	bool is_null = false;
@@ -866,10 +870,18 @@ struct damageinfo_t
 	int mapCoordWeight = 1;
 };
 
+//////////////////////////////////////////////
+/// Holder for weapon damage info
+//////////////////////////////////////////////
 struct damagelist_t
 {
 	std::vector<damageinfo_t> totalDamages;
 
+
+	//////////////////////////////////////////////
+	/// Sometimes shooting with a multishot weapon results in hitting the same object multiple times
+	/// This function sums the damages on each object, and reduces the element count of the damagelist
+	//////////////////////////////////////////////
 	void compress()
 	{
 		for (int i = 0; i < totalDamages.size(); i++)
@@ -919,6 +931,9 @@ struct damagelist_t
 
 struct dc_keybinds;
 
+//////////////////////////////////////////////
+/// It's a UI data holder used to shw information
+//////////////////////////////////////////////
 struct dc_buttoninfo
 {
 	int TYPE = 0; //0- Map, 1 - Inv, 2-6 Slots, 7 - Chest, 8 - Weapon, 9 - Airdrop
@@ -927,6 +942,11 @@ struct dc_buttoninfo
 	int WeaponBullets = -1;
 };
 
+//////////////////////////////////////////////
+/// Same as chest, but an airdrop
+/// It spawns randomly during a match, takes time to get to the ground
+/// Legendary or Mythic loot
+//////////////////////////////////////////////
 struct dc_airdrop
 {
 	int airdropid;
@@ -934,9 +954,10 @@ struct dc_airdrop
 	sf::Vector2f vPosition;
 };
 
-
-
-
+//////////////////////////////////////////////
+/// Holds all relevant server data from the last tick update
+/// Used to save demo files
+//////////////////////////////////////////////
 struct dc_ticksnapshot
 {
 	int Tick;
@@ -981,12 +1002,9 @@ struct dc_match
 
 	int EasyCases = 450, NormalCases = 370, HardCases = 150, ExpertCases = 30;
 	std::vector<float> s_times = { 0.f,45.f,75.f, 150.f,240.f , 330.f,420.f , 480.f,525.f , 570.f,600.0f , 630.f,660.f ,690.0f,705.f,720.0f,730.0f,2500.f };
-	//std::vector<float> s_times = { 0.f,60.f,120.f, 240.f,360.f , 480.f,570.f , 660.f,720.f , 780.f,825.0f , 870.f,915.f ,960.0f,985.f,1010.0f,1030.0f,2500.f };
-	//std::vector<float> s_times = { 0.f,6.f,12.f, 24.f,36.f , 48.f,57.f , 66.f,72.f , 78.f,82.0f , 87.f,91.f ,96.0f,98.f,1000.0f,1500.0f,2500.f };
 	std::vector<int> s_damage = { 1,1,1,1,1,1,1,2,2,5,5,7,10,10,10,10,10,10,10,10,10,10 };
 	std::vector<float> s_size = { 2000.f,2000.f,2000.f, 2000.f,750.f , 750.f,350.f , 350.f,180.f , 180.f,90.f , 90.f,50.f ,30.f,15.f,5.f,0.f,0.f };
 
-	
 	bool Demo_ShouldEnd = false;
 	int DemoRecord = 1;
 	int DemoTickBase = 16;
@@ -996,16 +1014,36 @@ struct dc_match
 	std::vector<dc_ticksnapshot*> Demo_Snapshots;
 	dc_ticksnapshot Demo_NewestSnapshot;
 
+	bool show_minimap = false;
+	bool show_inventory = false;
+	bool canDelete = false;
+
+	sf::Vector2f StormMids[18];
+	dc_clock t_clock;
+	float timeDiffSinceLastFrame = 0.f;
+
+	bool bBusMoving = true;
+	bool bBusJumpable = false;
+	sf::Vector2f BusStartPosition;
+	sf::Vector2f BusCurrentPosition;
+	sf::Vector2f BusEndPosition;
+	float MusicLoopSinceLast = 0.05f;
+
+	sf::Vector2f vCameraPosition;
+	int vCameraMode = 1; //0 - Free, 1 - Locked
+	int vCameraPlayerLock = 0;
+
+	dc_effects effects;
+	dc_botdata BotData[100]; //0 is empty as the player is not controlled by the computer
+
+
 	void Demo_SnapshotUpdateProjectileAdd(sf::Vector2f spawn, float angle, float projspeed);
 	void Demo_SnapshotProjectileEnd(int index);
 	void Demo_SnapshotUpdateExplosiveAdd(int projectiletype);
 	void Demo_SnapshotUpdateExplosives();
 	void Demo_SnapshotUpdateExplosiveRemove(int projindex);
-	
 	void Demo_SnapshotUpdateWallbreak(sf::Vector2i coord, int wall);
 	void Demo_SnapshotUpdateElimination(int killer, int target);
-
-
 	void Demo_SnapshotUpdateAirdropSpawn(sf::Vector2f spawn, int ADindex);
 	void Demo_SnapshotUpdateAirdropRemove(int ADindex);
 	void Demo_SnapshotUpdateWeaponShot(sf::Vector2f start, sf::Vector2f end, float time);
@@ -1017,127 +1055,426 @@ struct dc_match
 	void Demo_CreateSnapshotPointers();
 	void Demo_CreateSnapshot();
 	void Demo_LoopSnapshots();
-	static void Demo_Convert(dc_match* m, dc_demo_metadata Metadata);
-	bool show_minimap = false;
-	bool show_inventory = false;
-	bool canDelete = false;
 
-	sf::Vector2f StormMids[18];
-	dc_clock t_clock;
-	float timeDiffSinceLastFrame = 0.f;
+	//////////////////////////////////////////////
+	/// !!! This function should run in a different thread
+	/// Until the match finishes, the function keeps converting the demo snapshots
+	/// m needs to be a valid pointer for an active match
+	/// Metadata should be setup first with a pointer of the same match
+	/// When the match is finished, it saves a complete .dem file in the replays/ folder
+	//////////////////////////////////////////////
+	static void Demo_Convert(dc_match* m, dc_demo_metadata Metadata);
+
+
+	//////////////////////////////////////////////
+	/// Returns the current storm phase ID
+	//////////////////////////////////////////////
 	int GetCurrentStormPhase();
+	//////////////////////////////////////////////
+	/// Returns the current damage tick
+	//////////////////////////////////////////////
 	int GetCurrentStormDamage();
+	//////////////////////////////////////////////
+	/// Returns the next damage tick
+	//////////////////////////////////////////////
 	int GetNextStormDamage();
+	//////////////////////////////////////////////
+	/// Returns the coordinates of the center of the storm
+	//////////////////////////////////////////////
 	sf::Vector2f GetCurrentStormMiddle();
-	float GetCurrentStormRadius();
+	//////////////////////////////////////////////
+	/// Returns the DIAMETER of the center of the storm
+	//////////////////////////////////////////////
+	float GetCurrentStormDiameter();
+	//////////////////////////////////////////////
+	/// Returns the coordinates of the center of the next stormm
+	//////////////////////////////////////////////
 	sf::Vector2f GetNextStormMiddle();
-	float GetNextStormRadius();
+	//////////////////////////////////////////////
+	/// Returns the DIAMETER of the center of the next storm
+	//////////////////////////////////////////////
+	float GetNextStormDiameter();
+	//////////////////////////////////////////////
+	/// Hard-coded
+	/// Generates the storm information for the entire match
+	/// TODO: Read it from a file to make it more customizable
+	//////////////////////////////////////////////
 	void GenerateStorms();
+	//////////////////////////////////////////////
+	/// Returns the time till the next storm phase
+	//////////////////////////////////////////////
 	float GetTimeTillNextStormPhase();
+	//////////////////////////////////////////////
+	/// Returns the index for the logo of the current storm phase
+	//////////////////////////////////////////////
 	int GetCurrentStormPhaseLogo();
 
 
-	bool bBusMoving = true;
-	bool bBusJumpable = false;
-	sf::Vector2f BusStartPosition;
-	sf::Vector2f BusCurrentPosition;
-	sf::Vector2f BusEndPosition;
-
+	//////////////////////////////////////////////
+	/// Generates the bus route, including the startpoint, and endpoint of the bus
+	//////////////////////////////////////////////
 	void GenerateBusRoute();
+	//////////////////////////////////////////////
+	/// While the bus is moving, it updates its position depending on how much time has passed
+	/// while the bus is moving, it iterates the bus music
+	//////////////////////////////////////////////
 	void SimulateBus();
 	
-	float MusicLoopSinceLast = 0.05f;
+	//////////////////////////////////////////////
+	/// Loops the bus music with a dynamic sound that follows the bus
+	//////////////////////////////////////////////
 	void DoBusMusic();
-
-	void CreateFirstStorm();
+	//////////////////////////////////////////////
+	/// If there is only one player left, it finishes the match
+	//////////////////////////////////////////////
 	void FinishMatch();
+
+	//////////////////////////////////////////////
+	/// Returns a constantly changing color with lightning effects
+	/// TODO: Timescale support, and accurate demo representation
+	//////////////////////////////////////////////
 	sf::Color GetCurrentStormColor();
 
-	sf::Vector2f vCameraPosition;
-	int vCameraMode = 1; //0 - Free, 1 - Locked
-	int vCameraPlayerLock = 0;
+	//////////////////////////////////////////////
+	/// Returns the position of the camera
+	//////////////////////////////////////////////
 	sf::Vector2f GetCameraPosition();
 
+	//////////////////////////////////////////////
+	/// When the player is a spectator, it draws different information on the screen
+	/// Including the player's placement and the spectated player's name
+	//////////////////////////////////////////////
 	void DrawSpectatorInfo();
+
+	//////////////////////////////////////////////
+	/// Draws the user marker on the map or shows which direction the marker is at
+	//////////////////////////////////////////////
 	void DrawMark(sf::Vector2f Coords, sf::Color color, bool ignore_onscreen, sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws the bus on the map
+	//////////////////////////////////////////////
 	void DrawBus(sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws the bus on the map
+	/// Used for demo layer rendering
+	//////////////////////////////////////////////
 	void DrawBus(sf::RenderTexture* T, sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws everything in the right order
+	//////////////////////////////////////////////
 	void DrawAll();
+	//////////////////////////////////////////////
+	/// Draws the storm on teh map
+	//////////////////////////////////////////////
 	void DrawStorm(sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws the storm on teh map
+	/// Used for demo layer rendering
+	//////////////////////////////////////////////
 	void DrawStorm(sf::RenderTexture* T,sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws the storm on the map with V (on map coordinate) being the center of the screen
+	//////////////////////////////////////////////
 	void DrawMap(sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws airdrops on the map with V (on map coordinate) being the center of the screen
+	//////////////////////////////////////////////
 	void DrawAirDrop(sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws airdrops on the map with V (on map coordinate) being the center of the screen
+	/// Used for demo layer rendering
+	//////////////////////////////////////////////
 	void DrawAirDrop(sf::RenderTexture* T,sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// When the camera width is too large, it draws a circular indicator on the spectated player
+	//////////////////////////////////////////////
 	void DrawPlayerIndicator(sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws all the players on the map with V (on map coordinate) being the center of the screen
+	//////////////////////////////////////////////
 	void DrawPlayers(sf::Vector2f V); 
+	//////////////////////////////////////////////
+	/// Draws all the players on the map with V (on map coordinate) being the center of the screen
+	/// Used for demo layer rendering
+	//////////////////////////////////////////////
 	void DrawPlayers(sf::RenderTexture* T,sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws the small map on the map, if it's open
+	/// Otherwise it draws the minimap UI element in the top right corner
+	//////////////////////////////////////////////
 	void DrawMinimap();
+	//////////////////////////////////////////////
+	/// Draws players on the small map, if it's open
+	//////////////////////////////////////////////
 	void DrawPlayersOnMinimapCheat();
+	//////////////////////////////////////////////
+	/// Draws the current and next storm on the minimap
+	//////////////////////////////////////////////
 	void DrawStormOnMiniMap();
+	//////////////////////////////////////////////
+	/// Draws all unopened airdrops on the minimap
+	//////////////////////////////////////////////
 	void DrawAirDropOnMinimap();
+	//////////////////////////////////////////////
+	/// Draws every storm on the minimap
+	//////////////////////////////////////////////
 	void DrawAllStormOnMiniMap();
+	//////////////////////////////////////////////
+	/// Draws the health, shield bar, inventory, time indicators, markers, and information
+	//////////////////////////////////////////////
 	void DrawUI(sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws the inventory page showing information about the item's in the inventory
+	//////////////////////////////////////////////
 	void DrawInventoryPage();
+	//////////////////////////////////////////////
+	/// Draws information about which buttons can be pressed to do actions
+	//////////////////////////////////////////////
 	void DrawHelpButtons();
-
-
+	//////////////////////////////////////////////
+	/// Removes effects that are over
+	//////////////////////////////////////////////
 	void RemoveExpiredEffects();
+	//////////////////////////////////////////////
+	/// Draws currently active effects
+	//////////////////////////////////////////////
 	void DrawEffects(sf::Vector2f V);
-
+	//////////////////////////////////////////////
+	/// Draws the crosshair at the position of the mouse
+	/// If there is no straight line between the player's unit and the crosshair
+	/// A big X is drawn to indicate there is an object between
+	//////////////////////////////////////////////
 	void DrawCrosshair(sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws the victory effect
+	/// Should only be called when the match is over
+	//////////////////////////////////////////////
 	void DrawVictoryEffect();
-
-
-	void SimulateAirdrops();
-
-	void Start(int aax, int aay, int bs);
-
-	void ClearUnreachableItems();
-	void CheckCollisions(int i, float t);
-	void LoopPlayers();;
-	bool OverChest();
-	bool OverItem();
-	void Control(float timediff);
-	void ControlInventory();
-	void ControlMinimap(float diff);
-	void ControlMove();
-	void PlayerCheckCurrentLocationForData(int player);
-	void PlayerJumpOffBus(int player);
-	void PlayerDescent(int player, float diff, float speed);
-	void PlayerOpenAirdrop(int player, int airdrop_id);
-	void PlayerOpenChest(int player, int chest_id);
-	void PlayerPickupItem(int player, int slot, int itemid);
-	void PlayerUseHeal(int player);
-	void PlayerDropWeapon(int player, int weaponslot);
-	void PlayerSwapWeapon(int player, int weaponslot);
-	void PlayerSwapWeaponInventory(int player, int slotFrom, int slotTo);
-	damageinfo_t SimulateBullet(int player);
-	void PlayerShootWeapon(int player);
-
-	void SimulateProjectiles(float timediff,sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Makes projectiles go forward
+	/// If a projectile has an object in its way, it damages it, and gets destroyed
+	//////////////////////////////////////////////
+	void SimulateProjectiles(float timediff, sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws currently active projectiles
+	//////////////////////////////////////////////
 	void DrawProjectiles(sf::Vector2f V);
-	void DrawProjectiles(sf::RenderTexture* T,sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws currently active projectiles
+	/// Used for demo layer rendering
+	//////////////////////////////////////////////
+	void DrawProjectiles(sf::RenderTexture* T, sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Traces rays in a circle with radius ExpRange to simulate an explosion
+	//////////////////////////////////////////////
 	damagelist_t SimulateExplosion(sf::Vector2f Position, float ExpRange, int DmgMax, int DmgMin);
+	//////////////////////////////////////////////
+	/// Makes explosive projectiles go forward
+	/// If a projectile has an object in its way, it either damages it, and gets destroyed
+	/// Or gets bounced in a direction
+	//////////////////////////////////////////////
 	void SimulateExplosives(float timediff, sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws currently active explosive projectiles
+	//////////////////////////////////////////////
 	void DrawExplosives(sf::Vector2f V);
-	void DrawExplosives(sf::RenderTexture* T,sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws currently active explosive projectiles
+	/// Used for demo layer rendering
+	//////////////////////////////////////////////
+	void DrawExplosives(sf::RenderTexture* T, sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Plays a gun sound with index listid at world position OriPos
+	//////////////////////////////////////////////
 	void AddGunShotSound(int listid, sf::Vector2f OriPos);
 
+
+	//////////////////////////////////////////////
+	/// When airdrops should spawn, it spawns 2 airdrops, at random locations in the next circle
+	/// In final circles, it purposefully doesn't function
+	//////////////////////////////////////////////
+	void SimulateAirdrops();
+	//////////////////////////////////////////////
+	/// Starts a match with 'bs' botcount
+	/// Loads the map, generates storms and bus routes
+	/// Launches demo recording if it's active in the settings
+	//////////////////////////////////////////////
+	void Start(int bs);
+
+	//////////////////////////////////////////////
+	/// Deletes items that are far out in the storm, with no player nearby
+	//////////////////////////////////////////////
+	void ClearUnreachableItems();
+	//////////////////////////////////////////////
+	/// Checks if a player is about to hit a wall
+	/// TODO: Player collisions
+	//////////////////////////////////////////////
+	void CheckCollisions(int i, float t);
+	//////////////////////////////////////////////
+	/// Long loop of action checks
+	/// Better see the definition
+	//////////////////////////////////////////////
+	void LoopPlayers();
+	//////////////////////////////////////////////
+	/// User action function to check if the cursor is over a chest
+	/// If the cursor is on a chest, and it's close to their unit
+	/// An indicator shows which button the user has to press
+	/// If they press that button, the opening process starts
+	/// This function is also used with airdrops
+	//////////////////////////////////////////////
+	bool OverChest();
+	//////////////////////////////////////////////
+	/// User action function to check if the cursor is over an item
+	/// If the cursor is on an item, and it's close to their unit
+	/// An indicator shows which button the user has to press
+	/// If they press that button, and there is space in their inventory, the item gets picked up
+	/// This function is also used with airdrops
+	//////////////////////////////////////////////
+	bool OverItem();
+	//////////////////////////////////////////////
+	/// All user action functions in a function
+	/// timediff is used for Descend action
+	//////////////////////////////////////////////
+	void Control(float timediff);
+	//////////////////////////////////////////////
+	/// All user action functions in a function
+	/// Used when the inventory is open
+	//////////////////////////////////////////////
+	void ControlInventory();
+	//////////////////////////////////////////////
+	/// All user action functions in a function
+	/// Used when the minimap is open
+	/// timediff is used for Descend action
+	//////////////////////////////////////////////
+	void ControlMinimap(float diff);
+	//////////////////////////////////////////////
+	/// User action function for moving on the map
+	/// Alternative movement is moving the unit as it was facing the cursor
+	/// Non-alternative movement is moving the unit as it was facing up
+	//////////////////////////////////////////////
+	void ControlMove();
+	//////////////////////////////////////////////
+	/// Non-user action for unit with ID 'player'
+	/// Checks if the current location of the unit is in a named POI
+	/// If it is a named POI, it marks it as a visited POI for the match
+	//////////////////////////////////////////////
+	void PlayerCheckCurrentLocationForData(int player);
+	//////////////////////////////////////////////
+	/// Player's call to jump off the bus
+	//////////////////////////////////////////////
+	void PlayerJumpOffBus(int player);
+	//////////////////////////////////////////////
+	/// Player's call to descend for unit with ID 'player'
+	/// There is also a non-player descend call
+	//////////////////////////////////////////////
+	void PlayerDescent(int player, float diff, float speed);
+	//////////////////////////////////////////////
+	/// Player's call to open the airdrop with ID 'airdrop_id' for unit with ID 'player'
+	//////////////////////////////////////////////
+	void PlayerOpenAirdrop(int player, int airdrop_id);
+	//////////////////////////////////////////////
+	/// Player's call to open the airdrop with ID 'unit_id' for unit with ID 'player'
+	//////////////////////////////////////////////
+	void PlayerOpenChest(int player, int chest_id);
+	//////////////////////////////////////////////
+	/// Player's call to pick up the item with ID 'itemid' for unit with ID 'player'
+	/// TODO: remove slot, or add a function that sorts consumables to the right on pickup
+	//////////////////////////////////////////////
+	void PlayerPickupItem(int player, int slot, int itemid);
+	//////////////////////////////////////////////
+	/// Player's call to use the selected healing item
+	/// Should be only called in PlayerShootWeapon()
+	//////////////////////////////////////////////
+	void PlayerUseHeal(int player);
+	//////////////////////////////////////////////
+	/// Player's call to drop the item from the 'weaponslot'th weapon-slot for unit with ID 'player'
+	/// When used, the item gets destroyed
+	/// A new item is spawned on the map
+	//////////////////////////////////////////////
+	void PlayerDropWeapon(int player, int weaponslot);
+	//////////////////////////////////////////////
+	/// Player's call to swap to the item from the 'weaponslot'th weapon-slot for unit with ID 'player'
+	//////////////////////////////////////////////
+	void PlayerSwapWeapon(int player, int weaponslot);
+	//////////////////////////////////////////////
+	/// Player's call to swap the item from 'slotFrom' to 'slotTo'
+	/// These items are exchanged entirely
+	/// If the unit has iSelectedWeapon == slotFrom || iSelectedWeapon == slotTo, the iSelectedWeapon also changes
+	/// This is to avoid abusing fancy glitches
+	//////////////////////////////////////////////
+	void PlayerSwapWeaponInventory(int player, int slotFrom, int slotTo);
+	//////////////////////////////////////////////
+	/// Casts a ray from the player's position ignoring the player
+	/// Checks if there is any wall or player in the way of the bullet
+	/// Returns the result of the cast
+	/// Note: This adds a bulletshot-effect to the vector
+	//////////////////////////////////////////////
+	damageinfo_t SimulateBullet(int player);
+	//////////////////////////////////////////////
+	/// Player's call to use its selected item for unit with ID 'player'
+	/// It calls PlayerShootWeapon0 for single-shot weapons
+	/// It calls PlayerShootWeapon1 for multi-shot weapons
+	/// It calls PlayerShootWeapon2 for projectile weapons
+	/// It calls PlayerShootWeapon1 for explosive weapons
+	/// It calls PlayerUseHeal for healing items
+	//////////////////////////////////////////////
+	void PlayerShootWeapon(int player);
+	//////////////////////////////////////////////
+	/// Fires a single bullet, applies the damage if anything is hit
+	/// If the bullet hit's another unit, and it dies, it applies elimination effects and recognition
+	//////////////////////////////////////////////
 	void PlayerShootWeapon0(int player);
+	//////////////////////////////////////////////
+	/// Fires multiple bullets, applies the damage if anything is hit (for all hit objects)
+	/// If the bullet hit's another unit, and it dies, it applies elimination effects and recognition
+	//////////////////////////////////////////////
 	void PlayerShootWeapon1(int player);
+	//////////////////////////////////////////////
+	/// Fires a projectile, adds it to the projectile list
+	//////////////////////////////////////////////
 	void PlayerShootWeapon2(int player);
+	//////////////////////////////////////////////
+	/// Fires an explosive projectile, adds it to the explosive list
+	//////////////////////////////////////////////
 	void PlayerShootWeapon3(int player);
+	//////////////////////////////////////////////
+	/// Player's call to reload the weapon for unit with ID 'player'
+	//////////////////////////////////////////////
 	void PlayerReloadWeapon(int player);
+	//////////////////////////////////////////////
+	/// This is used to completely eliminate the unit with ID 'player'
+	/// It updates placement, and drops all the items
+	/// It also adds a kill-effect
+	//////////////////////////////////////////////
 	void PlayerKill(int player);
+	//////////////////////////////////////////////
+	/// Progressively heals the unit with ID 'player' in arena game-mode
+	/// Does nothing otherwise
+	//////////////////////////////////////////////
 	void PlayerRewardForKill(int player);
+	//////////////////////////////////////////////
+	/// Player's call to move the unit with ID 'player' to the direction of 'angle'
+	//////////////////////////////////////////////
 	void PlayerMove(int player, float angle);
+	//////////////////////////////////////////////
+	/// This function makes footstep sounds for all units if they travelled enough
+	//////////////////////////////////////////////
 	void SimulateFootsteps();
+	//////////////////////////////////////////////
+	/// This function makes all the draw, loop, and simulation calls
+	//////////////////////////////////////////////
 	void Do();
+	//////////////////////////////////////////////
+	/// This function does not exist ;)
+	//////////////////////////////////////////////
 	void DoCheatStuff();
+	//////////////////////////////////////////////
+	/// User's call to change the horizontal amount of blocks rendered
+	/// It changes the camera_width on scrollup, and scrolldown
+	//////////////////////////////////////////////
 	void ScrollMap();
 
 
-	dc_effects effects;
 	dc_tracedata TracePlayers(sf::Vector2f a, sf::Vector2f b, int skip);
 
 
@@ -1227,7 +1564,6 @@ struct dc_match
 
 	void CreateMovementMap();
 	void CreateSmallMovementMap(sf::Vector2i vMid, sf::Vector2i siz, sf::Vector2i vTar);
-	dc_botdata BotData[100];
 
 	bool GetKeyStatus(int KEY, bool Continuous);
 

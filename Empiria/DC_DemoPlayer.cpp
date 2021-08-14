@@ -264,7 +264,7 @@ void dc_demo_viewer::Setup()
 {
 	//Begin Match Like Normally
 	Match.DemoRecord = false;
-	Match.Start(500, 500, 100);
+	Match.Start(100);
 	
 	//Player Stuff
 	ProcessDemoData();

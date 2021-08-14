@@ -107,26 +107,26 @@ void dc_match::CreateSmallMovementMap(sf::Vector2i vMid, sf::Vector2i siz, sf::V
 
 void dc_match::BotMoveToPoint(int id)
 {
-	if (BotData[id].move_path.size() <= 0)
-	{
-		if(BotData[id].chest_id != -1)
-		return;
-	}
-	auto next_point = BotData[id].move_path[BotData[id].move_path.size() - 1];
-	auto diff = players[id].vPosition - next_point;
-	auto angle = 180+vec2angle(diff.x, -diff.y);
-	PlayerMove(id, angle);
-	auto distance = GetDistance(diff, sf::Vector2f());
-	if (distance < 0.3)BotData[id].move_path.pop_back();
-	else if (distance > 5)
-	{
-		BotData[id].move_path.clear();
-		BotData[id].chest_id = -1;
-		BotData[id].has_somewhere_to_move = false;
-	}
-	auto trace = map.trace_ray(players[id].vPosition, next_point);
-	if (trace.hit_object)//PlayerShootWeapon(id);
-		BotData[id].move_path.clear();
+
+	//if (BotData[id].move_path.size() <= 0)
+	//{
+	//	return;
+	//}
+	//auto next_point = BotData[id].move_path[BotData[id].move_path.size() - 1];
+	//auto diff = players[id].vPosition - next_point;
+	//auto angle = 180+vec2angle(diff.x, -diff.y);
+	//PlayerMove(id, angle);
+	//auto distance = GetDistance(diff, sf::Vector2f());
+	//if (distance < 0.3)BotData[id].move_path.pop_back();
+	//else if (distance > 5)
+	//{
+	//	BotData[id].move_path.clear();
+	//	BotData[id].chest_id = -1;
+	//	BotData[id].has_somewhere_to_move = false;
+	//}
+	//auto trace = map.trace_ray(players[id].vPosition, next_point);
+	//if (trace.hit_object)//PlayerShootWeapon(id);
+	//	BotData[id].move_path.clear();
 }
 
 
@@ -154,113 +154,113 @@ int dc_match::GetClosestChestIDToPlayer(int player)
 	return chest_id;
 }
 
-void dc_match::BotShouldCalculatePath(int player)
-{
-	if (BotData[player].has_somewhere_to_move == 2)
-	{
-		sf::Vector2i vTar = sf::Vector2i(map.chests[BotData[player].chest_id].vPosition.x, map.chests[BotData[player].chest_id].vPosition.y);
-		sf::Vector2i vMid = sf::Vector2i(players[player].vPosition.x, players[player].vPosition.y);
-		auto dif = vTar - vMid;
-		auto dist = sqrt(dif.x*dif.x + dif.y*dif.y);
-		if (dif.x >= -4 && dif.x <= 4 && dif.y >= -4 && dif.y <= 4)
-		{
-			CreateSmallMovementMap(vMid, sf::Vector2i(18, 18), vTar);
-			std::vector<sf::Vector2f> path;
-			AStar::FindPathSTD(&TMap, path);
-			
-			for (int i = 0; i < path.size(); i++)
-			{
-				BotData[player].move_path.push_back(sf::Vector2f(path[i].x + TMap_Start.x, path[i].y + TMap_Start.y));
-			}
-		}
-		else
-		{
-			auto vPos = (5 * vTar + (int)(dist - 5) * vMid)/(int)dist;
+//void dc_match::BotShouldCalculatePath(int player)
+//{
+//	if (BotData[player].has_somewhere_to_move == 2)
+//	{
+//		sf::Vector2i vTar = sf::Vector2i(map.chests[BotData[player].chest_id].vPosition.x, map.chests[BotData[player].chest_id].vPosition.y);
+//		sf::Vector2i vMid = sf::Vector2i(players[player].vPosition.x, players[player].vPosition.y);
+//		auto dif = vTar - vMid;
+//		auto dist = sqrt(dif.x*dif.x + dif.y*dif.y);
+//		if (dif.x >= -4 && dif.x <= 4 && dif.y >= -4 && dif.y <= 4)
+//		{
+//			CreateSmallMovementMap(vMid, sf::Vector2i(18, 18), vTar);
+//			std::vector<sf::Vector2f> path;
+//			AStar::FindPathSTD(&TMap, path);
+//			
+//			for (int i = 0; i < path.size(); i++)
+//			{
+//				BotData[player].move_path.push_back(sf::Vector2f(path[i].x + TMap_Start.x, path[i].y + TMap_Start.y));
+//			}
+//		}
+//		else
+//		{
+//			auto vPos = (5 * vTar + (int)(dist - 5) * vMid)/(int)dist;
+//
+//
+//			CreateSmallMovementMap(vMid, sf::Vector2i(12, 12), vPos);
+//			std::vector<sf::Vector2f> path;
+//			AStar::FindPathSTD(&TMap, path);
+//
+//			for (int i = 0; i < path.size(); i++)
+//			{
+//				BotData[player].move_path.push_back(sf::Vector2f(path[i].x + TMap_Start.x, path[i].y + TMap_Start.y));
+//			}
+//			BotData[player].has_somewhere_to_move = false;
+//			
+//		}
+//
+//		if (BotData[player].move_path.size() == 0)
+//			BotData[player].move_path.push_back(sf::Vector2f(vTar.x,vTar.y));
+//	}
+//
+//
+//}
+
+//void dc_match::BotSeekChest(int id)
+//{
+//	int chest_id = -1;
+//	float chest_distance = 0.f;
+//	for (int i = 0; i < map.chests.size(); i++)
+//	{
+//		auto chest = map.chests[i];
+//		if (chest.bOpen)continue;
+//		auto dist = GetDistance(players[id].vPosition, chest.vPosition);
+//		if (chest_id == -1)
+//		{
+//			chest_id = i;
+//			chest_distance = dist;
+//		}
+//		else if (dist < chest_distance)
+//		{
+//			chest_id = i;
+//			chest_distance = dist;
+//		}
+//	}
+//	if (chest_id != -1)
+//	{
+//			BotData[id].has_somewhere_to_move = 2;
+//			BotData[id].chest_id = chest_id;
+//			BotShouldCalculatePath(id);
+//
+//	}
+//
+//}
 
 
-			CreateSmallMovementMap(vMid, sf::Vector2i(12, 12), vPos);
-			std::vector<sf::Vector2f> path;
-			AStar::FindPathSTD(&TMap, path);
 
-			for (int i = 0; i < path.size(); i++)
-			{
-				BotData[player].move_path.push_back(sf::Vector2f(path[i].x + TMap_Start.x, path[i].y + TMap_Start.y));
-			}
-			BotData[player].has_somewhere_to_move = false;
-			
-		}
-
-		if (BotData[player].move_path.size() == 0)
-			BotData[player].move_path.push_back(sf::Vector2f(vTar.x,vTar.y));
-	}
-
-
-}
-
-void dc_match::BotSeekChest(int id)
-{
-	int chest_id = -1;
-	float chest_distance = 0.f;
-	for (int i = 0; i < map.chests.size(); i++)
-	{
-		auto chest = map.chests[i];
-		if (chest.bOpen)continue;
-		auto dist = GetDistance(players[id].vPosition, chest.vPosition);
-		if (chest_id == -1)
-		{
-			chest_id = i;
-			chest_distance = dist;
-		}
-		else if (dist < chest_distance)
-		{
-			chest_id = i;
-			chest_distance = dist;
-		}
-	}
-	if (chest_id != -1)
-	{
-			BotData[id].has_somewhere_to_move = 2;
-			BotData[id].chest_id = chest_id;
-			BotShouldCalculatePath(id);
-
-	}
-
-}
-
-
-
-void dc_match::BotGetUsefulWeapon(int id)
-{
-		if (id < 0 || id > 99)return;
-		float current_effectiveness = 0;
-		auto distance = GetDistance(players[id].vPosition, players[BotData[id].target_id].vPosition);
-		if (BotData[id].target_id == -1)distance = 1;
-
-
-		if (players[id].Items[players[id].iSelectedWeapon].bValidated)
-		{
-			current_effectiveness = players[id].Items[players[id].iSelectedWeapon].GetPrimitiveDPS(distance);
-		}
-		float g_ef = current_effectiveness;
-		int g_id = 0;
-		for (int i = 0; i < 5; i++)
-		{
-			if (!players[id].Items[i].bValidated)continue;
-			float effectiveness = players[id].Items[i].GetPrimitiveDPS(distance);
-			if (effectiveness > current_effectiveness)
-			{
-				//PlayerSwapWeapon(id, i);
-				g_id = i;
-				current_effectiveness = effectiveness;
-			}
-		}
-		if (current_effectiveness > g_ef + 5.f)
-		{
-			PlayerSwapWeapon(id, g_id);
-		}
-
-
-}
+//void dc_match::BotGetUsefulWeapon(int id)
+//{
+//		if (id < 0 || id > 99)return;
+//		float current_effectiveness = 0;
+//		auto distance = GetDistance(players[id].vPosition, players[BotData[id].target_id].vPosition);
+//		if (BotData[id].target_id == -1)distance = 1;
+//
+//
+//		if (players[id].Items[players[id].iSelectedWeapon].bValidated)
+//		{
+//			current_effectiveness = players[id].Items[players[id].iSelectedWeapon].GetPrimitiveDPS(distance);
+//		}
+//		float g_ef = current_effectiveness;
+//		int g_id = 0;
+//		for (int i = 0; i < 5; i++)
+//		{
+//			if (!players[id].Items[i].bValidated)continue;
+//			float effectiveness = players[id].Items[i].GetPrimitiveDPS(distance);
+//			if (effectiveness > current_effectiveness)
+//			{
+//				//PlayerSwapWeapon(id, i);
+//				g_id = i;
+//				current_effectiveness = effectiveness;
+//			}
+//		}
+//		if (current_effectiveness > g_ef + 5.f)
+//		{
+//			PlayerSwapWeapon(id, g_id);
+//		}
+//
+//
+//}
 
 
 /*
@@ -346,36 +346,36 @@ bool dc_match::BotHeal(int id)
 
 }
 
-void dc_match::BotDodge(int id,int diff)
-{
-	if (id < 0 || id > 99)return;
-	if (BotData[id].dodge_time_left <= 0.f)
-	{
-		BotData[id].dodge_dir++;
-		BotData[id].dodge_time_left = 0.15f + RandFloat()*0.25f;
-	}
-	else
-	{
-		if (BotData[id].dodge_dir % 2 == 1)
-		{
-
-		}
-		else
-		{
-			int L = (BotData[id].dodge_dir / 2) % 2;
-			float nangle = players[id].fAngle - 90.f;
-			if (L == 0)
-			{
-				nangle += 180.f;
-			}
-			PlayerMove(id, nangle);
-
-		}
-		BotData[id].dodge_time_left -= (float)(diff) / 1000;
-	}
-
-	
-}
+//void dc_match::BotDodge(int id,int diff)
+//{
+//	if (id < 0 || id > 99)return;
+//	if (BotData[id].dodge_time_left <= 0.f)
+//	{
+//		BotData[id].dodge_dir++;
+//		BotData[id].dodge_time_left = 0.15f + RandFloat()*0.25f;
+//	}
+//	else
+//	{
+//		if (BotData[id].dodge_dir % 2 == 1)
+//		{
+//
+//		}
+//		else
+//		{
+//			int L = (BotData[id].dodge_dir / 2) % 2;
+//			float nangle = players[id].fAngle - 90.f;
+//			if (L == 0)
+//			{
+//				nangle += 180.f;
+//			}
+//			PlayerMove(id, nangle);
+//
+//		}
+//		BotData[id].dodge_time_left -= (float)(diff) / 1000;
+//	}
+//
+//	
+//}
 /*
 void dc_match::BotThink(int id, int diff)
 {
@@ -565,7 +565,6 @@ void dc_match::BotCalculatePath(int player, sf::Vector2f Target)
 				{
 					BotData[player].move_path.push_back(sf::Vector2f(path[i].x + TMap_Start.x, path[i].y + TMap_Start.y));
 				}
-				BotData[player].has_somewhere_to_move = false;
 				break;
 			}
 			else Size += 12;
@@ -592,8 +591,6 @@ void dc_match::BotMoveToNextPoint(int id, float difftime)
 	else if (distance > 5)
 	{
 		BotData[id].move_path.clear();
-		BotData[id].chest_id = -1;
-		BotData[id].has_somewhere_to_move = false;
 	}
 	auto trace = map.trace_ray(players[id].vPosition, next_point);
 	if (trace.hit_object)//PlayerShootWeapon(id);
@@ -1580,7 +1577,7 @@ float dc_match::BotFindBestBailAngle(int id)
 		BadAngles.push_back(Angle);
 	}
 
-	if (GetDistance(players[id].vPosition, GetCurrentStormMiddle()) > (0.5f*GetCurrentStormRadius() - 50.f))
+	if (GetDistance(players[id].vPosition, GetCurrentStormMiddle()) > (0.5f*GetCurrentStormDiameter() - 50.f))
 	{
 		auto DiffVec = players[id].vPosition - GetCurrentStormMiddle();
 		float Angle = vec2angle(DiffVec.x, -DiffVec.y);
@@ -2013,19 +2010,19 @@ bool dc_match::BotShouldGoToZone(int id)
 	else if (BotData[id].BotZoneFearLevel == 1)
 	{
 		auto Mid = GetCurrentStormMiddle();
-		auto Size = GetCurrentStormRadius();
+		auto Size = GetCurrentStormDiameter();
 
 		return GetDistance(Mid, players[id].vPosition) > (Size/2-10);
 	}
 	else if (BotData[id].BotZoneFearLevel == 2)
 	{
 		auto Mid = GetNextStormMiddle();
-		auto Size = GetNextStormRadius();
+		auto Size = GetNextStormDiameter();
 		float time_to_get_in_there = max(0.f, GetDistance(Mid, players[id].vPosition) - Size / 2) / (UNIT_RUN_SPEED*0.8f);
 		float time_till_close = max(0.00f,GetTimeTillNextStormPhase()-0.25f-BotData[id].fBotThinkDelay);
 
 		auto cuMid = GetCurrentStormMiddle();
-		auto cuSize = GetCurrentStormRadius();
+		auto cuSize = GetCurrentStormDiameter();
 
 		if (GetDistance(cuMid, players[id].vPosition) >= (cuSize / 2 - 0.5f))return true;
 
@@ -2034,12 +2031,12 @@ bool dc_match::BotShouldGoToZone(int id)
 	else if (BotData[id].BotZoneFearLevel == 3)
 	{
 		auto Mid = GetNextStormMiddle();
-		auto Size = GetNextStormRadius();
+		auto Size = GetNextStormDiameter();
 		float time_to_get_in_there = max(0.f, GetDistance(Mid, players[id].vPosition) - Size / 2) / (UNIT_RUN_SPEED*0.8f);
 		float time_till_close = max(0.00f, GetTimeTillNextStormPhase() - 0.25f - BotData[id].fBotThinkDelay)-20.f;
 
 		auto cuMid = GetCurrentStormMiddle();
-		auto cuSize = GetCurrentStormRadius();
+		auto cuSize = GetCurrentStormDiameter();
 
 		if (GetDistance(cuMid, players[id].vPosition) >= (cuSize / 2 - 0.5f))return true;
 
@@ -2048,12 +2045,12 @@ bool dc_match::BotShouldGoToZone(int id)
 	else if (BotData[id].BotZoneFearLevel == 4)
 	{
 		auto Mid = GetNextStormMiddle();
-		auto Size = GetNextStormRadius();
+		auto Size = GetNextStormDiameter();
 		float time_to_get_in_there = max(0.f, GetDistance(Mid, players[id].vPosition) - Size / 2) / (UNIT_RUN_SPEED*0.8f);
 		float time_till_close = max(0.00f, GetTimeTillNextStormPhase() - 0.25f - BotData[id].fBotThinkDelay) - 60.f;
 
 		auto cuMid = GetCurrentStormMiddle();
-		auto cuSize = GetCurrentStormRadius();
+		auto cuSize = GetCurrentStormDiameter();
 
 		if (GetDistance(cuMid, players[id].vPosition) >= (cuSize / 2 - 0.5f))return true;
 
@@ -2067,7 +2064,7 @@ void dc_match::BotGoToZone(int id)
 {
 	//if (BotData[id].Changables.DistantTargetType == 3)return;
 	auto Mid = GetNextStormMiddle();
-	auto Size = GetNextStormRadius();
+	auto Size = GetNextStormDiameter();
 	float distance = max(0.f, GetDistance(Mid, players[id].vPosition) - Size / 2);
 
 	if (distance > 0.f)
@@ -2418,7 +2415,7 @@ void dc_match::BotRaid(int id)
 {
 	if (BotData[id].Changables.DistantTargetType == 4)return;
 	auto nextStormMid = GetNextStormMiddle();
-	auto nextStormRadius = GetNextStormRadius() / 2;
+	auto nextStormRadius = GetNextStormDiameter() / 2;
 	nextStormRadius = min(nextStormRadius, 300.f);
 	sf::Vector2f nPoint(6000, 6000);
 	auto distanceFromNextStorm = max(0,GetDistance(players[id].vPosition, nextStormMid) - nextStormRadius);
