@@ -20,13 +20,11 @@ h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': for
 h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
 h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
 DC_Botdata.cpp(138): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(291): warning C4804: '>': unsafe use of type 'bool' in operation
 DC_Botdata.cpp(522): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 DC_Botdata.cpp(523): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 DC_Botdata.cpp(564): warning C4018: '<': signed/unsigned mismatch
 DC_Botdata.cpp(677): warning C4018: '<': signed/unsigned mismatch
 DC_Botdata.cpp(700): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-DC_Botdata.cpp(767): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 DC_Botdata.cpp(769): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 DC_Botdata.cpp(769): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 DC_Botdata.cpp(770): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
@@ -82,24 +80,24 @@ DC_Botdata.cpp(1716): warning C4800: 'int': forcing value to bool 'true' or 'fal
 DC_Botdata.cpp(1721): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
 DC_Botdata.cpp(1723): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
 DC_Botdata.cpp(1827): warning C4800: 'int *': forcing value to bool 'true' or 'false' (performance warning)
-DC_Botdata.cpp(2182): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2220): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2303): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2348): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2361): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2375): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2399): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2181): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2219): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2302): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2347): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2360): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2374): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2398): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2425): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 DC_Botdata.cpp(2426): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(2427): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-DC_Botdata.cpp(2428): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-DC_Botdata.cpp(2438): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2537): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2607): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2660): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2684): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2716): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2731): warning C4018: '<': signed/unsigned mismatch
-DC_Botdata.cpp(2815): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Botdata.cpp(2427): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Botdata.cpp(2437): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2536): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2606): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2659): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2683): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2715): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2730): warning C4018: '<': signed/unsigned mismatch
+DC_Botdata.cpp(2814): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 h:\codes\daicastle 2d\base\empiria\includes.h(326): warning C4018: '<': signed/unsigned mismatch
   DC_Botdata.cpp(1534): note: see reference to function template instantiation 'int GetIndex<int>(std::vector<int,std::allocator<_Ty>> &,Ty)' being compiled
           with
@@ -129,9 +127,9 @@ h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/
 h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
 main.cpp(56): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Generating code
-  430 of 5428 functions ( 7.9%) were compiled, the rest were copied from previous compilation.
-    3 functions were new in current compilation
-    178 functions had inline decision re-evaluated but remain unchanged
+  6 of 5428 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    33 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Empiria.vcxproj -> H:\Codes\DaiCastle 2D\Base\Release\DaiCastle.exe
   Empiria.vcxproj -> H:\Codes\DaiCastle 2D\Base\Release\DaiCastle.pdb (Full PDB)

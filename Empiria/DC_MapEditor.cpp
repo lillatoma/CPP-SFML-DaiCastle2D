@@ -95,6 +95,7 @@ void dc_mapeditor::__debug_draw_label_circles()
 void dc_mapeditor::DrawAll()
 {
 	map.draw(vecCamera.x, vecCamera.y, camera_width);
+	DrawForSelectedMode();
 	DrawUI();
 	if (show_minimap) {
 		map.show_minimap(vecCamera.x, vecCamera.y, camera_width, false,sf::Vector2f(500,500),2000);
@@ -162,7 +163,7 @@ void dc_mapeditor::Control()
 void dc_mapeditor::DrawUI()
 {
 
-	DrawSelectedBox();
+
 	IWindow::RenderOverlay(0, 0, 1280, 32, 192, 192, 192, 255);
 	IWindow::RenderOverlay(1000, 32, 280, 688, 192, 192, 192, 255);
 
@@ -264,7 +265,7 @@ void dc_mapeditor::DrawUI()
 
 }
 
-void dc_mapeditor::DrawSelectedBox()
+void dc_mapeditor::DrawForSelectedMode()
 {
 	if (mode == 0 || mode == 4)
 	{

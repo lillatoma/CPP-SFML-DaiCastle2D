@@ -1034,7 +1034,7 @@ struct dc_match
 	int vCameraPlayerLock = 0;
 
 	dc_effects effects;
-	dc_botdata BotData[100]; //0 is empty as the player is not controlled by the computer
+	dc_botdata BotData[100]; //0 is unused as the player is not controlled by the computer
 
 
 	void Demo_SnapshotUpdateProjectileAdd(sf::Vector2f spawn, float angle, float projspeed);
@@ -1306,7 +1306,8 @@ struct dc_match
 	//////////////////////////////////////////////
 	void ClearUnreachableItems();
 	//////////////////////////////////////////////
-	/// Checks if a player is about to hit a wall
+	/// Checks if a unit with ID 'i' is about to hit a wall in 't' time
+	/// If it is, it nulls the velocity vector of unit with ID 'i'
 	/// TODO: Player collisions
 	//////////////////////////////////////////////
 	void CheckCollisions(int i, float t);
@@ -1474,100 +1475,360 @@ struct dc_match
 	//////////////////////////////////////////////
 	void ScrollMap();
 
-
+	//////////////////////////////////////////////
+	/// Traces a ray from 'a' to 'b' and checks if it hits a unit
+	/// 'skip' is the id of a unit to be skipped (origin of ray)
+	/// Returns all effective data
+	//////////////////////////////////////////////
 	dc_tracedata TracePlayers(sf::Vector2f a, sf::Vector2f b, int skip);
 
-
+	//////////////////////////////////////////////
+	/// Gives all the bots names based on their difficulties
+	/// Files:
+	/// Easy bots: BotNamesEasy.txt
+	/// Normal bots: BotNamesNormal.txt
+	/// Hard bots: BotNamesHard.txt
+	/// Expert bots: BotNamesExpert.txt
+	/// On the first call of the function, it loads these .txt files into the memory
+	/// Any changes in these files after the first call will only take place after a restart
+	//////////////////////////////////////////////
 	void BotGiveNames();
+	//////////////////////////////////////////////
+	/// Hard-coded.
+	/// Sets up all bot information in some given random ranges
+	//////////////////////////////////////////////
 	void BotBegin(int easyCase, int normalCase, int hardCase, int expertCase);
+	//////////////////////////////////////////////
+	/// If the bus has been travelling longer than the bot's jumpofftime
+	/// It makes the bot jump off the bus (bot is with id 'id')
+	//////////////////////////////////////////////
 	void BotJumpoffBus(int id);
-	void BotDescend(int id, float diff); //Only descends when should
+	//////////////////////////////////////////////
+	/// The bot with 'id' starts descending if it's close to its landing location
+	/// 'diff' is for time difference in ms since the last frame
+	//////////////////////////////////////////////
+	void BotDescend(int id, float diff); 
+	//////////////////////////////////////////////
+	/// Moves the bot closer to its landing destination, ignoring every wall
+	/// It also turns the bot towards its landing destination (diff is in milliseconds)
+	//////////////////////////////////////////////
 	void BotFreefallMove(int id, float diff);
+	//////////////////////////////////////////////
+	/// Moves the bot closer to its landing destination, calculated with walls
+	/// It also turns the bot towards its landing destination (diff is in milliseconds)
+	//////////////////////////////////////////////
 	void BotLowFreefallMove(int id,float diff);
+	//////////////////////////////////////////////
+	/// Calculates path to Target
+	/// To save on computing, the Target gets moved into a 15x15 area that only is set up by the bot's surroundings
+	/// This save on computing might cause the bots to zigzag behind walls
+	//////////////////////////////////////////////
 	void BotCalculatePath(int id, sf::Vector2f Target);
+	//////////////////////////////////////////////
+	/// If the path is calculated, it moves the bot towards the next movepath-point
+	/// It also turns the bot towards its landing destination (diff is in milliseconds)
+	//////////////////////////////////////////////
 	void BotMoveToNextPoint(int id, float diff);
+	//////////////////////////////////////////////
+	/// Checks if the bot has enough health, all the preferred weapons and enough healing items
+	/// If one of these conditions isn't met, the function returns true
+	/// Otherwise it returns false
+	//////////////////////////////////////////////
 	bool BotNeedsToLoot(int id);
+	//////////////////////////////////////////////
+	/// Checks the open chests in the chestrange of the bot's unit
+	/// Takes them off from the remaining chest list
+	/// This function only works after a second has passed after it's last proper call
+	/// 'force_it', if it's true, makes the function run even if a second hasn't elapsed after the last proper call
+	//////////////////////////////////////////////
 	void BotCheckOpenChests(int id, bool force_it);
+	//////////////////////////////////////////////
+	/// Returns the index of the closest chest to the bot's unit (if it's not knowingly open)
+	//////////////////////////////////////////////
 	int BotGetClosestChest(int id);
+	//////////////////////////////////////////////
+	/// Sets up a goal to open the closest chest for the bot
+	//////////////////////////////////////////////
 	void BotLoot(int id);
+	//////////////////////////////////////////////
+	/// Returns the weapon-slot index for an with ListIndex 'listid' if the item is needed
+	/// Returns -1 if the item is not needed
+	//////////////////////////////////////////////
 	int BotIsNeededItem(int id, int itemlistid);
+	//////////////////////////////////////////////
+	/// Sorts the inventory of the bot to minimalize the sum of differences on the list of preferred weapons compared to the good enough item id 
+	//////////////////////////////////////////////
 	void BotSortInventory(int id);
+	//////////////////////////////////////////////
+	/// Checks if the bot should heal
+	/// It returns 0, if the bot shouldn't
+	/// It returns 1, if the bot should heal, but doesn't have the necessary healing item
+	/// It returns 2, if the bot should heal and has the healing item
+	/// If the bot's in storm, it tries to minimalize healing item uses
+	//////////////////////////////////////////////
 	int BotShouldHeal(int id);
+	//////////////////////////////////////////////
+	/// If the bot isn't fighting, it makes the bot use a healing item
+	//////////////////////////////////////////////
 	void BotDoHeal(int id);
+	//////////////////////////////////////////////
+	/// When a healing item is completely used, it changes the bHealing flag to false
+	/// Checks if a noticed player has gone out of range
+	/// Checks if a targeted player has gone out of sight. (This means that the targeted player is in the playerrange, but is not directly visible))
+	/// Resets bail-distance if there wasn't a bail for more than 30 seconds
+	/// Resets movepath in case of storm and bailing when it should
+	//////////////////////////////////////////////
 	void BotCheckStuff(int id, float diff);
+	//////////////////////////////////////////////
+	/// Checks if the bot should move to zone
+	/// Short: bz for BotZoneFearLevel
+	/// if bz is 0, the bot only goes to zone, if it's directly in the storm
+	/// if bz is 1, the bot only goes to zone, if it's closer to the storm than 10 blocks
+	/// if bz is 2, the bot goes to zone in time
+	/// if bz is 3, the bot goes to zone early
+	/// if bz is 4, the bot goes to zone very early
+	//////////////////////////////////////////////
 	bool BotShouldGoToZone(int id);
+	//////////////////////////////////////////////
+	/// Sets up a goal to a point that is in the zone
+	//////////////////////////////////////////////
 	void BotGoToZone(int id);
+	//////////////////////////////////////////////
+	/// Calculates the path towards the goal, if there is no path
+	/// If there is a path, it moves the bot on the path
+	/// This function calls actions, in case the bot reaches the final destination
+	//////////////////////////////////////////////
 	void BotDoTheMove(int id, float diff);
+	//////////////////////////////////////////////
+	/// Calculates the path towards the goal, if there is no path
+	/// If there is a path, it moves the bot on the path
+	//////////////////////////////////////////////
 	void BotDoTheMoveInFight(int id, float diff);
+	//////////////////////////////////////////////
+	/// Checks if there is a needed item in the item-range of the bot
+	/// Returns the weapon-index of the item
+	//////////////////////////////////////////////
 	int BotHasItemNearby(int id);
+	//////////////////////////////////////////////
+	/// Checks if there is a needed healingitem in the item-range of the bot
+	/// Returns the weapon-index of the item
+	//////////////////////////////////////////////
 	int BotHasForceHealNearby(int id);
 
-
+	//////////////////////////////////////////////
+	/// Sets up a goal to the position of an item with index 'itemid'
+	/// 'force' should be nonzero for force-healing
+	//////////////////////////////////////////////
 	void BotGoToTheItem(int id, int itemid, int force = 0);
+	//////////////////////////////////////////////
+	/// Returns true if a healing item with ListIndex 'listid' is usable according to the current health and armor values
+	/// Returns false if not
+	//////////////////////////////////////////////
 	bool BotCheckHeal(int id, int listid);
+	//////////////////////////////////////////////
+	/// Returns if the bot has no goal
+	//////////////////////////////////////////////
 	bool BotCanRaid(int id) { return BotData[id].Changables.DistantTargetType == 0; }
+	//////////////////////////////////////////////
+	/// Finds a location in the next storm phase that is in the zone
+	/// Sets up a goal to this location
+	//////////////////////////////////////////////
 	void BotRaid(int id);
+	//////////////////////////////////////////////
+	/// Swaps to the item that is best at the bot's preferred JustInCase range
+	//////////////////////////////////////////////
 	void BotSwapToJustInCaseWeapon(int id);
+	//////////////////////////////////////////////
+	/// Swaps to the item that is best at the distance towards the target
+	/// To prevent abusing the weapon swaps (moving in and out to constantly keep the bot swapping weapons)
+	/// There is a percent how much the new item has to be better in order to swap the weapon
+	//////////////////////////////////////////////
 	void BotSwapWeaponInFight(int id);
+	//////////////////////////////////////////////
+	/// Swaps to the item that is best at the distance towards bot's closest noticed player
+	//////////////////////////////////////////////
 	void BotSwapToEmergencyWeapon(int id);
+	//////////////////////////////////////////////
+	/// Rotates the bot to 'neededang'
+	/// 'speed' is the turning speed
+	/// 'corr' is the correctness
+	/// 'diff' is the time since the last frame
+	//////////////////////////////////////////////
 	void BotCorrectAngleNew(int id, float diff, float neededang, float speed, float corr);
+	//////////////////////////////////////////////
+	/// Checks if there is another player in the bot's player-range
+	/// It puts them into the NoticedPlayers list (they only get noticed after NoticeTime time passes)
+	/// If enough time passes, it puts the noticed players into the TargetedPlayers list
+	//////////////////////////////////////////////
 	void BotNoticePlayers(int id);
+	//////////////////////////////////////////////
+	/// Checks if the bot has a weapon that can deal damage at range 'range'
+	/// Returns true if there is, false if there isn't
+	//////////////////////////////////////////////
 	bool BotHasUsableWeapon(int id, float range);
+	//////////////////////////////////////////////
+	/// Returns if there is another player that has been in range for enough time to get noticed
+	//////////////////////////////////////////////
 	bool BotHasRealNoticed(int id) { return BotData[id].Changables.NoticedPlayerIDs.size() > 0 && BotData[id].Changables.NoticedPlayers[0].NoticeTime.GetDiff() > 1000.f*BotData[id].fEnemyNoticeTime; }
+	//////////////////////////////////////////////
+	/// Returns if there is another player that has been visible for enough time to get targetted
+	//////////////////////////////////////////////
 	bool BotHasRealTarget(int id);
+	//////////////////////////////////////////////
+	/// Returns if the bot should bail if it's not in fight yet
+	//////////////////////////////////////////////
 	bool BotShouldBailOffFight(int id);
+	//////////////////////////////////////////////
+	/// Returns the best angle to bail to calculated with all nearby players
+	/// Note: Could not be the best angle, but seems good
+	//////////////////////////////////////////////
 	float BotFindBestBailAngle(int id);
+	//////////////////////////////////////////////
+	/// Sets up a goal to a location towards the best bail angle
+	//////////////////////////////////////////////
 	void BotBailOffFight(int id);
+	//////////////////////////////////////////////
+	/// Returns if the bot has enough health to rush another player nearby
+	//////////////////////////////////////////////
 	bool BotShouldRushOpponent(int id);
+	//////////////////////////////////////////////
+	/// Sets up a goal to a location towards the closest player
+	//////////////////////////////////////////////
 	void BotRushOpponent(int id);
+	//////////////////////////////////////////////
+	/// Aims towards the first targeted player on the targetlist
+	/// 'diff' is the time passed since the last frame
+	//////////////////////////////////////////////
 	void BotAimOnTarget(int id, float diff);
+	//////////////////////////////////////////////
+	/// Does left and right movement with small delays
+	//////////////////////////////////////////////
 	void BotDoDodge(int id);
+	//////////////////////////////////////////////
+	/// Returns if the bot should bail if it's in a fight
+	//////////////////////////////////////////////
 	bool BotShouldBailInFight(int id);
+	//////////////////////////////////////////////
+	/// Sets up a goal to a location towards the best bail angle
+	//////////////////////////////////////////////
 	void BotBailInFight(int id);
+	//////////////////////////////////////////////
+	/// If the bot is not bailing, it clears movepath
+	//////////////////////////////////////////////
 	void BotClearUnnecesaryMovepathInFight(int id);
+	//////////////////////////////////////////////
+	/// Returns if the bot's target is in the bot's precision angle-territory
+	//////////////////////////////////////////////
 	bool BotShouldShootWeapon(int id);
+	//////////////////////////////////////////////
+	/// Shoots the weapon with a small inaccuracy
+	//////////////////////////////////////////////
 	void BotShoot(int id);
+	//////////////////////////////////////////////
+	/// If the movepath can't be calculated, the bot shoots at the direction of movepath to clear obstacles
+	//////////////////////////////////////////////
 	void BotRemoveObstacle(int id, float diff);
+	//////////////////////////////////////////////
+	/// Checks if a weapon can be reloaded
+	/// If a weapon can be reloaded, it reloads the weapon and returns true
+	/// It returns false otherwise
+	//////////////////////////////////////////////
 	bool BotReloadWeapons(int id);
+	//////////////////////////////////////////////
+	/// Returns the distance from a to b with respect to the aspect ratio
+	/// This is used so the bot can only see in the aspect ratio as the player
+	//////////////////////////////////////////////
 	float GetBotModifiedDistance(sf::Vector2f a, sf::Vector2f b);
+	//////////////////////////////////////////////
+	/// Returns if the closest airdrop is in the bot's interest range
+	//////////////////////////////////////////////
 	bool BotShouldCoverAirDrop(int id);
+	//////////////////////////////////////////////
+	/// Returns if the closest already fallen airdrop is in the bot's interest range
+	//////////////////////////////////////////////
 	bool BotShouldGetAirDrop(int id);
+	//////////////////////////////////////////////
+	/// Sets a goal to move to a random point near the airdrop
+	//////////////////////////////////////////////
 	void BotCoverAirDrop(int id);
+	//////////////////////////////////////////////
+	/// Sets a goal to move to the airdrop
+	//////////////////////////////////////////////
 	void BotGetAirDrop(int id);
 
 	//TODO: Bot More Memory
 
 
-	void BotDodge(int id, int diff);
-	void BotPickupNearbyLoot(int id);
-	void BotSeekChest(int id);
-	void BotAttack(int id);
-	void BotCorrectAngle(int id, int diff);
-	void BotGetUsefulWeapon(int id);
+	//////////////////////////////////////////////
+	/// This function is the logic tree of the bot
+	//////////////////////////////////////////////
 	void BotThink(int id, float diff);
-	void BotMoveToPoint(int id);
-	void BotShouldCalculatePath(int id);
-	bool BotHeal(int id);
-	bool BotReload(int id);
-	void BotCorrectAngle(int id, float angle, int diff);
 
+	//void BotMoveToPoint(int id);
+	//bool BotHeal(int id);
+
+	//////////////////////////////////////////////
+	/// Returns the indexes of players sorted in a descending order of elimination numbers 
+	//////////////////////////////////////////////
 	std::vector<int> GetKillLeaders();
+
 	void PrintAllWeaponDPS();
+
+	//////////////////////////////////////////////
+	/// Returns the ID of an alive player with the lowest ID
+	//////////////////////////////////////////////
 	int GetLowestPlayerID();
+	//////////////////////////////////////////////
+	/// Returns the number of alive players
+	//////////////////////////////////////////////
 	int GetAlivePlayers();
+	//////////////////////////////////////////////
+	/// Returns the ID of the closest chest to the player with index 'pl'
+	//////////////////////////////////////////////
 	int GetClosestChestIDToPlayer(int pl);
+	//////////////////////////////////////////////
+	/// Returns the ID of the closest chest to the position 'pos'
+	//////////////////////////////////////////////
 	int GetClosestChestToPosition(sf::Vector2f pos);
+	//////////////////////////////////////////////
+	/// Returns the number of unopened chests
+	//////////////////////////////////////////////
 	int GetAvailableChestNumber();
+	//////////////////////////////////////////////
+	/// Returns an array of unopened chest that are at maximum 'radius' distance from 'Mid'
+	//////////////////////////////////////////////
 	std::vector<int> GetAvailableChests(sf::Vector2f Mid, float radius);
+	//////////////////////////////////////////////
+	/// Returns the ID of the closest chest to the position 'Mid' skipping all the indexes from 'Exceptions'
+	//////////////////////////////////////////////
 	int GetClosestChestWithExceptions(sf::Vector2f Mid, std::vector<int> Exceptions);
+	//////////////////////////////////////////////
+	/// Returns if the point 'p' is in the storm/out of the zone
+	//////////////////////////////////////////////
 	float IsPointInStorm(sf::Vector2f p);
 
+	//////////////////////////////////////////////
+	/// Creates the map for pathfinding with the whole map
+	/// Should only be used with beafy computers or small maps
+	//////////////////////////////////////////////
 	void CreateMovementMap();
+	//////////////////////////////////////////////
+	/// Creates the map for pathfinding with a small section of the map
+	/// Should only be used with beafy computers or small maps
+	/// 'vMid' is the middlepoint or startpoint
+	/// 'siz' defines the size of the map
+	/// 'vTar' is the targetpoint
+	//////////////////////////////////////////////
 	void CreateSmallMovementMap(sf::Vector2i vMid, sf::Vector2i siz, sf::Vector2i vTar);
-
+	//////////////////////////////////////////////
+	/// Returns if the button for action 'KEY' has been pressed
+	/// 'Continuous' checks for longer presses
+	//////////////////////////////////////////////
 	bool GetKeyStatus(int KEY, bool Continuous);
 
-
+	//////////////////////////////////////////////
+	/// Bounces an object with directionvector 'inDirVector' back from a wall that has endpoints 'wallA' and 'wallB'
+	//////////////////////////////////////////////
 	sf::Vector2f Bounce(sf::Vector2f inDirVector, sf::Vector2f wallA, sf::Vector2f wallB);
 
 private:
@@ -1591,30 +1852,86 @@ struct dc_mapeditor
 
 	dc_label label;
 
-
+	//////////////////////////////////////////////
+	/// Manages the drawing function for textures
+	/// With mode 4, this is used as a paint bucket tool
+	//////////////////////////////////////////////
 	void TextureBrush();
+	//////////////////////////////////////////////
+	/// Manages the creating function for walls
+	//////////////////////////////////////////////
 	void LineBrush();
+	//////////////////////////////////////////////
+	/// Manages the creating function for chests
+	//////////////////////////////////////////////
 	void ChestBrush();
+	//////////////////////////////////////////////
+	/// Manages the creating function for POIs
+	//////////////////////////////////////////////
 	void LabelBrush();
+	//////////////////////////////////////////////
+	/// If LMB is pressed, it copies the texture of the block under the cursor
+	//////////////////////////////////////////////
 	void CopyTexture();
+	//////////////////////////////////////////////
+	/// Used to change the given name for a POI (that will be created later)
+	//////////////////////////////////////////////
 	void LabelEdit();
 	
 
-
-	void DrawSelectedBox();
+	//////////////////////////////////////////////
+	/// This function draws the necessary elements for all edit modes
+	/// Draws a box for texture mode and paint bucket mode
+	/// Draws a line for wall mode
+	/// Draws a chest for chest mode
+	/// TODO: Draw something for label mode too, to visualize the POI edge
+	//////////////////////////////////////////////
+	void DrawForSelectedMode();
+	//////////////////////////////////////////////
+	/// Draws the entire UI
+	//////////////////////////////////////////////
 	void DrawUI();
+	//////////////////////////////////////////////
+	/// Draws the map, the elements for the selected mode, and the UI
+	//////////////////////////////////////////////
 	void DrawAll();
+	//////////////////////////////////////////////
+	/// Calls all the brush, edit and drawing functions
+	//////////////////////////////////////////////
 	void Do();
+	//////////////////////////////////////////////
+	/// User's call to move around with the map
+	//////////////////////////////////////////////
 	void Control();
+	//////////////////////////////////////////////
+	/// Loads the map, but better
+	//////////////////////////////////////////////
 	void Start();
+	//////////////////////////////////////////////
+	/// Moves m times in the texture list
+	//////////////////////////////////////////////
 	void MoveTexture(int m);
+	//////////////////////////////////////////////
+	/// Changes the health of the walls placed by wall brush
+	//////////////////////////////////////////////
 	void MoveHealth(int n);
 	void PaintBrush();
+	//////////////////////////////////////////////
+	/// Paint Bucket tool
+	//////////////////////////////////////////////
 	void PaintBrushPart(int x, int y, bool initiator);
 	void __debug_draw_label_circles();
-
+	//////////////////////////////////////////////
+	/// Draws a cool saving overlay to show the process of saving
+	//////////////////////////////////////////////
 	static void DrawSaveScreen(char* name, float percent);
+	//////////////////////////////////////////////
+	/// Saves the map
+	//////////////////////////////////////////////
 	void Save();
+	//////////////////////////////////////////////
+	/// Loads the map
+	//////////////////////////////////////////////
 	void Load();
 
 };

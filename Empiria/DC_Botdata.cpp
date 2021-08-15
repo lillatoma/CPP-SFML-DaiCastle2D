@@ -105,29 +105,29 @@ void dc_match::CreateSmallMovementMap(sf::Vector2i vMid, sf::Vector2i siz, sf::V
 
 
 
-void dc_match::BotMoveToPoint(int id)
-{
-
-	//if (BotData[id].move_path.size() <= 0)
-	//{
-	//	return;
-	//}
-	//auto next_point = BotData[id].move_path[BotData[id].move_path.size() - 1];
-	//auto diff = players[id].vPosition - next_point;
-	//auto angle = 180+vec2angle(diff.x, -diff.y);
-	//PlayerMove(id, angle);
-	//auto distance = GetDistance(diff, sf::Vector2f());
-	//if (distance < 0.3)BotData[id].move_path.pop_back();
-	//else if (distance > 5)
-	//{
-	//	BotData[id].move_path.clear();
-	//	BotData[id].chest_id = -1;
-	//	BotData[id].has_somewhere_to_move = false;
-	//}
-	//auto trace = map.trace_ray(players[id].vPosition, next_point);
-	//if (trace.hit_object)//PlayerShootWeapon(id);
-	//	BotData[id].move_path.clear();
-}
+//void dc_match::BotMoveToPoint(int id)
+//{
+//
+//	//if (BotData[id].move_path.size() <= 0)
+//	//{
+//	//	return;
+//	//}
+//	//auto next_point = BotData[id].move_path[BotData[id].move_path.size() - 1];
+//	//auto diff = players[id].vPosition - next_point;
+//	//auto angle = 180+vec2angle(diff.x, -diff.y);
+//	//PlayerMove(id, angle);
+//	//auto distance = GetDistance(diff, sf::Vector2f());
+//	//if (distance < 0.3)BotData[id].move_path.pop_back();
+//	//else if (distance > 5)
+//	//{
+//	//	BotData[id].move_path.clear();
+//	//	BotData[id].chest_id = -1;
+//	//	BotData[id].has_somewhere_to_move = false;
+//	//}
+//	//auto trace = map.trace_ray(players[id].vPosition, next_point);
+//	//if (trace.hit_object)//PlayerShootWeapon(id);
+//	//	BotData[id].move_path.clear();
+//}
 
 
 
@@ -284,67 +284,67 @@ void dc_match::BotAttack(int id)
 
 }
 */
-bool dc_match::BotReload(int id)
-{
-	for (int i = 0; i < 5; i++)
-	{
-		if (players[id].Items[i].bValidated && !players[id].Items[i].iType > 3 && players[id].Items[i].iBullets < players[id].Items[i].iMaxBullets)
-		{
-			PlayerSwapWeapon(id, i);
-			PlayerReloadWeapon(id);
-			return true;
-		}
-	}
-	return false;
-}
+//bool dc_match::BotReload(int id)
+//{
+//	for (int i = 0; i < 5; i++)
+//	{
+//		if (players[id].Items[i].bValidated && !players[id].Items[i].iType > 3 && players[id].Items[i].iBullets < players[id].Items[i].iMaxBullets)
+//		{
+//			PlayerSwapWeapon(id, i);
+//			PlayerReloadWeapon(id);
+//			return true;
+//		}
+//	}
+//	return false;
+//}
 
-bool dc_match::BotHeal(int id)
-{
-	if(players[id].iHealth + players[id].iShield < 200 && players[id].fReloadDelay <= 0.f)
-	for (int i = 0; i < 5; i++)
-	{
-		if (!players[id].Items[i].bValidated)continue;
-
-		if (players[id].iHealth < 75 && players[id].Items[i].id == 1000)
-		{
-			PlayerSwapWeapon(id,i);
-			PlayerShootWeapon(id);
-			return true;
-		}
-		if (players[id].iHealth < 100 && players[id].Items[i].id == 1001)
-		{
-			PlayerSwapWeapon(id,i);
-			PlayerShootWeapon(id);
-			return true;
-		}
-		if (players[id].iShield < 50 && players[id].Items[i].id == 1004)
-		{
-			PlayerSwapWeapon(id,i);
-			PlayerShootWeapon(id);
-			return true;
-		}
-		if (players[id].iHealth + players[id].iShield < 150 && players[id].Items[i].id == 1002)
-		{
-			PlayerSwapWeapon(id,i);
-			PlayerShootWeapon(id);
-			return true;
-		}
-		if (players[id].iShield < 100 && players[id].Items[i].id == 1003)
-		{
-			PlayerSwapWeapon(id,i);
-			PlayerShootWeapon(id);
-			return true;
-		}
-		if (players[id].iHealth + players[id].iShield < 150 && players[id].Items[i].id == 1005)
-		{
-			PlayerSwapWeapon(id,i);
-			PlayerShootWeapon(id);
-			return true;
-		}
-	}
-	return false;
-
-}
+//bool dc_match::BotHeal(int id)
+//{
+//	if(players[id].iHealth + players[id].iShield < 200 && players[id].fReloadDelay <= 0.f)
+//	for (int i = 0; i < 5; i++)
+//	{
+//		if (!players[id].Items[i].bValidated)continue;
+//
+//		if (players[id].iHealth < 75 && players[id].Items[i].id == 1000)
+//		{
+//			PlayerSwapWeapon(id,i);
+//			PlayerShootWeapon(id);
+//			return true;
+//		}
+//		if (players[id].iHealth < 100 && players[id].Items[i].id == 1001)
+//		{
+//			PlayerSwapWeapon(id,i);
+//			PlayerShootWeapon(id);
+//			return true;
+//		}
+//		if (players[id].iShield < 50 && players[id].Items[i].id == 1004)
+//		{
+//			PlayerSwapWeapon(id,i);
+//			PlayerShootWeapon(id);
+//			return true;
+//		}
+//		if (players[id].iHealth + players[id].iShield < 150 && players[id].Items[i].id == 1002)
+//		{
+//			PlayerSwapWeapon(id,i);
+//			PlayerShootWeapon(id);
+//			return true;
+//		}
+//		if (players[id].iShield < 100 && players[id].Items[i].id == 1003)
+//		{
+//			PlayerSwapWeapon(id,i);
+//			PlayerShootWeapon(id);
+//			return true;
+//		}
+//		if (players[id].iHealth + players[id].iShield < 150 && players[id].Items[i].id == 1005)
+//		{
+//			PlayerSwapWeapon(id,i);
+//			PlayerShootWeapon(id);
+//			return true;
+//		}
+//	}
+//	return false;
+//
+//}
 
 //void dc_match::BotDodge(int id,int diff)
 //{
@@ -751,7 +751,7 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 
 			CorrectedJumpTime = OrtoJumpTime - cL / BUS_TRAVELSPEED;
 
-			ConLog("\n%d |  %.3f ", id, CorrectedJumpTime);
+			//ConLog("\n%d |  %.3f ", id, CorrectedJumpTime);
 
 		}
 		else
@@ -764,26 +764,26 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 
 			if (mNev != 0.f && Disc >= 0.f)
 			{
-				ConLog("\n%d | Megoldas 1: %.3f (-> %.3f) | Megoldas2: %.3f (-> %.3f)", id, -m1Szam / mNev, F(-m1Szam / mNev), -m2Szam / mNev, F(-m2Szam / mNev));
+				//ConLog("\n%d | solution 1: %.3f (-> %.3f) | solution 2: %.3f (-> %.3f)", id, -m1Szam / mNev, F(-m1Szam / mNev), -m2Szam / mNev, F(-m2Szam / mNev));
 
 				if (F(-m1Szam / mNev) < F(-m2Szam / mNev))CorrectedJumpTime = -m1Szam / mNev;
 				else CorrectedJumpTime = -m2Szam / mNev;
 			}
 			else if (mNev == 0.f && Disc < 0.f)
 			{
-				ConLog("\n%d | Egyik sem jo | Nev: %.3f, Disc: %.3f", id, mNev, Disc);
+				//ConLog("\n%d | Both are bad | Nev: %.3f, Disc: %.3f", id, mNev, Disc);
 			}
 			else if (mNev == 0.f)
 			{
-				ConLog("\n%d | Nevezo nem jo | Nevezo 0", id);
+				//ConLog("\n%d | Divisor is bad | Nevezo 0", id);
 			}
 			else if (Disc < 0.f)
 			{
-				ConLog("\n%d | Discriminant nem jo | Disc: %.3f | BS: %.f %.f | JP: %.f %.f", id, Disc, A.x, A.y, L.x, L.y);
+				//ConLog("\n%d | Discriminant is bad | Disc: %.3f | BS: %.f %.f | JP: %.f %.f", id, Disc, A.x, A.y, L.x, L.y);
 			}
 			else
 			{
-				ConLog("\n%d | Ungabunga ilyen nincs | %.3f %.3f", id, mNev, Disc);
+				//ConLog("\n%d | Ungabunga this shouldn't happen | %.3f %.3f", id, mNev, Disc);
 			}
 
 		}
@@ -2002,7 +2002,6 @@ void dc_match::BotDoHeal(int id)
 		}
 	}
 }
-//TODO: Finish this
 bool dc_match::BotShouldGoToZone(int id)
 {
 	if (IsPointInStorm(players[id].vPosition))return true;
@@ -2463,7 +2462,7 @@ void dc_match::BotCheckOpenChests(int id, bool force_it)
 
 void dc_match::BotJumpoffBus(int id)
 {
-	float CurrentBusTime = GetDistance(BusCurrentPosition, BusStartPosition)/30.f;
+	float CurrentBusTime = GetDistance(BusCurrentPosition, BusStartPosition)/BUS_TRAVELSPEED;
 	if (CurrentBusTime > BotData[id].JumpoffTime)PlayerJumpOffBus(id);
 	//if (id == 1)printf("\nCBT: %.2f", CurrentBusTime);
 }
@@ -2838,7 +2837,7 @@ void dc_match::BotShoot(int id)
 {
 	float Inaccuracy = g_RandomDevice.RandomFloat(-BotData[id].InaccuracyMax, BotData[id].InaccuracyMax);
 
-	if (players[id].GetCurrentWeapon().IsSniper())
+	if (!players[id].GetCurrentWeapon().IsSniper())
 	{
 		players[id].fAngle += Inaccuracy;
 		PlayerShootWeapon(id);
