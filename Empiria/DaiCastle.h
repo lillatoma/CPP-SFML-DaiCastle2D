@@ -1952,22 +1952,46 @@ struct dc_mapeditor
 
 
 
-
+//////////////////////////////////////////////
+/// Object to hold textures, their average colors, and names
+//////////////////////////////////////////////
 struct dc_textures
 {
 	std::vector<sf::Texture> t;
 	std::vector<sf::Color> ac;
 	std::vector<char*> nam;
 
+	//////////////////////////////////////////////
+	/// Adds a texture with file name 'n' from g_Files
+	/// It also calculates avg color
+	//////////////////////////////////////////////
 	void add(char* n);
 	//void add(sf::Texture tex);
+	//////////////////////////////////////////////
+	/// Returns a pointer to the texture with index 'id'
+	//////////////////////////////////////////////
 	sf::Texture* get(int id);
+	//////////////////////////////////////////////
+	/// Returns the name of the texture with index 'id'
+	//////////////////////////////////////////////
 	char* getname(int id);
+	//////////////////////////////////////////////
+	/// Returns the average color of the texture with index 'id'
+	//////////////////////////////////////////////
 	sf::Color getavgcolor(int id);
+	//////////////////////////////////////////////
+	/// Adds all needed textures to g_Textures
+	//////////////////////////////////////////////
 	static void define_all();
 };
 
-
+//////////////////////////////////////////////
+/// Object for a consol variable
+/// 'Cheat' defines if the command should only work with sv_cheats >= 1
+/// 'Value' is the value of the convar
+/// 'CommandName' is the referencing name of the convar
+/// 'Execute' runs when the convar value changes
+//////////////////////////////////////////////
 struct dc_convar
 {
 	bool Cheat = false;
@@ -1985,6 +2009,12 @@ struct dc_convar
 #define ConVar(a,b,c) dc_convar a = dc_convar(c,b)
 #define ConVarCheat(a,b,c) dc_convar a = dc_convar(c,b,true)
 
+
+//////////////////////////////////////////////
+/// Object for a line in the console
+/// 'msg' holds the text
+/// 'Color' holds the color of the text
+//////////////////////////////////////////////
 struct dc_consolelog
 {
 	char* msg = nullptr;
@@ -1992,8 +2022,14 @@ struct dc_consolelog
 
 	dc_consolelog() {};
 	
+	//////////////////////////////////////////////
+	/// Constructor for when there is no extra object to add in the message
+	//////////////////////////////////////////////
 	dc_consolelog(char* Msg, sf::Color mColor) { Color = mColor; msg = new char[strlen(Msg) + 1]; sprintf(msg, Msg); }
 
+	//////////////////////////////////////////////
+	/// Constructor for when there are variables in the message
+	//////////////////////////////////////////////
 	template <typename... Args> dc_consolelog(char* Msg, sf::Color mColor, Args... args)
 	{
 		size_t bufsz = snprintf(NULL, 0, Msg, args...);
@@ -2001,7 +2037,9 @@ struct dc_consolelog
 		sprintf(msg, Msg, args...);
 		Color = mColor;
 	}
-	
+	//////////////////////////////////////////////
+	/// Destructor against memory leaks
+	//////////////////////////////////////////////
 	~dc_consolelog()
 	{
 		if (msg != nullptr)delete[]msg;
@@ -2016,7 +2054,10 @@ enum DEMO_PLAYERDATA_IND
 	DMPD_ROTCHANGE,
 	DMPD_WPCHANGE,
 };
-
+//////////////////////////////////////////////
+/// Object to hold changes in player attributes in demos
+/// It is used for a faster calculation in 'timejumps' in the demoplayer
+//////////////////////////////////////////////
 struct dc_demo_playerdata
 {
 	sf::Vector2i bBusJumpTick = sf::Vector2i(100000,0);
@@ -2026,7 +2067,9 @@ struct dc_demo_playerdata
 	std::vector<sf::Vector2i> WeapChanges;
 	std::vector<sf::Vector2i> GetPreviousChanges(int tick);
 };
-
+//////////////////////////////////////////////
+/// Object to hold the appearances and disappearances of a single item
+//////////////////////////////////////////////
 struct dc_demo_itemdata
 {
 	std::vector<sf::Vector2i> spawns;
@@ -2038,18 +2081,23 @@ struct dc_demo_itemdata
 	dc_demo_itemdata() {};
 	dc_demo_itemdata(int lidx) { listidx = lidx; }
 };
-
+//////////////////////////////////////////////
+/// Object to hold data of explosive projectiles
+//////////////////////////////////////////////
 struct dc_demo_explosivedata
 {
-	sf::Vector2i spawn;
-	sf::Vector2i end = sf::Vector2i(100000,0);
-	std::vector<sf::Vector2i> updates;
+	sf::Vector2i spawn; // (tick,data) vector for when the explosive spawns
+	sf::Vector2i end = sf::Vector2i(100000,0); // (tick,data) vector for when the explosive despawns
+	std::vector<sf::Vector2i> updates; //Position updates for the explosive projectile
 
 
 
 	dc_demo_explosivedata() {}
 	dc_demo_explosivedata(sf::Vector2i sp) { spawn = sp; }
-
+	//////////////////////////////////////////////
+	/// Returns the (tick,data) vector for 'tick' if the explosive projectile existed in 'tick'
+	/// Returns (-1,0) in ticks where the explosive doesn't exist
+	//////////////////////////////////////////////
 	sf::Vector2i GetPositionDemoData(int tick)
 	{
 		for (auto u : updates)
@@ -2059,7 +2107,10 @@ struct dc_demo_explosivedata
 		return { -1,0 };
 	}
 };
-
+//////////////////////////////////////////////
+/// Object to hold changes on the map
+/// It is used for a faster calculation in 'timejumps' in the demoplayer
+//////////////////////////////////////////////
 struct dc_demo_mapdata
 {
 	std::vector<sf::Vector2i> ChestOpens;
@@ -2077,7 +2128,9 @@ struct dc_demo_mapdata
 	//std::vector<sf::Vector2i> GetPreviousChanges(int tick);
 };
 
-
+//////////////////////////////////////////////
+/// Object to hold data for a demo render layer
+//////////////////////////////////////////////
 struct dc_demo_renderlayer
 {
 	char Name[32] = "Default";
@@ -2101,11 +2154,10 @@ struct dc_demo_renderlayer
 };
 
 
-//TODO: Match - memory leak fix
 struct dc_demo_viewer
 {
-	int Takes = 0;
-	int Frame = 0;
+	int Takes = 0; //information of how many takes have been recorded so far
+	int Frame = 0; //information of which frame the demo viewer is at in the current take
 	bool Recording = false;
 	bool LockInput = false;
 	float timeDiffSinceLastFrame = 0.f;
@@ -2122,46 +2174,125 @@ struct dc_demo_viewer
 	dc_demo_mapdata MapData;
 	std::vector<sf::Vector2i> EliminationData;
 	
-	static void DrawOnRenderLayer(dc_demo_viewer* DV, int layer);
-	
 	dc_demo Demo;
 	dc_match Match;
-	sf::Vector2f vCameraPosition = sf::Vector2f(500.f,500.f);
+	sf::Vector2f vCameraPosition = sf::Vector2f(500.f, 500.f);
 	int vCameraMode = 0; //0 - Free, 1 - Locked
 	int vCameraPlayerLock = 0;
-	sf::Vector2f GetCameraPosition();
-
-	void ProcessDemoData();
-	void Setup();
-	int GetPreviousTick(float time);
-	int GetNextTick(float time);
-
-	void JumpToTime(float time);
-
-	void Do();
-
-	void DrawKillNoticeEffect();
-	void DrawEffectsModified(sf::Vector2f V);
-	void DrawEffectsModified(dc_demo_renderlayer* R,sf::Vector2f V);
-	void DrawUI();
-	void DrawInformation();
-	void DrawTimebar();
-	void DoTimebar();
-	void DrawPlayerInfo();
-	void DoPlayerInfo();
-	void DrawKillLeaders();
-	void DoKillLeaders();
-
 
 	float CameraSpeed = 75.f;
 	float CameraWidth = 10.f;
+	//////////////////////////////////////////////
+	/// This function uses the 'layer'th renderlayer data
+	/// To draw everything on the renderlayer that's enabled
+	//////////////////////////////////////////////
+	static void DrawOnRenderLayer(dc_demo_viewer* DV, int layer);
 	
+	//////////////////////////////////////////////
+	/// In camera mode 0 (free cam), it returns the position of the camera object
+	/// In camera mode 1 (player cam), it returns the position of the currently watched player
+	//////////////////////////////////////////////
+	sf::Vector2f GetCameraPosition();
+	//////////////////////////////////////////////
+	/// This function processes the information from a .dem file
+	/// It sets up the demo playerdata, and demo mapdata for easier calculation
+	/// It sets up elimination and death effects
+	//////////////////////////////////////////////
+	void ProcessDemoData();
+	//////////////////////////////////////////////
+	/// Starts a dc_match that never gets continued
+	/// Loads the demo data, the demo metadata and processes them
+	/// Creates the default render-layer
+	//////////////////////////////////////////////
+	void Setup();
+	//////////////////////////////////////////////
+	/// Based on the time, it returns the previous tick
+	//////////////////////////////////////////////
+	int GetPreviousTick(float time);
+	//////////////////////////////////////////////
+	/// Based on the time, it returns the next tick
+	//////////////////////////////////////////////
+	int GetNextTick(float time);
+
+	//////////////////////////////////////////////
+	/// Sets up players, and the map to represent the state at 'time'
+	//////////////////////////////////////////////
+	void JumpToTime(float time);
+	//////////////////////////////////////////////
+	/// Plays the demo, jumps the time forward according to the demo_timescale and demo_framerate values
+	/// Draws on renderlayers, and draws the killnotices
+	/// If recording has been started, it records a frame
+	/// Draws the UI, and moves the camera
+	//////////////////////////////////////////////
+	void Do();
+	//////////////////////////////////////////////
+	/// Draws an elimination effect similar to the ingame elimination effect
+	//////////////////////////////////////////////
+	void DrawKillNoticeEffect();
+	//////////////////////////////////////////////
+	/// Draws the effects that are active at the current time
+	//////////////////////////////////////////////
+	void DrawEffectsModified(sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws the effects that are active at the current time
+	/// Used to render on a demo renderlayer
+	//////////////////////////////////////////////
+	void DrawEffectsModified(dc_demo_renderlayer* R,sf::Vector2f V);
+	//////////////////////////////////////////////
+	/// Draws kill-leaders, the timebar, camera information, and playerinfo
+	//////////////////////////////////////////////
+	void DrawUI();
+	//////////////////////////////////////////////
+	/// Draws the position of the camera to the top left corner
+	//////////////////////////////////////////////
+	void DrawInformation();
+	//////////////////////////////////////////////
+	/// Draws a timebar to the bottomleft, with a slider, current time, demo length
+	/// And data about eliminations of the currently watched player
+	//////////////////////////////////////////////
+	void DrawTimebar();
+	//////////////////////////////////////////////
+	/// In case of clicking on the timebar, it jumps the demo to the appropriate time
+	//////////////////////////////////////////////
+	void DoTimebar();
+	//////////////////////////////////////////////
+	/// Draws the name, health, shield and player-swap buttons above the timebar
+	//////////////////////////////////////////////
+	void DrawPlayerInfo();
+	//////////////////////////////////////////////
+	/// Changes the watched player in case of clicking on the player-swap buttons
+	//////////////////////////////////////////////
+	void DoPlayerInfo();
+	//////////////////////////////////////////////
+	/// Draws panels with the five players with most kills to the top-right, showing their names, and elim-count
+	//////////////////////////////////////////////
+	void DrawKillLeaders();
+	//////////////////////////////////////////////
+	/// In case of clicking on a panel, it swaps to the adherent player if they are alive
+	//////////////////////////////////////////////
+	void DoKillLeaders();
+
+	//////////////////////////////////////////////
+	/// Changes the speed the free-cam moves, in case of pressing + or -
+	//////////////////////////////////////////////
 	void DoSpeedUp();
+	//////////////////////////////////////////////
+	/// Moves the free-camera
+	//////////////////////////////////////////////
 	void DoMove();
+	//////////////////////////////////////////////
+	/// Scrolls the camera
+	//////////////////////////////////////////////
 	void DoScroll();
-	
+	//////////////////////////////////////////////
+	/// Saves pictures of the exportable renderlayers into the Record folder
+	//////////////////////////////////////////////
 	void Record();
 
+	//////////////////////////////////////////////
+	/// Returns if the button for action 'KEY' has been pressed
+	/// 'Continuous' checks for longer presses
+	//////////////////////////////////////////////
 	bool GetKeyStatus(int KEY, bool Continuous);
 };
 
@@ -2190,10 +2321,18 @@ struct dc_config
 	ConVarCheat(ch_teleportmarker, "ch_teleportmarker", 0.f);
 	ConVarCheat(ch_debug_mode, "ch_debug_mode", 0.f);
 
-	void LoadConfig(char* name);
-	void SaveConfig(char* name);
-
+	//////////////////////////////////////////////
+	/// Returns the 'index'th ConVar
+	/// Make sure 'index' is not out of bounds
+	//////////////////////////////////////////////
 	dc_convar* GetConVar(int index);
+	//////////////////////////////////////////////
+	/// 'inputtext' is expected to be "convar value" where 'convar' is the name of a convar, 'value' is a number
+	/// In case of a valid input, it changes the value of a convar, and runs the Execute function of it if defined
+	/// It returns (index, 0) if the input was only "convar"
+	/// It returns (index, 2) if the accessed convar is a cheat convar and gm_cheats < 1
+	/// It returns (index, 1) if the input was valid
+	//////////////////////////////////////////////
 	sf::Vector2i EditCVar(char* inputtext);
 };
 extern dc_config g_Config;
@@ -2231,6 +2370,10 @@ struct dc_keybinds
 	unsigned char KeysPrimary[32];
 	unsigned char KeysSecondary[32];
 
+	//////////////////////////////////////////////
+	/// Returns a key if the action 'ACT' is bound to a key
+	/// Returns -1 otherwise
+	//////////////////////////////////////////////
 	int find(char ACT)
 	{
 		if (KeysPrimary[ACT])return KeysPrimary[ACT];
@@ -2252,7 +2395,9 @@ struct dc_quest
 	int needed;
 	int totalNeeded;
 	bool oneMatch = false;
-
+	//////////////////////////////////////////////
+	/// Randomly generates values for 'this' in a predefined way
+	//////////////////////////////////////////////
 	void Init();
 };
 
@@ -2260,7 +2405,9 @@ struct dc_questdoneeffect
 {
 	dc_quest Quest;
 	dc_clock Clock;
-
+	//////////////////////////////////////////////
+	/// Draws an animated effect
+	//////////////////////////////////////////////
 	void draw();
 };
 
@@ -2268,7 +2415,9 @@ struct dc_lockergoteffect
 {
 	void* lockerUnlockable;
 	dc_clock Clock;
-
+	//////////////////////////////////////////////
+	/// Draws an animated effect
+	//////////////////////////////////////////////
 	void draw();
 };
 
@@ -2278,7 +2427,10 @@ struct dc_gameeffect
 	std::vector<dc_questdoneeffect> QD_Effects;
 	std::vector<dc_lockergoteffect> LG_Effects;
 };
-
+//////////////////////////////////////////////
+/// Contains all statistics and information of the user
+/// TODO: Remove previous match data or process it
+//////////////////////////////////////////////
 struct dc_playerprofile
 {
 	int lastGamemode = 0; //0 - Regular Solo, 1 - Arena Solo
@@ -2416,7 +2568,9 @@ struct dc_playerprofile
 		return *this;
 	}
 };
-
+//////////////////////////////////////////////
+/// Holds information of an item that is unlockable for the user
+//////////////////////////////////////////////
 struct dc_lockerunlockable
 {
 	int Type = 0; //0 = Skin, 1 = Glider, 2 = Wrap
@@ -2434,9 +2588,9 @@ struct dc_lockerunlockable
 
 struct dc_game
 {
-	char PrePadding[128];
+	char PrePadding[128]; //There was a glitch with the playerprofile, could possibly be removed now
 	dc_playerprofile ThePlayer;
-	char Padding[128];
+	char Padding[128]; //There was a glitch with the playerprofile, could possibly be removed now
 	bool LockInput = false;
 
 	int console_pos = 0;
@@ -2449,30 +2603,78 @@ struct dc_game
 	dc_keybinds Binds;
 	bool bNameEditSelected = false;
 
-	int Cloud1Index=-1;
-	int Cloud2Index=-1;
+	int Cloud1Index=-1; //Cloud in the background
+	int Cloud2Index=-1; //Cloud in the background
 	std::vector<dc_lockerunlockable> Unlockables;
 	std::vector<char*> cfgNames;
 	std::vector<dc_consolelog*> OldConsoleMessages;
-	char ConsoleMessage[128] = "\0";
-	int ConsoleMessageIndex = 0;
+	char ConsoleMessage[128] = "\0"; //This is the current console message
+	int ConsoleMessageIndex = 0; //This is for scrolling in the console
 
 	dc_gameeffect Effects;
 
-
+	//////////////////////////////////////////////
+	/// Draws the locker unlock and quest finished effects
+	//////////////////////////////////////////////
 	void DrawEffects();
+	//////////////////////////////////////////////
+	/// Removes expired effects
+	//////////////////////////////////////////////
 	void RemoveExpiredEffects();
+	//////////////////////////////////////////////
+	/// Returns the total number of locker unlock and quest finished effects
+	//////////////////////////////////////////////
 	int TotalEffectCount();
-
+	//////////////////////////////////////////////
+	/// Hard-coded.
+	/// Generates data for the unlockable items
+	//////////////////////////////////////////////
 	void SetupUnlockables();
+	//////////////////////////////////////////////
+	/// Hard-coded. (Should be)
+	/// Sets up the default keybinds.
+	//////////////////////////////////////////////
 	void SetupDefaultBinds();
+	//////////////////////////////////////////////
+	/// Generates two random quests
+	/// Sets up the default binds
+	/// Adds an empty message to the console
+	/// Sets up the Execute commands for fps_max, g_res_x and g_res_y
+	/// Loads the last saved player-profile if possible (saves it if not)
+	/// Checks the levels, and tiers of the loaded player-profile
+	/// Deletes the entire inventory of the player, and sets up the unlockables
+	/// Regenerates corrupted quests
+	//////////////////////////////////////////////
 	void Setup();
+	//////////////////////////////////////////////
+	/// Returns if there is a match being played
+	//////////////////////////////////////////////
 	bool HasMatch();
+	//////////////////////////////////////////////
+	/// Sets up a new match, and changes the game's screen to it
+	/// In case of an arena match, it calculates difficulties for the user's arena level
+	//////////////////////////////////////////////
 	void StartNewMatch();
+	//////////////////////////////////////////////
+	/// Loads the demo in 'buffer' where 'buffer' should be "filename.dem"
+	/// Sets up the demoviewer, and changes the game screen to it
+	//////////////////////////////////////////////
 	void StartNewDemoViewer(char* buffer);
+	//////////////////////////////////////////////
+	/// Opens the console
+	//////////////////////////////////////////////
 	void OpenConsole() { OW_STATUS = 1; }
+	//////////////////////////////////////////////
+	/// Closes the console
+	//////////////////////////////////////////////
 	void CloseConsole() { OW_STATUS = 0; }
+	//////////////////////////////////////////////
+	/// Adds a new console message in the console with text 'msg' and color 'color'
+	//////////////////////////////////////////////
 	void LogMessage(char* msg, sf::Color color);
+	//////////////////////////////////////////////
+	/// Calculates the exp rewards for the player
+	//////////////////////////////////////////////
 	int CalcExpForMatch();
 	void EvaluateMatch();
 	void EvaluateMatchForQuests();
@@ -2580,7 +2782,6 @@ struct dc_game
 	std::vector<std::string> GetAllDemoNames(bool Update = false);
 	void DrawDemoMenu();
 	void DoDemoMenu();
-
 
 	std::vector<int> GetUnlockedIndexes(int type);
 	void DrawLockerInventory();

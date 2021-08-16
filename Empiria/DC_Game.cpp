@@ -375,8 +375,7 @@ void dc_game::Setup()
 	//	SaveConfig("cfg\\config.cfg");
 	//	cmdExec("exec config.cfg");
 	//}
-	if (!LoadProfile());
-		SaveProfile();
+
 	SettingFullscreen = g_Config.g_fullscreen.Value;
 	sf::Vector2i Resolutions[] = { sf::Vector2i(640,480),sf::Vector2i(800,600),sf::Vector2i(1024,768),sf::Vector2i(1280,960),sf::Vector2i(1440,1080), sf::Vector2i(640,360),sf::Vector2i(1024,576),sf::Vector2i(1280,720),sf::Vector2i(1600,900),sf::Vector2i(1920,1080), sf::Vector2i(640,400),sf::Vector2i(1280,800),sf::Vector2i(1680,1050),sf::Vector2i(1680,720) };
 	for (int i = 0; i < 14; i++)if (Resolutions[i] == g_Resolution)SelectedVideoSetting = i;
@@ -391,6 +390,9 @@ void dc_game::Setup()
 	ThePlayer.GliderUnlocked[0] = true;
 	ThePlayer.WrapUnlocked[0] = true;
 	SetupUnlockables();
+
+	if (!LoadProfile());
+	SaveProfile();
 
 	for (int i = 0; i < 2; i++)
 	{
