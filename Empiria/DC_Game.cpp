@@ -456,7 +456,12 @@ void dc_game::CheckLevels()
 
 	if (ThePlayer.Xp > GetXpNeededForLevel(99))ThePlayer.Xp = GetXpNeededForLevel(99);
 
-	if (ThePlayer.Tier == 99 && ThePlayer.Tier > 0)ThePlayer.Tier = 0;
+	if ((ThePlayer.Tier == 99 && ThePlayer.TierStars > 0) 
+		|| ThePlayer.Tier > 99) {
+		ThePlayer.Tier = 99;
+		ThePlayer.TierStars = 0;
+
+	}
 
 	CheckTiers();
 }
@@ -801,16 +806,21 @@ int dc_game::GetArenaNeededForNextLevel()
 
 std::vector<int> dc_game::GetBotDifficultiesForArenaLevel(int i)
 {
-	if (i == 0)return{ 900,100,0,0 };
-	if (i == 1)return{ 750,250,0,0 };
-	if (i == 2)return{ 600,375,25,0 };
-	if (i == 3)return{ 475,300,100,25 };
-	if (i == 4)return{ 325,475,125,75 };
-	if (i == 5)return{ 50,500,300,150 };
-	if (i == 6)return{ 0,200,400,300 };
-	if (i == 7)return{ 0,0,500,500 };
-	if (i == 8)return{ 0,0,200,800 };
-	if (i >= 9)return{ 0,0,0,1000 };
+	static std::vector<int> Diffs[] =
+	{ { 900,100,0,0 },
+	{ 750,250,0,0 },
+	{ 600,375,25,0 },
+	{ 475,300,100,25 },
+	{ 325,475,125,75 },
+	{ 50,500,300,150 },
+	{ 0,200,400,300},
+	{ 0,0,500,500 },
+	{ 0,0,200,800 },
+	{ 0,0,0,1000 } };
+
+	if (i >= 9)i = 9;
+	
+	return Diffs[i];
 }
 
 void dc_game::EvaluateMatch()

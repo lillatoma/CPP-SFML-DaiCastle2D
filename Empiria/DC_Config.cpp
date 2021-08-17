@@ -8,55 +8,11 @@ bool dc_game::LoadProfile()
 	unsigned int profilesize = sizeof(dc_playerprofile);
 	if (File.size < profilesize-32)return false;
 
-	//For Whatever the fuck the reason was, I couldn't copy memory from the file to the profile
+	//For Whatever the heck the reason was, I couldn't copy memory from the file to the profile
 
 	auto right = (dc_playerprofile*)File.loc_in_mem;
 
 	ThePlayer = *right;
-
-	//ThePlayer.ArenaPoints = right->ArenaPoints;
-	//ThePlayer.DistanceTravelledHigh = right->DistanceTravelledHigh;
-	//ThePlayer.DistanceTravelledLow = right->DistanceTravelledLow;
-	//for (int i = 0; i < 16; i++)
-	//	ThePlayer.GliderUnlocked[i] = right->GliderUnlocked[i];
-	//ThePlayer.LastMatchKills = right->LastMatchKills;
-	//ThePlayer.LastMatchPlacement = right->LastMatchPlacement;
-	////ThePlayer.LastMatchStats = right->LastMatchStats;
-	//ThePlayer.Level = right->Level;
-	//ThePlayer.Quests[0] = right->Quests[0];
-	//ThePlayer.Quests[1] = right->Quests[1];
-	//ThePlayer.QuestsFinished = right->QuestsFinished;
-	//ThePlayer.SelectedGlider = right->SelectedGlider;
-	//ThePlayer.SelectedSkin = right->SelectedSkin;
-	//ThePlayer.SelectedWrap = right->SelectedWrap;
-	//for (int i = 0; i < 32; i++)
-	//	ThePlayer.SkinUnlocked[i] = right->SkinUnlocked[i];
-	//sprintf(ThePlayer.szName, right->szName);
-	//ThePlayer.Tier = right->Tier;
-	//ThePlayer.TierStars = right->TierStars;
-	//ThePlayer.TotalDamage = right->TotalDamage;
-	//ThePlayer.TotalExplosiveKills = right->TotalExplosiveKills;
-	//ThePlayer.TotalKills = right->TotalKills;
-	//ThePlayer.TotalMachinegunKills = right->TotalMachinegunKills;
-	//ThePlayer.TotalMatches = right->TotalMatches;
-	//ThePlayer.TotalPistolKills = right->TotalPistolKills;
-	//ThePlayer.TotalPlacement = right->TotalPlacement;
-	//ThePlayer.TotalRifleKills = right->TotalRifleKills;
-	//ThePlayer.TotalShotgunKills = right->TotalShotgunKills;
-	//ThePlayer.TotalSniperKills = right->TotalSniperKills;
-	//ThePlayer.TotalSubmachinegunKills = right->TotalTimeAlive;
-	//ThePlayer.TotalTimeAlive = right->TotalTimeAlive;
-	//ThePlayer.TotalTop10s = right->TotalTop10s;
-	//ThePlayer.TotalTop25s = right->TotalTop25s;
-	//ThePlayer.TotalWins = right->TotalWins;
-	//for (int i = 0; i < 8; i++)
-	//	ThePlayer.WrapUnlocked[i] = right->WrapUnlocked[i];
-	//ThePlayer.Xp = right->Xp;
-
-
-
-
-
 
 	delete[] File.loc_in_mem;
 	return true;

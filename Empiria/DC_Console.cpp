@@ -840,6 +840,7 @@ bool dc_game::cmdUnbind(char* cm)
 		LogMessage("|  Usage: unbind #button #cmd", sf::Color(225, 180, 32));
 		LogMessage("|  unbind keylist - keynames", sf::Color(225, 180, 32));
 		LogMessage("|  unbind cmdlist - action names", sf::Color(225, 180, 32));
+		LogMessage("|  Usage: unbind all", sf::Color(225, 180, 32));
 		return true;
 	}
 	else
@@ -853,11 +854,13 @@ bool dc_game::cmdUnbind(char* cm)
 		{
 			for (int i = 0; i < 256; i++)
 				if (!strstr(KeyNames[i], "undef"))LogMessage("|  %s", sf::Color(225, 180, 32), KeyNames[i]);
+			return true;
 		}
 		else if (!CTM(cm, Trims[1], "cmdlist"))
 		{
 			for (int i = 0; i < 23; i++)
 				if (!strstr(ActNames[i], "undef"))LogMessage("|  %s", sf::Color(225, 180, 32), ActNames[i]);
+			return true;
 		}
 		else if (!CTM(cm, Trims[1], "all"))
 		{
@@ -866,6 +869,7 @@ bool dc_game::cmdUnbind(char* cm)
 				Binds.KeysPrimary[i] = 0;
 				Binds.KeysSecondary[i] = 0;
 			}
+			return true;
 		}
 		else if (KeyID != -1)
 		{
@@ -877,7 +881,7 @@ bool dc_game::cmdUnbind(char* cm)
 					if (Binds.KeysPrimary[i] == KeyID)Binds.KeysPrimary[i] = 0;
 					if (Binds.KeysSecondary[i] == KeyID)Binds.KeysSecondary[i] = 0;
 				}
-
+				return true;
 			}
 			else
 			{
@@ -901,6 +905,7 @@ bool dc_game::cmdUnbind(char* cm)
 						Binds.KeysSecondary[ActID] = 0;
 						LogMessage("|  '%s' has been unbound", sf::Color(225, 180, 32), KeyNames[KeyID]);
 					}
+					return true;
 				}
 				else
 				{
@@ -914,6 +919,7 @@ bool dc_game::cmdUnbind(char* cm)
 		}
 
 	}
+	return false;
 }
 
 bool dc_game::cmdBind(char* cm)
@@ -1067,6 +1073,7 @@ bool dc_game::cmdBind(char* cm)
 		}
 
 	}
+	return false;
 }
 
 bool dc_game::cmdCommands(char* cm)
@@ -1205,6 +1212,7 @@ bool dc_game::cmdDPS(char* cm)
 					if (i == 2) c = sf::Color(230, 120, 23);
 					LogMessage("|  %d - %s - %.2f", c, i+1, g_Items[Id_ListStanding[i]].szName, g_Items[Id_ListStanding[i]].CalculateDPS(Range, true));
 				}
+				return true;
 			}
 			else
 			{
@@ -1228,7 +1236,7 @@ bool dc_game::cmdDPS(char* cm)
 					LogMessage("|  %d - %s - %.2f", c, i+1, g_Items[Id_ListStanding[i]].szName, g_Items[Id_ListStanding[i]].CalculateDPS(Range, true));
 				}
 			}
-
+			return true;
 		}
 		else
 		{
@@ -1237,6 +1245,7 @@ bool dc_game::cmdDPS(char* cm)
 		}
 
 	}
+	return false;
 }
 
 
@@ -1260,6 +1269,7 @@ bool dc_game::cmdTime(char* cm)
 			auto num = (int)TextToFloat(cm + Trims[1].x, Trims[1].y);
 			Match->map.day_time = num;
 			LogMessage("|  Time set to: %d", sf::Color(225, 180, 32), num);
+			return true;
 		}
 		else
 		{
@@ -1268,6 +1278,7 @@ bool dc_game::cmdTime(char* cm)
 		}
 
 	}
+	return false;
 }
 
 bool dc_game::cmdCamera(char* cm)
@@ -1297,7 +1308,9 @@ bool dc_game::cmdCamera(char* cm)
 		}
 		Match->camera_follows = PlayerID;
 		LogMessage("|  Camera now follows: %d", sf::Color(225, 180, 32), Match->camera_follows);
+		return true;
 	}
+	return false;
 }
 
 
@@ -1463,6 +1476,7 @@ bool dc_game::cmdSpawn(char* cm)
 			}
 
 	}
+	return false;
 }
 
 bool dc_game::cmdClear(char* cm)

@@ -2676,19 +2676,68 @@ struct dc_game
 	/// Calculates the exp rewards for the player
 	//////////////////////////////////////////////
 	int CalcExpForMatch();
+	//////////////////////////////////////////////
+	/// According to the statistics of the current match, it changes the statistics of the user
+	/// Including eliminations, placements and experience
+	/// It evalueates the match for quests to check their progress
+	/// If the match was in arena mode, it evaluates the match for arena points
+	//////////////////////////////////////////////
 	void EvaluateMatch();
+	//////////////////////////////////////////////
+	/// Checks progress for both quests from the stats of the current match
+	/// If a quest is finished, it creates a quest-done effect, and generates a new quest
+	//////////////////////////////////////////////
 	void EvaluateMatchForQuests();
+	//////////////////////////////////////////////
+	/// Checks progress for both quests from the stats of the current match
+	/// Returns the extra progress that has been done without changing any metrics
+	//////////////////////////////////////////////
 	int GetEvaluateMatchForQuests(int i);
-
+	//////////////////////////////////////////////
+	/// Returns how much xp is needed for level 'level'
+	/// On the first run, it calculates requirements for all levels
+	//////////////////////////////////////////////
 	int GetXpNeededForLevel(int level);
+	//////////////////////////////////////////////
+	/// Checks if the user can level up according to their xp
+	/// Checks if the user can tier up 
+	/// If the user reaches max level, it caps the xp
+	/// If the user reaches max tier, it caps the tier and tier stars
+	//////////////////////////////////////////////
 	void CheckLevels();
+	//////////////////////////////////////////////
+	/// This function checks if the user can unlock an item according to their tier
+	//////////////////////////////////////////////
 	void CheckTiers();
+	//////////////////////////////////////////////
+	/// Hard-coded.
+	/// Returns the arena level of the user according to their arena points
+	//////////////////////////////////////////////
 	int GetArenaLevel();
+	//////////////////////////////////////////////
+	/// Hard-coded.
+	/// Returns the arena points needded for an arena levelup
+	//////////////////////////////////////////////
 	int GetArenaNeededForNextLevel();
+	//////////////////////////////////////////////
+	/// Hard-coded.
+	/// Returns the arena level of the user according to their arena  points
+	//////////////////////////////////////////////
 	void EvaluateMatchForArenaPoints();
+	//////////////////////////////////////////////
+	/// Hard-coded.
+	/// Returns the distribution of the bot difficulties for arena level 'i'
+	//////////////////////////////////////////////
 	std::vector<int> GetBotDifficultiesForArenaLevel(int i);
-
+	//////////////////////////////////////////////
+	/// Logs the console input's message to the console and resets the console input
+	/// It does not do anything if the console is silent
+	//////////////////////////////////////////////
 	void LogConsoleMessage();
+	//////////////////////////////////////////////
+	/// Logs a message 'msg' to the console in color 'color'
+	/// It does not do anything if the console is silent
+	//////////////////////////////////////////////
 	template <typename... Args> void LogMessage(char* msg, sf::Color color, Args... args)
 	{
 		if (g_Config.con_silent.Value >= 1.f)return;
@@ -2696,6 +2745,10 @@ struct dc_game
 		ConsoleLogs.push_back(m);
 		ConsoleMessageIndex = 0;
 	}
+	//////////////////////////////////////////////
+	/// Logs a message 'msg' to the console in color in red
+	/// It ignores if the console is silent
+	//////////////////////////////////////////////
 	void LogError(char* msg)
 	{
 		auto orval = g_Config.con_silent.Value;
@@ -2703,6 +2756,10 @@ struct dc_game
 		LogMessage(msg, sf::Color(192, 0, 0));
 		g_Config.con_silent.Value = orval;
 	}
+	//////////////////////////////////////////////
+	/// Logs a message 'msg' to the console in color in red
+	/// It ignores if the console is silent
+	//////////////////////////////////////////////
 	template <typename... Args> void LogError(char* msg, Args... args)
 	{
 		auto orval = g_Config.con_silent.Value;
@@ -2710,50 +2767,157 @@ struct dc_game
 		LogMessage(msg, sf::Color(192, 0, 0), args...); 
 		g_Config.con_silent.Value = orval;
 	}
-
+	//////////////////////////////////////////////
+	/// Draws the in-game settings menu
+	//////////////////////////////////////////////
 	void DrawIngameSettingsMenu();
+	//////////////////////////////////////////////
+	/// Reacts to user input in the in-game settings menu
+	//////////////////////////////////////////////
 	void DoIngameSettingsMenu();
+	//////////////////////////////////////////////
+	/// Draws the in-game Show stats menu
+	//////////////////////////////////////////////
 	void DrawShowStatsMenu();
+	//////////////////////////////////////////////
+	/// Reacts to user input in the in-game Show stats menu
+	//////////////////////////////////////////////
 	void DoShowStatsMenu();
-
+	//////////////////////////////////////////////
+	/// Draws the Back button that leads back to the main menu
+	//////////////////////////////////////////////
 	void DrawBackButton();
+	//////////////////////////////////////////////
+	/// Reacts to clicking the Back button: leads back to the main menu
+	//////////////////////////////////////////////
 	void DoBackButton();
-
+	//////////////////////////////////////////////
+	/// Draws the Red X/Quit button that opens a quit prompt
+	//////////////////////////////////////////////
 	void DrawQuitButton();
+	//////////////////////////////////////////////
+	/// Draws the quit prompt menu
+	//////////////////////////////////////////////
 	void DrawQuitPrompt();
+	//////////////////////////////////////////////
+	/// Reacts to clicking the Red X/Quit button: opens a quit prompt
+	//////////////////////////////////////////////
 	void DoQuitButton();
+	//////////////////////////////////////////////
+	/// Reacts to user input when the quit prompt is open
+	//////////////////////////////////////////////
 	void DoQuitPrompt();
 
+
 	int CharacterVisionStatus = 0; //0 - only character, 1 - glider, 2 - weapon wrap + player
+	//////////////////////////////////////////////
+	/// Draws the character visualization panel
+	/// If CharacterVisionStatus == 0, it draws the character
+	/// If CharacterVisionStatus == 1, it draws the character equipped with a glider
+	/// If CharacterVisionStatus == 2, it draws the character with random items
+	//////////////////////////////////////////////
 	void DoMainMenuCharacterVision();
+	//////////////////////////////////////////////
+	/// Reacts to user input the character visualization panel
+	//////////////////////////////////////////////
 	void DrawMainMenuCharacterVision();
 
 
-
-
+	//////////////////////////////////////////////
+	/// If in a match, it kills the player, and finishes the match
+	/// Saves the config.cfg and the profile.md
+	/// Closes the application window, which leads to an application quit
+	//////////////////////////////////////////////
 	void Quit();
-
+	//////////////////////////////////////////////
+	/// Draws the small left-side in-game menu that opens with ESC
+	//////////////////////////////////////////////
 	void DrawIngameEscapeMenu();
+	//////////////////////////////////////////////
+	/// Reacts to userinput on the small left-side in-game menu that opens with ESC
+	//////////////////////////////////////////////
 	void DoIngameEscapeMenu();
 
+	//////////////////////////////////////////////
+	/// Draws the small left-side in-demo menu that opens with ESC
+	//////////////////////////////////////////////
 	void DrawInDemoEscapeMenu();
+	//////////////////////////////////////////////
+	/// Reacts to userinput on the small left-side in-demo menu that opens with ESC
+	//////////////////////////////////////////////
 	void DoInDemoEscapeMenu();
-
+	//////////////////////////////////////////////
+	/// Draws the main menu background
+	/// Draws the main menu minimap
+	/// Draws the main menu's play button
+	/// Draws the player's information
+	/// Draws the character vision
+	/// Draws the left side menubar
+	//////////////////////////////////////////////
 	void DrawMainMenu();
+	//////////////////////////////////////////////
+	/// Reacts to user input in the main menu for the following:
+	/// main menu minimap
+	/// main menu's play button
+	/// player's information
+	/// character vision
+	/// left side menubar
+	//////////////////////////////////////////////
 	void DoMainMenu();
+	//////////////////////////////////////////////
+	/// Draws an animated background with clouds
+	//////////////////////////////////////////////
 	void DrawMainMenuBg();
+	//////////////////////////////////////////////
+	/// Draws the play button in the main menu
+	/// It also draws the selected gamemode, and the gamemode selection arrows
+	//////////////////////////////////////////////
 	void DrawMainMenuPlayButton();
+	//////////////////////////////////////////////
+	/// Draws the panel from the right side above the play button
+	/// Draws the playername panel
+	/// Draws the level bar
+	/// Draws the tier bar
+	/// If arena is selected, it draws arena information
+	/// Draws the current quests with the progress
+	/// Draws the Statistics and Replays buttons
+	//////////////////////////////////////////////
 	void DrawMainMenuPlayerProfile();
+	//////////////////////////////////////////////
+	/// Draws the minimap in the main menu
+	//////////////////////////////////////////////
 	void DrawMainMenuMap();
+	//////////////////////////////////////////////
+	/// Draws the Credits and Settings buttons on the leftside
+	//////////////////////////////////////////////
 	void DrawLeftSideMenubar();
+	//////////////////////////////////////////////
+	/// Reacts to clicking on the buttons on the leftside menubar
+	//////////////////////////////////////////////
 	void DoLeftSideMenubar();
-
+	//////////////////////////////////////////////
+	/// Draws the panel of a quest
+	/// It draws the quest's type, and its progress
+	//////////////////////////////////////////////
 	int DrawChallenge(int i,int x, int y, int w, int h);
+	//////////////////////////////////////////////
+	/// Draws the panel of a quest
+	/// It draws the quest's type, and its progress
+	/// It also draws the newly made not yet registered progress
+	//////////////////////////////////////////////
 	int DrawChallengeWithProgress(int i, int x, int y, int w, int h);
-
+	//////////////////////////////////////////////
+	/// Makes all the draw and do calls according to the current menu
+	/// If in-game or in-demo, it manages the match/demo
+	//////////////////////////////////////////////
 	void Do();
-
+	//////////////////////////////////////////////
+	/// Draws the entire statistics menu with a background, a back button and statistics
+	//////////////////////////////////////////////
 	void DrawStatisticsMenu();
+	//////////////////////////////////////////////
+	/// In case of pressing ESC or clicking on the back button, it returns to the Main Menu
+	//////////////////////////////////////////////
 	void DoStatisticsMenu();
 
 
@@ -2763,70 +2927,274 @@ struct dc_game
 	int SettingFullscreen = 0;
 	int SelectedVideoSetting = 0;
 	int SettingsState = 0;
+	//////////////////////////////////////////////
+	/// Draws the entire settings menu with a background, a Back button
+	/// Draws the settings for the currently selected Settings tab (Controls, Video, Audio)
+	//////////////////////////////////////////////
 	void DrawSettingsMenu();
+	//////////////////////////////////////////////
+	/// Reacts to user-input for the Settings tab
+	//////////////////////////////////////////////
 	void DoSettingsMenu();
+	//////////////////////////////////////////////
+	/// Draws the press key/key press overlay menu
+	//////////////////////////////////////////////
 	void DrawPressKeyOL();
+	//////////////////////////////////////////////
+	/// Reacts to user-input for the press key/key press overlay menu
+	/// In case of hitting a valid button, it sets the assigns the action key with that button
+	/// In case of clicking outside the menu, it closes the overlay
+	//////////////////////////////////////////////
 	void DoPressKeyOL();
 
 	int LockerPush = 0;
+	//////////////////////////////////////////////
+	/// Draws the unlockable item under the Character Visualization panel with index 'lu_index'
+	//////////////////////////////////////////////
 	void DrawLockerItemShowCase(int lu_index);
+	//////////////////////////////////////////////
+	/// Draws 7 unlockables on the bottom left with 2 arrows
+	//////////////////////////////////////////////
 	void DrawLockerMenuNextUnlockables();
+	//////////////////////////////////////////////
+	/// Draws the locker menu:
+	/// Draws a background
+	/// Draws the back button
+	/// Draws the character visualization
+	/// Draws the unlockable items
+	/// Draws the inventory for the user
+	//////////////////////////////////////////////
 	void DrawLockerMenu();
+	//////////////////////////////////////////////
+	/// Reacts to user input on:
+	/// clicking the back button
+	/// clicking the character visualization
+	/// clicking on an unlocked inventory item
+	//////////////////////////////////////////////
 	void DoLockerMenu();
-
+	//////////////////////////////////////////////
+	/// Draws the credits menu with a background, a Back button, and text
+	//////////////////////////////////////////////
 	void DrawCreditsMenu();
+	//////////////////////////////////////////////
+	/// React to clicking on the backbutton
+	//////////////////////////////////////////////
 	void DoCreditsMenu();
 	
 	int DemoCoordinate = 0;
 	int DemoSelected = -1;
+	//////////////////////////////////////////////
+	/// Windows specific
+	/// Returns all the names of the files that fit this name: *.dem from the demos\ folder
+	//////////////////////////////////////////////
 	std::vector<std::string> GetAllDemoNames(bool Update = false);
+	//////////////////////////////////////////////
+	/// Draws the demo menu with a background, a Back button
+	/// Draws the demos from the demo folder, highlighting the selected demo
+	/// Draws a refresh and play button on the right
+	/// Draws an option to disable/enable the recording of demos
+	//////////////////////////////////////////////
 	void DrawDemoMenu();
+	//////////////////////////////////////////////
+	/// Reacts to user input in the Demo menu
+	//////////////////////////////////////////////
 	void DoDemoMenu();
-
+	//////////////////////////////////////////////
+	/// Returns the locker-unlockable indexes of unlocked items
+	/// 'type' == 0 for Skins
+	/// 'type' == 1 for Gliders
+	/// 'type' == 2 for Weapon Wraps
+	//////////////////////////////////////////////
 	std::vector<int> GetUnlockedIndexes(int type);
+	//////////////////////////////////////////////
+	/// Draws the inventory page for the currently selected inventory tab
+	/// Showing all the unlocked items
+	//////////////////////////////////////////////
 	void DrawLockerInventory();
+	//////////////////////////////////////////////
+	/// Reacts to clicking on an unlocked item by changing the user's cosmetics
+	//////////////////////////////////////////////
 	void DoLockerInventory();
-
+	//////////////////////////////////////////////
+	/// Draws the console with previous console messages and the current input
+	//////////////////////////////////////////////
 	void DrawConsole();
+	//////////////////////////////////////////////
+	/// Executes the current input if it was at least 2 characters long on user-input
+	/// Reacts to console scrolling
+	/// Reacts to clicking on the slider on the right if it's visible
+	//////////////////////////////////////////////
 	void DoConsole();
+	//////////////////////////////////////////////
+	/// Executes the command 'cm'
+	//////////////////////////////////////////////
 	void ConsoleExecuteCommand(char* cm);
+	//////////////////////////////////////////////
+	/// Reacts to scrolling with the mouse wheel by pushing the console's current position
+	//////////////////////////////////////////////
 	void ScrollConsole();
+	//////////////////////////////////////////////
+	/// Swaps to the previous or next console input on user input of VK_UP or VK_DOWN
+	//////////////////////////////////////////////
 	void MoveConsoleMessages();
 
-
+	//////////////////////////////////////////////
+	/// Hard-coded (the bad type)
+	/// Returns all the names of non-console variable commands
+	//////////////////////////////////////////////
 	std::vector<char*> GetAllNonCvarCommands();
+	//////////////////////////////////////////////
+	/// Returns all the names of console variables
+	//////////////////////////////////////////////
 	std::vector<char*> GetAllConvars();
 
 
-
+	//////////////////////////////////////////////
+	/// Spawns an object under the currently viewed player
+	/// Only works with a match currently played
+	/// Format: "spawn chest" <- Spawns a chest
+	/// Format: "spawn randomitem" <- Spawns a random item from the lootpool
+	/// Format: "spawn item wpnName" <- Spawns an item (check wpnNames)
+	/// Format: "spawn item idx" <- Spawns an item with listindex idx
+	/// Format: "spawn player idx" <- Spawns the player with index idx (Revives it with no inventory)
+	/// Format: "spawn player_floating idx" <- Spawns player with index idx (Revives it with no inventory in the air)
+	/// Format: "spawn wpnName" <- Spawns an item (check wpnNames)
+	/// Returns if the command was validly called
+	//////////////////////////////////////////////
 	bool cmdSpawn(char* cm);
+	//////////////////////////////////////////////
+	/// Repeats the input
+	/// Format: "echo anything"
+	/// Ignores if the console is silent
+	/// Always returns true
+	//////////////////////////////////////////////
 	bool cmdEcho(char* cm,sf::Vector2i trim);
+	//////////////////////////////////////////////
+	/// Clears the console from messages
+	/// Always returns true
+	//////////////////////////////////////////////
 	bool cmdClear(char* cm);
+	//////////////////////////////////////////////
+	/// Can only be used with an active match
+	/// Format: "player" <-- Logs the alive players and the kill-leaders
+	/// Format: "player help" <-- Logs the available commands
+	/// Format: "player id" <-- Logs information about the player with id 'id'
+	/// Format: "player id kill" <-- Kills the player with id 'id'
+	/// Format: "player id teleport x y" <-- Teleports the player with id 'id' to ('x','y')
+	/// Format: "player id god" <-- Makes the player with id 'id' invincible
+	/// Format: "player id health hp sp" <-- Changes the players health values to ('hp','sp')
+	/// Returns if the command was validly called
+	//////////////////////////////////////////////
 	bool cmdPlayer(char* cm);
+	//////////////////////////////////////////////
+	/// This command can only be used with an active match
+	/// Format: "camera" <-- Logs the currently followed player
+	/// Format: "camera id" <-- Changes the currently followed player to the one with id 'id'
+	/// Returns if the command was validly called
+	//////////////////////////////////////////////
 	bool cmdCamera(char* cm);
+	//////////////////////////////////////////////
+	/// This command can only be used with an active match
+	/// Format: "time" <-- Logs the current daytime
+	/// Format: "time dt" <-- Changes the current daytime to 'dt'
+	/// Returns if the command was validly called
+	//////////////////////////////////////////////
 	bool cmdTime(char* cm);
+	//////////////////////////////////////////////
+	/// Format: "dps dist" <-- Lists the weapons by dps at distance 'dist'
+	/// Format: "dps dist max" <-- Lists the top 'max' weapons by dps at distance 'dist'
+	/// Returns if the command was validly called
+	//////////////////////////////////////////////
 	bool cmdDPS(char* cm);
+	//////////////////////////////////////////////
+	/// Format: "commands" <-- Lists the commands
+	/// Always returns true
+	//////////////////////////////////////////////
 	bool cmdCommands(char* cm);
+	//////////////////////////////////////////////
+	/// Format: "convars" <-- Lists the commands
+	/// Always returns true
+	//////////////////////////////////////////////
 	bool cmdConvars(char* cm);
+	//////////////////////////////////////////////
+	/// Format: "find something" <-- Lists all the commands and convars containing 'something'
+	/// Always returns true
+	//////////////////////////////////////////////
 	bool cmdFind(char* cm);
 	bool cmdPlaysound(char* cm);
 	bool cmdPlaysoundrel(char* cm);
+	//////////////////////////////////////////////
+	/// Format: "bind button cmd" <-- Binds the action key "cmd" to the button "button"
+	/// Format: "bind keylist" <-- Lists the names of buttons
+	/// Format: "bind cmdlist" <-- Lists the names of actions
+	/// Returns if the command was validly called
+	//////////////////////////////////////////////
 	bool cmdBind(char* cm);
+	//////////////////////////////////////////////
+	/// Format: "unbind button cmd" <-- Unbinds the action key "cmd" from the button "button"
+	/// Format: "unbind keylist" <-- Lists the names of buttons
+	/// Format: "unbind cmdlist" <-- Lists the names of actions
+	/// Format: "unbind all" <-- Unbinds all buttons
+	/// Returns if the command was validly called
+	//////////////////////////////////////////////
 	bool cmdUnbind(char* cm);
+	//////////////////////////////////////////////
+	/// Format: "exec cfgname.cfg" <-- Executes each line in cfgname.cfg
+	/// Note: cfgname.cfg must be present in the cfg\ folder
+	/// Returns if cfgname.cfg was found
+	//////////////////////////////////////////////
 	bool cmdExec(char* cm);
+	//////////////////////////////////////////////
+	/// Check formats in the definition
+	/// Returns if the command was validly called
+	//////////////////////////////////////////////
 	bool cmdLayer(char* cm);
+	//////////////////////////////////////////////
+	/// This command can only be used with an active match
+	/// Format: "bot difficulties" <-- Lists the indexes of bots for all difficulties
+	/// Format: "bot difficulties_alive" <--Lists the indexes of alive bots for all difficulties
+	/// TODO: Changability for difficulty, playstyle, etc
+	/// Returns if the command was validly called
+	//////////////////////////////////////////////
 	bool cmdBot(char* cm);
-
+	//////////////////////////////////////////////
+	/// Returns if the button for action 'KEY' has been pressed
+	/// 'Continuous' checks for longer presses
+	//////////////////////////////////////////////
 	bool GetKeyStatus(int KEY, bool Continuous);
-
+	//////////////////////////////////////////////
+	/// Loads the config with 'name' where name must be "cfgname.cfg" and be present in the cfg\ folder
+	/// Makes the console silent with only errors and echos displaying messages
+	//////////////////////////////////////////////
 	bool LoadConfig(char* name);
+	//////////////////////////////////////////////
+	/// Saves the config file with the current binds and convars with "name"
+	/// Returns if the config file could be loaded
+	//////////////////////////////////////////////
 	void SaveConfig(char* name);
+	//////////////////////////////////////////////
+	/// Loads the file "profile.md" and copies values to the players profile
+	//////////////////////////////////////////////
 	bool LoadProfile();
+	//////////////////////////////////////////////
+	/// Saves the players proifle to "profile.md"
+	//////////////////////////////////////////////
 	void SaveProfile();
 
+	//////////////////////////////////////////////
+	/// Hard-coded.
+	/// Returns the names of the buttons
+	//////////////////////////////////////////////
 	std::vector<char*> GetAllKeyNames();
+	//////////////////////////////////////////////
+	/// Hard-coded.
+	/// Returns the names of the ingame actions
+	//////////////////////////////////////////////
 	std::vector<char*> GetAllActNames();
-
+	//////////////////////////////////////////////
+	/// Counts the function calls in the last 1000 ms period
+	/// Renders it in the top right corner
+	//////////////////////////////////////////////
 	void show_fps();
 };
 
