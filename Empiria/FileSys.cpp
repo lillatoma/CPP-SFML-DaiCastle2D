@@ -1,5 +1,5 @@
 #include "FileSys.h"
-#include "ITek.h"
+#include "_Tek.h"
 #include "includes.h"
 
 filesystem g_Files;
@@ -18,7 +18,7 @@ void filesystem::LoadTEK(char* tekname)
 {
 	int found = 0;
 
-	ITek::DispackTEKToFilesWithNames(tekname, &file[cur_ent], found, names[cur_ent], 100);
+	_Tek::DispackTEKToFilesWithNames(tekname, &file[cur_ent], found, names[cur_ent], 100);
 	cur_ent += found;
 	Sleep(2);
 }

@@ -17,7 +17,7 @@ struct tile_t
 	sf::Vector2i coord;
 	int target_dist = INT_MAX / 2;
 	int start_dist = INT_MAX / 2;
-	int status = TS_UNUSED;
+	char status = TS_UNUSED;
 };
 
 struct tilemap_t
@@ -40,6 +40,10 @@ struct tilemap_t
 struct AStar
 {
 	static bool FindPath(tilemap_t* T);
+	//////////////////////////////////////////////
+	/// Finds the shortest map on a tilemap between startpoint and endpoint
+	/// This path gets exported to the 'printvec' vector
+	//////////////////////////////////////////////
 	static bool FindPathSTD(tilemap_t* T, std::vector<sf::Vector2f>& printvec);
 	static bool FindPathSTDS(tilemap_t* T);
 	static bool FindPathOneIter(tilemap_t* T);

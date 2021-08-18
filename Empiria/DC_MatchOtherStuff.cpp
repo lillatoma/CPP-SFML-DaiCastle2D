@@ -7,7 +7,7 @@ void dc_game::show_fps()
 
 	static int count = 0;
 
-	if (clock.GetDiff() >= 1000)
+	if (clock.deltaTime() >= 1000)
 	{
 		fps_counted = count;
 		count = 0;
@@ -19,9 +19,9 @@ void dc_game::show_fps()
 
 	sprintf(buf, "%d FPS", fps_counted);
 
-	auto dim = IWindow::GetTextSize(buf, g_Resolution.y*0.0333f);
+	auto dim = _Window::GetTextSize(buf, g_Resolution.y*0.0333f);
 
-	IWindow::RenderTextB(g_Resolution.x*0.95f-dim.x,g_Resolution.y*0.005f, buf, g_Resolution.y*0.0333f, 255, 0, 0, 255);
+	_Window::RenderTextB(g_Resolution.x*0.95f-dim.x,g_Resolution.y*0.005f, buf, g_Resolution.y*0.0333f, 255, 0, 0, 255);
 
 	
 
@@ -108,7 +108,7 @@ void dc_match::PrintAllWeaponDPS()
 void dc_match::ClearUnreachableItems()
 {
 	static dc_clock Clock;
-	if (Clock.GetDiff() > 1000)
+	if (Clock.deltaTime() > 1000)
 	{
 		float FurthestOutDistance = 0.f;
 		sf::Vector2f CurrentStormMiddle = GetCurrentStormMiddle();

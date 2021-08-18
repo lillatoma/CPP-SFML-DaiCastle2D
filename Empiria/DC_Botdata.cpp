@@ -9,6 +9,7 @@ sf::Vector2i TMap_Size;
 void dc_match::CreateMovementMap()
 {
 	TMap.Setup(map.size.x * 2+1, map.size.y * 2+1);
+	//Checking for walls as they are solid and can't be walked through
 	for (int _x = 0; _x < map.size.x; _x++)
 	{
 		for (int _y = 0; _y < map.size.y; _y++)
@@ -514,8 +515,9 @@ void dc_match::BotThink(int id, int diff)
 
 void dc_match::BotCalculatePath(int player, sf::Vector2f Target)
 {
-
-	if (BotData[player].Changables.PathFindClock.GetDiff() < 250)
+	//For performance saving, limitations to pathfinding is applied
+	//Pathfinding is only used with a 250ms delay since the last call
+	if (BotData[player].Changables.PathFindClock.deltaTime() < 250)
 		return;
 	BotData[player].Changables.PathFindClock.Update();
 	BotData[player].move_path.clear();
@@ -523,69 +525,57 @@ void dc_match::BotCalculatePath(int player, sf::Vector2f Target)
 	sf::Vector2i vMid = sf::Vector2i(players[player].vPosition.x, players[player].vPosition.y);
 	auto dif = vTar - vMid;
 	auto dist = sqrt(dif.x*dif.x + dif.y*dif.y);
-	/*if (dif.x >= -4 && dif.x <= 4 && dif.y >= -4 && dif.y <= 4)
-	{
-		CreateSmallMovementMap(vMid, sf::Vector2i(18, 18), vTar);
-		std::vector<sf::Vector2f> path;
-		AStar::FindPathSTD(&TMap, path);
-
-		for (int i = 0; i < path.size(); i++)
-		{
-			BotData[player].move_path.push_back(sf::Vector2f(path[i].x + TMap_Start.x, path[i].y + TMap_Start.y));
-		}
-	}
-	else*/
 	{
 		int Size = 30;
 
-		while (true)
+		if (Size >= 32)
 		{
-			if (Size >= 32)
-			{
-				//BotData[player].move_path.push_back(sf::Vector2f(vTar));
-				break;
-			}
-			//auto vPos = ((Size/2-1) * vTar + (int)(dist - (Size / 2 - 1)) * vMid) / (int)dist;
-			auto vPos = vMid + (Size / 2 - 3)*(vTar - vMid) / (int)(dist+1);
-			if (dif.x <= Size / 2 - 2 && dif.x >= -Size / 2 + 2 && dif.y <= Size / 2 - 2 && dif.y >= -Size / 2 + 2)
-				vPos = vTar;
-			if (vMid == vPos)
-			{
-				BotData[player].move_path.clear();
-				BotData[player].move_path.push_back(Target);
-				return;
-			}
-			CreateSmallMovementMap(vMid, sf::Vector2i(Size, Size), vPos);
-			std::vector<sf::Vector2f> path;
-			AStar::FindPathSTD(&TMap, path);
-
-			if (path.size() > 0)
-			{
-				for (int i = 0; i < path.size(); i++)
-				{
-					BotData[player].move_path.push_back(sf::Vector2f(path[i].x + TMap_Start.x, path[i].y + TMap_Start.y));
-				}
-				break;
-			}
-			else Size += 12;
+			//BotData[player].move_path.push_back(sf::Vector2f(vTar));
 		}
+		//auto vPos = ((Size/2-1) * vTar + (int)(dist - (Size / 2 - 1)) * vMid) / (int)dist;
+		auto vPos = vMid + (Size / 2 - 3)*(vTar - vMid) / (int)(dist+1);
+		if (dif.x <= Size / 2 - 2 && dif.x >= -Size / 2 + 2 && dif.y <= Size / 2 - 2 && dif.y >= -Size / 2 + 2)
+			vPos = vTar;
+		if (vMid == vPos)
+		{
+			BotData[player].move_path.clear();
+			BotData[player].move_path.push_back(Target);
+			return;
+		}
+		//Saves it to TMap
+		CreateSmallMovementMap(vMid, sf::Vector2i(Size, Size), vPos);
+		std::vector<sf::Vector2f> path;
+		AStar::FindPathSTD(&TMap, path);
+
+		if (path.size() > 0)
+		{
+			for (int i = 0; i < path.size(); i++)
+			{
+				BotData[player].move_path.push_back(sf::Vector2f(path[i].x + TMap_Start.x, path[i].y + TMap_Start.y));
+			}
+		}
+		else Size += 12;
 	}
 }
 
 void dc_match::BotMoveToNextPoint(int id, float difftime)
 {
+	//We can't move closer
 	if (BotData[id].move_path.size() <= 0)
 	{
 			return;
 	}
 
+	//Calculating the movement angle and moving towards it
 	auto next_point = BotData[id].move_path[BotData[id].move_path.size() - 1];
 	auto diff = players[id].vPosition - next_point;
 	auto angle = 180 + vec2angle(diff.x, -diff.y);
 	PlayerMove(id, angle);
 
+	//Rotating the bot towards the next move point
 	BotCorrectAngleNew(id, difftime, angle, BotData[id].fAimSpeedCasual, BotData[id].fAimCorrectnessCasual);
 
+	//Removing the points of the move path that are reached
 	auto distance = GetDistance(diff, sf::Vector2f());
 	if (distance < 0.3)BotData[id].move_path.pop_back();
 	else if (distance > 5)
@@ -670,7 +660,7 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 {
 	int totalCases = easyCase + normalCase + hardCase + expertCase;
 
-	//GeneratingDifficulties
+	//Generating Difficulties
 
 	for (int id = 1; id < 100; id++)
 	{
@@ -695,8 +685,10 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 	{
 
 		float BusTime = GetDistance(BusEndPosition, BusStartPosition) / BUS_TRAVELSPEED;
+		//Non-linear distrbution, bots tend to jump more early than late
 		float ModifTime = pow(BusTime, 0.75f);
 		BotData[id].JumpoffTime = pow(g_RandomDevice.RandomFloat(0, ModifTime),1.f/0.75f);
+		//Non-linear distrbution, bots tend to jump close than far
 		float ModifRadius = pow(1000, 0.5f);
 		BotData[id].JumpoffDist = pow(g_RandomDevice.RandomFloat(18, ModifRadius), 1.f / 0.5f);
 
@@ -706,7 +698,6 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 		float jumpprecisities[] = { 20.f,12.f,6.f,3.f };
 		float precRadius = pow((g_RandomDevice.RandomFloat(0,pow(jumpprecisities[BotData[id].botDifficulty],3))),0.333f);
 		float precAngle = g_RandomDevice.RandomFloat(0, 360.f);
-
 		auto ChestID = GoodChests[Random(0, GoodChests.size() - 1)];
 		BotData[id].JumpToPosition = map.chests[ChestID].vPosition + angle2vec(precAngle)*precRadius;
 
@@ -715,6 +706,7 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 		BotData[id].DescendSpeedInMind = g_RandomDevice.RandomFloat(6.f - descendprecisities[BotData[id].botDifficulty], 6.f + descendprecisities[BotData[id].botDifficulty]);
 	}
 	//Improving BusData
+	//This one is a result of calculation from Maple for the best possible jump time for landing as fast as possible
 	for (int id = 1; id < 100; id++)
 	{
 		auto A = BusStartPosition;
@@ -853,24 +845,6 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 
 	//Generating WeaponPreferences
 	{
-		struct InventoryType {
-			float I[5];
-			bool Moving[5] = { false,false,false,false,false };
-			std::vector<int> Special[5] = { };
-
-			InventoryType();
-			InventoryType(float i1, float  i2, float i3, float i4, float i5)
-			{
-				I[0] = i1;
-				I[1] = i2;
-				I[2] = i3;
-				I[3] = i4;
-				I[4] = i5;
-			}
-
-		};
-		std::vector<InventoryType> InvTypes;
-
 		for (int id = 1; id < 100; id++)
 		{
 			//Weapon 1 Data
@@ -1132,6 +1106,8 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 		{
 			for (int j = 0; j < 5; j++)
 			{
+				//Non-linear distribution, preferring better ranked items
+				//3 is so they don't ever chase the best item of a type, top 4 is enough for them
 				int Ranking = pow(g_RandomDevice.RandomFloat( pow(3,0.667f), pow(g_Items.size(), 0.667f) ),1.5f);
 				BotData[i].GoodEnoughRanking[j] = Ranking;
 			}
@@ -1267,7 +1243,7 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 			else BotData[i].FightStyleInFight = 2;
 		}
 	}
-	//InFight Healths
+	//In and off-Fight Healths
 	for(int i = 1; i < 100; i++)
 	{
 		if (BotData[i].botDifficulty == 0)
@@ -1387,6 +1363,10 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 
 
 	//Generating Skins
+	//Idea:
+	//Low and medium difficulty bots are more likely to wear the default skins
+	//Hard difficulty bots are randomly wearing skins
+	//Expert bots are more likely to wear default skins to get the user offguards
 	for (int i = 1; i < 100; i++)
 	{
 		if (BotData[i].botDifficulty == 0)
@@ -1450,6 +1430,10 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 	//BotBegin() Bottom
 	//TODO: Generateotherstuff
 
+	//Bot Names
+	BotGiveNames();
+
+	return;
 
 	for (int i = 1; i < 10; i++)
 	{
@@ -1496,10 +1480,13 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 		if (BotData[i].botDifficulty == 3)printf(" %d", i);
 	}
 
-	BotGiveNames();
+
 
 }
-
+//////////////////////////////////////////////
+/// Returns an array of indexes of the elements of 'V' sorted in an ascending order
+/// TODO: Optimize
+//////////////////////////////////////////////
 std::vector<int> id_list(std::vector<int> V)
 {
 	std::vector<int> Indexes;
@@ -1532,11 +1519,13 @@ void dc_match::BotSortInventory(int id)
 		std::vector<int> Ranks;
 
 		for (int It = 0; It < takenSlots; It++)Ranks.push_back(GetIndex(BotData[id].WeaponPreferences[It], players[id].Items[i].ListIndex));
+		//Sorting the indexes in an ascending order
 		auto IndexList = id_list(Ranks);
 
 		for (int j = 0; j < IndexList.size(); j++)
 		{
 			if (IndexList[j] == i) break;
+			//Sorting prefers items in the first few slots
 			if (!players[id].Items[IndexList[j]].bValidated)
 			{
 				PlayerSwapWeaponInventory(id, i, IndexList[j]);
@@ -1568,7 +1557,7 @@ void dc_match::BotSortInventory(int id)
 float dc_match::BotFindBestBailAngle(int id)
 {
 	std::vector<float> BadAngles;
-
+	//Adding players
 	for (int i = 0; i < BotData[id].Changables.NoticedPlayerIDs.size(); i++)
 	{
 		int ID = BotData[id].Changables.NoticedPlayerIDs[i];
@@ -1576,7 +1565,7 @@ float dc_match::BotFindBestBailAngle(int id)
 		float Angle = vec2angle(DiffVec.x, -DiffVec.y);
 		BadAngles.push_back(Angle);
 	}
-
+	//Adding the storm if it's close to the bot
 	if (GetDistance(players[id].vPosition, GetCurrentStormMiddle()) > (0.5f*GetCurrentStormDiameter() - 50.f))
 	{
 		auto DiffVec = players[id].vPosition - GetCurrentStormMiddle();
@@ -1588,9 +1577,10 @@ float dc_match::BotFindBestBailAngle(int id)
 	for (int i = 0; i < BadAngles.size(); i++)
 	{
 		int j = (i + 1) % (BadAngles.size());
+		//Pushing back the halfpoint angle of two angles occupied by opponents (or storm)
 		TestingAngles.push_back(0.5f*(BadAngles[i] + BadAngles[j]));
 	}
-
+	//Sorting the testingangles in an ascending order of Manhattan distance from the bad angles
 	int bestIndex = 0;
 	float bestDiff = 0.f;
 	for (int i = 0; i < TestingAngles.size(); i++)
@@ -1599,6 +1589,7 @@ float dc_match::BotFindBestBailAngle(int id)
 		for (int j = 0; j < BadAngles.size(); j++)
 		{
 			float AngDiff = TestingAngles[i] - BadAngles[j];
+			//This is for normalizing angle differences
 			while (AngDiff > 180.f)AngDiff -= 360.f;
 			while (AngDiff < -180.f)AngDiff += 360.f;
 			AngDiff = abs(AngDiff);
@@ -1637,7 +1628,7 @@ void dc_match::BotRushOpponent(int id)
 
 	for (auto I : BotData[id].Changables.NoticedPlayers)
 	{
-		if (I.NoticeTime.GetDiff() <= 1000.f* BotData[id].fEnemyNoticeTime)continue;
+		if (I.NoticeTime.deltaTime() <= 1000.f* BotData[id].fEnemyNoticeTime)continue;
 		if (closest_id == id || (GetDistance(players[id].vPosition, players[closest_id].vPosition) > GetDistance(players[id].vPosition, players[I.playerid].vPosition)))
 			closest_id = I.playerid;
 	}
@@ -1651,7 +1642,7 @@ void dc_match::BotRushOpponent(int id)
 
 void dc_match::BotSwapToJustInCaseWeapon(int id)
 {
-	if (BotData[id].Changables.WeaponSwapCheckClock.GetDiff() > 600)
+	if (BotData[id].Changables.WeaponSwapCheckClock.deltaTime() > 600)
 	{
 		float fCurrentDamage = 0;
 		if (players[id].GetCurrentWeapon().bValidated)fCurrentDamage = players[id].GetCurrentWeapon().CalculateDPS(BotData[id].JustInCaseWeaponDistance, BotData[id].FightType[players[id].iSelectedWeapon]);
@@ -1672,7 +1663,7 @@ void dc_match::BotSwapToJustInCaseWeapon(int id)
 
 void dc_match::BotSwapWeaponInFight(int id)
 {
-	if (BotData[id].Changables.WeaponSwapCheckClock.GetDiff() > 300)
+	if (BotData[id].Changables.WeaponSwapCheckClock.deltaTime() > 300)
 	{
 		float shortest_distance = 999.f;
 		for (int i = 0; i < BotData[id].Changables.TargetedPlayerIDs.size(); i++)
@@ -1703,7 +1694,7 @@ void dc_match::BotSwapWeaponInFight(int id)
 
 void dc_match::BotSwapToEmergencyWeapon(int id)
 {
-	if (BotData[id].Changables.WeaponSwapCheckClock.GetDiff() > 350)
+	if (BotData[id].Changables.WeaponSwapCheckClock.deltaTime() > 350)
 	{
 		float shortest_distance = 30.f;
 		for (int i = 0; i < BotData[id].Changables.TargetedPlayerIDs.size(); i++)
@@ -1736,6 +1727,7 @@ void dc_match::BotCorrectAngleNew(int id, float diff, float neededang, float spe
 	float currentangle = players[id].fAngle;
 
 	float angleDifference = neededang - currentangle;
+	//Angle difference normalization
 	while (angleDifference > 180.f)angleDifference -= 360.f;
 	while (angleDifference <= -180.f)angleDifference += 360.f;
 
@@ -1777,6 +1769,7 @@ int dc_match::BotShouldHeal(int id)
 			auto response = players[id].hasSpecificItem(13 + i);
 			if (response != -1)
 			{
+				//Only returning 2 in the very last moment if in storm
 				if (players[id].iHealth < (GetNextStormDamage() * (1 + ceil(g_Items[13 + i].fHealTime))))return 2;
 			}
 
@@ -1794,6 +1787,7 @@ int dc_match::BotShouldHeal(int id)
 			auto response = players[id].hasSpecificItem(13 + i);
 			if (response != -1)
 			{
+				//Checking if the healing item is between the boundaries
 				if (players[id].Items[response].iType == 4)
 				{
 					if ((BotData[id].HealUseMinimums[i] <= health && BotData[id].HealUseMaximums[i] > health)
@@ -1832,8 +1826,10 @@ bool dc_match::BotHasUsableWeapon(int id, float range)
 
 void dc_match::BotCheckStuff(int id, float diff)
 {
+	//If the healing item has been used up
 	if (players[id].fHealTime <= 0.f)BotData[id].Changables.bHealing = false;
 
+	//If the last zone point has been reached
 	if (BotData[id].Changables.DistantTargetType == 3)
 	{
 		if(GetDistance(BotData[id].Changables.DistantTargetPoint,players[id].vPosition) < 0.5f)
@@ -1842,6 +1838,7 @@ void dc_match::BotCheckStuff(int id, float diff)
 
 	}
 
+	//Checking for noticable players if they die or too far
 	for (int i = BotData[id].Changables.NoticedPlayers.size() - 1; i >= 0; i--)
 	{
 		auto pid = BotData[id].Changables.NoticedPlayers[i].playerid;
@@ -1853,6 +1850,7 @@ void dc_match::BotCheckStuff(int id, float diff)
 			BotData[id].Changables.NoticedPlayers.erase(BotData[id].Changables.NoticedPlayers.begin() + i);
 		}
 	}
+	//Checking for noticed/targetabl players if they aren't visible or too far
 	for (int i = BotData[id].Changables.TargetedPlayerIDs.size() - 1; i >= 0; i--)
 	{
 		auto pid = BotData[id].Changables.TargetedPlayers[i].playerid;
@@ -1860,6 +1858,7 @@ void dc_match::BotCheckStuff(int id, float diff)
 		bool hit0 = false, hit1 = false, hit2 = false, hit3 = false, hit4 = false;
 
 		hit0 = !(map.trace_ray(players[id].vPosition, players[pid].vPosition).hit_object);
+		//TODO: Do these relative to the bot with index 'id'
 		hit1 = !(map.trace_ray(players[id].vPosition, players[pid].vPosition + sf::Vector2f(0.25f, 0.f)).hit_object);
 		hit2 = !(map.trace_ray(players[id].vPosition, players[pid].vPosition + sf::Vector2f(0.f, 0.25f)).hit_object);
 		hit3 = !(map.trace_ray(players[id].vPosition, players[pid].vPosition - sf::Vector2f(0.25f, 0.f)).hit_object);
@@ -1869,31 +1868,31 @@ void dc_match::BotCheckStuff(int id, float diff)
 		if (players[pid].iHealth > 0 && (GetBotModifiedDistance(players[id].vPosition, players[pid].vPosition) <= (BotData[id].fPlayerRange))
 			&& (hit1 || hit2 || hit3 || hit4 || hit0))BotData[id].Changables.TargetedPlayers[i].DeleteTime.Update();
 
-		if(players[pid].iHealth <= 0 && BotData[id].Changables.TargetedPlayers[i].DeleteTime.GetDiff() > 1000.f*BotData[id].BotMemoryAfterDie)
+		if(players[pid].iHealth <= 0 && BotData[id].Changables.TargetedPlayers[i].DeleteTime.deltaTime() > 1000.f*BotData[id].BotMemoryAfterDie)
 		{
 			BotData[id].Changables.TargetedPlayerIDs.erase(BotData[id].Changables.TargetedPlayerIDs.begin() + i);
 			BotData[id].Changables.TargetedPlayers.erase(BotData[id].Changables.TargetedPlayers.begin() + i);
 		}
 		else if ((GetBotModifiedDistance(players[id].vPosition, players[pid].vPosition) > BotData[id].fPlayerRange)
-			|| (!hit0 && !hit1 && !hit2 && !hit3 && !hit4) && BotData[id].Changables.TargetedPlayers[i].DeleteTime.GetDiff() > 1000.f*BotData[id].BotMemoryAfterVanish)
+			|| (!hit0 && !hit1 && !hit2 && !hit3 && !hit4) && BotData[id].Changables.TargetedPlayers[i].DeleteTime.deltaTime() > 1000.f*BotData[id].BotMemoryAfterVanish)
 		{
 			BotData[id].Changables.TargetedPlayerIDs.erase(BotData[id].Changables.TargetedPlayerIDs.begin() + i);
 			BotData[id].Changables.TargetedPlayers.erase(BotData[id].Changables.TargetedPlayers.begin() + i);
 		}
 
 	}
-
-	if (BotData[id].Changables.LastBailClock.GetDiff() > 30000)
+	//Resetting bail distance if the last bail happened 30s or more ago
+	if (BotData[id].Changables.LastBailClock.deltaTime() > 30000)
 		BotData[id].Changables.BailDistance = 40;
 
 	BotData[id].Changables.SideStepTimeLeft -= diff;
 
-
+	//If a bail target dies, it gets erased
 	for (int i = BotData[id].Changables.BailTarget.size() - 1; i >= 0; i--)
 	{
 		if (players[BotData[id].Changables.BailTarget[i]].iHealth <= 0) BotData[id].Changables.BailTarget.erase(BotData[id].Changables.BailTarget.begin() + i);
 	}
-
+	//In case of successful bailing
 	if (BotData[id].Changables.DistantTargetType == 5 && BotData[id].Changables.BailTarget.size() == 0)
 	{
 		BotData[id].Changables.DistantTargetType = 0;
@@ -1902,7 +1901,7 @@ void dc_match::BotCheckStuff(int id, float diff)
 
 	if (BotData[id].Changables.DistantTargetType == 0)
 	{
-		BotData[id].Changables.DistantTargetPoint == players[id].vPosition;
+		BotData[id].Changables.DistantTargetPoint = players[id].vPosition;
 	}
 
 	if ((BotData[id].Changables.DistantTargetType != 9 && players[id].fHealTime <= 0.f) 
@@ -1926,6 +1925,7 @@ void dc_match::BotDoHeal(int id)
 	{
 		for (int i = 0; i < 6; i++)
 		{
+			//Not healing shields in storm
 			if (i == 2 || i == 3)continue;
 			auto response = players[id].hasSpecificItem(13 + i);
 			if (response != -1)
@@ -2005,15 +2005,15 @@ void dc_match::BotDoHeal(int id)
 bool dc_match::BotShouldGoToZone(int id)
 {
 	if (IsPointInStorm(players[id].vPosition))return true;
-	if (BotData[id].BotZoneFearLevel == 0);
-	else if (BotData[id].BotZoneFearLevel == 1)
+	if (BotData[id].BotZoneFearLevel == 0); //Only in storm
+	else if (BotData[id].BotZoneFearLevel == 1) //Only if storm is close
 	{
 		auto Mid = GetCurrentStormMiddle();
 		auto Size = GetCurrentStormDiameter();
 
 		return GetDistance(Mid, players[id].vPosition) > (Size/2-10);
 	}
-	else if (BotData[id].BotZoneFearLevel == 2)
+	else if (BotData[id].BotZoneFearLevel == 2) // On time
 	{
 		auto Mid = GetNextStormMiddle();
 		auto Size = GetNextStormDiameter();
@@ -2027,7 +2027,7 @@ bool dc_match::BotShouldGoToZone(int id)
 
 		return time_to_get_in_there >= time_till_close && time_to_get_in_there > 0.f;
 	}
-	else if (BotData[id].BotZoneFearLevel == 3)
+	else if (BotData[id].BotZoneFearLevel == 3) // Early
 	{
 		auto Mid = GetNextStormMiddle();
 		auto Size = GetNextStormDiameter();
@@ -2041,7 +2041,7 @@ bool dc_match::BotShouldGoToZone(int id)
 
 		return time_to_get_in_there >= time_till_close && time_to_get_in_there > 0.f;
 	}
-	else if (BotData[id].BotZoneFearLevel == 4)
+	else if (BotData[id].BotZoneFearLevel == 4) // Very early
 	{
 		auto Mid = GetNextStormMiddle();
 		auto Size = GetNextStormDiameter();
@@ -2121,7 +2121,7 @@ void dc_match::BotClearUnnecesaryMovepathInFight(int id)
 
 void dc_match::BotDoTheMoveInFight(int id, float diff)
 {
-	if (BotData[id].Changables.DistantTargetType == 5)
+	if (BotData[id].Changables.DistantTargetType == 5) //Bailing
 	{
 		if (BotData[id].move_path.size() == 0)
 		{
@@ -2141,19 +2141,19 @@ void dc_match::BotDoTheMoveInFight(int id, float diff)
 
 void dc_match::BotDoTheMove(int id,float diff)
 {
-	if (BotData[id].move_path.size() == 0)
+	if (BotData[id].move_path.size() == 0) //No movepath, generating new move path
 	{
 		BotCalculatePath(id, BotData[id].Changables.DistantTargetPoint);
 		if (BotData[id].move_path.size() == 0)BotData[id].Changables.movepathBugged = true;
 		else BotData[id].Changables.movepathBugged = false;
 		BotMoveToNextPoint(id,diff);
 
-	}
+	} //Moving towards the distanttargetpoint if it's far
 	else if  (GetDistance(BotData[id].Changables.DistantTargetPoint, players[id].vPosition) > 0.5f) BotMoveToNextPoint(id,diff);
 
 
 
-	if (BotData[id].Changables.DistantTargetType == 1)
+	if (BotData[id].Changables.DistantTargetType == 1) //Chests
 	{
 		if (!IsIn(BotData[id].Changables.RestOfChests, BotData[id].Changables.DistantTargetChestID) || IsPointInStorm(BotData[id].Changables.DistantTargetPoint))
 		{
@@ -2170,7 +2170,7 @@ void dc_match::BotDoTheMove(int id,float diff)
 			BotData[id].Changables.fTimeTillThink = BotData[id].fBotThinkDelay;
 		}
 	}
-	else if (BotData[id].Changables.DistantTargetType == 2)
+	else if (BotData[id].Changables.DistantTargetType == 2) //Items
 	{
 		if (GetDistance(BotData[id].Changables.DistantTargetPoint, players[id].vPosition) > 1.4f)
 		{
@@ -2208,7 +2208,7 @@ void dc_match::BotDoTheMove(int id,float diff)
 			BotData[id].Changables.DistantTargetType = 0;
 		}
 	}
-	else if (BotData[id].Changables.DistantTargetType == 9)
+	else if (BotData[id].Changables.DistantTargetType == 9) //Force heal pickup
 	{
 		if (GetDistance(BotData[id].Changables.DistantTargetPoint, players[id].vPosition) > 1.4f)
 		{
@@ -2296,7 +2296,7 @@ void dc_match::BotDoTheMove(int id,float diff)
 			BotData[id].Changables.DistantTargetType = 0;
 		}
 	}
-	else if (BotData[id].Changables.DistantTargetType == 8)
+	else if (BotData[id].Changables.DistantTargetType == 8) //opening airdrop
 	{
 		int AID = -1;
 		for (int i = 0; i < AirDrops.size(); i++)
@@ -2420,7 +2420,7 @@ void dc_match::BotRaid(int id)
 	auto distanceFromNextStorm = max(0,GetDistance(players[id].vPosition, nextStormMid) - nextStormRadius);
 	float rad = distanceFromNextStorm + 100;
 	sf::Vector2f p = players[id].vPosition;
-	while (GetDistance(nPoint,nextStormMid) > nextStormRadius)
+	while (GetDistance(nPoint,nextStormMid) > nextStormRadius) //Generating a Random point in the zone
 	{
 		int X = Random(p.x - rad, p.x + rad);
 		int Y = Random(p.y - rad, p.y + rad);
@@ -2437,7 +2437,8 @@ int dc_match::BotGetClosestChest(int id)
 	for (int i =  0; i < BotData[id].Changables.RestOfChests.size(); i++)
 	{
 		if (returnid == -1
-			|| GetDistance(map.chests[BotData[id].Changables.RestOfChests[i]].vPosition, players[id].vPosition) < GetDistance(map.chests[BotData[id].Changables.RestOfChests[returnid]].vPosition, players[id].vPosition))returnid = i;
+			|| GetDistance(map.chests[BotData[id].Changables.RestOfChests[i]].vPosition, players[id].vPosition) < GetDistance(map.chests[BotData[id].Changables.RestOfChests[returnid]].vPosition, players[id].vPosition))
+			returnid = i;
 	}
 	if (returnid == -1)return -1;
 	else
@@ -2446,14 +2447,14 @@ int dc_match::BotGetClosestChest(int id)
 
 void dc_match::BotCheckOpenChests(int id, bool force_it)
 {
-	if (BotData[id].Changables.ChestCheckClock.GetDiff() < 1000 && !force_it)return;
+	if (BotData[id].Changables.ChestCheckClock.deltaTime() < 1000 && !force_it)return;
 	for (int i = BotData[id].Changables.RestOfChests.size()-1; i >= 0; i--)
 	{
 
-
+		//If the chest in the chestrange is visibly open
 		if(GetDistance(map.chests[BotData[id].Changables.RestOfChests[i]].vPosition, players[id].vPosition) <= BotData[id].fChestRange && map.chests[BotData[id].Changables.RestOfChests[i]].bOpen)
 			BotData[id].Changables.RestOfChests.erase(BotData[id].Changables.RestOfChests.begin() + i);
-		else if (IsPointInStorm(map.chests[BotData[id].Changables.RestOfChests[i]].vPosition))
+		else if (IsPointInStorm(map.chests[BotData[id].Changables.RestOfChests[i]].vPosition)) //If the chest is in the storm
 			BotData[id].Changables.RestOfChests.erase(BotData[id].Changables.RestOfChests.begin() + i);
 
 	}
@@ -2508,7 +2509,7 @@ void dc_match::BotLowFreefallMove(int id, float diff)
 		//float angle = vec2angle(V.x, -V.y);
 		//PlayerMove(id, angle);
 	}
-	else
+	else //In case for an item that can bounce a player in the air
 	{
 
 	}
@@ -2659,7 +2660,7 @@ void dc_match::BotNoticePlayers(int id)
 	for (int i = 0; i < BotData[id].Changables.NoticedPlayers.size(); i++)
 	{
 		int pid = BotData[id].Changables.NoticedPlayers[i].playerid;
-		if (BotData[id].Changables.NoticedPlayers[i].NoticeTime.GetDiff() > 1000.f*BotData[id].fEnemyNoticeTime && !IsIn(BotData[id].Changables.TargetedPlayerIDs,pid))
+		if (BotData[id].Changables.NoticedPlayers[i].NoticeTime.deltaTime() > 1000.f*BotData[id].fEnemyNoticeTime && !IsIn(BotData[id].Changables.TargetedPlayerIDs,pid))
 		{
 
 			bool hit0 = false, hit1 = false, hit2 = false, hit3 = false, hit4 = false;
@@ -2682,14 +2683,14 @@ bool dc_match::BotHasRealTarget(int id)
 {
 	for (int i = 0; i < BotData[id].Changables.TargetedPlayers.size(); i++)
 	{
-		if (BotData[id].Changables.TargetedPlayers[i].NoticeTime.GetDiff() > 1000.f*BotData[id].fReactionTime)return true;
+		if (BotData[id].Changables.TargetedPlayers[i].NoticeTime.deltaTime() > 1000.f*BotData[id].fReactionTime)return true;
 	}
 	return false;
 }
 
 bool dc_match::BotShouldBailOffFight(int id)
 {
-	if (BotData[id].Changables.NoBailOFClock.GetDiff() <= 30000)return false;
+	if (BotData[id].Changables.NoBailOFClock.deltaTime() <= 30000)return false;
 	if (BotData[id].Changables.DistantTargetType == 5)return true;
 	if (BotHasRealNoticed(id) && (players[id].iHealth + players[id].iShield) < BotData[id].BailHealthMaxOF)return true;
 	return false;
@@ -2713,7 +2714,7 @@ void dc_match::BotBailOffFight(int id)
 	BotData[id].Changables.BailDistance += 20;
 	BotData[id].Changables.fTimeTillThink = BotData[id].fBotThinkDelay;
 	for (int i = 0; i < BotData[id].Changables.NoticedPlayers.size(); i++)
-		if (BotData[id].Changables.NoticedPlayers[i].NoticeTime.GetDiff() > 1000.f*BotData[id].fEnemyNoticeTime)
+		if (BotData[id].Changables.NoticedPlayers[i].NoticeTime.deltaTime() > 1000.f*BotData[id].fEnemyNoticeTime)
 			BotData[id].Changables.BailTarget.push_back(BotData[id].Changables.NoticedPlayers[i].playerid);
 	BotData[id].move_path.clear();
 }
@@ -2728,7 +2729,7 @@ void dc_match::BotBailInFight(int id)
 	BotData[id].Changables.BailDistance += 20;
 
 	for (int i = 0; i < BotData[id].Changables.NoticedPlayers.size(); i++)
-		if (BotData[id].Changables.NoticedPlayers[i].NoticeTime.GetDiff() > 1000.f*BotData[id].fEnemyNoticeTime)
+		if (BotData[id].Changables.NoticedPlayers[i].NoticeTime.deltaTime() > 1000.f*BotData[id].fEnemyNoticeTime)
 			BotData[id].Changables.BailTarget.push_back(BotData[id].Changables.NoticedPlayers[i].playerid);
 	BotData[id].move_path.clear();
 }
@@ -2745,6 +2746,7 @@ void dc_match::BotAimOnTarget(int id, float diff)
 	}
 	else
 	{
+		//With a sniper, projectile travel should also be calculated
 		float Distance = GetDistance(players[id].vPosition, players[BotData[id].Changables.TargetedPlayerIDs[0]].vPosition);
 		float ProjectileSpeed = players[id].GetCurrentWeapon().fProjectileSpeed;
 		float projectileTime = Distance / ProjectileSpeed;
@@ -2886,48 +2888,54 @@ bool dc_match::BotReloadWeapons(int id)
 void dc_match::BotThink(int id, float diff)
 {
 	if (players[id].bOnBus)
-		BotJumpoffBus(id);
+		BotJumpoffBus(id); //We check for jump in every BotThink call on the bus
 	else
 	{
-		if (!BotData[id].hasJumpedoffTotally && players[id].fFreeFallHeight > 0.f)BotDescend(id, diff);
+		if (!BotData[id].hasJumpedoffTotally && players[id].fFreeFallHeight > 0.f)BotDescend(id, diff); //Checking for descend every BotThink Call (in the air)
 		if (players[id].fFreeFallHeight <= 0.f) {
 		
 			if (!BotData[id].hasJumpedoffTotally)BotData[id].Changables.NoBailOFClock.Update();
 			BotData[id].hasJumpedoffTotally = true;
 		}
-		if (players[id].fFreeFallHeight > 5.f)BotFreefallMove(id,diff);
-		else if (players[id].fFreeFallHeight > 0.f)BotLowFreefallMove(id,diff);
+		if (players[id].fFreeFallHeight > 5.f)BotFreefallMove(id,diff); //If high enough to fly over walls
+		else if (players[id].fFreeFallHeight > 0.f)BotLowFreefallMove(id,diff); //If low in the air
 
-		BotNoticePlayers(id);
-		BotCheckStuff(id,diff);
+		BotNoticePlayers(id); //Checking for players
+		BotCheckStuff(id,diff); //Doing a checkup
 	
 		if (BotData[id].hasJumpedoffTotally)
 		{
-			if (BotData[id].Changables.fTimeTillThink > 0.f)
+			if (BotData[id].Changables.fTimeTillThink > 0.f) //To create a thinking delay
 			{
-				BotData[id].Changables.fTimeTillThink -= diff;
+				BotData[id].Changables.fTimeTillThink -= diff; 
 				return;
 			}
 
-			BotCheckOpenChests(id, false);
+			BotCheckOpenChests(id, false); //Checking surrounding chests
+			//////////////////////////////////////////////
+			/// IN FIGHT
+			//////////////////////////////////////////////
 			if (BotHasRealTarget(id) && BotHasUsableWeapon(id,GetDistance(players[id].vPosition,players[BotData[id].Changables.TargetedPlayerIDs[0]].vPosition)))
 			{
-				BotClearUnnecesaryMovepathInFight(id);
-				BotAimOnTarget(id, diff);
-				BotSwapWeaponInFight(id);
+				BotClearUnnecesaryMovepathInFight(id); //No moving to weird positions
+				BotAimOnTarget(id, diff); //Aiming
+				BotSwapWeaponInFight(id); //Swapping to the most efficient DPS weapon
 				
-				if (BotShouldBailInFight(id))
+				if (BotShouldBailInFight(id)) //Checking if the situation is bad
 				{
-					BotBailInFight(id);
+					BotBailInFight(id); //If bad, run
 					BotDoTheMoveInFight(id, diff);
 				}
 				else BotDoDodge(id);
 
 				if (BotShouldShootWeapon(id))BotShoot(id);
 			}
+			//////////////////////////////////////////////
+			/// NOT IN FIGHT
+			//////////////////////////////////////////////
 			else
 			{
-
+				//Not interrupting the consumption of a healing item
 				if (BotData[id].Changables.bHealing || players[id].fHealTime > 0.f)
 				{
 					BotDoHeal(id);
@@ -2938,31 +2946,30 @@ void dc_match::BotThink(int id, float diff)
 				int bothealresponse = BotShouldHeal(id);
 				int force_item_id = BotHasForceHealNearby(id);
 				int item_id = (force_item_id == -1)?(BotHasItemNearby(id)):(-1);
-				//ConLog("\n%d", bothealresponse);
+
 				if (BotData[id].Changables.forceHeal);
 
-				else if (BotHasRealNoticed(id) || BotData[id].Changables.DistantTargetType == 6)
+				else if (BotHasRealNoticed(id) || BotData[id].Changables.DistantTargetType == 6) //Swapping to the most effective weapon
 					BotSwapToEmergencyWeapon(id);
-				else if (!BotReloadWeapons(id))
-					BotSwapToJustInCaseWeapon(id);
+				else if (!BotReloadWeapons(id)) //If there is no target, reload the weapons
+					BotSwapToJustInCaseWeapon(id); //If weapons are reloaded, swap to the just in case weapon
 
 
 
-				if (BotData[id].Changables.forceHeal)ConLog("\n%d", id);
 
-				if (bothealresponse == 2)BotDoHeal(id); //TODO: ==1 search
-				else if (BotShouldGoToZone(id) && item_id == -1 && force_item_id == -1)BotGoToZone(id);
-				else if (BotShouldBailOffFight(id))BotBailOffFight(id);
+				if (bothealresponse == 2)BotDoHeal(id); //If the bot has a healing item in the inventory, it uses it up
+				else if (BotShouldGoToZone(id) && item_id == -1 && force_item_id == -1)BotGoToZone(id); //If the bot should go to zone and there is no needed item, it goes to zone
+				else if (BotShouldBailOffFight(id))BotBailOffFight(id); 
 				else if (BotShouldGetAirDrop(id))BotGetAirDrop(id);
 				else if (BotShouldCoverAirDrop(id))BotCoverAirDrop(id);
 				else if (BotShouldRushOpponent(id))BotRushOpponent(id);
-				else if (force_item_id != -1)
+				else if (force_item_id != -1) //If there is a forceheal, the bot should pick it up
 					BotGoToTheItem(id, force_item_id, 1);
-				else if (item_id != -1)
+				else if (item_id != -1) //If there is a needed item, the bot should pick it up
 					BotGoToTheItem(id, item_id);
 				else if (BotNeedsToLoot(id))BotLoot(id);
 				else if (BotCanRaid(id))BotRaid(id);
-				BotDoTheMove(id, diff);
+				BotDoTheMove(id, diff); //Move to the next movepath point
 
 				if (BotData[id].Changables.movepathBugged)
 				{
@@ -2977,8 +2984,5 @@ void dc_match::BotThink(int id, float diff)
 }
 
 
-//TODO: Ha Healen áll, nem cserél rá a bot, pl shield preferencia + 4 weapon, nem vesz fel medkitet
 //TODO: Wallbreak effect
-//TODO: Playerkill effect
-//TODO: Bot fight modeok: rusher, sidewalker (target position update ~ 0.66s), runaway mechanism
-//TODO: Unreachable point finder, ha unreachable pointra landol, akkor position change
+//TODO: Unreachable point finder

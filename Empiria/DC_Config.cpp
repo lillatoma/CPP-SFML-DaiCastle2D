@@ -36,6 +36,7 @@ void dc_game::SaveProfile()
 
 bool dc_game::LoadConfig(char* name)
 {
+	//To counter recursive config execution, we check if the cfg is among the opened configs
 	for (int i = 0; i < cfgNames.size(); i++)
 	{
 		if (strstr(name, cfgNames[i]))return false;
@@ -75,8 +76,7 @@ bool dc_game::LoadConfig(char* name)
 		}
 	}
 
-	//for (int i = 0; i < CommandList.size(); i++)
-	//	printf("\n'%s'", CommandList[i]);
+	//Making the console silent for the execution of commands
 	float originalValue = g_Config.con_silent.Value;
 	g_Config.con_silent.Value = 2.f;
 
@@ -87,6 +87,7 @@ bool dc_game::LoadConfig(char* name)
 	}
 	g_Config.con_silent.Value = originalValue;
 
+	//After all the commands were executed, we erase the name from the cfg name list
 	for(int i = 0; i < cfgNames.size();i++)
 		if (strstr(name, cfgNames[i]))
 		{

@@ -11,7 +11,7 @@ void dc_damageeffect::draw(float mx, float my, float width, float ServerTime)
 	static char buffer[8];
 	sprintf(buffer, "%d", damage);
 
-	IWindow::RenderTextB(screen_pos.x, screen_pos.y, buffer, 24 * g_Resolution.y / 720, color.r, color.g, color.g, min(255,2*color.a*(0.5f-diff)/0.5f));
+	_Window::RenderTextB(screen_pos.x, screen_pos.y, buffer, 24 * g_Resolution.y / 720, color.r, color.g, color.g, min(255,2*color.a*(0.5f-diff)/0.5f));
 }
 
 void dc_shieldbreakeffect::draw(float mx, float my, float width,float servertime)
@@ -87,7 +87,7 @@ void dc_killnoticeeffect::draw(float y, int cfollows, float y2, float ServerTime
 	{
 		alpha = 255 - (diff - 4.f) * 255;
 	}
-	IWindow::RenderTextB(0.0234375*g_Resolution.x, g_Resolution.y*0.6f + y, message, g_Resolution.y*0.02f, 255, 255, 255, alpha);
+	_Window::RenderTextB(0.0234375*g_Resolution.x, g_Resolution.y*0.6f + y, message, g_Resolution.y*0.02f, 255, 255, 255, alpha);
 	return;
 	if (cfollows == Killer)
 	{
@@ -99,10 +99,10 @@ void dc_killnoticeeffect::draw(float y, int cfollows, float y2, float ServerTime
 		sprintf(BufferB, "%d", Target);
 		sprintf(BufferC, "Eliminated %d");
 
-		auto Dims = IWindow::GetTextSize(BufferC, g_Resolution.y * 0.03f);
-		auto Dims2 = IWindow::GetTextSize(BufferA, g_Resolution.y * 0.03f);
-		IWindow::RenderTextB(g_Resolution.x*0.5f-Dims.x*0.5f, g_Resolution.y*0.7f + y2, BufferA, g_Resolution.y*0.03f, 222, 222, 222, alpha);
-		IWindow::RenderTextB(g_Resolution.x*0.5f - Dims.x* 0.5f+Dims2.x, g_Resolution.y*0.7f + y2, BufferB, g_Resolution.y*0.03f, 225, 180, 32, alpha);
+		auto Dims = _Window::GetTextSize(BufferC, g_Resolution.y * 0.03f);
+		auto Dims2 = _Window::GetTextSize(BufferA, g_Resolution.y * 0.03f);
+		_Window::RenderTextB(g_Resolution.x*0.5f-Dims.x*0.5f, g_Resolution.y*0.7f + y2, BufferA, g_Resolution.y*0.03f, 222, 222, 222, alpha);
+		_Window::RenderTextB(g_Resolution.x*0.5f - Dims.x* 0.5f+Dims2.x, g_Resolution.y*0.7f + y2, BufferB, g_Resolution.y*0.03f, 225, 180, 32, alpha);
 
 	}
 }
@@ -198,8 +198,8 @@ void dc_airdropeffect::draw(float ServerTime)
 	float d = ServerTime - clockBegin;
 
 	int fontsize = g_Resolution.x*0.03f;
-	float textlen = IWindow::GetTextSize("AIR DROP INCOMING", fontsize).x;
-	float textheight = IWindow::GetHeightForFontsize(fontsize);
+	float textlen = _Window::GetTextSize("AIR DROP INCOMING", fontsize).x;
+	float textheight = _Window::GetHeightForFontsize(fontsize);
 	float blocklen = textlen + g_Resolution.x*0.05f;
 	float blockheight = textheight + g_Resolution.y*0.01f;
 	int alphaBlock = 128;
@@ -216,7 +216,7 @@ void dc_airdropeffect::draw(float ServerTime)
 		alphaBlock = (3.f - d) * 255;
 	}
 
-	IWindow::RenderOverlay(0.5f*(g_Resolution.x - blocklen), g_Resolution.y*0.05f, blocklen, blockheight, 255, 255, 255, alphaBlock);
+	_Window::RenderOverlay(0.5f*(g_Resolution.x - blocklen), g_Resolution.y*0.05f, blocklen, blockheight, 255, 255, 255, alphaBlock);
 
 	if (d > 0.5f && d < 2.5f)
 	{
@@ -229,7 +229,7 @@ void dc_airdropeffect::draw(float ServerTime)
 			alphaText = (2.5f-d) * 510;
 		}
 
-		IWindow::RenderTextB(0.5f*(g_Resolution.x - textlen), g_Resolution.y*0.055f, "AIR DROP INCOMING", fontsize, 0, 0, 0, alphaText);
+		_Window::RenderTextB(0.5f*(g_Resolution.x - textlen), g_Resolution.y*0.055f, "AIR DROP INCOMING", fontsize, 0, 0, 0, alphaText);
 
 
 	}
@@ -246,8 +246,8 @@ void dc_stormclosingeffect::draw(float ServerTime)
 	float d = ServerTime - clockBegin;
 	if (d > 3.f)return;
 	int fontsize = g_Resolution.x*0.03f;
-	float textlen = IWindow::GetTextSize("STORM CLOSING", fontsize).x;
-	float textheight = IWindow::GetHeightForFontsize(fontsize);
+	float textlen = _Window::GetTextSize("STORM CLOSING", fontsize).x;
+	float textheight = _Window::GetHeightForFontsize(fontsize);
 	float blocklen = textlen + g_Resolution.x*0.05f;
 	float blockheight = textheight + g_Resolution.y*0.01f;
 	int alphaBlock = 128;
@@ -264,7 +264,7 @@ void dc_stormclosingeffect::draw(float ServerTime)
 		alphaBlock = (3.f - d) * 255;
 	}
 
-	IWindow::RenderOverlay(0.5f*(g_Resolution.x - blocklen), g_Resolution.y*0.05f, blocklen, blockheight, 255, 255, 255, alphaBlock);
+	_Window::RenderOverlay(0.5f*(g_Resolution.x - blocklen), g_Resolution.y*0.05f, blocklen, blockheight, 255, 255, 255, alphaBlock);
 
 	if (d > 0.5f && d < 2.5f)
 	{
@@ -277,7 +277,7 @@ void dc_stormclosingeffect::draw(float ServerTime)
 			alphaText = (2.5f - d) * 510;
 		}
 
-		IWindow::RenderTextB(0.5f*(g_Resolution.x - textlen), g_Resolution.y*0.055f, "STORM CLOSING", fontsize, 0, 0, 0, alphaText);
+		_Window::RenderTextB(0.5f*(g_Resolution.x - textlen), g_Resolution.y*0.055f, "STORM CLOSING", fontsize, 0, 0, 0, alphaText);
 
 
 	}
@@ -292,13 +292,13 @@ void dc_stormclosingeffect::draw(float ServerTime)
 
 void dc_questdoneeffect::draw()
 {
-	float diff = 0.001f*Clock.GetDiff();
+	float diff = 0.001f*Clock.deltaTime();
 
 	float DefOverlayAlpha = 128;
 	if (diff < 0.25f)DefOverlayAlpha = diff * 512;
 	else if (diff > 2.75)DefOverlayAlpha = (3.f - diff) * 512;
 
-	IWindow::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, DefOverlayAlpha);
+	_Window::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, DefOverlayAlpha);
 
 	
 
@@ -457,46 +457,46 @@ void dc_questdoneeffect::draw()
 	int fontsize = g_Resolution.y*(0.1f*w / (g_Resolution.x));
 
 
-	auto lineheight = IWindow::GetHeightForFontsize(fontsize);
+	auto lineheight = _Window::GetHeightForFontsize(fontsize);
 	auto texH = ChallengeNameLines*lineheight;
 	h = max(h, texH);
 
-	auto BufLength = IWindow::GetTextSize(Buffer, fontsize);
+	auto BufLength = _Window::GetTextSize(Buffer, fontsize);
 	if (tier == 5)
 	{
-		IWindow::RenderOverlay(x-(ChScale-1)*w, y-(ChScale-1)*(g_Resolution.y*0.005f + 18), ChScale*w, ChScale*(h + g_Resolution.y*0.005f + 18), 32, 32, 128, ChAlpha);
-		IWindow::RenderOverlay(x-(ChScale-1)*(w*0.0125f), y-(ChScale-1)*(h + g_Resolution.y*0.005f + 18), ChScale*w*0.0125f, ChScale*(h + g_Resolution.y*0.005f + 18), 64, 64, 255, ChAlpha);
-		IWindow::RenderTextB(x + 0.02631*w-(ChScale-1)*BufLength.x, y- (ChScale - 1)*(g_Resolution.y*0.005f + 10), Buffer, fontsize,255,255,255, ChAlpha);
+		_Window::RenderOverlay(x-(ChScale-1)*w, y-(ChScale-1)*(g_Resolution.y*0.005f + 18), ChScale*w, ChScale*(h + g_Resolution.y*0.005f + 18), 32, 32, 128, ChAlpha);
+		_Window::RenderOverlay(x-(ChScale-1)*(w*0.0125f), y-(ChScale-1)*(h + g_Resolution.y*0.005f + 18), ChScale*w*0.0125f, ChScale*(h + g_Resolution.y*0.005f + 18), 64, 64, 255, ChAlpha);
+		_Window::RenderTextB(x + 0.02631*w-(ChScale-1)*BufLength.x, y- (ChScale - 1)*(g_Resolution.y*0.005f + 10), Buffer, fontsize,255,255,255, ChAlpha);
 
 
 		char ProgressBuffer[16];
 		sprintf(ProgressBuffer, "FINISHED");
-		int leee = IWindow::GetTextSize(ProgressBuffer, fontsize).x;
+		int leee = _Window::GetTextSize(ProgressBuffer, fontsize).x;
 
-		IWindow::RenderTextB(x + 0.97368421052*w - leee, y + h + 0.005f*g_Resolution.y - lineheight, ProgressBuffer, fontsize,255,255,255,max(0,min(ChAlpha,(diff-1.7f)*510)));
+		_Window::RenderTextB(x + 0.97368421052*w - leee, y + h + 0.005f*g_Resolution.y - lineheight, ProgressBuffer, fontsize,255,255,255,max(0,min(ChAlpha,(diff-1.7f)*510)));
 
-		IWindow::RenderOverlay(x + 0.02631*w-(ChScale-1)*0.9473f*w, y + h + 0.005f*g_Resolution.y+(ChScale-1)*8, (ChScale)*0.9473f*w, ChScale*8, 0, 0, 0, ChAlpha);
-		IWindow::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, ChScale*newprogress*(0.9473f*w - 2), 6, 0, 177, 222, ChAlpha);
+		_Window::RenderOverlay(x + 0.02631*w-(ChScale-1)*0.9473f*w, y + h + 0.005f*g_Resolution.y+(ChScale-1)*8, (ChScale)*0.9473f*w, ChScale*8, 0, 0, 0, ChAlpha);
+		_Window::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, ChScale*newprogress*(0.9473f*w - 2), 6, 0, 177, 222, ChAlpha);
 		
-		IWindow::RenderOverlay(x + 0.02631*w+ ChScale*underprogress*(0.9473f*w - 2), y + h + 0.005f*g_Resolution.y + 1, ChScale*(newprogress-underprogress)*(0.9473f*w - 2), 6, 64, 222, 255, ChAlpha);
+		_Window::RenderOverlay(x + 0.02631*w+ ChScale*underprogress*(0.9473f*w - 2), y + h + 0.005f*g_Resolution.y + 1, ChScale*(newprogress-underprogress)*(0.9473f*w - 2), 6, 64, 222, 255, ChAlpha);
 	
 	}
 	else if (tier == 10)
 	{
-		IWindow::RenderOverlay(x - (ChScale - 1)*w, y - (ChScale - 1)*(g_Resolution.y*0.005f + 18), ChScale*w, ChScale*(h + g_Resolution.y*0.005f + 18), 128,32,32, ChAlpha);
-		IWindow::RenderOverlay(x - (ChScale - 1)*(w*0.0125f), y - (ChScale - 1)*(h + g_Resolution.y*0.005f + 18), ChScale*w*0.0125f, ChScale*(h + g_Resolution.y*0.005f + 18), 255,64,64, ChAlpha);
-		IWindow::RenderTextB(x + 0.02631*w - (ChScale - 1)*BufLength.x, y - (ChScale - 1)*(g_Resolution.y*0.005f + 10), Buffer, fontsize, 255, 255, 255, ChAlpha);
+		_Window::RenderOverlay(x - (ChScale - 1)*w, y - (ChScale - 1)*(g_Resolution.y*0.005f + 18), ChScale*w, ChScale*(h + g_Resolution.y*0.005f + 18), 128,32,32, ChAlpha);
+		_Window::RenderOverlay(x - (ChScale - 1)*(w*0.0125f), y - (ChScale - 1)*(h + g_Resolution.y*0.005f + 18), ChScale*w*0.0125f, ChScale*(h + g_Resolution.y*0.005f + 18), 255,64,64, ChAlpha);
+		_Window::RenderTextB(x + 0.02631*w - (ChScale - 1)*BufLength.x, y - (ChScale - 1)*(g_Resolution.y*0.005f + 10), Buffer, fontsize, 255, 255, 255, ChAlpha);
 
 		char ProgressBuffer[16];
 		sprintf(ProgressBuffer, "FINISHED");
-		int leee = IWindow::GetTextSize(ProgressBuffer, fontsize).x;
+		int leee = _Window::GetTextSize(ProgressBuffer, fontsize).x;
 
-		IWindow::RenderTextB(x + 0.97368421052*w - leee, y + h + 0.005f*g_Resolution.y - lineheight, ProgressBuffer, fontsize, 255, 255, 255, max(0, min(ChAlpha, (diff - 1.7f) * 510)));
+		_Window::RenderTextB(x + 0.97368421052*w - leee, y + h + 0.005f*g_Resolution.y - lineheight, ProgressBuffer, fontsize, 255, 255, 255, max(0, min(ChAlpha, (diff - 1.7f) * 510)));
 
-		IWindow::RenderOverlay(x + 0.02631*w - (ChScale - 1)*0.9473f*w, y + h + 0.005f*g_Resolution.y + (ChScale - 1) * 8, (ChScale)*0.9473f*w, ChScale * 8, 0, 0, 0, ChAlpha);
-		IWindow::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, ChScale*newprogress*(0.9473f*w - 2), 6, 225,128,32, ChAlpha);
+		_Window::RenderOverlay(x + 0.02631*w - (ChScale - 1)*0.9473f*w, y + h + 0.005f*g_Resolution.y + (ChScale - 1) * 8, (ChScale)*0.9473f*w, ChScale * 8, 0, 0, 0, ChAlpha);
+		_Window::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, ChScale*newprogress*(0.9473f*w - 2), 6, 225,128,32, ChAlpha);
 
-		IWindow::RenderOverlay(x + 0.02631*w + ChScale*underprogress*(0.9473f*w - 2), y + h + 0.005f*g_Resolution.y + 1, ChScale*(newprogress - underprogress)*(0.9473f*w - 2), 6, 255,210,64, ChAlpha);
+		_Window::RenderOverlay(x + 0.02631*w + ChScale*underprogress*(0.9473f*w - 2), y + h + 0.005f*g_Resolution.y + 1, ChScale*(newprogress - underprogress)*(0.9473f*w - 2), 6, 255,210,64, ChAlpha);
 
 	}
 
@@ -516,13 +516,13 @@ void dc_lockergoteffect::draw()
 
 	auto pointer = (dc_lockerunlockable*)lockerUnlockable;
 
-	float diff = 0.001f*Clock.GetDiff();
+	float diff = 0.001f*Clock.deltaTime();
 
 	float DefOverlayAlpha = 128;
 	if (diff < 0.25f)DefOverlayAlpha = diff * 512;
 	else if (diff > 2.75)DefOverlayAlpha = (3.f - diff) * 512;
 
-	IWindow::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, DefOverlayAlpha);
+	_Window::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, DefOverlayAlpha);
 
 	//Sphere
 	float rot = 120.f*(diff / 3.f);
@@ -613,9 +613,9 @@ void dc_lockergoteffect::draw()
 void dc_game::RemoveExpiredEffects()
 {
 	for (int i = Effects.QD_Effects.size() - 1; i >= 0; i--)
-		if (Effects.QD_Effects[i].Clock.GetDiff() > 3000)Effects.QD_Effects.erase(Effects.QD_Effects.begin() + i);
+		if (Effects.QD_Effects[i].Clock.deltaTime() > 3000)Effects.QD_Effects.erase(Effects.QD_Effects.begin() + i);
 	for (int i = Effects.LG_Effects.size() - 1; i >= 0; i--)
-		if (Effects.LG_Effects[i].Clock.GetDiff() > 3000)Effects.LG_Effects.erase(Effects.LG_Effects.begin() + i);
+		if (Effects.LG_Effects[i].Clock.deltaTime() > 3000)Effects.LG_Effects.erase(Effects.LG_Effects.begin() + i);
 
 
 

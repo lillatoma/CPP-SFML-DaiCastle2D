@@ -173,7 +173,7 @@ void dc_match::Demo_SnapshotUpdatePlayers()
 
 void dc_match::Demo_CreateSnapshot()
 {
-	Demo_SnapshotUpdatePlayers();
+	Demo_SnapshotUpdatePlayers(); //Saves player information into snapshot
 	Demo_NewestSnapshot.DAYTIME = map.day_time;
 	if (TicksTotal % (2 * DemoTickBase) == 0)Demo_NewestSnapshot.KeyFrame = true;
 	Demo_NewestSnapshot.Tick = TicksTotal;
@@ -184,7 +184,8 @@ void dc_match::Demo_CreateSnapshot()
 
 	for (int i = 127; i >= 0; i--)
 	{
-		if (Demo_Snapshots[i] != nullptr) {
+		if (Demo_Snapshots[i] != nullptr) //Saving to the first available slot
+		{
 			SmallIndex = (i + 1); break;
 		}
 	}
@@ -300,13 +301,13 @@ void dc_match::Demo_Convert(dc_match* m, dc_demo_metadata Metadata)
 	dc_demo Demo;
 	//ConLog("\nDemo Converting started");
 
-	dc_ticksnapshot LastSnapShot;
+	dc_ticksnapshot LastSnapShot; //For comparing two snapshots
 	while (!m->Demo_ShouldEnd)
 	{
 		while (m->Demo_Snapshots[0] == nullptr)
 		{
 			if (m->Demo_ShouldEnd)break;
-			Sleep(1);
+			Sleep(1); //Without this Sleep, the loop got stuck, it also reduces CPU load on this thread
 		}
 		if (m->Demo_ShouldEnd)break;
 		auto &pointer = m->Demo_Snapshots[0];
@@ -315,7 +316,7 @@ void dc_match::Demo_Convert(dc_match* m, dc_demo_metadata Metadata)
 		//ConLog("\nDemo Converting tick %d/%d",pointer->Tick,m->TicksTotal);
 		dc_demo_tick Tick(pointer->Tick);
 		
-		if (pointer->KeyFrame)
+		if (pointer->KeyFrame) //In a keyframe, every information is updated for the players, and servertime and daytime is updated
 		{
 			dc_demo_data KF;
 			KF.toKeyframe()->tick = pointer->Tick;
@@ -461,9 +462,8 @@ void dc_match::Demo_Convert(dc_match* m, dc_demo_metadata Metadata)
 	{
 		if (m->Demo_Snapshots[i] != nullptr)delete m->Demo_Snapshots[i];
 	}
-
+	//From this point, the match pointer will not be used, so it can be flagged for deletion
 	m->canDelete = true;
-	ConLog("\nGame can end");
 
 	int mDataSize;
 	auto metadataPrint = Metadata.GetPrinted(&mDataSize);
@@ -515,10 +515,11 @@ void dc_match::Demo_Convert(dc_match* m, dc_demo_metadata Metadata)
 
 	char NameBuffer[260];
 	//sprintf(NameBuffer, "%sdemos\\demo_%d%d%d%d-%d%d%d%d-%d%d%d%d-%d%d%d%d.dem", appLocation.c_str(), Random(0, 9), Random(0, 9), Random(0, 9), Random(0, 9), Random(0, 9), Random(0, 9), Random(0, 9), Random(0, 9), Random(0, 9), Random(0, 9), Random(0, 9), Random(0, 9), Random(0, 9), Random(0, 9), Random(0, 9), Random(0, 9));
-
+	//Saving the current time as demoname
 	sprintf(NameBuffer, "%sdemos\\demo_%d-%s%d-%s%d-%s%d-%s%d-%s%d.dem",
 		appLocation.c_str(), now->tm_year + 1900, (now->tm_mon < 9 ? "0" : ""), now->tm_mon+1, (now->tm_mday < 10 ? "0" : ""), now->tm_mday, (now->tm_hour < 10 ? "0" : ""), now->tm_hour, (now->tm_min < 10 ? "0" : ""), now->tm_min, (now->tm_sec < 10 ? "0" : ""), now->tm_sec);
 	F.Dump(NameBuffer);
+	//Freeing memory
 	delete[] F.loc_in_mem;
 	delete[] metadataPrint;
 }

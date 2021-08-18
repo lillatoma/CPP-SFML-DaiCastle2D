@@ -121,10 +121,10 @@
     <ClInclude Include="fastParser.h" />
     <ClInclude Include="FileSys.h" />
     <ClInclude Include="gameHeaders.h" />
-    <ClInclude Include="IAudio.h" />
+    <ClInclude Include="_Audio.h" />
     <ClInclude Include="includes.h" />
-    <ClInclude Include="ITek.h" />
-    <ClInclude Include="IWindow.h" />
+    <ClInclude Include="_Tek.h" />
+    <ClInclude Include="_Window.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Structs.h" />
     <ClInclude Include="ThreadManager.h" />
@@ -150,9 +150,9 @@
     <ClCompile Include="DC_Unit.cpp" />
     <ClCompile Include="fastParser.cpp" />
     <ClCompile Include="FileSys.cpp" />
-    <ClCompile Include="IAudio.cpp" />
-    <ClCompile Include="ITek.cpp" />
-    <ClCompile Include="IWindow.cpp" />
+    <ClCompile Include="_Audio.cpp" />
+    <ClCompile Include="_Tek.cpp" />
+    <ClCompile Include="_Window.cpp" />
     <ClCompile Include="main.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">SFML_DYNAMIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>

@@ -25,7 +25,7 @@ struct alpha_thread
 
 	~alpha_thread()
 	{
-		float diff = 0.001f*BeginClock.GetDiff();
+		float diff = 0.001f*BeginClock.deltaTime();
 
 
 		Thread->detach();

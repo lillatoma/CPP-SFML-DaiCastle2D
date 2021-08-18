@@ -79,7 +79,7 @@ int main(int argc, char **argv)
 		FreeConsole();
 		
 		Game.Setup();
-		IWindow::CreateTheWindow();
+		_Window::CreateTheWindow();
 	}
 
 

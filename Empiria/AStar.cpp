@@ -134,7 +134,7 @@ void tilemap_t::Draw(int x, int y, int s)
 
 	std::vector<sf::Vertex> Vertices;
 
-	IWindow::RenderOverlay(x, y, (_tilesize.x*size.x), _tilesize.y*size.y, 0, 0, 0, 255);
+	_Window::RenderOverlay(x, y, (_tilesize.x*size.x), _tilesize.y*size.y, 0, 0, 0, 255);
 	for (int _x = 0; _x < size.x; _x++)
 	{
 		for (int _y = 0; _y < size.y; _y++)
@@ -164,7 +164,7 @@ void tilemap_t::Draw(int x, int y, int s)
 				if (_tilesize.x < 40)continue;
 				char buf[16];
 				sprintf(buf, "%d", Tiles[_x][_y].start_dist + Tiles[_x][_y].target_dist);
-				IWindow::RenderTextB(_tx, _ty, buf, 16);
+				_Window::RenderTextB(_tx, _ty, buf, 16);
 			}
 
 		}

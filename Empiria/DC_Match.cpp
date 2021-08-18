@@ -5,34 +5,34 @@ void dc_match::DrawSpectatorInfo()
 {
 	char NumBuffer[16]; sprintf(NumBuffer, "#%d", players[0].Stats.iPlacement);
 
-	auto NumDim = IWindow::GetTextSize(NumBuffer, g_Resolution.y*0.08f);
+	auto NumDim = _Window::GetTextSize(NumBuffer, g_Resolution.y*0.08f);
 
 	char youplaced[16] = "You placed";
-	auto youDim = IWindow::GetTextSize(youplaced, g_Resolution.y*0.03f);
+	auto youDim = _Window::GetTextSize(youplaced, g_Resolution.y*0.03f);
 
-	IWindow::RenderTextB(0.5f*(g_Resolution.x - NumDim.x-youDim.x)-g_Resolution.x*0.005, g_Resolution.y*0.01f+1.f*(NumDim.y-youDim.y), youplaced, g_Resolution.y*0.03f, 255, 255, 255, 255);
+	_Window::RenderTextB(0.5f*(g_Resolution.x - NumDim.x-youDim.x)-g_Resolution.x*0.005, g_Resolution.y*0.01f+1.f*(NumDim.y-youDim.y), youplaced, g_Resolution.y*0.03f, 255, 255, 255, 255);
 	
 	for(int i = -1; i <= 1;i++)
 		for(int j = -1; j <= 1;j++)
-			IWindow::RenderTextB(0.5f*(g_Resolution.x - NumDim.x+youDim.x)+2*i, g_Resolution.y*0.01f+2*i, NumBuffer, g_Resolution.y*0.08f, 0, 0, 0, 255);
+			_Window::RenderTextB(0.5f*(g_Resolution.x - NumDim.x+youDim.x)+2*i, g_Resolution.y*0.01f+2*i, NumBuffer, g_Resolution.y*0.08f, 0, 0, 0, 255);
 
-	IWindow::RenderTextB(0.5f*(g_Resolution.x - NumDim.x+youDim.x), g_Resolution.y*0.01f, NumBuffer, g_Resolution.y*0.08f, 225, 180, 32, 255);
+	_Window::RenderTextB(0.5f*(g_Resolution.x - NumDim.x+youDim.x), g_Resolution.y*0.01f, NumBuffer, g_Resolution.y*0.08f, 225, 180, 32, 255);
 
 	char spectating[16] = "Spectating ";
 	char playBuf[128];
 	char fullBuf[144];
 	sprintf(playBuf, "%s\0", players[camera_follows].szName);
 	sprintf(fullBuf, "%s%s", spectating, playBuf);
-	auto specdim = IWindow::GetTextSize(spectating, g_Resolution.y*0.03f);
-	auto fulldim = IWindow::GetTextSize(fullBuf, g_Resolution.y*0.03f);
+	auto specdim = _Window::GetTextSize(spectating, g_Resolution.y*0.03f);
+	auto fulldim = _Window::GetTextSize(fullBuf, g_Resolution.y*0.03f);
 
-	IWindow::RenderTextB(0.5f*g_Resolution.x - 0.5f*fulldim.x, g_Resolution.y*0.80f, spectating, g_Resolution.y*0.03f, 255, 255, 255, 255);
+	_Window::RenderTextB(0.5f*g_Resolution.x - 0.5f*fulldim.x, g_Resolution.y*0.80f, spectating, g_Resolution.y*0.03f, 255, 255, 255, 255);
 
 	for (int i = -1; i <= 1; i++)
 		for (int j = -1; j <= 1; j++)
-			IWindow::RenderTextB(0.5f*g_Resolution.x - 0.5f*fulldim.x + specdim.x+i, g_Resolution.y*0.80f+i, playBuf, g_Resolution.y*0.03f, 0,0,0, 255);
+			_Window::RenderTextB(0.5f*g_Resolution.x - 0.5f*fulldim.x + specdim.x+i, g_Resolution.y*0.80f+i, playBuf, g_Resolution.y*0.03f, 0,0,0, 255);
 
-	IWindow::RenderTextB(0.5f*g_Resolution.x - 0.5f*fulldim.x+specdim.x, g_Resolution.y*0.80f, playBuf, g_Resolution.y*0.03f, 225,180,32, 255);
+	_Window::RenderTextB(0.5f*g_Resolution.x - 0.5f*fulldim.x+specdim.x, g_Resolution.y*0.80f, playBuf, g_Resolution.y*0.03f, 225,180,32, 255);
 }
 
 
@@ -218,7 +218,7 @@ void dc_match::DrawPlayerIndicator(sf::Vector2f V)
 	static dc_clock Clock;
 	static bool ShouldDrawCircle = false;
 
-	auto d = Clock.GetDiff();
+	auto d = Clock.deltaTime();
 
 	float radius = blocksize.x * d / 2000;
 	float outlineradius = blocksize.x *d / 10000;
@@ -250,8 +250,8 @@ void dc_match::DrawPlayerIndicator(sf::Vector2f V)
 		float IndicatorHeight = 0.5*blocksize.x;
 		float IndicatedHeight = 0.5*blocksize.x*players[camera_follows].fFreeFallHeight * 0.01f;
 
-		IWindow::RenderOverlay(tx + IndicatorHeight, ty -IndicatorHeight, 6, IndicatorHeight*2, 0, 0, 0, 255);
-		IWindow::RenderOverlay(tx + IndicatorHeight, ty + IndicatorHeight-IndicatedHeight*2, 4, IndicatedHeight*2, 255, 0, 0, 255);
+		_Window::RenderOverlay(tx + IndicatorHeight, ty -IndicatorHeight, 6, IndicatorHeight*2, 0, 0, 0, 255);
+		_Window::RenderOverlay(tx + IndicatorHeight, ty + IndicatorHeight-IndicatedHeight*2, 4, IndicatedHeight*2, 255, 0, 0, 255);
 	}
 }
 
@@ -326,13 +326,13 @@ void dc_match::DrawPlayers(sf::Vector2f V)
 			sprwep.setTextureRect(sf::IntRect(96 * players[i].GetCurrentWeapon().iTexture, 96*players[i].iWeaponWrapTexture, 64, 64));
 			sprwep.setRotation(-players[i].fAngle + 90);
 			sprwep.setPosition(tx + 0 * scale, ty + 0 * scale);
-			IWindow::AddToRenderList(sprwep);
+			_Window::AddToRenderList(sprwep);
 		}
 
-		IWindow::AddToRenderList(spr);
+		_Window::AddToRenderList(spr);
 
 		spr.setTextureRect(sf::IntRect(0, 0, 64, 64));
-		IWindow::AddToRenderList(spr);
+		_Window::AddToRenderList(spr);
 
 		//Glider
 		if (!players[i].bOnBus && players[i].fFreeFallHeight > 0.f)
@@ -1375,7 +1375,7 @@ void dc_match::SimulateExplosives(float timediff, sf::Vector2f V)
 
 							if (Exp.userid != data.iVictim)
 								sprintf(kl.message, "%s eliminated %s with %s (%.1fm)", players[Exp.userid].szName, players[data.iVictim].szName, g_Items[Exp.wpnListIndex].szName, dst);
-							else if (players[data.iVictim].gothitLastClock.GetDiff() < 1000.f*KILL_OWNERTIME && Exp.userid == data.iVictim)
+							else if (players[data.iVictim].gothitLastClock.deltaTime() < 1000.f*KILL_OWNERTIME && Exp.userid == data.iVictim)
 							{
 								sprintf(kl.message, "%s eliminated %s with %s (%.1fm)", players[players[data.iVictim].gotHitLastPlayerID].szName, players[data.iVictim].szName, g_Items[Exp.wpnListIndex].szName, dst);
 								players[Exp.userid].Stats.iEliminations--;
@@ -2050,9 +2050,9 @@ void dc_match::DrawCrosshair(sf::Vector2f V)
 
 void dc_match::DrawUI(sf::Vector2f V)
 {
-	IWindow::RenderOverlay(g_Resolution.x*0.4f, g_Resolution.y*0.9f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 128, 128, 128, 128);
-	IWindow::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.91f, g_Resolution.x*0.18f, g_Resolution.y*0.03f, 32,32,32, 255);
-	IWindow::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.96f, g_Resolution.x*0.18f, g_Resolution.y*0.03f, 32, 32, 32, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.4f, g_Resolution.y*0.9f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 128, 128, 128, 128);
+	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.91f, g_Resolution.x*0.18f, g_Resolution.y*0.03f, 32,32,32, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.96f, g_Resolution.x*0.18f, g_Resolution.y*0.03f, 32, 32, 32, 255);
 	int health = players[camera_follows].iHealth;
 	int armor = players[camera_follows].iShield;
 
@@ -2081,18 +2081,18 @@ void dc_match::DrawUI(sf::Vector2f V)
 	}
 	last_armor = armor;
 
-	IWindow::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.91f, g_Resolution.x*0.18f*visual_health / 100, g_Resolution.y*0.03f, 219, 88, 66, max(0, 255 * (1000 - hclock.GetDiff()) / 1000));
-	IWindow::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.91f, g_Resolution.x*0.18f*health / 100, g_Resolution.y*0.03f, 98, 219, 66, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.91f, g_Resolution.x*0.18f*visual_health / 100, g_Resolution.y*0.03f, 219, 88, 66, max(0, 255 * (1000 - hclock.deltaTime()) / 1000));
+	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.91f, g_Resolution.x*0.18f*health / 100, g_Resolution.y*0.03f, 98, 219, 66, 255);
 
-	IWindow::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.96f, g_Resolution.x*0.18f*visual_armor / 100, g_Resolution.y*0.03f, 100, 190, 255, max(0, 255 * (1000 - aclock.GetDiff()) / 1000));
-	IWindow::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.96f, g_Resolution.x*0.18f*armor / 100, g_Resolution.y*0.03f, 72, 141, 226, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.96f, g_Resolution.x*0.18f*visual_armor / 100, g_Resolution.y*0.03f, 100, 190, 255, max(0, 255 * (1000 - aclock.deltaTime()) / 1000));
+	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.96f, g_Resolution.x*0.18f*armor / 100, g_Resolution.y*0.03f, 72, 141, 226, 255);
 
-	IWindow::RenderTextB(g_Resolution.x*0.42f, g_Resolution.y*0.91f, hbuf, 16*g_Resolution.y/720);
-	IWindow::RenderTextB(g_Resolution.x*0.42f, g_Resolution.y*0.96f, sbuf, 16*g_Resolution.y/720);
+	_Window::RenderTextB(g_Resolution.x*0.42f, g_Resolution.y*0.91f, hbuf, 16*g_Resolution.y/720);
+	_Window::RenderTextB(g_Resolution.x*0.42f, g_Resolution.y*0.96f, sbuf, 16*g_Resolution.y/720);
 
 
 	int boxsize = g_Resolution.x*0.06f;
-	IWindow::RenderOverlay(g_Resolution.x-boxsize*6 - g_Resolution.x*0.01f, g_Resolution.y-boxsize-g_Resolution.x*0.02f, boxsize*6+ g_Resolution.x*0.01f, boxsize+g_Resolution.y*0.04f, 128, 128, 128, 128);
+	_Window::RenderOverlay(g_Resolution.x-boxsize*6 - g_Resolution.x*0.01f, g_Resolution.y-boxsize-g_Resolution.x*0.02f, boxsize*6+ g_Resolution.x*0.01f, boxsize+g_Resolution.y*0.04f, 128, 128, 128, 128);
 
 
 	static sf::Sprite sprute;
@@ -2108,11 +2108,11 @@ void dc_match::DrawUI(sf::Vector2f V)
 		if (players[camera_follows].iSelectedWeapon == i)
 		{
 			if(players[camera_follows].fPulloutDelay <= 0.f)
-				IWindow::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 - 2, g_Resolution.y - boxsize - g_Resolution.x*0.01f - 2, boxsize + 4, boxsize + 4, 255,255,255, 255);
+				_Window::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 - 2, g_Resolution.y - boxsize - g_Resolution.x*0.01f - 2, boxsize + 4, boxsize + 4, 255,255,255, 255);
 			else
-				IWindow::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 - 2, g_Resolution.y - boxsize - g_Resolution.x*0.01f - 2, boxsize + 4, boxsize + 4, 192,192,192, 255);
+				_Window::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 - 2, g_Resolution.y - boxsize - g_Resolution.x*0.01f - 2, boxsize + 4, boxsize + 4, 192,192,192, 255);
 		}
-		IWindow::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2, g_Resolution.y - boxsize - g_Resolution.x*0.01f, boxsize, boxsize, 32, 32, 32, 255);
+		_Window::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2, g_Resolution.y - boxsize - g_Resolution.x*0.01f, boxsize, boxsize, 32, 32, 32, 255);
 		
 		if (players[camera_follows].Items[i].bValidated)
 		{
@@ -2122,7 +2122,7 @@ void dc_match::DrawUI(sf::Vector2f V)
 			auto g = rarities[players[camera_follows].Items[i].iRarity].g;
 			auto b = rarities[players[camera_follows].Items[i].iRarity].b;
 			auto a = rarities[players[camera_follows].Items[i].iRarity].a;
-			IWindow::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2, g_Resolution.y - boxsize - g_Resolution.x*0.01f, boxsize, boxsize, r,g,b,a);
+			_Window::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2, g_Resolution.y - boxsize - g_Resolution.x*0.01f, boxsize, boxsize, r,g,b,a);
 
 			if(players[camera_follows].Items[i].iType > 3)
 				sprute.setColor(sf::Color(255,255,255, 255));
@@ -2132,12 +2132,12 @@ void dc_match::DrawUI(sf::Vector2f V)
 			char Bifer[16];
 			sprintf(Bifer, "%d/%d\0", players[camera_follows].Items[i].iBullets, players[camera_follows].Items[i].iMaxBullets);
 			
-			auto texts = IWindow::GetTextSize(Bifer, 16);
+			auto texts = _Window::GetTextSize(Bifer, 16);
 			for(int XX = -1; XX <= 1; XX++)
 				for(int YY = -1; YY <= 1; YY++)
-					IWindow::RenderTextB(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 + boxsize - texts.x+XX, g_Resolution.y - boxsize - g_Resolution.x*0.01f + boxsize - texts.y - 4.f+YY, Bifer, 16, 0,0,0, 255);
+					_Window::RenderTextB(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 + boxsize - texts.x+XX, g_Resolution.y - boxsize - g_Resolution.x*0.01f + boxsize - texts.y - 4.f+YY, Bifer, 16, 0,0,0, 255);
 
-			IWindow::RenderTextB(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 + boxsize - texts.x, g_Resolution.y - boxsize - g_Resolution.x*0.01f + boxsize - texts.y-4.f, Bifer, 16, 255, 255, 255, 255);
+			_Window::RenderTextB(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 + boxsize - texts.x, g_Resolution.y - boxsize - g_Resolution.x*0.01f + boxsize - texts.y-4.f, Bifer, 16, 255, 255, 255, 255);
 
 		}
 	}
@@ -2148,8 +2148,8 @@ void dc_match::DrawUI(sf::Vector2f V)
 		
 		for (int i = -1; i <= 1; i++)
 			for (int j = -1; j <= 1; j++)
-				IWindow::RenderTextBMiddle(g_Resolution.x / 2 + i, g_Resolution.y*0.875f + j, 0, 0, biffer, 24 * g_Resolution.y / 720, 0, 0, 0, 255);
-		IWindow::RenderTextBMiddle(g_Resolution.x / 2, g_Resolution.y*0.875f, 0, 0, biffer, 24 * g_Resolution.y / 720, 255,255,255, 255);
+				_Window::RenderTextBMiddle(g_Resolution.x / 2 + i, g_Resolution.y*0.875f + j, 0, 0, biffer, 24 * g_Resolution.y / 720, 0, 0, 0, 255);
+		_Window::RenderTextBMiddle(g_Resolution.x / 2, g_Resolution.y*0.875f, 0, 0, biffer, 24 * g_Resolution.y / 720, 255,255,255, 255);
 	}
 
 	if (players[camera_follows].iOpeningChest != -1)
@@ -2159,11 +2159,11 @@ void dc_match::DrawUI(sf::Vector2f V)
 		sprintf(buf, "%.2f", players[camera_follows].fOpeningTime);
 		for (int i = -1; i <= 1; i++)
 			for (int j = -1; j <= 1; j++)
-				IWindow::RenderTextBMiddle(g_Resolution.x / 2 + i, g_Resolution.y*0.8f + j, 0, 0, buf, 24 * g_Resolution.y / 720, 0, 0, 0, 255);
-		IWindow::RenderTextBMiddle(g_Resolution.x / 2, g_Resolution.y*0.8f, 0, 0, buf, 24 * g_Resolution.y / 720, 36, 98, 222, 255);
+				_Window::RenderTextBMiddle(g_Resolution.x / 2 + i, g_Resolution.y*0.8f + j, 0, 0, buf, 24 * g_Resolution.y / 720, 0, 0, 0, 255);
+		_Window::RenderTextBMiddle(g_Resolution.x / 2, g_Resolution.y*0.8f, 0, 0, buf, 24 * g_Resolution.y / 720, 36, 98, 222, 255);
 
-		IWindow::RenderOverlay(g_Resolution.x*0.45f, g_Resolution.y*0.85f, g_Resolution.x*0.1f, 10, 0, 0, 0, 255);
-		IWindow::RenderOverlay(g_Resolution.x*0.45f+1, g_Resolution.y*0.85f+1, (g_Resolution.x*0.1f-2)*players[camera_follows].fOpeningTime/CHEST_OPENTIME, 8, 36,98, 222, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.45f, g_Resolution.y*0.85f, g_Resolution.x*0.1f, 10, 0, 0, 0, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.45f+1, g_Resolution.y*0.85f+1, (g_Resolution.x*0.1f-2)*players[camera_follows].fOpeningTime/CHEST_OPENTIME, 8, 36,98, 222, 255);
 		
 	}
 
@@ -2174,11 +2174,11 @@ void dc_match::DrawUI(sf::Vector2f V)
 		sprintf(buf, "%.2f", players[camera_follows].fOpeningTime);
 		for (int i = -1; i <= 1; i++)
 			for (int j = -1; j <= 1; j++)
-				IWindow::RenderTextBMiddle(g_Resolution.x / 2 + i, g_Resolution.y*0.8f + j, 0, 0, buf, 24 * g_Resolution.y / 720, 0, 0, 0, 255);
-		IWindow::RenderTextBMiddle(g_Resolution.x / 2, g_Resolution.y*0.8f, 0, 0, buf, 24 * g_Resolution.y / 720, 36, 98, 222, 255);
+				_Window::RenderTextBMiddle(g_Resolution.x / 2 + i, g_Resolution.y*0.8f + j, 0, 0, buf, 24 * g_Resolution.y / 720, 0, 0, 0, 255);
+		_Window::RenderTextBMiddle(g_Resolution.x / 2, g_Resolution.y*0.8f, 0, 0, buf, 24 * g_Resolution.y / 720, 36, 98, 222, 255);
 
-		IWindow::RenderOverlay(g_Resolution.x*0.45f, g_Resolution.y*0.85f, g_Resolution.x*0.1f, 10, 0, 0, 0, 255);
-		IWindow::RenderOverlay(g_Resolution.x*0.45f + 1, g_Resolution.y*0.85f + 1, (g_Resolution.x*0.1f - 2)*players[camera_follows].fOpeningTime / AIRDROP_OPENTIME, 8, 36, 98, 222, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.45f, g_Resolution.y*0.85f, g_Resolution.x*0.1f, 10, 0, 0, 0, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.45f + 1, g_Resolution.y*0.85f + 1, (g_Resolution.x*0.1f - 2)*players[camera_follows].fOpeningTime / AIRDROP_OPENTIME, 8, 36, 98, 222, 255);
 
 	}
 
@@ -2189,11 +2189,11 @@ void dc_match::DrawUI(sf::Vector2f V)
 		sprintf(buf, "%.2f", players[camera_follows].fPulloutDelay);
 		for (int i = -1; i <= 1; i++)
 			for (int j = -1; j <= 1; j++)
-				IWindow::RenderTextBMiddle(g_Resolution.x / 2 + i, g_Resolution.y*0.8f + j, 0, 0, buf, 24 * g_Resolution.y / 720, 0, 0, 0, 255);
-		IWindow::RenderTextBMiddle(g_Resolution.x / 2, g_Resolution.y*0.8f, 0, 0, buf, 24 * g_Resolution.y / 720, 222, 144, 46,255);
+				_Window::RenderTextBMiddle(g_Resolution.x / 2 + i, g_Resolution.y*0.8f + j, 0, 0, buf, 24 * g_Resolution.y / 720, 0, 0, 0, 255);
+		_Window::RenderTextBMiddle(g_Resolution.x / 2, g_Resolution.y*0.8f, 0, 0, buf, 24 * g_Resolution.y / 720, 222, 144, 46,255);
 
-		IWindow::RenderOverlay(g_Resolution.x*0.45f, g_Resolution.y*0.85f, g_Resolution.x*0.1f, 10, 0, 0, 0, 255);
-		IWindow::RenderOverlay(g_Resolution.x*0.45f + 1, g_Resolution.y*0.85f + 1, (g_Resolution.x*0.1f - 2)*players[camera_follows].fPulloutDelay / players[camera_follows].Items[players[camera_follows].iSelectedWeapon].fPulloutTime, 8, 222, 144, 46, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.45f, g_Resolution.y*0.85f, g_Resolution.x*0.1f, 10, 0, 0, 0, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.45f + 1, g_Resolution.y*0.85f + 1, (g_Resolution.x*0.1f - 2)*players[camera_follows].fPulloutDelay / players[camera_follows].Items[players[camera_follows].iSelectedWeapon].fPulloutTime, 8, 222, 144, 46, 255);
 
 	}
 	else if (players[camera_follows].fReloadDelay > 0.f)
@@ -2203,11 +2203,11 @@ void dc_match::DrawUI(sf::Vector2f V)
 		sprintf(buf, "%.2f", players[camera_follows].fReloadDelay);
 		for (int i = -1; i <= 1; i++)
 			for (int j = -1; j <= 1; j++)
-				IWindow::RenderTextBMiddle(g_Resolution.x / 2 + i, g_Resolution.y*0.8f + j, 0, 0, buf, 24 * g_Resolution.y / 720, 0, 0, 0, 255);
-		IWindow::RenderTextBMiddle(g_Resolution.x / 2, g_Resolution.y*0.8f, 0, 0, buf, 24 * g_Resolution.y / 720, 144, 222, 46, 255);
+				_Window::RenderTextBMiddle(g_Resolution.x / 2 + i, g_Resolution.y*0.8f + j, 0, 0, buf, 24 * g_Resolution.y / 720, 0, 0, 0, 255);
+		_Window::RenderTextBMiddle(g_Resolution.x / 2, g_Resolution.y*0.8f, 0, 0, buf, 24 * g_Resolution.y / 720, 144, 222, 46, 255);
 
-		IWindow::RenderOverlay(g_Resolution.x*0.45f, g_Resolution.y*0.85f, g_Resolution.x*0.1f, 10, 0, 0, 0, 255);
-		IWindow::RenderOverlay(g_Resolution.x*0.45f + 1, g_Resolution.y*0.85f + 1, (g_Resolution.x*0.1f - 2)*players[camera_follows].fReloadDelay / players[camera_follows].Items[players[camera_follows].iSelectedWeapon].fReloadTime, 8, 144,222, 46, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.45f, g_Resolution.y*0.85f, g_Resolution.x*0.1f, 10, 0, 0, 0, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.45f + 1, g_Resolution.y*0.85f + 1, (g_Resolution.x*0.1f - 2)*players[camera_follows].fReloadDelay / players[camera_follows].Items[players[camera_follows].iSelectedWeapon].fReloadTime, 8, 144,222, 46, 255);
 
 	}
 	else if (players[camera_follows].fHealTime > 0.f)
@@ -2217,11 +2217,11 @@ void dc_match::DrawUI(sf::Vector2f V)
 		sprintf(buf, "%.2f", players[camera_follows].fHealTime);
 		for (int i = -1; i <= 1; i++)
 			for (int j = -1; j <= 1; j++)
-				IWindow::RenderTextBMiddle(g_Resolution.x / 2 + i, g_Resolution.y*0.8f + j, 0, 0, buf, 24 * g_Resolution.y / 720, 0, 0, 0, 255);
-		IWindow::RenderTextBMiddle(g_Resolution.x / 2, g_Resolution.y*0.8f, 0, 0, buf, 24 * g_Resolution.y / 720, 255, 222, 46, 255);
+				_Window::RenderTextBMiddle(g_Resolution.x / 2 + i, g_Resolution.y*0.8f + j, 0, 0, buf, 24 * g_Resolution.y / 720, 0, 0, 0, 255);
+		_Window::RenderTextBMiddle(g_Resolution.x / 2, g_Resolution.y*0.8f, 0, 0, buf, 24 * g_Resolution.y / 720, 255, 222, 46, 255);
 
-		IWindow::RenderOverlay(g_Resolution.x*0.45f, g_Resolution.y*0.85f, g_Resolution.x*0.1f, 10, 0, 0, 0, 255);
-		IWindow::RenderOverlay(g_Resolution.x*0.45f + 1, g_Resolution.y*0.85f + 1, (g_Resolution.x*0.1f - 2)*players[camera_follows].fHealTime / players[camera_follows].Items[players[camera_follows].iSelectedWeapon].fHealTime,8, 255, 222, 46, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.45f, g_Resolution.y*0.85f, g_Resolution.x*0.1f, 10, 0, 0, 0, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.45f + 1, g_Resolution.y*0.85f + 1, (g_Resolution.x*0.1f - 2)*players[camera_follows].fHealTime / players[camera_follows].Items[players[camera_follows].iSelectedWeapon].fHealTime,8, 255, 222, 46, 255);
 
 	}
 
@@ -2240,7 +2240,7 @@ void dc_match::DrawUI(sf::Vector2f V)
 
 void dc_match::DrawInventoryPage()
 {
-	IWindow::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, 128);
+	_Window::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, 128);
 
 
 	int boxsize = g_Resolution.x*0.06f;
@@ -2249,7 +2249,7 @@ void dc_match::DrawInventoryPage()
 	auto skale = (float)boxsize / 64.f;
 
 	static sf::Color rarities[] = { sf::Color(255,255,255,128),sf::Color(90, 180, 0, 170),sf::Color(60, 190, 250, 200),sf::Color(200, 105, 235, 255),sf::Color(240, 150, 40, 255),sf::Color(255,32,32,255) };
-	IWindow::RenderOverlay(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.02f, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, 128);
+	_Window::RenderOverlay(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.02f, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, 128);
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -2257,11 +2257,11 @@ void dc_match::DrawInventoryPage()
 		if (players[camera_follows].iSelectedWeapon == i)
 		{
 			if (players[camera_follows].fPulloutDelay <= 0.f)
-				IWindow::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 - 2, g_Resolution.y - boxsize - g_Resolution.x*0.01f - 2, boxsize + 4, boxsize + 4, 255, 255, 255, 255);
+				_Window::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 - 2, g_Resolution.y - boxsize - g_Resolution.x*0.01f - 2, boxsize + 4, boxsize + 4, 255, 255, 255, 255);
 			else
-				IWindow::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 - 2, g_Resolution.y - boxsize - g_Resolution.x*0.01f - 2, boxsize + 4, boxsize + 4, 192, 192, 192, 255);
+				_Window::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 - 2, g_Resolution.y - boxsize - g_Resolution.x*0.01f - 2, boxsize + 4, boxsize + 4, 192, 192, 192, 255);
 		}
-		IWindow::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2, g_Resolution.y - boxsize - g_Resolution.x*0.01f, boxsize, boxsize, 32, 32, 32, 255);
+		_Window::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2, g_Resolution.y - boxsize - g_Resolution.x*0.01f, boxsize, boxsize, 32, 32, 32, 255);
 
 		if (players[camera_follows].Items[i].bValidated)
 		{
@@ -2271,7 +2271,7 @@ void dc_match::DrawInventoryPage()
 			auto g = rarities[players[camera_follows].Items[i].iRarity].g;
 			auto b = rarities[players[camera_follows].Items[i].iRarity].b;
 			auto a = rarities[players[camera_follows].Items[i].iRarity].a;
-			IWindow::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2, g_Resolution.y - boxsize - g_Resolution.x*0.01f, boxsize, boxsize, r, g, b, a);
+			_Window::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2, g_Resolution.y - boxsize - g_Resolution.x*0.01f, boxsize, boxsize, r, g, b, a);
 
 			if (players[camera_follows].Items[i].iType > 3)
 				sprute.setColor(sf::Color(255, 255, 255, 255));
@@ -2281,12 +2281,12 @@ void dc_match::DrawInventoryPage()
 			char Bifer[16];
 			sprintf(Bifer, "%d/%d\0", players[camera_follows].Items[i].iBullets, players[camera_follows].Items[i].iMaxBullets);
 
-			auto texts = IWindow::GetTextSize(Bifer, 16);
+			auto texts = _Window::GetTextSize(Bifer, 16);
 			for (int XX = -1; XX <= 1; XX++)
 				for (int YY = -1; YY <= 1; YY++)
-					IWindow::RenderTextB(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 + boxsize - texts.x + XX, g_Resolution.y - boxsize - g_Resolution.x*0.01f + boxsize - texts.y - 4.f + YY, Bifer, 16, 0, 0, 0, 255);
+					_Window::RenderTextB(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 + boxsize - texts.x + XX, g_Resolution.y - boxsize - g_Resolution.x*0.01f + boxsize - texts.y - 4.f + YY, Bifer, 16, 0, 0, 0, 255);
 
-			IWindow::RenderTextB(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 + boxsize - texts.x, g_Resolution.y - boxsize - g_Resolution.x*0.01f + boxsize - texts.y - 4.f, Bifer, 16, 255, 255, 255, 255);
+			_Window::RenderTextB(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 + boxsize - texts.x, g_Resolution.y - boxsize - g_Resolution.x*0.01f + boxsize - texts.y - 4.f, Bifer, 16, 255, 255, 255, 255);
 
 
 			if (weapon_selected_to_swap != -1)
@@ -2299,7 +2299,7 @@ void dc_match::DrawInventoryPage()
 					auto b = rarities[Wpn.iRarity].b;
 					auto a = rarities[Wpn.iRarity].a;
 					sprute.setTextureRect(sf::IntRect(Wpn.iTexture * 64, 0, 64, 64));
-					IWindow::RenderOverlay(g_Resolution.x*0.99f - boxsize * 6, g_Resolution.y *0.025f, boxsize * 6, g_Resolution.y*0.2f, r, g, b, a);
+					_Window::RenderOverlay(g_Resolution.x*0.99f - boxsize * 6, g_Resolution.y *0.025f, boxsize * 6, g_Resolution.y*0.2f, r, g, b, a);
 
 					float skile = 0.013f*min(g_Resolution.y*0.2f, boxsize * 6);
 					sprute.setScale(skile, skile);
@@ -2312,13 +2312,13 @@ void dc_match::DrawInventoryPage()
 					g_Window->draw(sprute);
 
 
-					IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.25f, Wpn.szName, g_Resolution.y*0.03f, 255, 192, 128, 255);
+					_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.25f, Wpn.szName, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
-					IWindow::RenderOverlay(g_Resolution.x*0.99f - boxsize * 6, g_Resolution.y*0.29, boxsize * 6, 0.0028f*g_Resolution.y, 255, 192, 128, 255);
+					_Window::RenderOverlay(g_Resolution.x*0.99f - boxsize * 6, g_Resolution.y*0.29, boxsize * 6, 0.0028f*g_Resolution.y, 255, 192, 128, 255);
 
 
 					//Rendering the Droppable
-					IWindow::RenderOverlay(g_Mouse.Coords.x, g_Mouse.Coords.y, boxsize, boxsize, r, g, b, a*0.33f);
+					_Window::RenderOverlay(g_Mouse.Coords.x, g_Mouse.Coords.y, boxsize, boxsize, r, g, b, a*0.33f);
 
 					sprute.setScale(skale, skale);
 					sprute.setPosition(g_Mouse.Coords.x, g_Mouse.Coords.y);
@@ -2328,16 +2328,16 @@ void dc_match::DrawInventoryPage()
 					{
 						char Buffer[64];
 						sprintf(Buffer, "Healing Power: %d\0", Wpn.iHealAmount);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.33f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.33f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 						sprintf(Buffer, "Heal Maximum: %d\0", Wpn.iHealMax);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.38f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.38f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 						sprintf(Buffer, "Carriable Maximum: %d\0", Wpn.iMaxBullets);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.43f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.43f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 						sprintf(Buffer, "Time to consume: %.1f\0", Wpn.fHealTime);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.48f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.48f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 					}
 					else
@@ -2347,22 +2347,22 @@ void dc_match::DrawInventoryPage()
 							sprintf(Buffer, "Damage: %d - %d\0", Wpn.iDamageEnd, Wpn.iDamageStart);
 						else if (Wpn.iType == 1)
 							sprintf(Buffer, "Damage: %d - %d\0", Wpn.iDamageEnd*Wpn.iPellets, Wpn.iDamageStart*Wpn.iPellets);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.33f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.33f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 						sprintf(Buffer, "Range: %.1f\0", Wpn.fRange);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.38f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.38f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 						sprintf(Buffer, "Magazine Size: %d\0", Wpn.iMaxBullets);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.43f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.43f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 						sprintf(Buffer, "Firerate: %.2f\0", Wpn.fFirerate);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.48f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.48f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 						if (Wpn.iReloadMethod == 1)
 							sprintf(Buffer, "Reload Time: %.2f\0", Wpn.fReloadTime);
 						else if (!Wpn.IsConsumable())
 							sprintf(Buffer, "Reload Time: %.2f\0", Wpn.fReloadTime*Wpn.iMaxBullets);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.53f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.53f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 					}
 				}
@@ -2370,7 +2370,7 @@ void dc_match::DrawInventoryPage()
 				else if (g_Mouse.IsBetween(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 - 2, g_Resolution.y - boxsize - g_Resolution.x*0.01f - 2, boxsize + 4, boxsize + 4, g_Mouse.Coords.x, g_Mouse.Coords.y))
 				{
 					//Print Weapon information
-					IWindow::RenderOverlay(g_Resolution.x*0.99f - boxsize * 6, g_Resolution.y *0.025f, boxsize * 6, g_Resolution.y*0.2f, r, g, b, a);
+					_Window::RenderOverlay(g_Resolution.x*0.99f - boxsize * 6, g_Resolution.y *0.025f, boxsize * 6, g_Resolution.y*0.2f, r, g, b, a);
 
 					float skile = 0.013f*min(g_Resolution.y*0.2f, boxsize * 6);
 					sprute.setScale(skile, skile);
@@ -2378,9 +2378,9 @@ void dc_match::DrawInventoryPage()
 					g_Window->draw(sprute);
 
 
-					IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.25f, players[camera_follows].Items[i].szName, g_Resolution.y*0.03f, 255, 192, 128, 255);
+					_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.25f, players[camera_follows].Items[i].szName, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
-					IWindow::RenderOverlay(g_Resolution.x*0.99f - boxsize * 6, g_Resolution.y*0.29, boxsize * 6, 0.0028f*g_Resolution.y, 255, 192, 128, 255);
+					_Window::RenderOverlay(g_Resolution.x*0.99f - boxsize * 6, g_Resolution.y*0.29, boxsize * 6, 0.0028f*g_Resolution.y, 255, 192, 128, 255);
 
 
 
@@ -2388,16 +2388,16 @@ void dc_match::DrawInventoryPage()
 					{
 						char Buffer[64];
 						sprintf(Buffer, "Healing Power: %d\0", players[camera_follows].Items[i].iHealAmount);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.33f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.33f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 						sprintf(Buffer, "Heal Maximum: %d\0", players[camera_follows].Items[i].iHealMax);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.38f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.38f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 						sprintf(Buffer, "Carriable Maximum: %d\0", players[camera_follows].Items[i].iMaxBullets);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.43f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.43f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 						sprintf(Buffer, "Time to consume: %.1f\0", players[camera_follows].Items[i].fHealTime);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.48f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.48f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 					}
 					else
@@ -2407,22 +2407,22 @@ void dc_match::DrawInventoryPage()
 							sprintf(Buffer, "Damage: %d - %d\0", players[camera_follows].Items[i].iDamageEnd, players[camera_follows].Items[i].iDamageStart);
 						else if (players[camera_follows].Items[i].iType == 1)
 							sprintf(Buffer, "Damage: %d - %d\0", players[camera_follows].Items[i].iDamageEnd*players[camera_follows].Items[i].iPellets, players[camera_follows].Items[i].iDamageStart*players[camera_follows].Items[i].iPellets);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.33f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.33f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 						sprintf(Buffer, "Range: %.1f\0", players[camera_follows].Items[i].fRange);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.38f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.38f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 						sprintf(Buffer, "Magazine Size: %d\0", players[camera_follows].Items[i].iMaxBullets);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.43f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.43f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 						sprintf(Buffer, "Firerate: %.2f\0", players[camera_follows].Items[i].fFirerate);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.48f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.48f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 						if (players[camera_follows].Items[i].iReloadMethod == 1)
 							sprintf(Buffer, "Reload Time: %.2f\0", players[camera_follows].Items[i].fReloadTime);
 						else if (!players[camera_follows].Items[i].IsConsumable())
 							sprintf(Buffer, "Reload Time: %.2f\0", players[camera_follows].Items[i].fReloadTime*players[camera_follows].Items[i].iMaxBullets);
-						IWindow::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.53f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
+						_Window::RenderTextB(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y*0.53f, Buffer, g_Resolution.y*0.03f, 255, 192, 128, 255);
 
 
 				}
@@ -2507,7 +2507,7 @@ void dc_match::DrawHelpButtons()
 
 	int fontSize = 0.03f*g_Resolution.y;
 
-	int TextHeight = IWindow::GetTextSize("TEST\n", fontSize).y - IWindow::GetTextSize("TEST", fontSize).y;
+	int TextHeight = _Window::GetTextSize("TEST\n", fontSize).y - _Window::GetTextSize("TEST", fontSize).y;
 
 	int pusy = 0;
 
@@ -2520,9 +2520,9 @@ void dc_match::DrawHelpButtons()
 			char ButtonBuffer[32], PressBuffer[16] = "Press  ", ToOpen[32] = "  to open chest", FullBuffer[96];
 			sprintf(ButtonBuffer, KeyNames[ChestOpenButton]);
 			sprintf(FullBuffer, "%s%s%s", PressBuffer, ButtonBuffer, ToOpen);
-			auto fullBufSize = IWindow::GetTextSize(FullBuffer, fontSize);
-			auto butBufSize = IWindow::GetTextSize(ButtonBuffer, fontSize);
-			auto pressBufSize = IWindow::GetTextSize(PressBuffer, fontSize);
+			auto fullBufSize = _Window::GetTextSize(FullBuffer, fontSize);
+			auto butBufSize = _Window::GetTextSize(ButtonBuffer, fontSize);
+			auto pressBufSize = _Window::GetTextSize(PressBuffer, fontSize);
 
 			sf::RectangleShape Rect;
 
@@ -2533,13 +2533,13 @@ void dc_match::DrawHelpButtons()
 			Rect.setPosition(sf::Vector2f(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x - 5, 0.8f*g_Resolution.y+pusy));
 			g_Window->draw(Rect);
 
-			IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x), 0.8f*g_Resolution.y + pusy, PressBuffer, fontSize, 255, 255, 255);
+			_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x), 0.8f*g_Resolution.y + pusy, PressBuffer, fontSize, 255, 255, 255);
 
 			for(int i = -1; i <= 1;i++)
 				for(int j = -1; j <= 1; j++)
-					IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x+i, 0.8f*g_Resolution.y + pusy +j, ButtonBuffer, fontSize, 0,0,0);
-			IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x)+pressBufSize.x, 0.8f*g_Resolution.y + pusy, ButtonBuffer, fontSize, 255, 255, 255);
-			IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x+butBufSize.x, 0.8f*g_Resolution.y + pusy, ToOpen, fontSize, 255, 255, 255);
+					_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x+i, 0.8f*g_Resolution.y + pusy +j, ButtonBuffer, fontSize, 0,0,0);
+			_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x)+pressBufSize.x, 0.8f*g_Resolution.y + pusy, ButtonBuffer, fontSize, 255, 255, 255);
+			_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x+butBufSize.x, 0.8f*g_Resolution.y + pusy, ToOpen, fontSize, 255, 255, 255);
 
 		}
 		else if (db.TYPE == 9)
@@ -2549,9 +2549,9 @@ void dc_match::DrawHelpButtons()
 			char ButtonBuffer[32], PressBuffer[16] = "Press  ", ToOpen[32] = "  to open air drop", FullBuffer[96];
 			sprintf(ButtonBuffer, KeyNames[ChestOpenButton]);
 			sprintf(FullBuffer, "%s%s%s", PressBuffer, ButtonBuffer, ToOpen);
-			auto fullBufSize = IWindow::GetTextSize(FullBuffer, fontSize);
-			auto butBufSize = IWindow::GetTextSize(ButtonBuffer, fontSize);
-			auto pressBufSize = IWindow::GetTextSize(PressBuffer, fontSize);
+			auto fullBufSize = _Window::GetTextSize(FullBuffer, fontSize);
+			auto butBufSize = _Window::GetTextSize(ButtonBuffer, fontSize);
+			auto pressBufSize = _Window::GetTextSize(PressBuffer, fontSize);
 
 			sf::RectangleShape Rect;
 
@@ -2562,13 +2562,13 @@ void dc_match::DrawHelpButtons()
 			Rect.setPosition(sf::Vector2f(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x - 5, 0.8f*g_Resolution.y + pusy));
 			g_Window->draw(Rect);
 
-			IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x), 0.8f*g_Resolution.y + pusy, PressBuffer, fontSize, 255, 255, 255);
+			_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x), 0.8f*g_Resolution.y + pusy, PressBuffer, fontSize, 255, 255, 255);
 
 			for (int i = -1; i <= 1; i++)
 				for (int j = -1; j <= 1; j++)
-					IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + i, 0.8f*g_Resolution.y + pusy + j, ButtonBuffer, fontSize, 0, 0, 0);
-			IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x, 0.8f*g_Resolution.y + pusy, ButtonBuffer, fontSize, 255, 255, 255);
-			IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + butBufSize.x, 0.8f*g_Resolution.y + pusy, ToOpen, fontSize, 255, 255, 255);
+					_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + i, 0.8f*g_Resolution.y + pusy + j, ButtonBuffer, fontSize, 0, 0, 0);
+			_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x, 0.8f*g_Resolution.y + pusy, ButtonBuffer, fontSize, 255, 255, 255);
+			_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + butBufSize.x, 0.8f*g_Resolution.y + pusy, ToOpen, fontSize, 255, 255, 255);
 
 		}
 		else if (db.TYPE == 8)
@@ -2584,10 +2584,10 @@ void dc_match::DrawHelpButtons()
 				int rarity = g_Items[db.WeaponListIndex].iRarity;
 
 
-				auto fullBufSize = IWindow::GetTextSize(FullBuffer, fontSize);
-				auto butBufSize = IWindow::GetTextSize(ButtonBuffer, fontSize);
-				auto pressBufSize = IWindow::GetTextSize(PressBuffer, fontSize);
-				auto pickBufSize = IWindow::GetTextSize(ToPickup, fontSize);
+				auto fullBufSize = _Window::GetTextSize(FullBuffer, fontSize);
+				auto butBufSize = _Window::GetTextSize(ButtonBuffer, fontSize);
+				auto pressBufSize = _Window::GetTextSize(PressBuffer, fontSize);
+				auto pickBufSize = _Window::GetTextSize(ToPickup, fontSize);
 
 
 				sf::RectangleShape Rect;
@@ -2599,21 +2599,21 @@ void dc_match::DrawHelpButtons()
 				Rect.setPosition(sf::Vector2f(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x - 5, 0.8f*g_Resolution.y + pusy));
 				g_Window->draw(Rect);
 
-				IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x), 0.8f*g_Resolution.y + pusy, PressBuffer, fontSize, 255, 255, 255);
+				_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x), 0.8f*g_Resolution.y + pusy, PressBuffer, fontSize, 255, 255, 255);
 
 				for (int i = -1; i <= 1; i++)
 					for (int j = -1; j <= 1; j++)
-						IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + i, 0.8f*g_Resolution.y + pusy + j, ButtonBuffer, fontSize, 0, 0, 0);
-				IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x, 0.8f*g_Resolution.y + pusy, ButtonBuffer, fontSize, 255, 255, 255);
+						_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + i, 0.8f*g_Resolution.y + pusy + j, ButtonBuffer, fontSize, 0, 0, 0);
+				_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x, 0.8f*g_Resolution.y + pusy, ButtonBuffer, fontSize, 255, 255, 255);
 				
-				IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + butBufSize.x, 0.8f*g_Resolution.y + pusy, ToPickup, fontSize, 255, 255, 255);
+				_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + butBufSize.x, 0.8f*g_Resolution.y + pusy, ToPickup, fontSize, 255, 255, 255);
 				
 				static sf::Color rarities[] = { sf::Color(255,255,255,128),sf::Color(90, 180, 0, 170),sf::Color(60, 190, 250, 200),sf::Color(200, 105, 235, 255),sf::Color(240, 150, 40, 255),sf::Color(255,32,32,255) };
 				char r = rarities[rarity].r;
 				char g = rarities[rarity].g;
 				char b = rarities[rarity].b;
 				
-				IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + butBufSize.x + pickBufSize.x, 0.8f*g_Resolution.y + pusy, WeaponBuffer, fontSize, r,g,b);
+				_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + butBufSize.x + pickBufSize.x, 0.8f*g_Resolution.y + pusy, WeaponBuffer, fontSize, r,g,b);
 
 			}
 		}
@@ -2630,9 +2630,9 @@ void dc_match::DrawHelpButtons()
 			char ButtonBuffer[32], PressBuffer[16] = "Press  ", ToOpen[32] = "  to jump out", FullBuffer[96];
 			sprintf(ButtonBuffer, KeyNames[Button]);
 			sprintf(FullBuffer, "%s%s%s", PressBuffer, ButtonBuffer, ToOpen);
-			auto fullBufSize = IWindow::GetTextSize(FullBuffer, fontSize);
-			auto butBufSize = IWindow::GetTextSize(ButtonBuffer, fontSize);
-			auto pressBufSize = IWindow::GetTextSize(PressBuffer, fontSize);
+			auto fullBufSize = _Window::GetTextSize(FullBuffer, fontSize);
+			auto butBufSize = _Window::GetTextSize(ButtonBuffer, fontSize);
+			auto pressBufSize = _Window::GetTextSize(PressBuffer, fontSize);
 
 			sf::RectangleShape Rect;
 
@@ -2643,13 +2643,13 @@ void dc_match::DrawHelpButtons()
 			Rect.setPosition(sf::Vector2f(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x - 5, 0.8f*g_Resolution.y + pusy));
 			g_Window->draw(Rect);
 
-			IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x), 0.8f*g_Resolution.y + pusy, PressBuffer, fontSize, 255, 255, 255);
+			_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x), 0.8f*g_Resolution.y + pusy, PressBuffer, fontSize, 255, 255, 255);
 
 			for (int i = -1; i <= 1; i++)
 				for (int j = -1; j <= 1; j++)
-					IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + i, 0.8f*g_Resolution.y + pusy + j, ButtonBuffer, fontSize, 0, 0, 0);
-			IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x, 0.8f*g_Resolution.y + pusy, ButtonBuffer, fontSize, 255, 255, 255);
-			IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + butBufSize.x, 0.8f*g_Resolution.y + pusy, ToOpen, fontSize, 255, 255, 255);
+					_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + i, 0.8f*g_Resolution.y + pusy + j, ButtonBuffer, fontSize, 0, 0, 0);
+			_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x, 0.8f*g_Resolution.y + pusy, ButtonBuffer, fontSize, 255, 255, 255);
+			_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + butBufSize.x, 0.8f*g_Resolution.y + pusy, ToOpen, fontSize, 255, 255, 255);
 
 		}
 	}
@@ -2665,9 +2665,9 @@ void dc_match::DrawHelpButtons()
 		}
 		sprintf(ButtonBuffer, KeyNames[Button]);
 		sprintf(FullBuffer, "%s%s%s", PressBuffer, ButtonBuffer, ToOpen);
-		auto fullBufSize = IWindow::GetTextSize(FullBuffer, fontSize);
-		auto butBufSize = IWindow::GetTextSize(ButtonBuffer, fontSize);
-		auto pressBufSize = IWindow::GetTextSize(PressBuffer, fontSize);
+		auto fullBufSize = _Window::GetTextSize(FullBuffer, fontSize);
+		auto butBufSize = _Window::GetTextSize(ButtonBuffer, fontSize);
+		auto pressBufSize = _Window::GetTextSize(PressBuffer, fontSize);
 
 		sf::RectangleShape Rect;
 
@@ -2678,13 +2678,13 @@ void dc_match::DrawHelpButtons()
 		Rect.setPosition(sf::Vector2f(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x - 5, 0.8f*g_Resolution.y + pusy));
 		g_Window->draw(Rect);
 
-		IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x), 0.8f*g_Resolution.y + pusy, PressBuffer, fontSize, 255, 255, 255);
+		_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x), 0.8f*g_Resolution.y + pusy, PressBuffer, fontSize, 255, 255, 255);
 
 		for (int i = -1; i <= 1; i++)
 			for (int j = -1; j <= 1; j++)
-				IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + i, 0.8f*g_Resolution.y + pusy + j, ButtonBuffer, fontSize, 0, 0, 0);
-		IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x, 0.8f*g_Resolution.y + pusy, ButtonBuffer, fontSize, 255, 255, 255);
-		IWindow::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + butBufSize.x, 0.8f*g_Resolution.y + pusy, ToOpen, fontSize, 255, 255, 255);
+				_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + i, 0.8f*g_Resolution.y + pusy + j, ButtonBuffer, fontSize, 0, 0, 0);
+		_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x, 0.8f*g_Resolution.y + pusy, ButtonBuffer, fontSize, 255, 255, 255);
+		_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + butBufSize.x, 0.8f*g_Resolution.y + pusy, ToOpen, fontSize, 255, 255, 255);
 
 	}
 
@@ -2810,16 +2810,16 @@ void dc_match::DrawEffects(sf::Vector2f V)
 			sprintf(BufferB, "%s", players[it.Target].szName);
 			sprintf(BufferC, "Eliminated %s",players[it.Target].szName);
 
-			auto Dims = IWindow::GetTextSize(BufferC, g_Resolution.y * 0.03f);
-			auto Dims2 = IWindow::GetTextSize(BufferA, g_Resolution.y * 0.03f);
-			IWindow::RenderTextB(g_Resolution.x*0.5f - Dims.x*0.5f, g_Resolution.y*0.7f + y2, BufferA, g_Resolution.y*0.03f, 222, 222, 222, alpha);
+			auto Dims = _Window::GetTextSize(BufferC, g_Resolution.y * 0.03f);
+			auto Dims2 = _Window::GetTextSize(BufferA, g_Resolution.y * 0.03f);
+			_Window::RenderTextB(g_Resolution.x*0.5f - Dims.x*0.5f, g_Resolution.y*0.7f + y2, BufferA, g_Resolution.y*0.03f, 222, 222, 222, alpha);
 			
 			for(int i = -1; i <= 1; i++)
 				for(int j = -1; j <= 1;j++)
-					IWindow::RenderTextB(g_Resolution.x*0.5f - Dims.x* 0.5f + Dims2.x+i, g_Resolution.y*0.7f + y2+i, BufferB, g_Resolution.y*0.03f, 0,0,0, 0.00392156862*(alpha*alpha));
+					_Window::RenderTextB(g_Resolution.x*0.5f - Dims.x* 0.5f + Dims2.x+i, g_Resolution.y*0.7f + y2+i, BufferB, g_Resolution.y*0.03f, 0,0,0, 0.00392156862*(alpha*alpha));
 
 			
-			IWindow::RenderTextB(g_Resolution.x*0.5f - Dims.x* 0.5f + Dims2.x, g_Resolution.y*0.7f + y2, BufferB, g_Resolution.y*0.03f, 225, 180, 32, alpha);
+			_Window::RenderTextB(g_Resolution.x*0.5f - Dims.x* 0.5f + Dims2.x, g_Resolution.y*0.7f + y2, BufferB, g_Resolution.y*0.03f, 225, 180, 32, alpha);
 
 
 			if (g_Sounds.CheckDynamicSound(100 + it.Target) == -1 && diff < 0.5f)
@@ -2852,8 +2852,8 @@ void dc_match::DrawMark(sf::Vector2f Coords, sf::Color Color, bool ignore_onscre
 {
 	static dc_clock ThicknessClock;
 
-	if (ThicknessClock.GetDiff() > 1500)ThicknessClock.Update();
-	int thickdiff = ThicknessClock.GetDiff();
+	if (ThicknessClock.deltaTime() > 1500)ThicknessClock.Update();
+	int thickdiff = ThicknessClock.deltaTime();
 
 	sf::Vector2f blocksize((float)(g_Resolution.x) / camera_width, (float)(g_Resolution.x) / camera_width);
 
@@ -2927,9 +2927,9 @@ void dc_match::DrawMark(sf::Vector2f Coords, sf::Color Color, bool ignore_onscre
 		float dist = GetDistance(Coords, players[camera_follows].vPosition);
 		sprintf(Buffer, "%.1fM\0", dist);
 		if(YY < 0.5f*g_Resolution.y)
-		IWindow::RenderTextBMiddle(XX- 0.025f*g_Resolution.y, YY+ 0.01f*g_Resolution.y, 0.05f*g_Resolution.y, 0.05f*g_Resolution.y, Buffer, 16, 0, 0, 0, 255);
+		_Window::RenderTextBMiddle(XX- 0.025f*g_Resolution.y, YY+ 0.01f*g_Resolution.y, 0.05f*g_Resolution.y, 0.05f*g_Resolution.y, Buffer, 16, 0, 0, 0, 255);
 		else
-		IWindow::RenderTextBMiddle(XX - 0.025f*g_Resolution.y, YY - 0.075f*g_Resolution.y, 0.05f*g_Resolution.y, 0.05f*g_Resolution.y, Buffer, 16, 0, 0, 0, 255);
+		_Window::RenderTextBMiddle(XX - 0.025f*g_Resolution.y, YY - 0.075f*g_Resolution.y, 0.05f*g_Resolution.y, 0.05f*g_Resolution.y, Buffer, 16, 0, 0, 0, 255);
 
 		//TODO:OutlineEffect;
 	}
@@ -2962,7 +2962,7 @@ void dc_match::DrawBus(sf::Vector2f V)
 
 
 	if (tx <= -g_Resolution.x || tx >= 2 * g_Resolution.x || ty <= -g_Resolution.y || ty >= 2 * g_Resolution.y)return;
-	IWindow::AddToRenderList(spr);
+	_Window::AddToRenderList(spr);
 }
 
 void dc_match::DrawBus(sf::RenderTexture* T ,sf::Vector2f V)
@@ -3044,7 +3044,7 @@ void dc_match::DrawMinimap()
 			static dc_clock WaveClock;
 			static bool WaveStart = false;
 
-			float tdiff = 0.001f * WaveClock.GetDiff();
+			float tdiff = 0.001f * WaveClock.deltaTime();
 
 			std::vector<float> intersects;
 			std::vector<float> lengths;
@@ -3080,7 +3080,7 @@ void dc_match::DrawMinimap()
 			}
 
 
-			if (WaveClock.GetDiff() > 500) {
+			if (WaveClock.deltaTime() > 500) {
 				WaveStart = !WaveStart;
 				WaveClock.Update();
 			}
@@ -3209,7 +3209,7 @@ void dc_match::DrawMinimap()
 		float timetillnext = GetTimeTillNextStormPhase();
 		int logo = GetCurrentStormPhaseLogo();
 		
-		if (logo == 3 && 0.001f*t_clock.GetDiff() - s_times[GetCurrentStormPhase()] < 1.f && effects.sce_effects.size() <= 0)
+		if (logo == 3 && 0.001f*t_clock.deltaTime() - s_times[GetCurrentStormPhase()] < 1.f && effects.sce_effects.size() <= 0)
 		{
 			dc_stormclosingeffect sce;
 			sce.clockBegin = ServerTime;
@@ -3238,25 +3238,25 @@ void dc_match::DrawMinimap()
 		char TimeBuffer[16];
 		sprintf(TimeBuffer, "%d:%s%d", minutesleft, ((secondsleft < 10) ? "0" : ""), secondsleft);
 
-		IWindow::RenderOverlay(0.8f*g_Resolution.x, 0.05f*g_Resolution.y + 0.15f*g_Resolution.x, 0.15*g_Resolution.x, g_Resolution.y*0.0333f, 0, 0, 0, 64);
+		_Window::RenderOverlay(0.8f*g_Resolution.x, 0.05f*g_Resolution.y + 0.15f*g_Resolution.x, 0.15*g_Resolution.x, g_Resolution.y*0.0333f, 0, 0, 0, 64);
 
 		if (GetCurrentStormPhase() != 17) {
 			g_Window->draw(markersprite);
-			IWindow::RenderTextB(0.8f*g_Resolution.x + scale*72.f, 0.055f*g_Resolution.y + 0.15f*g_Resolution.x, TimeBuffer, 0.0223*g_Resolution.y, 255, 255, 255, 255);
+			_Window::RenderTextB(0.8f*g_Resolution.x + scale*72.f, 0.055f*g_Resolution.y + 0.15f*g_Resolution.x, TimeBuffer, 0.0223*g_Resolution.y, 255, 255, 255, 255);
 		}
 		markersprite.setTextureRect(sf::IntRect(1 * 64, 0, 64, 64));
 		markersprite.setPosition(0.85f*g_Resolution.x, 0.05f*g_Resolution.y + 0.15f*g_Resolution.x);
 		g_Window->draw(markersprite);
 
 		sprintf(TimeBuffer, "%d", GetAlivePlayers());
-		IWindow::RenderTextB(0.85f*g_Resolution.x + scale*72.f, 0.055f*g_Resolution.y + 0.15f*g_Resolution.x, TimeBuffer, 0.0223*g_Resolution.y, 255, 255, 255, 255);
+		_Window::RenderTextB(0.85f*g_Resolution.x + scale*72.f, 0.055f*g_Resolution.y + 0.15f*g_Resolution.x, TimeBuffer, 0.0223*g_Resolution.y, 255, 255, 255, 255);
 
 		markersprite.setTextureRect(sf::IntRect(0 * 64, 0, 64, 64));
 		markersprite.setPosition(0.9f*g_Resolution.x, 0.05f*g_Resolution.y + 0.15f*g_Resolution.x);
 		g_Window->draw(markersprite);
 
 		sprintf(TimeBuffer, "%d", players[camera_follows].Stats.iEliminations);
-		IWindow::RenderTextB(0.9f*g_Resolution.x + scale*72.f, 0.055f*g_Resolution.y + 0.15f*g_Resolution.x, TimeBuffer, 0.0223*g_Resolution.y, 255, 255, 255, 255);
+		_Window::RenderTextB(0.9f*g_Resolution.x + scale*72.f, 0.055f*g_Resolution.y + 0.15f*g_Resolution.x, TimeBuffer, 0.0223*g_Resolution.y, 255, 255, 255, 255);
 
 	}
 }
@@ -3445,20 +3445,20 @@ sf::Color dc_match::GetCurrentStormColor()
 		sf::Color(225,0,160,48)
 	};
 	sf::Color LightningColor(255, 255, 255, 72);
-	if (Clock.GetDiff() > 500)
+	if (Clock.deltaTime() > 500)
 	{
 		CurrentCI = NextCI;
 		NextCI = Random(0, 10);
 		Clock.Update();
 	}
-	int DIFF = Clock.GetDiff();
+	int DIFF = Clock.deltaTime();
 	int R = DIFF*Colors[NextCI].r + (500 - DIFF)*Colors[CurrentCI].r;
 	int G = DIFF*Colors[NextCI].g + (500 - DIFF)*Colors[CurrentCI].g;
 	int B = DIFF*Colors[NextCI].b + (500 - DIFF)*Colors[CurrentCI].b;
 	int A = DIFF*Colors[NextCI].a + (500 - DIFF)*Colors[CurrentCI].a;
 	R /= 500; G /= 500; B /= 500; A /= 500;
 
-	int LDIFF = LightningClock.GetDiff()+50;
+	int LDIFF = LightningClock.deltaTime()+50;
 
 	if (LDIFF < 250)
 	{
@@ -3496,10 +3496,10 @@ void dc_match::DrawStorm(sf::Vector2f V)
 
 	if (IsPointInStorm(TL) && IsPointInStorm(TR) && IsPointInStorm(BL) && IsPointInStorm(BR) && screendiaminworld <= GetCurrentStormDiameter())
 	{
-		IWindow::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, StormColor.r, StormColor.g, StormColor.b, StormColor.a);
+		_Window::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, StormColor.r, StormColor.g, StormColor.b, StormColor.a);
 	}
 	else if (screendiaminworld > GetCurrentStormDiameter() && (sMidonScreen.x < -g_Resolution.x/2 || sMidonScreen.x > 1.5f*g_Resolution.x || sMidonScreen.y < -g_Resolution.y/2 || sMidonScreen.y > 1.5f*g_Resolution.y  ))
-		IWindow::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, StormColor.r, StormColor.g, StormColor.b, StormColor.a);
+		_Window::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, StormColor.r, StormColor.g, StormColor.b, StormColor.a);
 	else
 	{
 		std::vector<sf::Vector2f> TopInters;
@@ -3754,17 +3754,17 @@ void dc_match::DrawVictoryEffect()
 {
 	int wID = 0;
 	for (int i = 0; i < 100; i++)if (players[i].iHealth > 0) { wID = i; break; }
-	float Diff = 0.001f*MatchEndClock.GetDiff();
+	float Diff = 0.001f*MatchEndClock.deltaTime();
 	sf::Vector2i Dim;
 	//Pulse
 	if (Diff >= 1.f && Diff < 1.5f)
 	{
 		float TextSize = g_Resolution.y*0.1f+(Diff-1.f)*g_Resolution.y*0.1f;
-		Dim = IWindow::GetTextSize("\nVICTORY\n\n", TextSize);
+		Dim = _Window::GetTextSize("\nVICTORY\n\n", TextSize);
 
 		int Alpha = 255-(Diff-1.f)*510;
 		if (players[0].iHealth > 0)
-		IWindow::RenderTextBAdditive(0.5f*(g_Resolution.x - Dim.x), 0.2f*g_Resolution.y - 0.5f*Dim.y, "\nVICTORY", TextSize, 225, 180, 32, Alpha);
+		_Window::RenderTextBAdditive(0.5f*(g_Resolution.x - Dim.x), 0.2f*g_Resolution.y - 0.5f*Dim.y, "\nVICTORY", TextSize, 225, 180, 32, Alpha);
 	}
 
 	//OutLine
@@ -3775,11 +3775,11 @@ void dc_match::DrawVictoryEffect()
 			TextSize = Diff * 2 * g_Resolution.y*0.1f;
 		int Alpha = 255;
 		if (Diff < 0.5f)Alpha = (Diff) * 255 * 2;
-		Dim = IWindow::GetTextSize("\nVICTORY\n\n", TextSize);
+		Dim = _Window::GetTextSize("\nVICTORY\n\n", TextSize);
 		if (players[0].iHealth > 0)
 			for(int i = -2; i <=2;i++)
 				for(int j = -2;j < 2;j++)
-					IWindow::RenderTextB(0.5f*(g_Resolution.x - Dim.x)+i, 0.2f*g_Resolution.y - 0.5f*Dim.y+j, "\nVICTORY\n", TextSize, 0,0,0, Alpha);
+					_Window::RenderTextB(0.5f*(g_Resolution.x - Dim.x)+i, 0.2f*g_Resolution.y - 0.5f*Dim.y+j, "\nVICTORY\n", TextSize, 0,0,0, Alpha);
 	}
 
 	//Victory Sign
@@ -3788,12 +3788,12 @@ void dc_match::DrawVictoryEffect()
 		float TextSize = g_Resolution.y*0.1f;
 		if(Diff < 1.f)
 			TextSize = (Diff-1.5f) * (-2) * g_Resolution.y*0.1f;
-		Dim = IWindow::GetTextSize("\nVICTORY\n\n", TextSize);
+		Dim = _Window::GetTextSize("\nVICTORY\n\n", TextSize);
 
 		int Alpha = 255;
 		if (Diff < 1.f)Alpha = (Diff-0.5f) * 255 * 2;
 		if (players[0].iHealth > 0)
-			IWindow::RenderTextBAdditive(0.5f*(g_Resolution.x - Dim.x), 0.2f*g_Resolution.y -0.5f*Dim.y, "\nVICTORY\n", TextSize, 225, 180, 32, Alpha);
+			_Window::RenderTextBAdditive(0.5f*(g_Resolution.x - Dim.x), 0.2f*g_Resolution.y -0.5f*Dim.y, "\nVICTORY\n", TextSize, 225, 180, 32, Alpha);
 	}
 	//Victory Text
 	if(Diff >= 1.5f)
@@ -3806,9 +3806,9 @@ void dc_match::DrawVictoryEffect()
 		char Buffer[128]; sprintf(Buffer, "%s won with %d eliminations", players[wID].szName, players[wID].Stats.iEliminations);
 
 
-		auto DimB = IWindow::GetTextSize(Buffer, TextSize);
+		auto DimB = _Window::GetTextSize(Buffer, TextSize);
 
-		IWindow::RenderTextB(0.5f*(g_Resolution.x - DimB.x), 0.2f*g_Resolution.y + 0.5f*Dim.y, Buffer, TextSize, 255, 255, 255, Alpha);
+		_Window::RenderTextB(0.5f*(g_Resolution.x - DimB.x), 0.2f*g_Resolution.y + 0.5f*Dim.y, Buffer, TextSize, 255, 255, 255, Alpha);
 	}
 
 }
@@ -3817,7 +3817,7 @@ void dc_match::DrawAll()
 {
 	static dc_clock Clock;
 
-	if (Clock.GetDiff() > 1000)Clock.Update();
+	if (Clock.deltaTime() > 1000)Clock.Update();
 	float timediff = timeDiffSinceLastFrame;
 
 	//auto V = map.cursor_to_world(players[camera_follows].vPosition.x, players[camera_follows].vPosition.y, camera_width);
@@ -4385,7 +4385,7 @@ bool dc_match::OverItem()
 
 		if (g_Mouse.IsBetween(g_Resolution.x / 2 - _x*blocksize.x, g_Resolution.y / 2 - _y*blocksize.y, 32 * scale, 32 * scale, g_Mouse.Coords.x, g_Mouse.Coords.y))
 		{
-			IWindow::RenderOverlay(g_Resolution.x / 2 - _x*blocksize.x, g_Resolution.y / 2 - _y*blocksize.y, 32 * scale, 32 * scale, 255, 255, 255, 48);
+			_Window::RenderOverlay(g_Resolution.x / 2 - _x*blocksize.x, g_Resolution.y / 2 - _y*blocksize.y, 32 * scale, 32 * scale, 255, 255, 255, 48);
 
 			if (g_Mouse.hasReleased())
 			{
@@ -5081,7 +5081,7 @@ void dc_match::LoopPlayers()
 				if (players[i].iHealth <= 0)
 				{
 					//If the unit hasn't taken damage for 15 seconds
-					if (players[i].gothitLastClock.GetDiff() > 1000.f*KILL_OWNERTIME)
+					if (players[i].gothitLastClock.deltaTime() > 1000.f*KILL_OWNERTIME)
 					{
 						dc_killnoticeeffect kl;
 						kl.clockBegin = ServerTime;
@@ -5195,7 +5195,7 @@ void dc_match::DoCheatStuff()
 	if (g_Config.ch_debug_info.Value >= 1.f)
 	{
 		char buf[64]; sprintf(buf, "Kills: %d\nAlive players: %d\nAvailable Chests: %d (%d)", players[camera_follows].Stats.iEliminations, GetAlivePlayers(), chs, map.chests.size());
-		IWindow::RenderTextB(0, 100, buf, 36);
+		_Window::RenderTextB(0, 100, buf, 36);
 
 
 		char plubuf[320];
@@ -5216,7 +5216,7 @@ void dc_match::DoCheatStuff()
 			sprintf(plubuf, "%s (Target: %d)", plubuf, BotData[camera_follows].Changables.TargetedPlayerIDs[0]);
 		}
 
-		IWindow::RenderTextB(0, 320, plubuf, 20, 255, 255, 111, 255);
+		_Window::RenderTextB(0, 320, plubuf, 20, 255, 255, 111, 255);
 		if (GetAsyncKeyState(VK_F4))
 		{
 			auto id = GetClosestChestIDToPlayer(0);
@@ -5239,10 +5239,10 @@ void dc_match::FinishMatch()
 void dc_match::Do()
 {
 	static dc_clock Clock;
-	if (Clock.GetDiff() > 500)Clock.Update();
+	if (Clock.deltaTime() > 500)Clock.Update();
 	
 	if (bMatchEnded != 1)
-	timeDiffSinceLastFrame = 0.001f*Clock.GetDiff();
+	timeDiffSinceLastFrame = 0.001f*Clock.deltaTime();
 	Clock.Update();
 
 

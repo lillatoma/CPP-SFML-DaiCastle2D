@@ -323,8 +323,21 @@ struct dc_demo_metadata
 	int playerWraps[100];
 	int GetSizeOf();
 
+	/////////////////////////////////////////////
+	///Pulls information from a match pointer
+	///M should be a dc_match*
+	/////////////////////////////////////////////
 	void Setup(void* M);
+	/////////////////////////////////////////////
+	/// Creates a buffer that can be saved to and read from a .dem file
+	/// Returns a pointer for the metadata buffer
+	/// The size of the buffer in bytes will be output to 'Size'
+	/////////////////////////////////////////////
 	char* GetPrinted(int* Size);
+	/////////////////////////////////////////////
+	/// Reads back the metadata from a buffer
+	/// Returns the length of the metadata in bytes
+	/////////////////////////////////////////////
 	int ReadFrom(char* C);
 };
 

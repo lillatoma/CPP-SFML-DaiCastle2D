@@ -17,9 +17,9 @@ void dc_map::simulate_day()
 	static dc_clock daeclock;
 
 
-	if (daeclock.GetDiff() > 100)
+	if (daeclock.deltaTime() > 100)
 	{
-		day_time+= daeclock.GetDiff()/100;
+		day_time+= daeclock.deltaTime()/100;
 		daeclock.Update();
 	}
 }
@@ -302,7 +302,7 @@ void dc_map::draw(float mx, float my, float width)
 
 
 	//Absolute bg color
-	IWindow::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, r,g,b, 255);
+	_Window::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, r,g,b, 255);
 
 	for (int x = -width/2-1; x < width/2+ 1; x++)
 	{
@@ -833,7 +833,7 @@ void dc_map::show_minimapui(float& mx, float &my, float width, float busx, float
 	static dc_clock clock;
 	static bool run_first = false;
 
-	if (clock.GetDiff() > 1000 || !run_first)
+	if (clock.deltaTime() > 1000 || !run_first)
 	{
 		img.create(1000, 1000, sf::Color(255, 255, 255, 255));
 		auto modulate_color = get_modulation_color();
@@ -913,7 +913,7 @@ void dc_map::show_minimap(float& mx, float &my, float width, bool show_only_play
 	static dc_clock clock;
 	static bool run_first = false;
 	
-	if (clock.GetDiff() > 1000 || !run_first)
+	if (clock.deltaTime() > 1000 || !run_first)
 	{
 		img.create(1000, 1000, sf::Color(255, 255, 255, 255));
 		auto modulate_color = get_modulation_color();
@@ -952,7 +952,7 @@ void dc_map::show_minimap(float& mx, float &my, float width, bool show_only_play
 	spr.setPosition(g_Resolution.x*0.25, g_Resolution.y*0.5 - g_Resolution.x*0.25);
 	float scale = (float)g_Resolution.x / 2000;
 	spr.setScale(scale, scale);
-	IWindow::RenderOverlay(g_Resolution.x*0.2475, g_Resolution.y*0.5 - g_Resolution.x*0.2525, g_Resolution.x*0.505, g_Resolution.x*0.505, 255, 255, 255, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.2475, g_Resolution.y*0.5 - g_Resolution.x*0.2525, g_Resolution.x*0.505, g_Resolution.x*0.505, 255, 255, 255, 255);
 	g_Window->draw(spr);
 
 
@@ -966,10 +966,10 @@ void dc_map::show_minimap(float& mx, float &my, float width, bool show_only_play
 		{
 			for (int j = -1; j <= 1; j++)
 			{
-					IWindow::RenderTextBMiddle(_x+i, _y+j, 0, 0, lab.n, 16 * g_Resolution.x / 1280, 0,0,0);
+					_Window::RenderTextBMiddle(_x+i, _y+j, 0, 0, lab.n, 16 * g_Resolution.x / 1280, 0,0,0);
 			}
 		}
-		IWindow::RenderTextBMiddle(_x, _y, 0, 0, lab.n, 16 * g_Resolution.x / 1280, 255, 255, 255);
+		_Window::RenderTextBMiddle(_x, _y, 0, 0, lab.n, 16 * g_Resolution.x / 1280, 255, 255, 255);
 
 	}
 

@@ -1061,7 +1061,7 @@ void dc_game::Do()
 	}
 	DrawEffects();
 	if (g_Config.g_brightness.Value < 1.f)
-		IWindow::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, max(0, 255 - g_Config.g_brightness.Value * 255));
+		_Window::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, max(0, 255 - g_Config.g_brightness.Value * 255));
 
 	show_fps();
 }

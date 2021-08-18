@@ -594,7 +594,7 @@ void dc_demo_viewer::DrawInformation()
 	else
 		sprintf(Buffer, "Following %d\n%.1f %.1f", vCameraPlayerLock, vCam.x, vCam.y);
 
-	IWindow::RenderTextB(g_Resolution.x*0.005f, g_Resolution.y*0.2f, Buffer, g_Resolution.y*0.015f, 225, 190, 32, 255);
+	_Window::RenderTextB(g_Resolution.x*0.005f, g_Resolution.y*0.2f, Buffer, g_Resolution.y*0.015f, 225, 190, 32, 255);
 }
 
 void dc_demo_viewer::DoTimebar()
@@ -657,14 +657,14 @@ void dc_demo_viewer::DrawKillLeaders()
 		Rect.setOutlineThickness(1.f);
 		g_Window->draw(Rect);
 
-		auto textLen = IWindow::GetTextSize(Match.players[Leaders[i]].szName, g_Resolution.y*0.025f);
-		IWindow::RenderTextBMiddleC(g_Resolution.x*0.675f, g_Resolution.y*0.025f + i*g_Resolution.y*0.035f, textLen.x, g_Resolution.y*0.03f, Match.players[Leaders[i]].szName, g_Resolution.y*0.025f, 192, 192, 192, 128);
+		auto textLen = _Window::GetTextSize(Match.players[Leaders[i]].szName, g_Resolution.y*0.025f);
+		_Window::RenderTextBMiddleC(g_Resolution.x*0.675f, g_Resolution.y*0.025f + i*g_Resolution.y*0.035f, textLen.x, g_Resolution.y*0.03f, Match.players[Leaders[i]].szName, g_Resolution.y*0.025f, 192, 192, 192, 128);
 		char Buffer[16]; sprintf(Buffer, "%d", Match.players[Leaders[i]].Stats.iEliminations);
 
 		logosSprite.setPosition(g_Resolution.x*0.975f - scale * 64, g_Resolution.y*0.0275f + i*g_Resolution.y*0.035f);
 		g_Window->draw(logosSprite);
-		textLen = IWindow::GetTextSize(Buffer, g_Resolution.y*0.025f);
-		IWindow::RenderTextBMiddleC(g_Resolution.x*0.975f-scale*64-textLen.x-g_Resolution.x*0.005f, g_Resolution.y*0.025f + i*g_Resolution.y*0.035f, textLen.x, g_Resolution.y*0.03f, Buffer, g_Resolution.y*0.025f, 192, 192, 192, 128);
+		textLen = _Window::GetTextSize(Buffer, g_Resolution.y*0.025f);
+		_Window::RenderTextBMiddleC(g_Resolution.x*0.975f-scale*64-textLen.x-g_Resolution.x*0.005f, g_Resolution.y*0.025f + i*g_Resolution.y*0.035f, textLen.x, g_Resolution.y*0.03f, Buffer, g_Resolution.y*0.025f, 192, 192, 192, 128);
 
 	}
 
@@ -720,7 +720,7 @@ void dc_demo_viewer::DrawTimebar()
 
 	char TimeBuffer[32];
 	sprintf(TimeBuffer, "%d:%s%d / %d:%s%d", S_Minutes, ((S_Seconds > 9) ? "" : "0"), S_Seconds, F_Minutes, ((F_Seconds > 9) ? "" : "0"), F_Seconds);
-	IWindow::RenderTextBMiddleC(g_Resolution.x*0.5f, g_Resolution.y*0.95f, 0, 0, TimeBuffer, g_Resolution.y*0.02f, 0, 0, 0);
+	_Window::RenderTextBMiddleC(g_Resolution.x*0.5f, g_Resolution.y*0.95f, 0, 0, TimeBuffer, g_Resolution.y*0.02f, 0, 0, 0);
 
 
 	static sf::Sprite logosSprite;
@@ -799,10 +799,10 @@ void dc_demo_viewer::DrawPlayerInfo()
 
 	for(int i = -1; i <= 1;i++)
 		for(int j = -1; j<=1;j++)
-			IWindow::RenderTextBMiddleC(g_Resolution.x*0.5f+i, g_Resolution.y*0.9f+j, 0, 0, Demo.MetaData.playerNames[vCameraPlayerLock], g_Resolution.y*0.03f, 0,0,0, 255);
+			_Window::RenderTextBMiddleC(g_Resolution.x*0.5f+i, g_Resolution.y*0.9f+j, 0, 0, Demo.MetaData.playerNames[vCameraPlayerLock], g_Resolution.y*0.03f, 0,0,0, 255);
 
 
-	IWindow::RenderTextBMiddleC(g_Resolution.x*0.5f, g_Resolution.y*0.9f, 0, 0, Demo.MetaData.playerNames[vCameraPlayerLock], g_Resolution.y*0.03f, 255, 255, 255, 255);
+	_Window::RenderTextBMiddleC(g_Resolution.x*0.5f, g_Resolution.y*0.9f, 0, 0, Demo.MetaData.playerNames[vCameraPlayerLock], g_Resolution.y*0.03f, 255, 255, 255, 255);
 
 
 	static sf::Sprite logosSprite;
@@ -1017,16 +1017,16 @@ void dc_demo_viewer::DrawKillNoticeEffect()
 			sprintf(BufferB, "%s", Match.players[it.Target].szName);
 			sprintf(BufferC, "Eliminated %s", Match.players[it.Target].szName);
 
-			auto Dims = IWindow::GetTextSize(BufferC, g_Resolution.y * 0.03f);
-			auto Dims2 = IWindow::GetTextSize(BufferA, g_Resolution.y * 0.03f);
-			IWindow::RenderTextB(g_Resolution.x*0.5f - Dims.x*0.5f, g_Resolution.y*0.65f + y2, BufferA, g_Resolution.y*0.03f, 222, 222, 222, alpha);
+			auto Dims = _Window::GetTextSize(BufferC, g_Resolution.y * 0.03f);
+			auto Dims2 = _Window::GetTextSize(BufferA, g_Resolution.y * 0.03f);
+			_Window::RenderTextB(g_Resolution.x*0.5f - Dims.x*0.5f, g_Resolution.y*0.65f + y2, BufferA, g_Resolution.y*0.03f, 222, 222, 222, alpha);
 
 			for (int i = -1; i <= 1; i++)
 				for (int j = -1; j <= 1; j++)
-					IWindow::RenderTextB(g_Resolution.x*0.5f - Dims.x* 0.5f + Dims2.x + i, g_Resolution.y*0.65f + y2 + i, BufferB, g_Resolution.y*0.03f, 0, 0, 0, 0.00392156862*(alpha*alpha));
+					_Window::RenderTextB(g_Resolution.x*0.5f - Dims.x* 0.5f + Dims2.x + i, g_Resolution.y*0.65f + y2 + i, BufferB, g_Resolution.y*0.03f, 0, 0, 0, 0.00392156862*(alpha*alpha));
 
 
-			IWindow::RenderTextB(g_Resolution.x*0.5f - Dims.x* 0.5f + Dims2.x, g_Resolution.y*0.65f + y2, BufferB, g_Resolution.y*0.03f, 225, 180, 32, alpha);
+			_Window::RenderTextB(g_Resolution.x*0.5f - Dims.x* 0.5f + Dims2.x, g_Resolution.y*0.65f + y2, BufferB, g_Resolution.y*0.03f, 225, 180, 32, alpha);
 
 
 		}
@@ -1118,21 +1118,23 @@ void dc_demo_viewer::Do()
 {
 	//MoveTime
 	static dc_clock Clock;
-	if (Clock.GetDiff() > 500)Clock.Update();
+	if (Clock.deltaTime() > 500)Clock.Update();
 
-	timeDiffSinceLastFrame = 0.001f*Clock.GetDiff();
+	timeDiffSinceLastFrame = 0.001f*Clock.deltaTime();
 	Clock.Update();
 
 
-
+	//Locking to have a perfect framerate for the demo
+	//The actual framerate might differ
 	if (g_Config.demo_framerate.Value > 0.5f)
 	{
 		ServerTime += 1.f / g_Config.demo_framerate.Value;
 	}
-	else if (g_Config.demo_timescale.Value > 0.f)
+	else if (g_Config.demo_timescale.Value > 0.f) //Locking to have a perfect timescale
 		ServerTime += timeDiffSinceLastFrame * g_Config.demo_timescale.Value;
 
 	//ServerTime += timeDiffSinceLastFrame;
+	//If the demo is over, it goes back to its beginning
 	if (ServerTime > DemoTotalTime)ServerTime = 0.f;
 
 

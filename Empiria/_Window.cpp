@@ -1,11 +1,11 @@
-#include "IWindow.h"
+#include "_Window.h"
 
-void IWindow::AddToRenderList(sf::Drawable &drawable)
+void _Window::AddToRenderList(sf::Drawable &drawable)
 {
 	g_Window->draw(drawable);
 }
 
-void IWindow::RenderOverlay(int x, int y,int w, int h, int r, int g, int b, int _a)
+void _Window::RenderOverlay(int x, int y,int w, int h, int r, int g, int b, int _a)
 {
 	sf::RectangleShape RShape;
 	RShape.setPosition(x, y);
@@ -14,7 +14,7 @@ void IWindow::RenderOverlay(int x, int y,int w, int h, int r, int g, int b, int 
 	g_Window->draw(RShape);
 }
 
-void IWindow::RenderText(int x, int y, char* text, int fontsize, int r, int g, int b, int _a)
+void _Window::RenderText(int x, int y, char* text, int fontsize, int r, int g, int b, int _a)
 {
 	static bool bLoaded = false;
 	static file_t f = g_Files.GetFileByName("character.png");
@@ -52,14 +52,14 @@ void IWindow::RenderText(int x, int y, char* text, int fontsize, int r, int g, i
 			a.setPosition(_x, _y);
 			a.setTextureRect(sf::IntRect(32 * Low, 32 * High, 32, 32));
 			_x += fontsize * 0.8f;
-			IWindow::AddToRenderList(a);
+			_Window::AddToRenderList(a);
 		}
 
 	}
 
 }
 
-void IWindow::RenderTextB(int x, int y, char* text, int fontsize, int r, int g, int b, int _a)
+void _Window::RenderTextB(int x, int y, char* text, int fontsize, int r, int g, int b, int _a)
 {
 	static bool loaded = false;
 	static sf::Font font;
@@ -77,11 +77,11 @@ void IWindow::RenderTextB(int x, int y, char* text, int fontsize, int r, int g, 
 	Text.setPosition(x, y);
 	Text.setFillColor(sf::Color(r, g, b, _a));
 		
-	IWindow::AddToRenderList(Text);
+	_Window::AddToRenderList(Text);
 
 }
 
-void IWindow::RenderTextBAdditive(int x, int y, char* text, int fontsize, int r, int g, int b, int _a)
+void _Window::RenderTextBAdditive(int x, int y, char* text, int fontsize, int r, int g, int b, int _a)
 {
 	static bool loaded = false;
 	static sf::Font font;
@@ -105,22 +105,22 @@ void IWindow::RenderTextBAdditive(int x, int y, char* text, int fontsize, int r,
 
 }
 
-void IWindow::RenderTexture(sf::Texture t, sf::Sprite a, int x, int y, int r, int g, int b, int _a )
+void _Window::RenderTexture(sf::Texture t, sf::Sprite a, int x, int y, int r, int g, int b, int _a )
 {
 
 	a.setPosition(x, y);
 	a.setColor(sf::Color(r, g, b, _a));
 
 
-	IWindow::AddToRenderList(a);
+	_Window::AddToRenderList(a);
 }
 
-int IWindow::GetHeightForFontsize(int fontsize)
+int _Window::GetHeightForFontsize(int fontsize)
 {
 	return GetTextSize("A\n", fontsize).y - GetTextSize("A", fontsize).y;
 }
 
-sf::Vector2i IWindow::GetTextSize(char* text, int fontsize)
+sf::Vector2i _Window::GetTextSize(char* text, int fontsize)
 {
 	static bool loaded = false;
 	static sf::Font font;
@@ -140,19 +140,19 @@ sf::Vector2i IWindow::GetTextSize(char* text, int fontsize)
 	return sf::Vector2i(bound.width, bound.height);
 }
 
-sf::Vector2i IWindow::GetRealTextSize(char* text, int fontsize)
+sf::Vector2i _Window::GetRealTextSize(char* text, int fontsize)
 {
 	
 }
 
-void IWindow::RenderTextBMiddle(int _x, int _y, int _w, int _h, char* text, int fontsize, int r, int g, int b, int _a)
+void _Window::RenderTextBMiddle(int _x, int _y, int _w, int _h, char* text, int fontsize, int r, int g, int b, int _a)
 {
 	auto bound = GetTextSize(text, fontsize);
 
 	RenderTextB(_x + (_w - bound.x) / 2, _y + ((_h - bound.y) / 2), text, fontsize, r, g, b, _a);
 }
 
-void IWindow::RenderTextBMiddleC(int _x, int _y, int _w, int _h, char* text, int fontsize, int r, int g, int b, int _a)
+void _Window::RenderTextBMiddleC(int _x, int _y, int _w, int _h, char* text, int fontsize, int r, int g, int b, int _a)
 {
 	char* NewBuffer = new char[strlen(text) + 16];
 	sprintf(NewBuffer, "\n%s\n\n", text);
@@ -165,7 +165,7 @@ void IWindow::RenderTextBMiddleC(int _x, int _y, int _w, int _h, char* text, int
 
 #include "DaiCastle.h"
 
-void IWindow::CreateTheWindow()
+void _Window::CreateTheWindow()
 {
 	g_Window->close();
 	if(g_Config.g_fullscreen.Value >= 1.f)

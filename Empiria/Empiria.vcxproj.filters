@@ -30,14 +30,8 @@
     <ClInclude Include="includes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ITek.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Vector.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IWindow.h">
-      <Filter>Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Structs.h">
       <Filter>ShootBallz</Filter>
@@ -57,18 +51,21 @@
     <ClInclude Include="ThreadManager.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="IAudio.h">
-      <Filter>Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="DC_Demo.h">
       <Filter>ShootBallz</Filter>
+    </ClInclude>
+    <ClInclude Include="_Audio.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="_Window.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="_Tek.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ITek.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FileSys.cpp">
@@ -76,9 +73,6 @@
     </ClCompile>
     <ClCompile Include="fastParser.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IWindow.cpp">
-      <Filter>Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>ShootBallz</Filter>
@@ -119,9 +113,6 @@
     <ClCompile Include="ThreadManager.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="IAudio.cpp">
-      <Filter>Interfaces</Filter>
-    </ClCompile>
     <ClCompile Include="DC_Config.cpp">
       <Filter>ShootBallz</Filter>
     </ClCompile>
@@ -139,6 +130,15 @@
     </ClCompile>
     <ClCompile Include="DC_DemoPlayer.cpp">
       <Filter>ShootBallz</Filter>
+    </ClCompile>
+    <ClCompile Include="_Audio.cpp">
+      <Filter>Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="_Window.cpp">
+      <Filter>Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="_Tek.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

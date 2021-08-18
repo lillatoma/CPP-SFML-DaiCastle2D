@@ -1,4 +1,4 @@
-#include "ITek.h"
+#include "_Tek.h"
 
 /*
 void ITek::CreateTEK(char* _output)
@@ -45,7 +45,7 @@ enum States
 	SEEKING_CONTENT_END
 };
 
-void ITek::DispackTEK(char* tekname_)
+void _Tek::DispackTEK(char* tekname_)
 {
 	if (strcmp(tekname_, ""))
 	{
@@ -144,7 +144,7 @@ void ITek::DispackTEK(char* tekname_)
 	}
 }
 
-void ITek::DispackTEKToFiles(char* tekname_, file_t* startfile, int& found)
+void _Tek::DispackTEKToFiles(char* tekname_, file_t* startfile, int& found)
 {
 	if (strcmp(tekname_, ""))
 	{
@@ -251,7 +251,7 @@ void ITek::DispackTEKToFiles(char* tekname_, file_t* startfile, int& found)
 	}
 }
 
-void ITek::DispackTEKToFilesWithNames(char* tekname_, file_t* startfile, int& found, char* startname, unsigned int deltaName)
+void _Tek::DispackTEKToFilesWithNames(char* tekname_, file_t* startfile, int& found, char* startname, unsigned int deltaName)
 {
 	if (strcmp(tekname_, ""))
 	{

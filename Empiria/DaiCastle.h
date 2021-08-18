@@ -1011,7 +1011,7 @@ struct dc_match
 	int TicksTotal = 0;
 	dc_demo* pDemo;
 	float lastTickTime = 0.f;
-	std::vector<dc_ticksnapshot*> Demo_Snapshots;
+	std::vector<dc_ticksnapshot*> Demo_Snapshots; //This one will always hold 128 pointers to avoid threading memory problems
 	dc_ticksnapshot Demo_NewestSnapshot;
 
 	bool show_minimap = false;
@@ -1057,7 +1057,7 @@ struct dc_match
 	void Demo_LoopSnapshots();
 
 	//////////////////////////////////////////////
-	/// !!! This function should run in a different thread
+	/// !!! This function MUST run in a different thread
 	/// Until the match finishes, the function keeps converting the demo snapshots
 	/// m needs to be a valid pointer for an active match
 	/// Metadata should be setup first with a pointer of the same match
@@ -1669,7 +1669,7 @@ struct dc_match
 	//////////////////////////////////////////////
 	/// Returns if there is another player that has been in range for enough time to get noticed
 	//////////////////////////////////////////////
-	bool BotHasRealNoticed(int id) { return BotData[id].Changables.NoticedPlayerIDs.size() > 0 && BotData[id].Changables.NoticedPlayers[0].NoticeTime.GetDiff() > 1000.f*BotData[id].fEnemyNoticeTime; }
+	bool BotHasRealNoticed(int id) { return BotData[id].Changables.NoticedPlayerIDs.size() > 0 && BotData[id].Changables.NoticedPlayers[0].NoticeTime.deltaTime() > 1000.f*BotData[id].fEnemyNoticeTime; }
 	//////////////////////////////////////////////
 	/// Returns if there is another player that has been visible for enough time to get targetted
 	//////////////////////////////////////////////

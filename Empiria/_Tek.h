@@ -3,7 +3,7 @@
 #include <iostream>
 #include <direct.h>
 
-struct ITek
+struct _Tek
 {
 	static void CreateTEK(char* _output);
 	static void DispackTEK(char* tekname_);

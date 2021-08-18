@@ -141,7 +141,7 @@ void dc_mapeditor::Control()
 		adif = 180.f;
 	else move = false;
 
-	auto diff = clock.GetDiff();
+	auto diff = clock.deltaTime();
 	float fdif = float(diff) / 1000;
 	if (move)
 	{
@@ -164,8 +164,8 @@ void dc_mapeditor::DrawUI()
 {
 
 
-	IWindow::RenderOverlay(0, 0, 1280, 32, 192, 192, 192, 255);
-	IWindow::RenderOverlay(1000, 32, 280, 688, 192, 192, 192, 255);
+	_Window::RenderOverlay(0, 0, 1280, 32, 192, 192, 192, 255);
+	_Window::RenderOverlay(1000, 32, 280, 688, 192, 192, 192, 255);
 
 	static sf::Sprite spr;
 	
@@ -181,15 +181,15 @@ void dc_mapeditor::DrawUI()
 		if (GetDistance(l.vPosition, vekt) < l.size)sprintf(buffer, "%s \n%s", buffer, l.n);
 	}
 	
-	IWindow::RenderTextB(0, 0, buffer, 24, 255, 255, 0, 255);
+	_Window::RenderTextB(0, 0, buffer, 24, 255, 255, 0, 255);
 
 
 	spr.setPosition(1076, 100);
 	g_Window->draw(spr);
-	IWindow::RenderOverlay(1050, 100, 20, 128, 220, 220, 220, 255);
-	IWindow::RenderOverlay(1210, 100, 20, 128, 220, 220, 220, 255);
-	IWindow::RenderOverlay(1050, 300, 20, 40, 220, 220, 220, 255);
-	IWindow::RenderOverlay(1210, 300, 20, 40, 220, 220, 220, 255);
+	_Window::RenderOverlay(1050, 100, 20, 128, 220, 220, 220, 255);
+	_Window::RenderOverlay(1210, 100, 20, 128, 220, 220, 220, 255);
+	_Window::RenderOverlay(1050, 300, 20, 40, 220, 220, 220, 255);
+	_Window::RenderOverlay(1210, 300, 20, 40, 220, 220, 220, 255);
 	if (g_Mouse.hasReleased())
 	{
 		if(g_Mouse.IsBetween(1050, 100, 20, 128, g_Mouse.Coords.x, g_Mouse.Coords.y))MoveTexture(-1);
@@ -211,39 +211,39 @@ void dc_mapeditor::DrawUI()
 		if (g_Mouse.IsBetween(1050, 50, 180, 35, g_Mouse.Coords.x, g_Mouse.Coords.y))map.day_time += 25;
 	}
 
-	IWindow::RenderOverlay(1050, 50, 180, 35, 225, 225, 225, 255);
-	IWindow::RenderTextBMiddle(1050, 50, 180, 35, "Forward", 24, 0, 0, 0, 255);
+	_Window::RenderOverlay(1050, 50, 180, 35, 225, 225, 225, 255);
+	_Window::RenderTextBMiddle(1050, 50, 180, 35, "Forward", 24, 0, 0, 0, 255);
 	
 
-	IWindow::RenderOverlay(1050, 550, 180, 35, 225, 225, 225, 255);
-	IWindow::RenderTextBMiddle(1050, 550, 180, 35, "Reset", 24, 0, 0, 0, 255);
+	_Window::RenderOverlay(1050, 550, 180, 35, 225, 225, 225, 255);
+	_Window::RenderTextBMiddle(1050, 550, 180, 35, "Reset", 24, 0, 0, 0, 255);
 
-	IWindow::RenderOverlay(1050, 600, 180, 35, 225, 225, 225, 255);
-	IWindow::RenderTextBMiddle(1050, 600, 180, 35, "Load", 24, 0, 0, 0, 255);
+	_Window::RenderOverlay(1050, 600, 180, 35, 225, 225, 225, 255);
+	_Window::RenderTextBMiddle(1050, 600, 180, 35, "Load", 24, 0, 0, 0, 255);
 
-	IWindow::RenderOverlay(1050, 650, 180, 35, 225, 225, 225, 255);
-	IWindow::RenderTextBMiddle(1050, 650, 180, 35, "Save", 24, 0, 0, 0, 255);
+	_Window::RenderOverlay(1050, 650, 180, 35, 225, 225, 225, 255);
+	_Window::RenderTextBMiddle(1050, 650, 180, 35, "Save", 24, 0, 0, 0, 255);
 	
-	IWindow::RenderOverlay(1050, 250, 180, 40, 255, 255, 255, 255);
+	_Window::RenderOverlay(1050, 250, 180, 40, 255, 255, 255, 255);
 	int textsize = 24;
 	for (textsize = 24; textsize > 1; textsize--)
 	{
-		if (IWindow::GetTextSize(g_Textures.getname(texture_selected), textsize).x < 180)break;
+		if (_Window::GetTextSize(g_Textures.getname(texture_selected), textsize).x < 180)break;
 	}
-	IWindow::RenderTextBMiddle(1050, 250, 180, 40, g_Textures.getname(texture_selected), textsize, 0, 0, 0, 255);
+	_Window::RenderTextBMiddle(1050, 250, 180, 40, g_Textures.getname(texture_selected), textsize, 0, 0, 0, 255);
 	{
 		int _r = 128 + edit_label*(-64);
 		int _g = 128 + edit_label*(100);
 		int _b = 128 + edit_label*(-64);
-		IWindow::RenderOverlay(1050, 350, 180, 100, _r, _g, _b, 255);
+		_Window::RenderOverlay(1050, 350, 180, 100, _r, _g, _b, 255);
 		if(label.n[0])
-			IWindow::RenderTextBMiddle(1050, 350, 180, 100, label.n, 24, 0, 0, 0, 255);
+			_Window::RenderTextBMiddle(1050, 350, 180, 100, label.n, 24, 0, 0, 0, 255);
 		else
-			IWindow::RenderTextBMiddle(1050, 350, 180, 100, "No label", 24, 0, 0, 0, 255);
-		IWindow::RenderOverlay(1050, 460, 180, 40, 255,255,255, 255);
+			_Window::RenderTextBMiddle(1050, 350, 180, 100, "No label", 24, 0, 0, 0, 255);
+		_Window::RenderOverlay(1050, 460, 180, 40, 255,255,255, 255);
 		char hbuf[16];
 		sprintf(hbuf, "%.1f", label.size);
-		IWindow::RenderTextBMiddle(1050, 460, 180, 40, hbuf, 25, 0, 0, 0, 255);
+		_Window::RenderTextBMiddle(1050, 460, 180, 40, hbuf, 25, 0, 0, 0, 255);
 		if (g_Mouse.IsBetween(1050, 460, 90, 40, g_Mouse.Coords.x, g_Mouse.Coords.y) && g_Mouse.left_click)
 		{
 			label.size -= 0.1f;
@@ -258,10 +258,10 @@ void dc_mapeditor::DrawUI()
 			else edit_label = false;
 		}
 	}
-	IWindow::RenderOverlay(1076, 300, 128, 40, 255, 255, 255, 255);
+	_Window::RenderOverlay(1076, 300, 128, 40, 255, 255, 255, 255);
 	char wall_hp_buf[16];
 	sprintf(wall_hp_buf, "%d HP", wall_health);
-	IWindow::RenderTextBMiddle(1076, 300, 128, 40, wall_hp_buf, 24, 0, 0, 0, 255);
+	_Window::RenderTextBMiddle(1076, 300, 128, 40, wall_hp_buf, 24, 0, 0, 0, 255);
 
 }
 
@@ -278,7 +278,7 @@ void dc_mapeditor::DrawForSelectedMode()
 
 		auto screenvec = map.world_to_screen(vecCamera.x, vecCamera.y, camera_width, nvec.x, nvec.y);
 
-		IWindow::RenderOverlay(screenvec.x, screenvec.y, blocksize.x, blocksize.y, 255, 255, 255, 128);
+		_Window::RenderOverlay(screenvec.x, screenvec.y, blocksize.x, blocksize.y, 255, 255, 255, 128);
 	}
 	else if (mode == 1)
 	{
@@ -301,8 +301,8 @@ void dc_mapeditor::DrawForSelectedMode()
 
 		auto screenvec = map.world_to_screen(vecCamera.x, vecCamera.y, camera_width, nvec.x, nvec.y);
 
-		if(left)IWindow::RenderOverlay(screenvec.x, screenvec.y, 2, blocksize.y, 255, 255, 255, 128);
-		else IWindow::RenderOverlay(screenvec.x, screenvec.y, blocksize.x, 2, 255, 255, 255, 128);
+		if(left)_Window::RenderOverlay(screenvec.x, screenvec.y, 2, blocksize.y, 255, 255, 255, 128);
+		else _Window::RenderOverlay(screenvec.x, screenvec.y, blocksize.x, 2, 255, 255, 255, 128);
 
 
 		//printf("\nFloatVec: %.1f %.1f | ScrVec: %.1f %.1f -> Diff: %.1f %.1f", floatvec.x, floatvec.y, screenvec.x, screenvec.y, difference.x, difference.y);
@@ -418,7 +418,7 @@ void dc_mapeditor::TextureBrush()
 
 	if (mode == 4 && g_Mouse.hasReleased())
 	{
-		if (last_click_clock.GetDiff() < 250)
+		if (last_click_clock.deltaTime() < 250)
 		{
 			auto vec = map.cursor_to_world(vecCamera.x, vecCamera.y, camera_width);
 			PaintBrushPart(vec.x, vec.y, true);
@@ -444,7 +444,7 @@ void dc_mapeditor::TextureBrush()
 	static sf::Vector2f old_coords = vector;
 	static dc_clock clokito;
 
-	if (old_coords != vector && clokito.GetDiff() < 50)
+	if (old_coords != vector && clokito.deltaTime() < 50)
 	{
 		auto dif = GetDistance(old_coords, vector);
 		for (float i = 0; i < dif; i += 0.5f)
@@ -701,10 +701,10 @@ void dc_mapeditor::DrawSaveScreen(char* name, float percent)
 
 	g_Mouse.Update(50, 50, 0);
 
-	IWindow::RenderOverlay(320, 315, 640, 90, 64, 64, 64, 255);
-	IWindow::RenderTextB(320, 315, name, 24);
+	_Window::RenderOverlay(320, 315, 640, 90, 64, 64, 64, 255);
+	_Window::RenderTextB(320, 315, name, 24);
 
-	IWindow::RenderOverlay(330, 365, 620 * percent, 30, 255, 64, 64, 255);
+	_Window::RenderOverlay(330, 365, 620 * percent, 30, 255, 64, 64, 255);
 	g_Window->display();
 }
 

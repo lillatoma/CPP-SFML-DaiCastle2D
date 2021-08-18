@@ -5,7 +5,10 @@ dc_config g_Config;
 
 
 
-
+/////////////////////////////////////////////
+///Returns vector (x,y) where x is the index of the first character of the 'word'th word in 'inputtext'
+/// and y is the length of that word
+/////////////////////////////////////////////
 sf::Vector2i TrimString(char* inputtext, int word)
 {
 	int WordsFound = 0;
@@ -31,7 +34,9 @@ sf::Vector2i TrimString(char* inputtext, int word)
 
 	return sf::Vector2i(-1, -1);
 }
-
+/////////////////////////////////////////////
+///Returns if the first 'len' characters of 'text' represents a number
+/////////////////////////////////////////////
 bool IsANumber(char* text, int len)
 {
 	int DotCount = 0;
@@ -50,6 +55,9 @@ bool IsANumber(char* text, int len)
 	return Good && DotCount <= 1 && MinusCount <= 1;
 }
 
+/////////////////////////////////////////////
+///Converts the first 'len' characters of 'text' to a floating point number
+/////////////////////////////////////////////
 float TextToFloat(char* text, int len)
 {
 	int High = 0;
@@ -79,7 +87,9 @@ float TextToFloat(char* text, int len)
 	if (Negative)return -(1.f*High + pow(0.1f, LowDivisor)*Low);
 	else return (1.f*High + pow(0.1f, LowDivisor)*Low);
 }
-
+/////////////////////////////////////////////
+///Converts the first 'len' characters of 'text' to an integer
+/////////////////////////////////////////////
 int TextToInt(char* text, int len)
 {
 	int High = 0;
@@ -154,23 +164,23 @@ void dc_game::DrawConsole()
 
 	static dc_clock Clock;
 	static bool vertline = false;
-	if (Clock.GetDiff() > 500)
+	if (Clock.deltaTime() > 500)
 	{
 		vertline = !vertline;
 		Clock.Update();
 	}
 
 
-	IWindow::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, 64);
-	IWindow::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y*0.45f, 0, 0, 32, 192);
-	IWindow::RenderOverlay(0, g_Resolution.y*0.40f, g_Resolution.x, g_Resolution.y*0.05f, 0, 0, 96, 192);
-	IWindow::RenderOverlay(0, g_Resolution.y*0.45f, g_Resolution.x, g_Resolution.y*0.005f, 0, 0, 192, 255);
+	_Window::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, 64);
+	_Window::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y*0.45f, 0, 0, 32, 192);
+	_Window::RenderOverlay(0, g_Resolution.y*0.40f, g_Resolution.x, g_Resolution.y*0.05f, 0, 0, 96, 192);
+	_Window::RenderOverlay(0, g_Resolution.y*0.45f, g_Resolution.x, g_Resolution.y*0.005f, 0, 0, 192, 255);
 
 	for (int i = console_pos; i < console_pos + 15 && i < ConsoleLogs.size(); i++)
 	{
 		int RelativePos = i-console_pos;
 		int msgPos = ConsoleLogs.size() - 1 - i;
-		IWindow::RenderTextB(0.005f*g_Resolution.x, g_Resolution.y*(0.40f - (1+RelativePos)*0.0267f), ConsoleLogs[msgPos]->msg, 16, ConsoleLogs[msgPos]->Color.r, ConsoleLogs[msgPos]->Color.g, ConsoleLogs[msgPos]->Color.b, ConsoleLogs[msgPos]->Color.a);
+		_Window::RenderTextB(0.005f*g_Resolution.x, g_Resolution.y*(0.40f - (1+RelativePos)*0.0267f), ConsoleLogs[msgPos]->msg, 16, ConsoleLogs[msgPos]->Color.r, ConsoleLogs[msgPos]->Color.g, ConsoleLogs[msgPos]->Color.b, ConsoleLogs[msgPos]->Color.a);
 	}
 
 	char Buffer[140];
@@ -178,13 +188,13 @@ void dc_game::DrawConsole()
 		sprintf(Buffer, "> %s|", ConsoleMessage);
 	else
 		sprintf(Buffer, "> %s", ConsoleMessage);
-	IWindow::RenderTextB(0.01f*g_Resolution.x, g_Resolution.y*(0.41f), Buffer, 23, 192,192,192,255);
+	_Window::RenderTextB(0.01f*g_Resolution.x, g_Resolution.y*(0.41f), Buffer, 23, 192,192,192,255);
 
 
 
 	int consize = max((15), ((int)ConsoleLogs.size()));
 	
-	IWindow::RenderOverlay(g_Resolution.x*0.9875f, g_Resolution.y*0.005f, g_Resolution.x*0.005f, g_Resolution.y*0.39f, 32, 32, 128, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.9875f, g_Resolution.y*0.005f, g_Resolution.x*0.005f, g_Resolution.y*0.39f, 32, 32, 128, 255);
 	
 	int slidepos = g_Resolution.y*0.39f;
 	int spush = (((float)console_pos) / consize)*0.385f*g_Resolution.y;
@@ -194,7 +204,7 @@ void dc_game::DrawConsole()
 
 	//printf("\nSlide | Pos: %d | Size: %d , valami: %d | ConSize: %d Pos: %d", slidepos, slidesize, spush, consize, console_pos);
 
-	IWindow::RenderOverlay(g_Resolution.x*0.985f, slidepos-slidesize, g_Resolution.x*0.01f, slidesize, 32, 32, 192, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.985f, slidepos-slidesize, g_Resolution.x*0.01f, slidesize, 32, 32, 192, 255);
 }
 
 void dc_game::ScrollConsole()
@@ -212,7 +222,10 @@ int CompareTrimmedMessage(char* Command, sf::Vector2i Trim, char* Sub)
 	return strncmp(Command + Trim.x, Sub, Trim.y);
 }
 
-
+/////////////////////////////////////////////
+///Returns a vector of (x,y) where x is a start of a word, y is the length of the same word
+///This vector 'contains' all the words from 'text' 
+/////////////////////////////////////////////
 std::vector<sf::Vector2i> TrimStringFully(char* text)
 {
 	char* subText = text;
@@ -1638,7 +1651,7 @@ void dc_game::DoConsole()
 		LogConsoleMessage();
 		LogMessage("> %s", sf::Color(192, 192, 192), ConsoleMessage);
 		ConsoleExecuteCommand(ConsoleMessage);
-		sprintf(ConsoleMessage, "\0\0");
+		sprintf(ConsoleMessage, "\0\0"); //Resetting the console message
 		//LogMessage("Pushing Back", sf::Color(192, 192, 192));
 	}
 

@@ -16,7 +16,7 @@ void dc_game::DoMainMenu()
 
 	//GAMEMODE ARROWS
 	float fontsize = 0.03f*g_Resolution.y;
-	auto lineHeight = IWindow::GetTextSize("a\n", fontsize).y - IWindow::GetTextSize("a", fontsize).y;
+	auto lineHeight = _Window::GetTextSize("a\n", fontsize).y - _Window::GetTextSize("a", fontsize).y;
 	float scale = (1.f*lineHeight + g_Resolution.y*0.01f) / 64.f;
 
 	if (g_Mouse.IsBetween(g_Resolution.x*0.75f, g_Resolution.y*0.78f - lineHeight, scale * 64, scale * 64, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
@@ -102,7 +102,7 @@ void dc_game::DrawMainMenuBg()
 		posMult = Random(RangeLeft, RangeRight);
 	}
 
-	float diff = 0.001f*Clock.GetDiff();
+	float diff = 0.001f*Clock.deltaTime();
 
 	if (mvAdd)
 	{
@@ -183,10 +183,10 @@ void dc_game::DrawMainMenuPlayButton()
 	char* TextAbove[] = { "Solo","Arena Solo","Duo","Duo Fill","Trio","Trio Fill","Squad","Squad Fill","50v50" };
 	{
 		float fontsize = 0.03f*g_Resolution.y;
-		auto lineHeight = IWindow::GetTextSize("a\n", fontsize).y - IWindow::GetTextSize("a", fontsize).y;
-		auto Dim = IWindow::GetTextSize(TextAbove[MatchType], g_Resolution.y*0.03f);
-		IWindow::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.78f - lineHeight, g_Resolution.x*0.2f, lineHeight + g_Resolution.y*0.01f, 192, 192, 192, 64);
-		IWindow::RenderTextB(g_Resolution.x*0.85f - Dim.x*0.5f, g_Resolution.y*0.785f - lineHeight, TextAbove[MatchType], fontsize);
+		auto lineHeight = _Window::GetTextSize("a\n", fontsize).y - _Window::GetTextSize("a", fontsize).y;
+		auto Dim = _Window::GetTextSize(TextAbove[MatchType], g_Resolution.y*0.03f);
+		_Window::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.78f - lineHeight, g_Resolution.x*0.2f, lineHeight + g_Resolution.y*0.01f, 192, 192, 192, 64);
+		_Window::RenderTextB(g_Resolution.x*0.85f - Dim.x*0.5f, g_Resolution.y*0.785f - lineHeight, TextAbove[MatchType], fontsize);
 
 		float scale = (1.f*lineHeight + g_Resolution.y*0.01f) / 64.f;
 
@@ -219,21 +219,21 @@ void dc_game::DrawMainMenuPlayButton()
 
 	//Button
 	{
-		auto Dim = IWindow::GetTextSize("\nPLAY\n\n", g_Resolution.y*0.075f);
+		auto Dim = _Window::GetTextSize("\nPLAY\n\n", g_Resolution.y*0.075f);
 		if (g_Mouse.IsBetween(g_Resolution.x*0.75f, g_Resolution.y*0.8f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
 			g_Mouse.IsClickValid() && g_Mouse.isHolding())
 		{
-			IWindow::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.8f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 185, 150, 16, 255);
-			IWindow::RenderTextB(g_Resolution.x*0.85f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nPLAY\n", g_Resolution.y*0.075f);
+			_Window::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.8f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 185, 150, 16, 255);
+			_Window::RenderTextB(g_Resolution.x*0.85f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nPLAY\n", g_Resolution.y*0.075f);
 		}
 		else if (g_Mouse.IsBetween(g_Resolution.x*0.75f, g_Resolution.y*0.8f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y))
 		{
-			IWindow::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.8f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 245, 210, 96, 255);
-			IWindow::RenderTextB(g_Resolution.x*0.85f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nPLAY", g_Resolution.y*0.075f, 32, 32, 64, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.8f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 245, 210, 96, 255);
+			_Window::RenderTextB(g_Resolution.x*0.85f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nPLAY", g_Resolution.y*0.075f, 32, 32, 64, 255);
 		}
 		else {
-			IWindow::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.8f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 225, 180, 32, 255);
-			IWindow::RenderTextB(g_Resolution.x*0.85f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nPLAY", g_Resolution.y*0.075f, 32, 32, 64, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.8f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 225, 180, 32, 255);
+			_Window::RenderTextB(g_Resolution.x*0.85f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nPLAY", g_Resolution.y*0.075f, 32, 32, 64, 255);
 		}
 
 
@@ -276,7 +276,7 @@ void dc_game::DrawMainMenuMap()
 		run_first = true;
 	}
 	float scale = (0.35f*g_Resolution.x) / 1000.f;
-	IWindow::RenderOverlay(g_Resolution.x*0.325f, g_Resolution.y*0.45f - (scale / 2)*(1000.f), g_Resolution.x*0.4f, g_Resolution.y*0.1f + scale*1000.f, 192, 192, 192, 64);
+	_Window::RenderOverlay(g_Resolution.x*0.325f, g_Resolution.y*0.45f - (scale / 2)*(1000.f), g_Resolution.x*0.4f, g_Resolution.y*0.1f + scale*1000.f, 192, 192, 192, 64);
 
 	spr.setScale(scale, scale);
 	spr.setPosition(g_Resolution.x*0.35f, g_Resolution.y*0.5f - (scale / 2)*(1000.f));
@@ -296,45 +296,45 @@ void dc_game::DrawMainMenuPlayerProfile()
 	}
 
 	float fontsize = 0.03f*g_Resolution.y;
-	auto lineHeight = IWindow::GetTextSize("a\n", fontsize).y - IWindow::GetTextSize("a", fontsize).y;
+	auto lineHeight = _Window::GetTextSize("a\n", fontsize).y - _Window::GetTextSize("a", fontsize).y;
 	float scale = (1.f*lineHeight + g_Resolution.y*0.01f) / 64.f;
 
-	IWindow::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.05f, g_Resolution.x*0.2f, g_Resolution.y*0.70 - lineHeight, 192, 192, 192, 64);
+	_Window::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.05f, g_Resolution.x*0.2f, g_Resolution.y*0.70 - lineHeight, 192, 192, 192, 64);
 
-	IWindow::RenderTextBMiddleC(g_Resolution.x*0.75f, g_Resolution.y*0.05f, g_Resolution.x*0.2f, g_Resolution.y*0.05f, "PLAYER PROFILE", fontsize);
+	_Window::RenderTextBMiddleC(g_Resolution.x*0.75f, g_Resolution.y*0.05f, g_Resolution.x*0.2f, g_Resolution.y*0.05f, "PLAYER PROFILE", fontsize);
 
 	//PlayerName
 	if (bNameEditSelected)
-		IWindow::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.1f, g_Resolution.x*0.2f, lineHeight + 4, 225, 180, 32, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.1f, g_Resolution.x*0.2f, lineHeight + 4, 225, 180, 32, 255);
 	else if (g_Mouse.IsBetween(g_Resolution.x*0.75f, g_Resolution.y*0.1f, g_Resolution.x*0.2f, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y))
-		IWindow::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.1f, g_Resolution.x*0.2f, lineHeight + 4, 255, 255, 255, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.1f, g_Resolution.x*0.2f, lineHeight + 4, 255, 255, 255, 255);
 	else
-		IWindow::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.1f, g_Resolution.x*0.2f, lineHeight + 4, 225, 225, 225, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.1f, g_Resolution.x*0.2f, lineHeight + 4, 225, 225, 225, 255);
 	{
 		int nfontsize = fontsize;
-		int flen = IWindow::GetTextSize(ThePlayer.szName, nfontsize).x;
+		int flen = _Window::GetTextSize(ThePlayer.szName, nfontsize).x;
 		if (flen > (g_Resolution.x*0.2f - 4))
 		{
 			float Bigness = (1.f*flen) / (1.f*g_Resolution.x*0.2f - 4);
 			nfontsize = floor((1.f / Bigness)*nfontsize);
 		}
-		IWindow::RenderTextB(g_Resolution.x*0.75f + 2, g_Resolution.y*0.1f, ThePlayer.szName, nfontsize, 0, 0, 0);
+		_Window::RenderTextB(g_Resolution.x*0.75f + 2, g_Resolution.y*0.1f, ThePlayer.szName, nfontsize, 0, 0, 0);
 
 	}
 
 	//Level Bar
 	char Buffer[16]; sprintf(Buffer, "%d", ThePlayer.Level + 1);
-	int textlengthA = IWindow::GetTextSize("Level ", fontsize).x;
-	int textlengthB = IWindow::GetTextSize(Buffer, fontsize*1.34f).x;
-	int textheightA = IWindow::GetHeightForFontsize(fontsize);
-	int textheightB = IWindow::GetHeightForFontsize(fontsize*1.34f);
+	int textlengthA = _Window::GetTextSize("Level ", fontsize).x;
+	int textlengthB = _Window::GetTextSize(Buffer, fontsize*1.34f).x;
+	int textheightA = _Window::GetHeightForFontsize(fontsize);
+	int textheightB = _Window::GetHeightForFontsize(fontsize*1.34f);
 	int heightdiff = textheightB - textheightA;
-	IWindow::RenderTextB(g_Resolution.x*0.95f - textlengthA - textlengthB - g_Resolution.x*0.01f, g_Resolution.y*0.1f + 2 * lineHeight + 8 + heightdiff, "Level", fontsize);
-	IWindow::RenderTextB(g_Resolution.x*0.95f - textlengthB - g_Resolution.x*0.01f, g_Resolution.y*0.1f + 2 * lineHeight + 8, Buffer, fontsize*1.34f);
+	_Window::RenderTextB(g_Resolution.x*0.95f - textlengthA - textlengthB - g_Resolution.x*0.01f, g_Resolution.y*0.1f + 2 * lineHeight + 8 + heightdiff, "Level", fontsize);
+	_Window::RenderTextB(g_Resolution.x*0.95f - textlengthB - g_Resolution.x*0.01f, g_Resolution.y*0.1f + 2 * lineHeight + 8, Buffer, fontsize*1.34f);
 
 	int currentY = g_Resolution.y*0.1f + 2 * lineHeight + 8 + textheightB;
 
-	IWindow::RenderOverlay(g_Resolution.x*0.76f, currentY + 2, g_Resolution.x*0.18f, 6, 0, 0, 0, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.76f, currentY + 2, g_Resolution.x*0.18f, 6, 0, 0, 0, 255);
 
 	int XpCurrent = ThePlayer.Xp;
 	int XpUnder;
@@ -345,22 +345,22 @@ void dc_game::DrawMainMenuPlayerProfile()
 
 	float progress = 1.f*ProgressiveXp / XpNeeded;
 
-	IWindow::RenderOverlay(g_Resolution.x*0.76f + 1, currentY + 3, progress*(g_Resolution.x*0.18f - 2), 4, 0, 192, 64, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.76f + 1, currentY + 3, progress*(g_Resolution.x*0.18f - 2), 4, 0, 192, 64, 255);
 
 	currentY = currentY + 10;
 
 	if (ThePlayer.Level == 99)
 	{
-		IWindow::RenderTextB(g_Resolution.x*0.95f - textlengthB - 10, currentY, "MAX", fontsize*1.34f);
+		_Window::RenderTextB(g_Resolution.x*0.95f - textlengthB - 10, currentY, "MAX", fontsize*1.34f);
 	}
 	else
 	{
 		char BufferB[16]; sprintf(BufferB, "%d/", ProgressiveXp);
 		char BufferC[16]; sprintf(BufferC, "%d", XpNeeded);
-		textlengthA = IWindow::GetTextSize(BufferB, fontsize).x;
-		textlengthB = IWindow::GetTextSize(BufferC, fontsize*1.34f).x;
-		IWindow::RenderTextB(g_Resolution.x*0.95f - textlengthA - textlengthB - g_Resolution.x*0.01f, currentY + heightdiff, BufferB, fontsize);
-		IWindow::RenderTextB(g_Resolution.x*0.95f - textlengthB - g_Resolution.x*0.01f, currentY, BufferC, fontsize*1.34f);
+		textlengthA = _Window::GetTextSize(BufferB, fontsize).x;
+		textlengthB = _Window::GetTextSize(BufferC, fontsize*1.34f).x;
+		_Window::RenderTextB(g_Resolution.x*0.95f - textlengthA - textlengthB - g_Resolution.x*0.01f, currentY + heightdiff, BufferB, fontsize);
+		_Window::RenderTextB(g_Resolution.x*0.95f - textlengthB - g_Resolution.x*0.01f, currentY, BufferC, fontsize*1.34f);
 
 	}
 
@@ -372,10 +372,10 @@ void dc_game::DrawMainMenuPlayerProfile()
 	int Tier = ThePlayer.Tier;
 
 	sprintf(Buffer, "%d", ThePlayer.Tier + 1);
-	textlengthA = IWindow::GetTextSize("Tier ", fontsize).x;
-	textlengthB = IWindow::GetTextSize(Buffer, fontsize*1.34f).x;
-	IWindow::RenderTextB(g_Resolution.x*0.95f - textlengthA - textlengthB - g_Resolution.x*0.01f, currentY + heightdiff, "Tier", fontsize);
-	IWindow::RenderTextB(g_Resolution.x*0.95f - textlengthB - g_Resolution.x*0.01f, currentY, Buffer, fontsize*1.34f);
+	textlengthA = _Window::GetTextSize("Tier ", fontsize).x;
+	textlengthB = _Window::GetTextSize(Buffer, fontsize*1.34f).x;
+	_Window::RenderTextB(g_Resolution.x*0.95f - textlengthA - textlengthB - g_Resolution.x*0.01f, currentY + heightdiff, "Tier", fontsize);
+	_Window::RenderTextB(g_Resolution.x*0.95f - textlengthB - g_Resolution.x*0.01f, currentY, Buffer, fontsize*1.34f);
 
 	currentY = currentY + textheightB;
 
@@ -392,9 +392,9 @@ void dc_game::DrawMainMenuPlayerProfile()
 		int posX = g_Resolution.x*0.76f + (tierlength + 3)*i;
 		int posY = currentY + 4;
 		if (i >= TierProgress)
-			IWindow::RenderOverlay(posX, posY, tierlength, tierHeight, 0, 0, 0, 255);
+			_Window::RenderOverlay(posX, posY, tierlength, tierHeight, 0, 0, 0, 255);
 		else
-			IWindow::RenderOverlay(posX, posY, tierlength, tierHeight, 225, 180, 32, 255);
+			_Window::RenderOverlay(posX, posY, tierlength, tierHeight, 225, 180, 32, 255);
 	}
 
 	currentY = currentY + tierHeight + 15;
@@ -403,11 +403,11 @@ void dc_game::DrawMainMenuPlayerProfile()
 
 	if (MatchType == 1)
 	{
-		IWindow::RenderOverlay(g_Resolution.x*0.76f, currentY, g_Resolution.x*0.18f, g_Resolution.y*0.05f, 225, 180, 32, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.76f, currentY, g_Resolution.x*0.18f, g_Resolution.y*0.05f, 225, 180, 32, 255);
 		char Buffer[64]; sprintf(Buffer, "Arena Level %d ~ %d points", GetArenaLevel()+1,ThePlayer.ArenaPoints);
-		auto textLen = IWindow::GetTextSize(Buffer, g_Resolution.y*0.02f).x;
+		auto textLen = _Window::GetTextSize(Buffer, g_Resolution.y*0.02f).x;
 		
-		IWindow::RenderTextBMiddleC(g_Resolution.x*0.765f, currentY, textLen, IWindow::GetHeightForFontsize(g_Resolution.y*0.02f), Buffer,g_Resolution.y*0.02f,32,32,96);
+		_Window::RenderTextBMiddleC(g_Resolution.x*0.765f, currentY, textLen, _Window::GetHeightForFontsize(g_Resolution.y*0.02f), Buffer,g_Resolution.y*0.02f,32,32,96);
 
 		auto nextLevelNeeded = GetArenaNeededForNextLevel();
 
@@ -417,9 +417,9 @@ void dc_game::DrawMainMenuPlayerProfile()
 			sprintf(BufferB, "%d points for next level", nextLevelNeeded);
 		else sprintf(BufferB, "MAX level");
 
-		textLen = IWindow::GetTextSize(BufferB, g_Resolution.y*0.02f).x;
+		textLen = _Window::GetTextSize(BufferB, g_Resolution.y*0.02f).x;
 
-		IWindow::RenderTextBMiddleC(g_Resolution.x*0.935f-textLen, currentY+g_Resolution.y*0.05f-IWindow::GetHeightForFontsize(g_Resolution.y*0.02f), textLen, IWindow::GetHeightForFontsize(g_Resolution.y*0.02f), BufferB, g_Resolution.y*0.02f, 32, 32, 96);
+		_Window::RenderTextBMiddleC(g_Resolution.x*0.935f-textLen, currentY+g_Resolution.y*0.05f-_Window::GetHeightForFontsize(g_Resolution.y*0.02f), textLen, _Window::GetHeightForFontsize(g_Resolution.y*0.02f), BufferB, g_Resolution.y*0.02f, 32, 32, 96);
 
 
 		currentY += g_Resolution.y*0.05f + g_Resolution.y*0.01f;
@@ -480,33 +480,33 @@ void dc_game::DrawMainMenuPlayerProfile()
 	if (g_Mouse.IsBetween(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - (lineHeight + 4), 0.2f*g_Resolution.x, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
 		g_Mouse.IsClickValid() && g_Mouse.isHolding())
 	{
-		IWindow::RenderOverlay(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - (lineHeight + 4), 0.2f*g_Resolution.x, lineHeight + 4, 180, 150, 16, 255);
+		_Window::RenderOverlay(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - (lineHeight + 4), 0.2f*g_Resolution.x, lineHeight + 4, 180, 150, 16, 255);
 	}
 	else if (g_Mouse.IsBetween(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - (lineHeight + 4), 0.2f*g_Resolution.x, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y))
 	{
-		IWindow::RenderOverlay(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - (lineHeight + 4), 0.2f*g_Resolution.x, lineHeight + 4, 255, 255, 64, 255);
+		_Window::RenderOverlay(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - (lineHeight + 4), 0.2f*g_Resolution.x, lineHeight + 4, 255, 255, 64, 255);
 
 	}
 	else
-		IWindow::RenderOverlay(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - (lineHeight + 4), 0.2f*g_Resolution.x, lineHeight + 4, 240, 215, 32, 255);
+		_Window::RenderOverlay(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - (lineHeight + 4), 0.2f*g_Resolution.x, lineHeight + 4, 240, 215, 32, 255);
 
-	IWindow::RenderTextBMiddleC(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - (lineHeight + 4), 0.2f*g_Resolution.x, lineHeight + 4, "Statistics", fontsize, 0, 0, 0);
+	_Window::RenderTextBMiddleC(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - (lineHeight + 4), 0.2f*g_Resolution.x, lineHeight + 4, "Statistics", fontsize, 0, 0, 0);
 
 	//Replays Button
 	if (g_Mouse.IsBetween(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - 2 * (lineHeight + 4) - 1, 0.2f*g_Resolution.x, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
 		g_Mouse.IsClickValid() && g_Mouse.isHolding())
 	{
-		IWindow::RenderOverlay(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - 2 * (lineHeight + 4) - 1, 0.2f*g_Resolution.x, lineHeight + 4, 180, 150, 16, 255);
+		_Window::RenderOverlay(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - 2 * (lineHeight + 4) - 1, 0.2f*g_Resolution.x, lineHeight + 4, 180, 150, 16, 255);
 	}
 	else if (g_Mouse.IsBetween(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - 2 * (lineHeight + 4) - 1, 0.2f*g_Resolution.x, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y))
 	{
-		IWindow::RenderOverlay(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - 2 * (lineHeight + 4) - 1, 0.2f*g_Resolution.x, lineHeight + 4, 255, 255, 64, 255);
+		_Window::RenderOverlay(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - 2 * (lineHeight + 4) - 1, 0.2f*g_Resolution.x, lineHeight + 4, 255, 255, 64, 255);
 
 	}
 	else
-		IWindow::RenderOverlay(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - 2 * (lineHeight + 4) - 1, 0.2f*g_Resolution.x, lineHeight + 4, 240, 215, 32, 255);
+		_Window::RenderOverlay(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - 2 * (lineHeight + 4) - 1, 0.2f*g_Resolution.x, lineHeight + 4, 240, 215, 32, 255);
 
-	IWindow::RenderTextBMiddleC(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - 2 * (lineHeight + 4) - 1, 0.2f*g_Resolution.x, lineHeight + 4, "Replays", fontsize, 0, 0, 0);
+	_Window::RenderTextBMiddleC(0.75f*g_Resolution.x, g_Resolution.y*0.75f - lineHeight - 2 * (lineHeight + 4) - 1, 0.2f*g_Resolution.x, lineHeight + 4, "Replays", fontsize, 0, 0, 0);
 
 
 }
@@ -514,7 +514,7 @@ void dc_game::DrawMainMenuPlayerProfile()
 void dc_game::DoLeftSideMenubar()
 {
 	float fontsize = g_Resolution.y*0.03f;
-	auto lineHeight = IWindow::GetHeightForFontsize(fontsize);
+	auto lineHeight = _Window::GetHeightForFontsize(fontsize);
 	if (g_Mouse.IsBetween(0.05f*g_Resolution.x, g_Resolution.y*0.75f - (lineHeight + 4), 0.25f*g_Resolution.x, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
 		g_Mouse.IsClickValid() && g_Mouse.hasReleased())
 	{
@@ -529,43 +529,43 @@ void dc_game::DoLeftSideMenubar()
 
 void dc_game::DrawLeftSideMenubar()
 {
-	IWindow::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.45f, g_Resolution.x*0.25f, g_Resolution.y*0.3f, 192, 192, 192, 64);
+	_Window::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.45f, g_Resolution.x*0.25f, g_Resolution.y*0.3f, 192, 192, 192, 64);
 
 	float fontsize = g_Resolution.y*0.03f;
-	auto lineHeight = IWindow::GetHeightForFontsize(fontsize);
+	auto lineHeight = _Window::GetHeightForFontsize(fontsize);
 
 	//Credits Button
 	if (g_Mouse.IsBetween(0.05f*g_Resolution.x, g_Resolution.y*0.75f - (lineHeight + 4), 0.25f*g_Resolution.x, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
 		g_Mouse.IsClickValid() && g_Mouse.isHolding())
 	{
-		IWindow::RenderOverlay(0.05f*g_Resolution.x, g_Resolution.y*0.75f - (lineHeight + 4), 0.25f*g_Resolution.x, lineHeight + 4, 180, 150, 16, 255);
+		_Window::RenderOverlay(0.05f*g_Resolution.x, g_Resolution.y*0.75f - (lineHeight + 4), 0.25f*g_Resolution.x, lineHeight + 4, 180, 150, 16, 255);
 	}
 	else if (g_Mouse.IsBetween(0.05f*g_Resolution.x, g_Resolution.y*0.75f - (lineHeight + 4), 0.25f*g_Resolution.x, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y))
 	{
-		IWindow::RenderOverlay(0.05f*g_Resolution.x, g_Resolution.y*0.75f- (lineHeight + 4), 0.25f*g_Resolution.x, lineHeight + 4, 255, 255, 64, 255);
+		_Window::RenderOverlay(0.05f*g_Resolution.x, g_Resolution.y*0.75f- (lineHeight + 4), 0.25f*g_Resolution.x, lineHeight + 4, 255, 255, 64, 255);
 
 	}
 	else
-		IWindow::RenderOverlay(0.05f*g_Resolution.x, g_Resolution.y*0.75f - (lineHeight + 4), 0.25f*g_Resolution.x, lineHeight + 4, 240, 215, 32, 255);
+		_Window::RenderOverlay(0.05f*g_Resolution.x, g_Resolution.y*0.75f - (lineHeight + 4), 0.25f*g_Resolution.x, lineHeight + 4, 240, 215, 32, 255);
 
-	IWindow::RenderTextBMiddleC(0.05f*g_Resolution.x, g_Resolution.y*0.75f - (lineHeight + 4), 0.25f*g_Resolution.x, lineHeight + 4, "Credits", fontsize, 0, 0, 0);
+	_Window::RenderTextBMiddleC(0.05f*g_Resolution.x, g_Resolution.y*0.75f - (lineHeight + 4), 0.25f*g_Resolution.x, lineHeight + 4, "Credits", fontsize, 0, 0, 0);
 
 
 	//Settings Button
 	if (g_Mouse.IsBetween(0.05f*g_Resolution.x, g_Resolution.y*0.75f - 2*(lineHeight + 4)-1, 0.25f*g_Resolution.x, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
 		g_Mouse.IsClickValid() && g_Mouse.isHolding())
 	{
-		IWindow::RenderOverlay(0.05f*g_Resolution.x, g_Resolution.y*0.75f - 2*(lineHeight + 4)-1, 0.25f*g_Resolution.x, lineHeight + 4, 180, 150, 16, 255);
+		_Window::RenderOverlay(0.05f*g_Resolution.x, g_Resolution.y*0.75f - 2*(lineHeight + 4)-1, 0.25f*g_Resolution.x, lineHeight + 4, 180, 150, 16, 255);
 	}
 	else if (g_Mouse.IsBetween(0.05f*g_Resolution.x, g_Resolution.y*0.75f - 2*(lineHeight + 4)-1, 0.25f*g_Resolution.x, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y))
 	{
-		IWindow::RenderOverlay(0.05f*g_Resolution.x, g_Resolution.y*0.75f - 2*(lineHeight + 4)-1, 0.25f*g_Resolution.x, lineHeight + 4, 255, 255, 64, 255);
+		_Window::RenderOverlay(0.05f*g_Resolution.x, g_Resolution.y*0.75f - 2*(lineHeight + 4)-1, 0.25f*g_Resolution.x, lineHeight + 4, 255, 255, 64, 255);
 
 	}
 	else
-		IWindow::RenderOverlay(0.05f*g_Resolution.x, g_Resolution.y*0.75f - 2*(lineHeight + 4)-1, 0.25f*g_Resolution.x, lineHeight + 4, 240, 215, 32, 255);
+		_Window::RenderOverlay(0.05f*g_Resolution.x, g_Resolution.y*0.75f - 2*(lineHeight + 4)-1, 0.25f*g_Resolution.x, lineHeight + 4, 240, 215, 32, 255);
 
-	IWindow::RenderTextBMiddleC(0.05f*g_Resolution.x, g_Resolution.y*0.75f - 2*(lineHeight + 4)-1, 0.25f*g_Resolution.x, lineHeight + 4, "Settings", fontsize, 0, 0, 0);
+	_Window::RenderTextBMiddleC(0.05f*g_Resolution.x, g_Resolution.y*0.75f - 2*(lineHeight + 4)-1, 0.25f*g_Resolution.x, lineHeight + 4, "Settings", fontsize, 0, 0, 0);
 
 }
 
@@ -599,7 +599,7 @@ void dc_game::DrawStatisticsMenu()
 
 
 	int fontsize = g_Resolution.y;
-	auto lineHeight = IWindow::GetTextSize("a\n", fontsize).y - IWindow::GetTextSize("a", fontsize).y;
+	auto lineHeight = _Window::GetTextSize("a\n", fontsize).y - _Window::GetTextSize("a", fontsize).y;
 
 	float RowHeight = (0.9f*g_Resolution.y - 3 * totalRows + 3) / totalRows;
 	int MaxFontSize = (RowHeight) / lineHeight*fontsize;
@@ -607,20 +607,20 @@ void dc_game::DrawStatisticsMenu()
 	int RowLength = 0;
 	for (int i = 0; i < totalRows; i++)
 	{
-		auto dim = IWindow::GetTextSize(Texts[i], MaxFontSize);
+		auto dim = _Window::GetTextSize(Texts[i], MaxFontSize);
 		if (dim.x > RowLength)RowLength = dim.x;
 	}
 	MaxFontSize -= 1;
 	RowLength += 6;
-	int RowLengthB = IWindow::GetTextSize("9999:99:99", MaxFontSize).x;
+	int RowLengthB = _Window::GetTextSize("9999:99:99", MaxFontSize).x;
 	for (int i = 0; i < totalRows; i++)
 	{
-		IWindow::RenderOverlay(0.15f*g_Resolution.x, 0.05f*g_Resolution.y + (3 + RowHeight)*i, RowLength, RowHeight, 64, 64, 160, 128);
+		_Window::RenderOverlay(0.15f*g_Resolution.x, 0.05f*g_Resolution.y + (3 + RowHeight)*i, RowLength, RowHeight, 64, 64, 160, 128);
 
-		int l = IWindow::GetTextSize(Texts[i], MaxFontSize).x;
-		IWindow::RenderTextB(0.15f*g_Resolution.x + RowLength - 3 - l, 0.05f*g_Resolution.y + (3 + RowHeight)*i, Texts[i], MaxFontSize);
+		int l = _Window::GetTextSize(Texts[i], MaxFontSize).x;
+		_Window::RenderTextB(0.15f*g_Resolution.x + RowLength - 3 - l, 0.05f*g_Resolution.y + (3 + RowHeight)*i, Texts[i], MaxFontSize);
 
-		IWindow::RenderOverlay(0.15f*g_Resolution.x + RowLength + 3, 0.05f*g_Resolution.y + (3 + RowHeight)*i, RowLengthB, RowHeight, 64, 64, 160, 128);
+		_Window::RenderOverlay(0.15f*g_Resolution.x + RowLength + 3, 0.05f*g_Resolution.y + (3 + RowHeight)*i, RowLengthB, RowHeight, 64, 64, 160, 128);
 
 		if (i == 19)
 		{
@@ -631,14 +631,14 @@ void dc_game::DrawStatisticsMenu()
 			Seconds = time;
 
 			char Buffer[32]; sprintf(Buffer, Format[i], Hours, ((Minutes < 10) ? ("0") : ("")), Minutes, ((Seconds < 10) ? "0" : ""), Seconds);
-			IWindow::RenderTextBMiddleC(0.15f*g_Resolution.x + RowLength + 3, 0.05f*g_Resolution.y + (3 + RowHeight)*i, RowLengthB, RowHeight, Buffer, MaxFontSize);
+			_Window::RenderTextBMiddleC(0.15f*g_Resolution.x + RowLength + 3, 0.05f*g_Resolution.y + (3 + RowHeight)*i, RowLengthB, RowHeight, Buffer, MaxFontSize);
 		}
 		else
 		{
 			if (isnan(Vals[i]))Vals[i] = 0;
 
 			char Buffer[16]; sprintf(Buffer, Format[i], Vals[i]);
-			IWindow::RenderTextBMiddleC(0.15f*g_Resolution.x + RowLength + 3, 0.05f*g_Resolution.y + (3 + RowHeight)*i, RowLengthB, RowHeight, Buffer, MaxFontSize);
+			_Window::RenderTextBMiddleC(0.15f*g_Resolution.x + RowLength + 3, 0.05f*g_Resolution.y + (3 + RowHeight)*i, RowLengthB, RowHeight, Buffer, MaxFontSize);
 		}
 
 	}
@@ -670,43 +670,43 @@ void dc_game::DoInDemoEscapeMenu()
 
 void dc_game::DrawInDemoEscapeMenu()
 {
-	IWindow::RenderOverlay(0, 0, 0.3f*g_Resolution.x, g_Resolution.y, 0, 0, 0, 128);
-	auto Dim = IWindow::GetTextSize("\nLeave match\n\n", g_Resolution.y*0.05f);
+	_Window::RenderOverlay(0, 0, 0.3f*g_Resolution.x, g_Resolution.y, 0, 0, 0, 128);
+	auto Dim = _Window::GetTextSize("\nLeave match\n\n", g_Resolution.y*0.05f);
 
 	if (g_Mouse.IsBetween(0.025f*g_Resolution.x, g_Resolution.y*0.8f, 0.25f*g_Resolution.x, g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
 		g_Mouse.IsClickValid() && g_Mouse.isHolding())
 	{
-		IWindow::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.8f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 185, 150, 16, 255);
-		IWindow::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nLeave match\n\n", g_Resolution.y*0.05f);
+		_Window::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.8f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 185, 150, 16, 255);
+		_Window::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nLeave match\n\n", g_Resolution.y*0.05f);
 	}
 	else if (g_Mouse.IsBetween(0.025f*g_Resolution.x, g_Resolution.y*0.8f, 0.25f*g_Resolution.x, g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y))
 	{
-		IWindow::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.8f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 245, 210, 96, 255);
-		IWindow::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nLeave match\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.8f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 245, 210, 96, 255);
+		_Window::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nLeave match\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
 	}
 	else
 	{
-		IWindow::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.8f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 225, 180, 32, 255);
-		IWindow::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nLeave match\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.8f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 225, 180, 32, 255);
+		_Window::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nLeave match\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
 	}
 
-	Dim = IWindow::GetTextSize("\nSettings\n\n", g_Resolution.y*0.05f);
+	Dim = _Window::GetTextSize("\nSettings\n\n", g_Resolution.y*0.05f);
 
 	if (g_Mouse.IsBetween(0.025f*g_Resolution.x, g_Resolution.y*0.675f, 0.25f*g_Resolution.x, g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
 		g_Mouse.IsClickValid() && g_Mouse.isHolding())
 	{
-		IWindow::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.675f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 185, 150, 16, 255);
-		IWindow::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.725f - Dim.y*0.5f, "\nSettings\n\n", g_Resolution.y*0.05f);
+		_Window::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.675f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 185, 150, 16, 255);
+		_Window::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.725f - Dim.y*0.5f, "\nSettings\n\n", g_Resolution.y*0.05f);
 	}
 	else if (g_Mouse.IsBetween(0.025f*g_Resolution.x, g_Resolution.y*0.675f, 0.25f*g_Resolution.x, g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y))
 	{
-		IWindow::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.675f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 245, 210, 96, 255);
-		IWindow::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.725f - Dim.y*0.5f, "\nSettings\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.675f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 245, 210, 96, 255);
+		_Window::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.725f - Dim.y*0.5f, "\nSettings\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
 	}
 	else
 	{
-		IWindow::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.675f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 225, 180, 32, 255);
-		IWindow::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.725f - Dim.y*0.5f, "\nSettings\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.675f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 225, 180, 32, 255);
+		_Window::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.725f - Dim.y*0.5f, "\nSettings\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
 	}
 
 }
@@ -761,64 +761,64 @@ void dc_game::DoIngameEscapeMenu()
 
 void dc_game::DrawIngameEscapeMenu()
 {
-	IWindow::RenderOverlay(0, 0, 0.3f*g_Resolution.x, g_Resolution.y, 0, 0, 0, 128);
-	auto Dim = IWindow::GetTextSize("\nLeave match\n\n", g_Resolution.y*0.05f);
+	_Window::RenderOverlay(0, 0, 0.3f*g_Resolution.x, g_Resolution.y, 0, 0, 0, 128);
+	auto Dim = _Window::GetTextSize("\nLeave match\n\n", g_Resolution.y*0.05f);
 
 	if (g_Mouse.IsBetween(0.025f*g_Resolution.x, g_Resolution.y*0.8f, 0.25f*g_Resolution.x, g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
 		g_Mouse.IsClickValid() && g_Mouse.isHolding())
 	{
-		IWindow::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.8f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 185, 150, 16, 255);
-		IWindow::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nLeave match\n\n", g_Resolution.y*0.05f);
+		_Window::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.8f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 185, 150, 16, 255);
+		_Window::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nLeave match\n\n", g_Resolution.y*0.05f);
 	}
 	else if (g_Mouse.IsBetween(0.025f*g_Resolution.x, g_Resolution.y*0.8f, 0.25f*g_Resolution.x, g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y))
 	{
-		IWindow::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.8f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 245, 210, 96, 255);
-		IWindow::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nLeave match\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.8f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 245, 210, 96, 255);
+		_Window::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nLeave match\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
 	}
 	else
 	{
-		IWindow::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.8f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 225, 180, 32, 255);
-		IWindow::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nLeave match\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.8f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 225, 180, 32, 255);
+		_Window::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.85f - Dim.y*0.5f, "\nLeave match\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
 	}
 
-	Dim = IWindow::GetTextSize("\nSettings\n\n", g_Resolution.y*0.05f);
+	Dim = _Window::GetTextSize("\nSettings\n\n", g_Resolution.y*0.05f);
 
 	if (g_Mouse.IsBetween(0.025f*g_Resolution.x, g_Resolution.y*0.675f, 0.25f*g_Resolution.x, g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
 		g_Mouse.IsClickValid() && g_Mouse.isHolding())
 	{
-		IWindow::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.675f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 185, 150, 16, 255);
-		IWindow::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.725f - Dim.y*0.5f, "\nSettings\n\n", g_Resolution.y*0.05f);
+		_Window::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.675f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 185, 150, 16, 255);
+		_Window::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.725f - Dim.y*0.5f, "\nSettings\n\n", g_Resolution.y*0.05f);
 	}
 	else if (g_Mouse.IsBetween(0.025f*g_Resolution.x, g_Resolution.y*0.675f, 0.25f*g_Resolution.x, g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y))
 	{
-		IWindow::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.675f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 245, 210, 96, 255);
-		IWindow::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.725f - Dim.y*0.5f, "\nSettings\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.675f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 245, 210, 96, 255);
+		_Window::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.725f - Dim.y*0.5f, "\nSettings\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
 	}
 	else
 	{
-		IWindow::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.675f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 225, 180, 32, 255);
-		IWindow::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.725f - Dim.y*0.5f, "\nSettings\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.675f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 225, 180, 32, 255);
+		_Window::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.725f - Dim.y*0.5f, "\nSettings\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
 	}
 
 	if (Match && (Match->players[0].iHealth <= 0 || Match->bMatchEnded))
 	{
-		Dim = IWindow::GetTextSize("\nShow stats\n\n", g_Resolution.y*0.05f);
+		Dim = _Window::GetTextSize("\nShow stats\n\n", g_Resolution.y*0.05f);
 
 		if (g_Mouse.IsBetween(0.025f*g_Resolution.x, g_Resolution.y*0.55f, 0.25f*g_Resolution.x, g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
 			g_Mouse.IsClickValid() && g_Mouse.isHolding())
 		{
-			IWindow::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.55f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 185, 150, 16, 255);
-			IWindow::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.60f - Dim.y*0.5f, "\nShow stats\n\n", g_Resolution.y*0.05f);
+			_Window::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.55f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 185, 150, 16, 255);
+			_Window::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.60f - Dim.y*0.5f, "\nShow stats\n\n", g_Resolution.y*0.05f);
 		}
 		else if (g_Mouse.IsBetween(0.025f*g_Resolution.x, g_Resolution.y*0.55f, 0.25f*g_Resolution.x, g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y))
 		{
-			IWindow::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.55f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 245, 210, 96, 255);
-			IWindow::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.60f - Dim.y*0.5f, "\nShow stats\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.55f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 245, 210, 96, 255);
+			_Window::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.60f - Dim.y*0.5f, "\nShow stats\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
 		}
 		else
 		{
-			IWindow::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.55f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 225, 180, 32, 255);
-			IWindow::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.60f - Dim.y*0.5f, "\nShow stats\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.025f, g_Resolution.y*0.55f, 0.25f* g_Resolution.x, g_Resolution.y*0.1f, 225, 180, 32, 255);
+			_Window::RenderTextB(g_Resolution.x*0.15f - Dim.x*0.5f, g_Resolution.y*0.60f - Dim.y*0.5f, "\nShow stats\n\n", g_Resolution.y*0.05f, 32, 32, 64, 255);
 		}
 	}
 
@@ -832,11 +832,11 @@ void dc_game::DrawIngameEscapeMenu()
 
 void dc_game::DrawIngameSettingsMenu()
 {
-	IWindow::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, 128);
+	_Window::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, 128);
 
 
 	auto fontsize = g_Resolution.x*0.03f;
-	auto lineHeight = IWindow::GetHeightForFontsize(fontsize);
+	auto lineHeight = _Window::GetHeightForFontsize(fontsize);
 
 	char* SettNames[] = { "Controls","Video","Audio" };
 
@@ -854,33 +854,33 @@ void dc_game::DrawIngameSettingsMenu()
 		if (g_Mouse.IsBetween(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
 			g_Mouse.IsClickValid() && g_Mouse.isHolding())
 		{
-			IWindow::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 180, 150, 16, 255);
+			_Window::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 180, 150, 16, 255);
 		}
 		else if (i == SettingsState)
 		{
-			IWindow::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 180, 150, 16, 255);
+			_Window::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 180, 150, 16, 255);
 		}
 		else if (g_Mouse.IsBetween(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y))
 		{
-			IWindow::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 255, 255, 64, 255);
+			_Window::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 255, 255, 64, 255);
 
 		}
 		else
-			IWindow::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 240, 215, 32, 255);
+			_Window::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 240, 215, 32, 255);
 
-		IWindow::RenderTextBMiddleC(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, SettNames[i], fontsize, 0, 0, 0);
+		_Window::RenderTextBMiddleC(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, SettNames[i], fontsize, 0, 0, 0);
 	}
 
 	if (SettingsState == 0)
 	{
-		IWindow::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.15, g_Resolution.y*0.08f, g_Resolution.y*0.08f, 128, 128, 128, 128);
+		_Window::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.15, g_Resolution.y*0.08f, g_Resolution.y*0.08f, 128, 128, 128, 128);
 
 		if (g_Config.p_movement_type.Value >= 1)
-			IWindow::RenderOverlay(g_Resolution.x*0.05f + 2, g_Resolution.y*0.15 + 2, g_Resolution.y*0.08f - 4, g_Resolution.y*0.08f - 4, 64, 64, 192, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.05f + 2, g_Resolution.y*0.15 + 2, g_Resolution.y*0.08f - 4, g_Resolution.y*0.08f - 4, 64, 64, 192, 255);
 
-		auto width = IWindow::GetTextSize("Directional movement", fontsize).x;
-		IWindow::RenderOverlay(g_Resolution.x*0.05f + g_Resolution.y*0.09f + 2, g_Resolution.y*0.15, width + 12, g_Resolution.y*0.08f, 192, 192, 192, 64);
-		IWindow::RenderTextBMiddleC(g_Resolution.x*0.05f + g_Resolution.y*0.09f + 2, g_Resolution.y*0.15, width + 12, g_Resolution.y*0.08f, "Directional movement", fontsize, 255, 255, 255, 255);
+		auto width = _Window::GetTextSize("Directional movement", fontsize).x;
+		_Window::RenderOverlay(g_Resolution.x*0.05f + g_Resolution.y*0.09f + 2, g_Resolution.y*0.15, width + 12, g_Resolution.y*0.08f, 192, 192, 192, 64);
+		_Window::RenderTextBMiddleC(g_Resolution.x*0.05f + g_Resolution.y*0.09f + 2, g_Resolution.y*0.15, width + 12, g_Resolution.y*0.08f, "Directional movement", fontsize, 255, 255, 255, 255);
 
 		auto KeyNames = GetAllKeyNames();
 
@@ -922,7 +922,7 @@ void dc_game::DrawIngameSettingsMenu()
 				else R.setFillColor(sf::Color(225, 180, 32));
 
 				g_Window->draw(R);
-				IWindow::RenderTextBMiddleC(R.getPosition().x, R.getPosition().y, R.getSize().x, R.getSize().y, Texts[j], g_Resolution.y*0.025f, 0, 0, 0);
+				_Window::RenderTextBMiddleC(R.getPosition().x, R.getPosition().y, R.getSize().x, R.getSize().y, Texts[j], g_Resolution.y*0.025f, 0, 0, 0);
 
 			}
 		}
@@ -931,18 +931,18 @@ void dc_game::DrawIngameSettingsMenu()
 	}
 	if (SettingsState == 1)
 	{
-		auto width = IWindow::GetTextSize("Brightness", fontsize).x;
-		IWindow::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.15f, width + 6, lineHeight + 4, 192, 192, 192, 64);
-		IWindow::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.15f, width + 6, lineHeight + 4, "Brightness", fontsize, 255, 255, 255, 255);
+		auto width = _Window::GetTextSize("Brightness", fontsize).x;
+		_Window::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.15f, width + 6, lineHeight + 4, 192, 192, 192, 64);
+		_Window::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.15f, width + 6, lineHeight + 4, "Brightness", fontsize, 255, 255, 255, 255);
 
 		float barlength = g_Resolution.x*0.95f - (g_Resolution.x*0.05f + width + g_Resolution.x*0.01f);
-		IWindow::RenderOverlay(g_Resolution.x*0.05f + width + g_Resolution.x*0.01f, g_Resolution.y*0.15f, barlength, lineHeight + 4, 64, 64, 64, 128);
+		_Window::RenderOverlay(g_Resolution.x*0.05f + width + g_Resolution.x*0.01f, g_Resolution.y*0.15f, barlength, lineHeight + 4, 64, 64, 64, 128);
 		float sliderlength = g_Resolution.x*0.02f;
 		float cum_barlength = barlength - sliderlength;
 
 		float sliderPos = (g_Resolution.x*0.05f + width + 0.5f*sliderlength) + ((2.f*g_Config.g_brightness.Value - 1.f)*cum_barlength);
 
-		IWindow::RenderOverlay(sliderPos, g_Resolution.y*0.145f, sliderlength, lineHeight + 4 + g_Resolution.y*0.01f, 255, 255, 255, 255);
+		_Window::RenderOverlay(sliderPos, g_Resolution.y*0.145f, sliderlength, lineHeight + 4 + g_Resolution.y*0.01f, 255, 255, 255, 255);
 
 		sf::Vector2i Resolutions[] = { sf::Vector2i(640,480),sf::Vector2i(800,600),sf::Vector2i(1024,768),sf::Vector2i(1280,960),sf::Vector2i(1440,1080), sf::Vector2i(640,360),sf::Vector2i(1024,576),sf::Vector2i(1280,720),sf::Vector2i(1600,900),sf::Vector2i(1920,1080), sf::Vector2i(640,400),sf::Vector2i(1280,800),sf::Vector2i(1680,1050),sf::Vector2i(1680,720) };
 
@@ -950,9 +950,9 @@ void dc_game::DrawIngameSettingsMenu()
 
 
 
-		width = IWindow::GetTextSize("Resolution", fontsize).x;
-		IWindow::RenderOverlay(g_Resolution.x*0.056, g_Resolution.y*0.16f + lineHeight + 4, width + 6, lineHeight + 4, 192, 192, 192, 64);
-		IWindow::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.16f + lineHeight + 4, width + 6, lineHeight + 4, "Resolution", fontsize, 255, 255, 255, 255);
+		width = _Window::GetTextSize("Resolution", fontsize).x;
+		_Window::RenderOverlay(g_Resolution.x*0.056, g_Resolution.y*0.16f + lineHeight + 4, width + 6, lineHeight + 4, 192, 192, 192, 64);
+		_Window::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.16f + lineHeight + 4, width + 6, lineHeight + 4, "Resolution", fontsize, 255, 255, 255, 255);
 
 		auto AvailableWidth = g_Resolution.x*0.95f - (g_Resolution.x*0.05f + width + g_Resolution.x*0.01f);
 		auto AvailableHeight = g_Resolution.y*0.7f - (g_Resolution.y*0.16f + lineHeight + 4);
@@ -961,7 +961,7 @@ void dc_game::DrawIngameSettingsMenu()
 		auto OneHeight = AvailableHeight / 7 - 6;
 
 		sf::Vector2f T = sf::Vector2f(g_Resolution.x*0.05f + width + g_Resolution.x*0.01f, (g_Resolution.y*0.16f + lineHeight + 4));
-		IWindow::RenderOverlay(T.x, T.y, AvailableWidth, AvailableHeight, 64, 0, 0, 64);
+		_Window::RenderOverlay(T.x, T.y, AvailableWidth, AvailableHeight, 64, 0, 0, 64);
 
 		for (int i = 0; i < 14; i++)
 		{
@@ -1000,26 +1000,26 @@ void dc_game::DrawIngameSettingsMenu()
 			g_Window->draw(rShape);
 
 			char Buffer[32]; sprintf(Buffer, "%dx%d", Resolutions[i].x, Resolutions[i].y);
-			IWindow::RenderTextBMiddleC(pX, pY, OneWidth, OneHeight, Buffer, g_Resolution.y*0.03f);
+			_Window::RenderTextBMiddleC(pX, pY, OneWidth, OneHeight, Buffer, g_Resolution.y*0.03f);
 		}
 		if (g_Mouse.IsBetween(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y)
 			&& g_Mouse.IsClickValid() && g_Mouse.isHolding())
-			IWindow::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 160, 110, 16, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 160, 110, 16, 255);
 		else if (g_Mouse.IsBetween(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y))
-			IWindow::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 255, 222, 64, 255);
-		else IWindow::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 225, 180, 32, 255);
-		IWindow::RenderTextBMiddleC(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, "APPLY", g_Resolution.y*0.05f, 0, 0, 0, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 255, 222, 64, 255);
+		else _Window::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 225, 180, 32, 255);
+		_Window::RenderTextBMiddleC(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, "APPLY", g_Resolution.y*0.05f, 0, 0, 0, 255);
 
 
 
-		IWindow::RenderOverlay(T.x, g_Resolution.y*0.71, g_Resolution.y*0.08f, g_Resolution.y*0.08f, 128, 128, 128, 128);
+		_Window::RenderOverlay(T.x, g_Resolution.y*0.71, g_Resolution.y*0.08f, g_Resolution.y*0.08f, 128, 128, 128, 128);
 
 		if (SettingFullscreen == 1)
-			IWindow::RenderOverlay(T.x + 2, g_Resolution.y*0.71 + 2, g_Resolution.y*0.08f - 4, g_Resolution.y*0.08f - 4, 64, 64, 192, 255);
+			_Window::RenderOverlay(T.x + 2, g_Resolution.y*0.71 + 2, g_Resolution.y*0.08f - 4, g_Resolution.y*0.08f - 4, 64, 64, 192, 255);
 
-		width = IWindow::GetTextSize("Full screen", fontsize).x;
-		IWindow::RenderOverlay(T.x + g_Resolution.y*0.09f + 2, g_Resolution.y*0.71, width + 12, g_Resolution.y*0.08f, 192, 192, 192, 64);
-		IWindow::RenderTextBMiddleC(T.x + g_Resolution.y*0.09f + 2, g_Resolution.y*0.71, width + 12, g_Resolution.y*0.08f, "Full screen", fontsize, 255, 255, 255, 255);
+		width = _Window::GetTextSize("Full screen", fontsize).x;
+		_Window::RenderOverlay(T.x + g_Resolution.y*0.09f + 2, g_Resolution.y*0.71, width + 12, g_Resolution.y*0.08f, 192, 192, 192, 64);
+		_Window::RenderTextBMiddleC(T.x + g_Resolution.y*0.09f + 2, g_Resolution.y*0.71, width + 12, g_Resolution.y*0.08f, "Full screen", fontsize, 255, 255, 255, 255);
 
 
 	}
@@ -1027,18 +1027,18 @@ void dc_game::DrawIngameSettingsMenu()
 	if (SettingsState == 2)
 	{
 
-		auto width = IWindow::GetTextSize("Master volume", fontsize).x;
-		IWindow::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.15f, width + 6, lineHeight + 4, 192, 192, 192, 64);
-		IWindow::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.15f, width + 6, lineHeight + 4, "Master volume", fontsize, 255, 255, 255, 255);
+		auto width = _Window::GetTextSize("Master volume", fontsize).x;
+		_Window::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.15f, width + 6, lineHeight + 4, 192, 192, 192, 64);
+		_Window::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.15f, width + 6, lineHeight + 4, "Master volume", fontsize, 255, 255, 255, 255);
 
 		float barlength = g_Resolution.x*0.95f - (g_Resolution.x*0.05f + width + g_Resolution.x*0.01f);
-		IWindow::RenderOverlay(g_Resolution.x*0.05f + width + g_Resolution.x*0.01f, g_Resolution.y*0.15f, barlength, lineHeight + 4, 64, 64, 64, 128);
+		_Window::RenderOverlay(g_Resolution.x*0.05f + width + g_Resolution.x*0.01f, g_Resolution.y*0.15f, barlength, lineHeight + 4, 64, 64, 64, 128);
 		float sliderlength = g_Resolution.x*0.02f;
 		float cum_barlength = barlength - sliderlength;
 
 		float sliderPos = (g_Resolution.x*0.05f + width + 0.5f*sliderlength) + g_Config.mastervolume.Value*cum_barlength;
 
-		IWindow::RenderOverlay(sliderPos, g_Resolution.y*0.145f, sliderlength, lineHeight + 4 + g_Resolution.y*0.01f, 255, 255, 255, 255);
+		_Window::RenderOverlay(sliderPos, g_Resolution.y*0.145f, sliderlength, lineHeight + 4 + g_Resolution.y*0.01f, 255, 255, 255, 255);
 	}
 
 
@@ -1049,7 +1049,7 @@ void dc_game::DoIngameSettingsMenu()
 
 	//Buttons
 	auto fontsize = g_Resolution.x*0.03f;
-	auto lineHeight = IWindow::GetHeightForFontsize(fontsize);
+	auto lineHeight = _Window::GetHeightForFontsize(fontsize);
 	float Length = g_Resolution.x*0.3f - 2;
 	for (int i = 0; i < 3; i++)
 	{
@@ -1115,7 +1115,7 @@ void dc_game::DoIngameSettingsMenu()
 	if (SettingsState == 1)
 	{
 		//Master volume slider
-		auto width = IWindow::GetTextSize("Brightness", fontsize).x;
+		auto width = _Window::GetTextSize("Brightness", fontsize).x;
 
 
 		float barlength = g_Resolution.x*0.95f - (g_Resolution.x*0.05f + width + g_Resolution.x*0.01f);
@@ -1141,7 +1141,7 @@ void dc_game::DoIngameSettingsMenu()
 
 		sf::Vector2i Resolutions[] = { sf::Vector2i(640,480),sf::Vector2i(800,600),sf::Vector2i(1024,768),sf::Vector2i(1280,960),sf::Vector2i(1440,1080), sf::Vector2i(640,360),sf::Vector2i(1024,576),sf::Vector2i(1280,720),sf::Vector2i(1600,900),sf::Vector2i(1920,1080), sf::Vector2i(640,400),sf::Vector2i(1280,800),sf::Vector2i(1680,1050),sf::Vector2i(1680,720) };
 
-		width = IWindow::GetTextSize("Resolution", fontsize).x;
+		width = _Window::GetTextSize("Resolution", fontsize).x;
 
 		auto AvailableWidth = g_Resolution.x*0.95f - (g_Resolution.x*0.05f + width + g_Resolution.x*0.01f);
 		auto AvailableHeight = g_Resolution.y*0.7f - (g_Resolution.y*0.16f + lineHeight + 4);
@@ -1179,7 +1179,7 @@ void dc_game::DoIngameSettingsMenu()
 				g_Config.g_res_y.Value = g_Resolution.y;
 				g_Config.g_fullscreen.Value = SettingFullscreen;
 
-				IWindow::CreateTheWindow();
+				_Window::CreateTheWindow();
 			}
 		}
 
@@ -1192,7 +1192,7 @@ void dc_game::DoIngameSettingsMenu()
 	if (SettingsState == 2)
 	{
 		//Master volume slider
-		auto width = IWindow::GetTextSize("Master volume", fontsize).x;
+		auto width = _Window::GetTextSize("Master volume", fontsize).x;
 
 
 		float barlength = g_Resolution.x*0.95f - (g_Resolution.x*0.05f + width + g_Resolution.x*0.01f);
@@ -1220,67 +1220,67 @@ void dc_game::DoIngameSettingsMenu()
 
 void dc_game::DrawShowStatsMenu()
 {
-	IWindow::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, 128);
+	_Window::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, 128);
 	char BufferText[32], BufferPrint[32];
 	{
 		sprintf(BufferText, "Placement: ");
 		sprintf(BufferPrint, "%d\0", Match->players[0].Stats.iPlacement);
-		auto Dim = IWindow::GetTextSize(BufferText, 0.04f*g_Resolution.y);
+		auto Dim = _Window::GetTextSize(BufferText, 0.04f*g_Resolution.y);
 
-		IWindow::RenderTextB(0.01f*g_Resolution.x, 0.2f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);
-		IWindow::RenderTextB(0.01f*g_Resolution.x + Dim.x, 0.2f*g_Resolution.y, BufferPrint, 0.04f*g_Resolution.y, 225, 180, 32, 255);
+		_Window::RenderTextB(0.01f*g_Resolution.x, 0.2f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);
+		_Window::RenderTextB(0.01f*g_Resolution.x + Dim.x, 0.2f*g_Resolution.y, BufferPrint, 0.04f*g_Resolution.y, 225, 180, 32, 255);
 	}
 
 	{
 		sprintf(BufferText, "Eliminations: ");
 		sprintf(BufferPrint, "%d\0", Match->players[0].Stats.iEliminations);
-		auto Dim = IWindow::GetTextSize(BufferText, 0.04f*g_Resolution.y);
+		auto Dim = _Window::GetTextSize(BufferText, 0.04f*g_Resolution.y);
 
-		IWindow::RenderTextB(0.01f*g_Resolution.x, 0.26f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);
-		IWindow::RenderTextB(0.01f*g_Resolution.x + Dim.x, 0.26f*g_Resolution.y, BufferPrint, 0.04f*g_Resolution.y, 225, 180, 32, 255);
+		_Window::RenderTextB(0.01f*g_Resolution.x, 0.26f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);
+		_Window::RenderTextB(0.01f*g_Resolution.x + Dim.x, 0.26f*g_Resolution.y, BufferPrint, 0.04f*g_Resolution.y, 225, 180, 32, 255);
 	}
 	{
 		sprintf(BufferText, "Damage dealt: ");
 		sprintf(BufferPrint, "%d\0", Match->players[0].Stats.iDamageDealt);
-		auto Dim = IWindow::GetTextSize(BufferText, 0.04f*g_Resolution.y);
+		auto Dim = _Window::GetTextSize(BufferText, 0.04f*g_Resolution.y);
 
-		IWindow::RenderTextB(0.01f*g_Resolution.x, 0.32f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);
-		IWindow::RenderTextB(0.01f*g_Resolution.x + Dim.x, 0.32f*g_Resolution.y, BufferPrint, 0.04f*g_Resolution.y, 225, 180, 32, 255);
+		_Window::RenderTextB(0.01f*g_Resolution.x, 0.32f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);
+		_Window::RenderTextB(0.01f*g_Resolution.x + Dim.x, 0.32f*g_Resolution.y, BufferPrint, 0.04f*g_Resolution.y, 225, 180, 32, 255);
 	}
 	{
 		sprintf(BufferText, "Damage taken: ");
 		sprintf(BufferPrint, "%d\0", Match->players[0].Stats.iDamageTaken);
-		auto Dim = IWindow::GetTextSize(BufferText, 0.04f*g_Resolution.y);
+		auto Dim = _Window::GetTextSize(BufferText, 0.04f*g_Resolution.y);
 
-		IWindow::RenderTextB(0.01f*g_Resolution.x, 0.38f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);
-		IWindow::RenderTextB(0.01f*g_Resolution.x + Dim.x, 0.38f*g_Resolution.y, BufferPrint, 0.04f*g_Resolution.y, 225, 180, 32, 255);
+		_Window::RenderTextB(0.01f*g_Resolution.x, 0.38f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);
+		_Window::RenderTextB(0.01f*g_Resolution.x + Dim.x, 0.38f*g_Resolution.y, BufferPrint, 0.04f*g_Resolution.y, 225, 180, 32, 255);
 	}
 	{
 		sprintf(BufferText, "Shots Fired: ");
 		sprintf(BufferPrint, "%d\0", Match->players[0].Stats.iShotsTaken);
-		auto Dim = IWindow::GetTextSize(BufferText, 0.04f*g_Resolution.y);
+		auto Dim = _Window::GetTextSize(BufferText, 0.04f*g_Resolution.y);
 
-		IWindow::RenderTextB(0.01f*g_Resolution.x, 0.44f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);
-		IWindow::RenderTextB(0.01f*g_Resolution.x + Dim.x, 0.44*g_Resolution.y, BufferPrint, 0.04f*g_Resolution.y, 225, 180, 32, 255);
+		_Window::RenderTextB(0.01f*g_Resolution.x, 0.44f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);
+		_Window::RenderTextB(0.01f*g_Resolution.x + Dim.x, 0.44*g_Resolution.y, BufferPrint, 0.04f*g_Resolution.y, 225, 180, 32, 255);
 	}
 	{
 		float Accuracy = 0.f;
 		if (Match->players[0].Stats.iShotsTaken)Accuracy = (100.f*Match->players[0].Stats.iShotsHit) / (1.f*Match->players[0].Stats.iShotsTaken);
 		sprintf(BufferText, "Shots Hit: ");
 		sprintf(BufferPrint, "%d (%.1f%c)\0", Match->players[0].Stats.iShotsHit, Accuracy, '%');
-		auto Dim = IWindow::GetTextSize(BufferText, 0.04f*g_Resolution.y);
+		auto Dim = _Window::GetTextSize(BufferText, 0.04f*g_Resolution.y);
 
-		IWindow::RenderTextB(0.01f*g_Resolution.x, 0.50f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);
-		IWindow::RenderTextB(0.01f*g_Resolution.x + Dim.x, 0.50f*g_Resolution.y, BufferPrint, 0.04f*g_Resolution.y, 225, 180, 32, 255);
+		_Window::RenderTextB(0.01f*g_Resolution.x, 0.50f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);
+		_Window::RenderTextB(0.01f*g_Resolution.x + Dim.x, 0.50f*g_Resolution.y, BufferPrint, 0.04f*g_Resolution.y, 225, 180, 32, 255);
 	}
 
 	{
 		sprintf(BufferText, "Distance walked: ");
 		sprintf(BufferPrint, "%.1fm\0", Match->players[0].Stats.fDistanceWalked);
-		auto Dim = IWindow::GetTextSize(BufferText, 0.04f*g_Resolution.y);
+		auto Dim = _Window::GetTextSize(BufferText, 0.04f*g_Resolution.y);
 
-		IWindow::RenderTextB(0.01f*g_Resolution.x, 0.56f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);
-		IWindow::RenderTextB(0.01f*g_Resolution.x + Dim.x, 0.56f*g_Resolution.y, BufferPrint, 0.04f*g_Resolution.y, 225, 180, 32, 255);
+		_Window::RenderTextB(0.01f*g_Resolution.x, 0.56f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);
+		_Window::RenderTextB(0.01f*g_Resolution.x + Dim.x, 0.56f*g_Resolution.y, BufferPrint, 0.04f*g_Resolution.y, 225, 180, 32, 255);
 	}
 	{
 		sprintf(BufferText, "Time alive: ");
@@ -1296,10 +1296,10 @@ void dc_game::DrawShowStatsMenu()
 
 
 		sprintf(BufferPrint, "%d:%s%d", Minutes, ((Seconds<10) ? ("0") : ("")), Seconds);
-		auto Dim = IWindow::GetTextSize(BufferText, 0.04f*g_Resolution.y);
+		auto Dim = _Window::GetTextSize(BufferText, 0.04f*g_Resolution.y);
 
-		IWindow::RenderTextB(0.01f*g_Resolution.x, 0.62f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);
-		IWindow::RenderTextB(0.01f*g_Resolution.x + Dim.x, 0.62f*g_Resolution.y, BufferPrint, 0.04f*g_Resolution.y, 225, 180, 32, 255);
+		_Window::RenderTextB(0.01f*g_Resolution.x, 0.62f*g_Resolution.y, BufferText, 0.04f*g_Resolution.y, 255, 255, 255, 255);
+		_Window::RenderTextB(0.01f*g_Resolution.x + Dim.x, 0.62f*g_Resolution.y, BufferPrint, 0.04f*g_Resolution.y, 225, 180, 32, 255);
 	}
 
 }
@@ -1457,40 +1457,40 @@ int dc_game::DrawChallenge(int i, int x, int y, int w, int h)
 
 	int fontsize = g_Resolution.y*(0.1f*w / (g_Resolution.x));
 
-	auto lineheight = IWindow::GetHeightForFontsize(fontsize);
+	auto lineheight = _Window::GetHeightForFontsize(fontsize);
 	auto texH = ChallengeNameLines*lineheight;
 	h = max(h, texH);
 
 
 	if (tier == 5)
 	{
-		IWindow::RenderOverlay(x, y, w, h + g_Resolution.y*0.005f + 10, 32, 32, 128, 255);
-		IWindow::RenderOverlay(x, y, w*0.0125f, h + g_Resolution.y*0.005f + 10, 64, 64, 255, 255);
-		IWindow::RenderTextB(x + 0.02631*w, y, Buffer, fontsize);
+		_Window::RenderOverlay(x, y, w, h + g_Resolution.y*0.005f + 10, 32, 32, 128, 255);
+		_Window::RenderOverlay(x, y, w*0.0125f, h + g_Resolution.y*0.005f + 10, 64, 64, 255, 255);
+		_Window::RenderTextB(x + 0.02631*w, y, Buffer, fontsize);
 
 		char ProgressBuffer[16];
 		sprintf(ProgressBuffer, "%d/%d", progress, needed);
-		int leee = IWindow::GetTextSize(ProgressBuffer, fontsize).x;
+		int leee = _Window::GetTextSize(ProgressBuffer, fontsize).x;
 
-		IWindow::RenderTextB(x + 0.97368421052*w - leee, y + h + 0.005f*g_Resolution.y - lineheight, ProgressBuffer, fontsize);
-		IWindow::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y, 0.9473f*w, 8, 0, 0, 0, 255);
+		_Window::RenderTextB(x + 0.97368421052*w - leee, y + h + 0.005f*g_Resolution.y - lineheight, ProgressBuffer, fontsize);
+		_Window::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y, 0.9473f*w, 8, 0, 0, 0, 255);
 
-		IWindow::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, progperc*(0.9473f*w - 2), 6, 0, 177, 222, 255);
+		_Window::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, progperc*(0.9473f*w - 2), 6, 0, 177, 222, 255);
 	}
 	else
 	{
-		IWindow::RenderOverlay(x, y, w, h + g_Resolution.y*0.005f + 10, 128, 32, 32, 255);
-		IWindow::RenderOverlay(x, y, w*0.0125f, h + g_Resolution.y*0.005f + 10, 255, 64, 64, 255);
-		IWindow::RenderTextB(x + 0.02631*w, y, Buffer, fontsize);
+		_Window::RenderOverlay(x, y, w, h + g_Resolution.y*0.005f + 10, 128, 32, 32, 255);
+		_Window::RenderOverlay(x, y, w*0.0125f, h + g_Resolution.y*0.005f + 10, 255, 64, 64, 255);
+		_Window::RenderTextB(x + 0.02631*w, y, Buffer, fontsize);
 
 		char ProgressBuffer[16];
 		sprintf(ProgressBuffer, "%d/%d", progress, needed);
-		int leee = IWindow::GetTextSize(ProgressBuffer, fontsize).x;
+		int leee = _Window::GetTextSize(ProgressBuffer, fontsize).x;
 
-		IWindow::RenderTextB(x + 0.97368421052*w - leee, y + h + 0.005f*g_Resolution.y - lineheight, ProgressBuffer, fontsize);
-		IWindow::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y, 0.9473f*w, 8, 0, 0, 0, 255);
+		_Window::RenderTextB(x + 0.97368421052*w - leee, y + h + 0.005f*g_Resolution.y - lineheight, ProgressBuffer, fontsize);
+		_Window::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y, 0.9473f*w, 8, 0, 0, 0, 255);
 
-		IWindow::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, progperc*(0.9473f*w - 2), 6, 225, 128, 32, 255);
+		_Window::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, progperc*(0.9473f*w - 2), 6, 225, 128, 32, 255);
 	}
 
 	return h + g_Resolution.y*0.005f + 14;
@@ -1644,7 +1644,7 @@ int dc_game::DrawChallengeWithProgress(int i, int x, int y, int w, int h)
 
 	int fontsize = g_Resolution.y*(0.1f*w / (g_Resolution.x));
 
-	auto lineheight = IWindow::GetHeightForFontsize(fontsize);
+	auto lineheight = _Window::GetHeightForFontsize(fontsize);
 	auto texH = ChallengeNameLines*lineheight;
 	h = max(h, texH);
 
@@ -1652,35 +1652,35 @@ int dc_game::DrawChallengeWithProgress(int i, int x, int y, int w, int h)
 
 	if (tier == 5)
 	{
-		IWindow::RenderOverlay(x, y, w, h + g_Resolution.y*0.005f + 10, 32, 32, 128, 255);
-		IWindow::RenderOverlay(x, y, w*0.0125f, h + g_Resolution.y*0.005f + 10, 64, 64, 255, 255);
-		IWindow::RenderTextB(x + 0.02631*w, y, Buffer, fontsize);
+		_Window::RenderOverlay(x, y, w, h + g_Resolution.y*0.005f + 10, 32, 32, 128, 255);
+		_Window::RenderOverlay(x, y, w*0.0125f, h + g_Resolution.y*0.005f + 10, 64, 64, 255, 255);
+		_Window::RenderTextB(x + 0.02631*w, y, Buffer, fontsize);
 
 		char ProgressBuffer[16];
 		sprintf(ProgressBuffer, "%d/%d", newprogress, needed);
-		int leee = IWindow::GetTextSize(ProgressBuffer, fontsize).x;
+		int leee = _Window::GetTextSize(ProgressBuffer, fontsize).x;
 
-		IWindow::RenderTextB(x + 0.97368421052*w - leee, y + h + 0.005f*g_Resolution.y - lineheight, ProgressBuffer, fontsize);
-		IWindow::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y, 0.9473f*w, 8, 0, 0, 0, 255);
-		IWindow::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, newprogperc*(0.9473f*w - 2), 6, 64, 215, 255, 255);
-		IWindow::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, progperc*(0.9473f*w - 2), 6, 0, 177, 222, 255);
+		_Window::RenderTextB(x + 0.97368421052*w - leee, y + h + 0.005f*g_Resolution.y - lineheight, ProgressBuffer, fontsize);
+		_Window::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y, 0.9473f*w, 8, 0, 0, 0, 255);
+		_Window::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, newprogperc*(0.9473f*w - 2), 6, 64, 215, 255, 255);
+		_Window::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, progperc*(0.9473f*w - 2), 6, 0, 177, 222, 255);
 	}
 	else
 	{
-		IWindow::RenderOverlay(x, y, w, h + g_Resolution.y*0.005f + 10, 128, 32, 32, 255);
-		IWindow::RenderOverlay(x, y, w*0.0125f, h + g_Resolution.y*0.005f + 10, 255, 64, 64, 255);
-		IWindow::RenderTextB(x + 0.02631*w, y, Buffer, fontsize);
+		_Window::RenderOverlay(x, y, w, h + g_Resolution.y*0.005f + 10, 128, 32, 32, 255);
+		_Window::RenderOverlay(x, y, w*0.0125f, h + g_Resolution.y*0.005f + 10, 255, 64, 64, 255);
+		_Window::RenderTextB(x + 0.02631*w, y, Buffer, fontsize);
 
 		char ProgressBuffer[16];
 		sprintf(ProgressBuffer, "%d/%d", newprogress, needed);
-		int leee = IWindow::GetTextSize(ProgressBuffer, fontsize).x;
+		int leee = _Window::GetTextSize(ProgressBuffer, fontsize).x;
 
 
-		IWindow::RenderTextB(x + 0.97368421052*w - leee, y + h + 0.005f*g_Resolution.y - lineheight, ProgressBuffer, fontsize);
-		IWindow::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y, 0.9473f*w, 8, 0, 0, 0, 255);
+		_Window::RenderTextB(x + 0.97368421052*w - leee, y + h + 0.005f*g_Resolution.y - lineheight, ProgressBuffer, fontsize);
+		_Window::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y, 0.9473f*w, 8, 0, 0, 0, 255);
 
-		IWindow::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, newprogperc*(0.9473f*w - 2), 6, 255, 220, 96, 255);
-		IWindow::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, progperc*(0.9473f*w - 2), 6, 225, 128, 32, 255);
+		_Window::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, newprogperc*(0.9473f*w - 2), 6, 255, 220, 96, 255);
+		_Window::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, progperc*(0.9473f*w - 2), 6, 225, 128, 32, 255);
 	}
 
 	return h + g_Resolution.y*0.005f + 14;
@@ -1697,31 +1697,31 @@ void dc_game::DoBackButton()
 
 void dc_game::DrawBackButton()
 {
-	IWindow::RenderOverlay(g_Resolution.x*0.01f, g_Resolution.y*0.01f, g_Resolution.x*0.05f, g_Resolution.y*0.03f, 0, 0, 0, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.01f, g_Resolution.y*0.01f, g_Resolution.x*0.05f, g_Resolution.y*0.03f, 0, 0, 0, 255);
 	if (g_Mouse.IsBetween(g_Resolution.x*0.01f, g_Resolution.y*0.01f, g_Resolution.x*0.05f, g_Resolution.y*0.03f, g_Mouse.Coords.x, g_Mouse.Coords.y)
 		&& g_Mouse.IsClickValid() && g_Mouse.isHolding())
-		IWindow::RenderOverlay(g_Resolution.x*0.01f + 1, g_Resolution.y*0.01f + 1, g_Resolution.x*0.05f - 2, g_Resolution.y*0.03f - 2, 144,128, 32, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.01f + 1, g_Resolution.y*0.01f + 1, g_Resolution.x*0.05f - 2, g_Resolution.y*0.03f - 2, 144,128, 32, 255);
 	else if (g_Mouse.IsBetween(g_Resolution.x*0.01f, g_Resolution.y*0.01f, g_Resolution.x*0.05f, g_Resolution.y*0.03f, g_Mouse.Coords.x, g_Mouse.Coords.y))
-		IWindow::RenderOverlay(g_Resolution.x*0.01f + 1, g_Resolution.y*0.01f + 1, g_Resolution.x*0.05f - 2, g_Resolution.y*0.03f - 2, 255, 222, 64, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.01f + 1, g_Resolution.y*0.01f + 1, g_Resolution.x*0.05f - 2, g_Resolution.y*0.03f - 2, 255, 222, 64, 255);
 	else
-		IWindow::RenderOverlay(g_Resolution.x*0.01f + 1, g_Resolution.y*0.01f + 1, g_Resolution.x*0.05f - 2, g_Resolution.y*0.03f - 2, 220, 160, 0, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.01f + 1, g_Resolution.y*0.01f + 1, g_Resolution.x*0.05f - 2, g_Resolution.y*0.03f - 2, 220, 160, 0, 255);
 
-	IWindow::RenderTextBMiddleC(g_Resolution.x*0.01f, g_Resolution.y*0.01f, g_Resolution.x*0.05f, g_Resolution.y*0.03f, "Back", g_Resolution.y*0.02f, 0, 0, 0, 255);
+	_Window::RenderTextBMiddleC(g_Resolution.x*0.01f, g_Resolution.y*0.01f, g_Resolution.x*0.05f, g_Resolution.y*0.03f, "Back", g_Resolution.y*0.02f, 0, 0, 0, 255);
 
 }
 
 void dc_game::DrawQuitButton()
 {
-	IWindow::RenderOverlay(g_Resolution.x*0.96f, g_Resolution.y*0.01f, g_Resolution.x*0.03f, g_Resolution.y*0.03f, 0, 0, 0, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.96f, g_Resolution.y*0.01f, g_Resolution.x*0.03f, g_Resolution.y*0.03f, 0, 0, 0, 255);
 	if(g_Mouse.IsBetween(g_Resolution.x*0.96f,g_Resolution.y*0.01f,g_Resolution.x*0.03f,g_Resolution.y*0.03f,g_Mouse.Coords.x,g_Mouse.Coords.y)
 		&& g_Mouse.IsClickValid() && g_Mouse.isHolding())
-		IWindow::RenderOverlay(g_Resolution.x*0.96f+1, g_Resolution.y*0.01f+1, g_Resolution.x*0.03f-2, g_Resolution.y*0.03f-2, 128, 32, 32, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.96f+1, g_Resolution.y*0.01f+1, g_Resolution.x*0.03f-2, g_Resolution.y*0.03f-2, 128, 32, 32, 255);
 	else if (g_Mouse.IsBetween(g_Resolution.x*0.96f, g_Resolution.y*0.01f, g_Resolution.x*0.03f, g_Resolution.y*0.03f, g_Mouse.Coords.x, g_Mouse.Coords.y))
-		IWindow::RenderOverlay(g_Resolution.x*0.96f + 1, g_Resolution.y*0.01f + 1, g_Resolution.x*0.03f - 2, g_Resolution.y*0.03f - 2, 255, 64, 64, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.96f + 1, g_Resolution.y*0.01f + 1, g_Resolution.x*0.03f - 2, g_Resolution.y*0.03f - 2, 255, 64, 64, 255);
 	else
-		IWindow::RenderOverlay(g_Resolution.x*0.96f + 1, g_Resolution.y*0.01f + 1, g_Resolution.x*0.03f - 2, g_Resolution.y*0.03f - 2, 255, 0, 0, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.96f + 1, g_Resolution.y*0.01f + 1, g_Resolution.x*0.03f - 2, g_Resolution.y*0.03f - 2, 255, 0, 0, 255);
 
-	IWindow::RenderTextBMiddleC(g_Resolution.x*0.96f, g_Resolution.y*0.01f, g_Resolution.x*0.03f, g_Resolution.y*0.03f, "X", g_Resolution.y*0.02f, 0, 0, 0, 255);
+	_Window::RenderTextBMiddleC(g_Resolution.x*0.96f, g_Resolution.y*0.01f, g_Resolution.x*0.03f, g_Resolution.y*0.03f, "X", g_Resolution.y*0.02f, 0, 0, 0, 255);
 }
 
 void dc_game::DoQuitButton()
@@ -1735,31 +1735,31 @@ void dc_game::DoQuitButton()
 
 void dc_game::DrawQuitPrompt()
 {
-	IWindow::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, 96);
+	_Window::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, 96);
 
-	IWindow::RenderOverlay(g_Resolution.x*0.35f, g_Resolution.y*0.3f, g_Resolution.x*0.3f, g_Resolution.y*0.4f, 32, 96, 192, 255);
-	IWindow::RenderOverlay(g_Resolution.x*0.35f+2, g_Resolution.y*0.3f+2, g_Resolution.x*0.3f-4, g_Resolution.y*0.4f-4, 16, 48,96, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.35f, g_Resolution.y*0.3f, g_Resolution.x*0.3f, g_Resolution.y*0.4f, 32, 96, 192, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.35f+2, g_Resolution.y*0.3f+2, g_Resolution.x*0.3f-4, g_Resolution.y*0.4f-4, 16, 48,96, 255);
 
-	IWindow::RenderTextB(g_Resolution.x*0.36f, g_Resolution.y*0.31f, "Would you like to quit?", g_Resolution.y*0.02f);
+	_Window::RenderTextB(g_Resolution.x*0.36f, g_Resolution.y*0.31f, "Would you like to quit?", g_Resolution.y*0.02f);
 
 
 	if (g_Mouse.IsBetween(g_Resolution.x*0.37f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, g_Mouse.Coords.x, g_Mouse.Coords.y)
 		&& g_Mouse.IsClickValid() && g_Mouse.isHolding())
-		IWindow::RenderOverlay(g_Resolution.x*0.37f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, 140,110,32, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.37f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, 140,110,32, 255);
 	else if (g_Mouse.IsBetween(g_Resolution.x*0.37f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, g_Mouse.Coords.x, g_Mouse.Coords.y))
-		IWindow::RenderOverlay(g_Resolution.x*0.37f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, 255,230,64, 255);
-	else IWindow::RenderOverlay(g_Resolution.x*0.37f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, 225,180,32, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.37f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, 255,230,64, 255);
+	else _Window::RenderOverlay(g_Resolution.x*0.37f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, 225,180,32, 255);
 
-	IWindow::RenderTextBMiddleC(g_Resolution.x*0.37f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, "NO", g_Resolution.y*0.03f,0,0,0);
+	_Window::RenderTextBMiddleC(g_Resolution.x*0.37f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, "NO", g_Resolution.y*0.03f,0,0,0);
 
 	if (g_Mouse.IsBetween(g_Resolution.x*0.53f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, g_Mouse.Coords.x, g_Mouse.Coords.y)
 		&& g_Mouse.IsClickValid() && g_Mouse.isHolding())
-		IWindow::RenderOverlay(g_Resolution.x*0.53f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, 140,110,32, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.53f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, 140,110,32, 255);
 	else if (g_Mouse.IsBetween(g_Resolution.x*0.53f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, g_Mouse.Coords.x, g_Mouse.Coords.y))
-		IWindow::RenderOverlay(g_Resolution.x*0.53f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, 255,230,64, 255);
-	else IWindow::RenderOverlay(g_Resolution.x*0.53f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, 225,180,32, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.53f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, 255,230,64, 255);
+	else _Window::RenderOverlay(g_Resolution.x*0.53f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, 225,180,32, 255);
 
-	IWindow::RenderTextBMiddleC(g_Resolution.x*0.53f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, "YES", g_Resolution.y*0.03f,0,0,0);
+	_Window::RenderTextBMiddleC(g_Resolution.x*0.53f, g_Resolution.y*0.6f, g_Resolution.x*0.1f, g_Resolution.y*0.08f, "YES", g_Resolution.y*0.03f,0,0,0);
 }
 
 void dc_game::DoQuitPrompt()
@@ -1823,7 +1823,7 @@ void dc_game::DoMainMenuCharacterVision()
 			&& g_Mouse.IsClickValid() && g_Mouse.hasReleased())CharacterVisionStatus = i;
 	}
 	float fontsize = 0.03f*g_Resolution.y;
-	auto lineHeight = IWindow::GetTextSize("a\n", fontsize).y - IWindow::GetTextSize("a", fontsize).y;
+	auto lineHeight = _Window::GetTextSize("a\n", fontsize).y - _Window::GetTextSize("a", fontsize).y;
 	if (GM_STATE == 0 && g_Mouse.IsBetween(g_Resolution.x*0.05f, g_Resolution.y*0.375f, g_Resolution.x*0.25f, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y)
 		&& g_Mouse.IsClickValid() && g_Mouse.hasReleased())
 	{
@@ -1833,9 +1833,9 @@ void dc_game::DoMainMenuCharacterVision()
 }
 void dc_game::DrawMainMenuCharacterVision()
 {
-	IWindow::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.05f, g_Resolution.x*0.25f, g_Resolution.y*0.325f, 192, 192, 192, 64);
+	_Window::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.05f, g_Resolution.x*0.25f, g_Resolution.y*0.325f, 192, 192, 192, 64);
 	
-	IWindow::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.05f, g_Resolution.x*0.25f, g_Resolution.y*0.05f, "CHARACTER VIEW", g_Resolution.y*0.03f);
+	_Window::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.05f, g_Resolution.x*0.25f, g_Resolution.y*0.05f, "CHARACTER VIEW", g_Resolution.y*0.03f);
 	static sf::Sprite spTex, spPl, spGl, spWW;
 	spTex.setTexture(*g_Textures.get(GetRandomTextureBackground()));
 	
@@ -1854,7 +1854,7 @@ void dc_game::DrawMainMenuCharacterVision()
 		static dc_clock Clock;
 		static int wID = Random(0, 30);
 
-		if (Clock.GetDiff() > 500)
+		if (Clock.deltaTime() > 500)
 		{
 			wID = Random(0, 30);
 			Clock.Update();
@@ -1889,31 +1889,31 @@ void dc_game::DrawMainMenuCharacterVision()
 	{
 		if(g_Mouse.IsBetween(g_Resolution.x*0.06f + scale * 128 + 4, g_Resolution.y*0.1f + 0.334f*i*g_Resolution.y*0.25f, g_Resolution.x*0.29f - (g_Resolution.x*0.06f + scale * 128 + 4), g_Resolution.y*0.25f / 3 - 2,g_Mouse.Coords.x,g_Mouse.Coords.y)
 			&& g_Mouse.IsClickValid() && g_Mouse.isHolding())
-		IWindow::RenderOverlay(g_Resolution.x*0.06f + scale * 128 + 4, g_Resolution.y*0.1f+0.334f*i*g_Resolution.y*0.25f, g_Resolution.x*0.29f - (g_Resolution.x*0.06f + scale * 128 + 4), g_Resolution.y*0.25f / 3 - 2, 140, 110, 32, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.06f + scale * 128 + 4, g_Resolution.y*0.1f+0.334f*i*g_Resolution.y*0.25f, g_Resolution.x*0.29f - (g_Resolution.x*0.06f + scale * 128 + 4), g_Resolution.y*0.25f / 3 - 2, 140, 110, 32, 255);
 		else if (i == CharacterVisionStatus)
-			IWindow::RenderOverlay(g_Resolution.x*0.06f + scale * 128 + 4, g_Resolution.y*0.1f + 0.334f*i*g_Resolution.y*0.25f, g_Resolution.x*0.29f - (g_Resolution.x*0.06f + scale * 128 + 4), g_Resolution.y*0.25f / 3 - 2, 140, 110, 32, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.06f + scale * 128 + 4, g_Resolution.y*0.1f + 0.334f*i*g_Resolution.y*0.25f, g_Resolution.x*0.29f - (g_Resolution.x*0.06f + scale * 128 + 4), g_Resolution.y*0.25f / 3 - 2, 140, 110, 32, 255);
 
 		else if (g_Mouse.IsBetween(g_Resolution.x*0.06f + scale * 128 + 4, g_Resolution.y*0.1f + 0.334f*i*g_Resolution.y*0.25f, g_Resolution.x*0.29f - (g_Resolution.x*0.06f + scale * 128 + 4), g_Resolution.y*0.25f / 3 - 2, g_Mouse.Coords.x, g_Mouse.Coords.y))
-			IWindow::RenderOverlay(g_Resolution.x*0.06f + scale * 128 + 4, g_Resolution.y*0.1f + 0.334f*i*g_Resolution.y*0.25f, g_Resolution.x*0.29f - (g_Resolution.x*0.06f + scale * 128 + 4), g_Resolution.y*0.25f / 3 - 2, 255, 230, 64, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.06f + scale * 128 + 4, g_Resolution.y*0.1f + 0.334f*i*g_Resolution.y*0.25f, g_Resolution.x*0.29f - (g_Resolution.x*0.06f + scale * 128 + 4), g_Resolution.y*0.25f / 3 - 2, 255, 230, 64, 255);
 		else
-			IWindow::RenderOverlay(g_Resolution.x*0.06f + scale * 128 + 4, g_Resolution.y*0.1f + 0.334f*i*g_Resolution.y*0.25f, g_Resolution.x*0.29f - (g_Resolution.x*0.06f + scale * 128 + 4), g_Resolution.y*0.25f / 3 - 2, 225, 180, 32, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.06f + scale * 128 + 4, g_Resolution.y*0.1f + 0.334f*i*g_Resolution.y*0.25f, g_Resolution.x*0.29f - (g_Resolution.x*0.06f + scale * 128 + 4), g_Resolution.y*0.25f / 3 - 2, 225, 180, 32, 255);
 
-		IWindow::RenderTextBMiddleC(g_Resolution.x*0.06f + scale * 128 + 4, g_Resolution.y*0.1f + 0.334f*i*g_Resolution.y*0.25f, g_Resolution.x*0.29f - (g_Resolution.x*0.06f + scale * 128 + 4), g_Resolution.y*0.25f / 3 - 2, tT[i], g_Resolution.y*0.02f, 0, 0, 0, 255);
+		_Window::RenderTextBMiddleC(g_Resolution.x*0.06f + scale * 128 + 4, g_Resolution.y*0.1f + 0.334f*i*g_Resolution.y*0.25f, g_Resolution.x*0.29f - (g_Resolution.x*0.06f + scale * 128 + 4), g_Resolution.y*0.25f / 3 - 2, tT[i], g_Resolution.y*0.02f, 0, 0, 0, 255);
 	}
 
 	if (GM_STATE == 0)
 	{
 		float fontsize = 0.03f*g_Resolution.y;
-		auto lineHeight = IWindow::GetTextSize("a\n", fontsize).y - IWindow::GetTextSize("a", fontsize).y;
+		auto lineHeight = _Window::GetTextSize("a\n", fontsize).y - _Window::GetTextSize("a", fontsize).y;
 
 		if (g_Mouse.IsBetween(g_Resolution.x*0.05f, g_Resolution.y*0.375f, g_Resolution.x*0.25f, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y)
 			&& g_Mouse.IsClickValid() && g_Mouse.isHolding())
-			IWindow::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.375f, g_Resolution.x*0.25f, lineHeight + 4, 160, 120, 16, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.375f, g_Resolution.x*0.25f, lineHeight + 4, 160, 120, 16, 255);
 		else if (g_Mouse.IsBetween(g_Resolution.x*0.05f, g_Resolution.y*0.375f, g_Resolution.x*0.25f, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y))
-			IWindow::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.375f, g_Resolution.x*0.25f, lineHeight + 4, 255, 222, 64, 255);
-		else IWindow::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.375f, g_Resolution.x*0.25f, lineHeight + 4, 225, 180, 32, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.375f, g_Resolution.x*0.25f, lineHeight + 4, 255, 222, 64, 255);
+		else _Window::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.375f, g_Resolution.x*0.25f, lineHeight + 4, 225, 180, 32, 255);
 
-		IWindow::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.375f, g_Resolution.x*0.25f, lineHeight + 4, "Locker", fontsize, 0, 0, 0, 255);
+		_Window::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.375f, g_Resolution.x*0.25f, lineHeight + 4, "Locker", fontsize, 0, 0, 0, 255);
 	}
 }
 
@@ -1942,7 +1942,7 @@ void dc_game::DrawLockerItemShowCase(int lu_index)
 {
 	auto u = Unlockables[lu_index];
 
-	IWindow::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.375f, g_Resolution.x*0.02f + g_Resolution.y*0.25f, g_Resolution.y*0.275f, 192, 192, 192, 64);
+	_Window::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.375f, g_Resolution.x*0.02f + g_Resolution.y*0.25f, g_Resolution.y*0.275f, 192, 192, 192, 64);
 
 	static sf::Color rarities[] = { sf::Color(255,255,255,128),sf::Color(90, 180, 0, 170),sf::Color(60, 190, 250, 200),sf::Color(200, 105, 235, 255),sf::Color(240, 150, 40, 255), sf::Color(255,32,32,255) };
 	char r = rarities[Unlockables[lu_index].iRarity].r;
@@ -1950,7 +1950,7 @@ void dc_game::DrawLockerItemShowCase(int lu_index)
 	char b = rarities[Unlockables[lu_index].iRarity].b;
 	char a = rarities[Unlockables[lu_index].iRarity].a;
 
-	IWindow::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.625f, g_Resolution.x*0.02f+g_Resolution.y*0.25f, g_Resolution.y*0.025f, Unlockables[lu_index].szName, g_Resolution.y*0.02f, r, g, b, a);
+	_Window::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.625f, g_Resolution.x*0.02f+g_Resolution.y*0.25f, g_Resolution.y*0.025f, Unlockables[lu_index].szName, g_Resolution.y*0.02f, r, g, b, a);
 
 	static sf::Sprite spTex, spPl, spGl, spWW;
 	spTex.setTexture(*g_Textures.get(GetRandomTextureBackground()));
@@ -1970,7 +1970,7 @@ void dc_game::DrawLockerItemShowCase(int lu_index)
 		static dc_clock Clock;
 		static int wID = Random(0, 30);
 
-		if (Clock.GetDiff() > 500)
+		if (Clock.deltaTime() > 500)
 		{
 			wID = Random(0, 30);
 			Clock.Update();
@@ -2017,7 +2017,7 @@ void dc_game::DrawLockerMenuNextUnlockables()
 	for (int i = 0; i < 7; i++)
 	{
 		int fontsize = 0.02f*g_Resolution.y;
-		int textHeight = IWindow::GetHeightForFontsize(fontsize);
+		int textHeight = _Window::GetHeightForFontsize(fontsize);
 
 
 		sf::RectangleShape Rect;
@@ -2040,7 +2040,7 @@ void dc_game::DrawLockerMenuNextUnlockables()
 
 		int tier = LockerPush+i;
 		char Buffer[16]; sprintf(Buffer, "Tier %d", tier+1);
-		IWindow::RenderTextB(g_Resolution.x*0.05f + (oneSize + 0.01f*g_Resolution.x)*i, g_Resolution.y*0.95f - oneSize - textHeight - 2, Buffer, fontsize);
+		_Window::RenderTextB(g_Resolution.x*0.05f + (oneSize + 0.01f*g_Resolution.x)*i, g_Resolution.y*0.95f - oneSize - textHeight - 2, Buffer, fontsize);
 
 		for (int j = 0; j< Unlockables.size();j++)
 		{
@@ -2074,7 +2074,7 @@ void dc_game::DrawLockerMenuNextUnlockables()
 				{
 					static dc_clock Clock;
 					static int wID = Random(0, 30);
-					if (Clock.GetDiff() > 500)
+					if (Clock.deltaTime() > 500)
 					{
 						wID = Random(0, 30);
 						Clock.Update();
@@ -2279,7 +2279,7 @@ void dc_game::DrawLockerInventory()
 			{
 				static dc_clock Clock;
 				static int wID = Random(0, 30);
-				if (Clock.GetDiff() > 500)
+				if (Clock.deltaTime() > 500)
 				{
 					wID = Random(0, 30);
 					Clock.Update();
@@ -2326,7 +2326,7 @@ void dc_game::DoSettingsMenu()
 	
 	//Buttons
 	auto fontsize = g_Resolution.x*0.03f;
-	auto lineHeight = IWindow::GetHeightForFontsize(fontsize);
+	auto lineHeight = _Window::GetHeightForFontsize(fontsize);
 	float Length = g_Resolution.x*0.3f - 2;
 	for (int i = 0; i < 3; i++)
 	{
@@ -2392,7 +2392,7 @@ void dc_game::DoSettingsMenu()
 	if (SettingsState == 1)
 	{
 		//Master volume slider
-		auto width = IWindow::GetTextSize("Brightness", fontsize).x;
+		auto width = _Window::GetTextSize("Brightness", fontsize).x;
 
 
 		float barlength = g_Resolution.x*0.95f - (g_Resolution.x*0.05f + width + g_Resolution.x*0.01f);
@@ -2418,7 +2418,7 @@ void dc_game::DoSettingsMenu()
 
 		sf::Vector2i Resolutions[] = { sf::Vector2i(640,480),sf::Vector2i(800,600),sf::Vector2i(1024,768),sf::Vector2i(1280,960),sf::Vector2i(1440,1080), sf::Vector2i(640,360),sf::Vector2i(1024,576),sf::Vector2i(1280,720),sf::Vector2i(1600,900),sf::Vector2i(1920,1080), sf::Vector2i(640,400),sf::Vector2i(1280,800),sf::Vector2i(1680,1050),sf::Vector2i(1680,720) };
 
-		width = IWindow::GetTextSize("Resolution", fontsize).x;
+		width = _Window::GetTextSize("Resolution", fontsize).x;
 		
 		auto AvailableWidth = g_Resolution.x*0.95f - (g_Resolution.x*0.05f + width + g_Resolution.x*0.01f);
 		auto AvailableHeight = g_Resolution.y*0.7f - (g_Resolution.y*0.16f + lineHeight + 4);
@@ -2456,7 +2456,7 @@ void dc_game::DoSettingsMenu()
 				g_Config.g_res_y.Value = g_Resolution.y;
 				g_Config.g_fullscreen.Value = SettingFullscreen;
 
-				IWindow::CreateTheWindow();
+				_Window::CreateTheWindow();
 			}
 		}
 
@@ -2469,7 +2469,7 @@ void dc_game::DoSettingsMenu()
 	if (SettingsState == 2)
 	{
 		//Master volume slider
-		auto width = IWindow::GetTextSize("Master volume", fontsize).x;
+		auto width = _Window::GetTextSize("Master volume", fontsize).x;
 
 
 		float barlength = g_Resolution.x*0.95f - (g_Resolution.x*0.05f + width + g_Resolution.x*0.01f);
@@ -2501,7 +2501,7 @@ void dc_game::DrawSettingsMenu()
 	DrawBackButton();
 
 	auto fontsize = g_Resolution.x*0.03f;
-	auto lineHeight = IWindow::GetHeightForFontsize(fontsize);
+	auto lineHeight = _Window::GetHeightForFontsize(fontsize);
 
 	char* SettNames[] = { "Controls","Video","Audio" };
 
@@ -2519,33 +2519,33 @@ void dc_game::DrawSettingsMenu()
 		if (g_Mouse.IsBetween(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
 			g_Mouse.IsClickValid() && g_Mouse.isHolding())
 		{
-			IWindow::RenderOverlay(0.05f*g_Resolution.x+i*(1+Length), g_Resolution.y*0.05f , Length, lineHeight + 4, 180, 150, 16, 255);
+			_Window::RenderOverlay(0.05f*g_Resolution.x+i*(1+Length), g_Resolution.y*0.05f , Length, lineHeight + 4, 180, 150, 16, 255);
 		}
 		else if (i == SettingsState)
 		{
-			IWindow::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 180, 150, 16, 255);
+			_Window::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 180, 150, 16, 255);
 		}
 		else if (g_Mouse.IsBetween(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y))
 		{
-			IWindow::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 255, 255, 64, 255);
+			_Window::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 255, 255, 64, 255);
 
 		}
 		else
-			IWindow::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 240, 215, 32, 255);
+			_Window::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 240, 215, 32, 255);
 
-		IWindow::RenderTextBMiddleC(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, SettNames[i], fontsize, 0, 0, 0);
+		_Window::RenderTextBMiddleC(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, SettNames[i], fontsize, 0, 0, 0);
 	}
 
 	if (SettingsState == 0)
 	{
-		IWindow::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.15, g_Resolution.y*0.08f, g_Resolution.y*0.08f, 128, 128, 128, 128);
+		_Window::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.15, g_Resolution.y*0.08f, g_Resolution.y*0.08f, 128, 128, 128, 128);
 
 		if (g_Config.p_movement_type.Value >= 1)
-			IWindow::RenderOverlay(g_Resolution.x*0.05f + 2, g_Resolution.y*0.15 + 2, g_Resolution.y*0.08f - 4, g_Resolution.y*0.08f - 4, 64, 64, 192, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.05f + 2, g_Resolution.y*0.15 + 2, g_Resolution.y*0.08f - 4, g_Resolution.y*0.08f - 4, 64, 64, 192, 255);
 
-		auto width = IWindow::GetTextSize("Directional movement", fontsize).x;
-		IWindow::RenderOverlay(g_Resolution.x*0.05f + g_Resolution.y*0.09f + 2, g_Resolution.y*0.15, width + 12, g_Resolution.y*0.08f, 192, 192, 192, 64);
-		IWindow::RenderTextBMiddleC(g_Resolution.x*0.05f + g_Resolution.y*0.09f + 2, g_Resolution.y*0.15, width + 12, g_Resolution.y*0.08f, "Directional movement", fontsize, 255, 255, 255, 255);
+		auto width = _Window::GetTextSize("Directional movement", fontsize).x;
+		_Window::RenderOverlay(g_Resolution.x*0.05f + g_Resolution.y*0.09f + 2, g_Resolution.y*0.15, width + 12, g_Resolution.y*0.08f, 192, 192, 192, 64);
+		_Window::RenderTextBMiddleC(g_Resolution.x*0.05f + g_Resolution.y*0.09f + 2, g_Resolution.y*0.15, width + 12, g_Resolution.y*0.08f, "Directional movement", fontsize, 255, 255, 255, 255);
 
 		auto KeyNames = GetAllKeyNames();
 
@@ -2587,7 +2587,7 @@ void dc_game::DrawSettingsMenu()
 				else R.setFillColor(sf::Color(225, 180, 32));
 
 				g_Window->draw(R);
-				IWindow::RenderTextBMiddleC(R.getPosition().x, R.getPosition().y, R.getSize().x, R.getSize().y, Texts[j], g_Resolution.y*0.025f, 0, 0, 0);
+				_Window::RenderTextBMiddleC(R.getPosition().x, R.getPosition().y, R.getSize().x, R.getSize().y, Texts[j], g_Resolution.y*0.025f, 0, 0, 0);
 				
 			}
 		}
@@ -2596,18 +2596,18 @@ void dc_game::DrawSettingsMenu()
 	}
 	if (SettingsState == 1)
 	{
-		auto width = IWindow::GetTextSize("Brightness", fontsize).x;
-		IWindow::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.15f, width + 6, lineHeight + 4, 192, 192, 192, 64);
-		IWindow::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.15f, width + 6, lineHeight + 4, "Brightness", fontsize, 255, 255, 255, 255);
+		auto width = _Window::GetTextSize("Brightness", fontsize).x;
+		_Window::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.15f, width + 6, lineHeight + 4, 192, 192, 192, 64);
+		_Window::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.15f, width + 6, lineHeight + 4, "Brightness", fontsize, 255, 255, 255, 255);
 
 		float barlength = g_Resolution.x*0.95f - (g_Resolution.x*0.05f + width + g_Resolution.x*0.01f);
-		IWindow::RenderOverlay(g_Resolution.x*0.05f + width + g_Resolution.x*0.01f, g_Resolution.y*0.15f, barlength, lineHeight + 4, 64, 64, 64, 128);
+		_Window::RenderOverlay(g_Resolution.x*0.05f + width + g_Resolution.x*0.01f, g_Resolution.y*0.15f, barlength, lineHeight + 4, 64, 64, 64, 128);
 		float sliderlength = g_Resolution.x*0.02f;
 		float cum_barlength = barlength - sliderlength;
 
 		float sliderPos = (g_Resolution.x*0.05f + width + 0.5f*sliderlength) + ((2.f*g_Config.g_brightness.Value-1.f)*cum_barlength);
 
-		IWindow::RenderOverlay(sliderPos, g_Resolution.y*0.145f, sliderlength, lineHeight + 4 + g_Resolution.y*0.01f, 255, 255, 255, 255);
+		_Window::RenderOverlay(sliderPos, g_Resolution.y*0.145f, sliderlength, lineHeight + 4 + g_Resolution.y*0.01f, 255, 255, 255, 255);
 
 		sf::Vector2i Resolutions[] = { sf::Vector2i(640,480),sf::Vector2i(800,600),sf::Vector2i(1024,768),sf::Vector2i(1280,960),sf::Vector2i(1440,1080), sf::Vector2i(640,360),sf::Vector2i(1024,576),sf::Vector2i(1280,720),sf::Vector2i(1600,900),sf::Vector2i(1920,1080), sf::Vector2i(640,400),sf::Vector2i(1280,800),sf::Vector2i(1680,1050),sf::Vector2i(1680,720) };
 
@@ -2615,9 +2615,9 @@ void dc_game::DrawSettingsMenu()
 
 
 
-		width = IWindow::GetTextSize("Resolution", fontsize).x;
-		IWindow::RenderOverlay(g_Resolution.x*0.056, g_Resolution.y*0.16f+lineHeight+4, width + 6, lineHeight + 4, 192, 192, 192, 64);
-		IWindow::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.16f+lineHeight+4, width + 6, lineHeight + 4, "Resolution", fontsize, 255, 255, 255, 255);
+		width = _Window::GetTextSize("Resolution", fontsize).x;
+		_Window::RenderOverlay(g_Resolution.x*0.056, g_Resolution.y*0.16f+lineHeight+4, width + 6, lineHeight + 4, 192, 192, 192, 64);
+		_Window::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.16f+lineHeight+4, width + 6, lineHeight + 4, "Resolution", fontsize, 255, 255, 255, 255);
 
 		auto AvailableWidth = g_Resolution.x*0.95f - (g_Resolution.x*0.05f + width + g_Resolution.x*0.01f);
 		auto AvailableHeight = g_Resolution.y*0.7f - (g_Resolution.y*0.16f + lineHeight + 4);
@@ -2626,7 +2626,7 @@ void dc_game::DrawSettingsMenu()
 		auto OneHeight = AvailableHeight/7 - 6;
 
 		sf::Vector2f T = sf::Vector2f(g_Resolution.x*0.05f + width + g_Resolution.x*0.01f, (g_Resolution.y*0.16f + lineHeight + 4));
-		IWindow::RenderOverlay(T.x, T.y, AvailableWidth, AvailableHeight, 64, 0, 0, 64);
+		_Window::RenderOverlay(T.x, T.y, AvailableWidth, AvailableHeight, 64, 0, 0, 64);
 
 		for (int i = 0; i < 14; i++)
 		{
@@ -2665,26 +2665,26 @@ void dc_game::DrawSettingsMenu()
 			g_Window->draw(rShape);
 
 			char Buffer[32]; sprintf(Buffer, "%dx%d", Resolutions[i].x, Resolutions[i].y);
-			IWindow::RenderTextBMiddleC(pX, pY, OneWidth, OneHeight, Buffer, g_Resolution.y*0.03f);
+			_Window::RenderTextBMiddleC(pX, pY, OneWidth, OneHeight, Buffer, g_Resolution.y*0.03f);
 		}
 		if(g_Mouse.IsBetween(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f,g_Mouse.Coords.x,g_Mouse.Coords.y)
 			&& g_Mouse.IsClickValid() && g_Mouse.isHolding())
-			IWindow::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 160, 110, 16, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 160, 110, 16, 255);
 		else if (g_Mouse.IsBetween(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y))
-			IWindow::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 255, 222, 64, 255);
-		else IWindow::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 225, 180, 32, 255);
-		IWindow::RenderTextBMiddleC(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f,"APPLY",g_Resolution.y*0.05f, 0,0,0, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 255, 222, 64, 255);
+		else _Window::RenderOverlay(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 225, 180, 32, 255);
+		_Window::RenderTextBMiddleC(g_Resolution.x*0.75f, g_Resolution.y*0.85f, g_Resolution.x*0.2f, g_Resolution.y*0.1f,"APPLY",g_Resolution.y*0.05f, 0,0,0, 255);
 		
 
 
-		IWindow::RenderOverlay(T.x, g_Resolution.y*0.71, g_Resolution.y*0.08f, g_Resolution.y*0.08f, 128,128,128, 128);
+		_Window::RenderOverlay(T.x, g_Resolution.y*0.71, g_Resolution.y*0.08f, g_Resolution.y*0.08f, 128,128,128, 128);
 
 		if (SettingFullscreen == 1)
-			IWindow::RenderOverlay(T.x+2, g_Resolution.y*0.71+2, g_Resolution.y*0.08f-4, g_Resolution.y*0.08f-4, 64, 64, 192, 255);
+			_Window::RenderOverlay(T.x+2, g_Resolution.y*0.71+2, g_Resolution.y*0.08f-4, g_Resolution.y*0.08f-4, 64, 64, 192, 255);
 		
-		width = IWindow::GetTextSize("Full screen", fontsize).x;
-		IWindow::RenderOverlay(T.x+g_Resolution.y*0.09f+2, g_Resolution.y*0.71, width + 12, g_Resolution.y*0.08f, 192, 192, 192, 64);
-		IWindow::RenderTextBMiddleC(T.x + g_Resolution.y*0.09f+2, g_Resolution.y*0.71, width + 12,g_Resolution.y*0.08f, "Full screen", fontsize, 255, 255, 255, 255);
+		width = _Window::GetTextSize("Full screen", fontsize).x;
+		_Window::RenderOverlay(T.x+g_Resolution.y*0.09f+2, g_Resolution.y*0.71, width + 12, g_Resolution.y*0.08f, 192, 192, 192, 64);
+		_Window::RenderTextBMiddleC(T.x + g_Resolution.y*0.09f+2, g_Resolution.y*0.71, width + 12,g_Resolution.y*0.08f, "Full screen", fontsize, 255, 255, 255, 255);
 
 
 	}
@@ -2692,18 +2692,18 @@ void dc_game::DrawSettingsMenu()
 	if (SettingsState == 2)
 	{
 
-		auto width = IWindow::GetTextSize("Master volume", fontsize).x;
-		IWindow::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.15f, width + 6, lineHeight + 4, 192, 192, 192, 64);
-		IWindow::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.15f, width + 6, lineHeight + 4,"Master volume",fontsize, 255,255,255,255);
+		auto width = _Window::GetTextSize("Master volume", fontsize).x;
+		_Window::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.15f, width + 6, lineHeight + 4, 192, 192, 192, 64);
+		_Window::RenderTextBMiddleC(g_Resolution.x*0.05f, g_Resolution.y*0.15f, width + 6, lineHeight + 4,"Master volume",fontsize, 255,255,255,255);
 
 		float barlength = g_Resolution.x*0.95f - (g_Resolution.x*0.05f + width + g_Resolution.x*0.01f);
-		IWindow::RenderOverlay(g_Resolution.x*0.05f + width + g_Resolution.x*0.01f, g_Resolution.y*0.15f, barlength, lineHeight + 4, 64, 64, 64, 128);
+		_Window::RenderOverlay(g_Resolution.x*0.05f + width + g_Resolution.x*0.01f, g_Resolution.y*0.15f, barlength, lineHeight + 4, 64, 64, 64, 128);
 		float sliderlength = g_Resolution.x*0.02f;
 		float cum_barlength = barlength - sliderlength;
 
 		float sliderPos = (g_Resolution.x*0.05f + width + 0.5f*sliderlength) + g_Config.mastervolume.Value*cum_barlength;
 
-		IWindow::RenderOverlay(sliderPos, g_Resolution.y*0.145f, sliderlength, lineHeight + 4 + g_Resolution.y*0.01f, 255,255,255,255);
+		_Window::RenderOverlay(sliderPos, g_Resolution.y*0.145f, sliderlength, lineHeight + 4 + g_Resolution.y*0.01f, 255,255,255,255);
 	}
 
 
@@ -2711,12 +2711,12 @@ void dc_game::DrawSettingsMenu()
 
 void dc_game::DrawPressKeyOL()
 {
-	IWindow::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, 96);
+	_Window::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, 96);
 
-	IWindow::RenderOverlay(g_Resolution.x*0.35f, g_Resolution.y*0.3f, g_Resolution.x*0.3f, g_Resolution.y*0.4f, 32, 96, 192, 255);
-	IWindow::RenderOverlay(g_Resolution.x*0.35f + 2, g_Resolution.y*0.3f + 2, g_Resolution.x*0.3f - 4, g_Resolution.y*0.4f - 4, 16, 48, 96, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.35f, g_Resolution.y*0.3f, g_Resolution.x*0.3f, g_Resolution.y*0.4f, 32, 96, 192, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.35f + 2, g_Resolution.y*0.3f + 2, g_Resolution.x*0.3f - 4, g_Resolution.y*0.4f - 4, 16, 48, 96, 255);
 
-	IWindow::RenderTextBMiddleC(g_Resolution.x*0.35f, g_Resolution.y*0.3f, g_Resolution.x*0.3f, g_Resolution.y*0.4f, "Press a key", g_Resolution.y*0.02f);
+	_Window::RenderTextBMiddleC(g_Resolution.x*0.35f, g_Resolution.y*0.3f, g_Resolution.x*0.3f, g_Resolution.y*0.4f, "Press a key", g_Resolution.y*0.02f);
 
 }
 
@@ -2774,12 +2774,12 @@ void dc_game::DoCreditsMenu()
 
 float texW(char* t,float s)
 {
-	return IWindow::GetTextSize(t, s).x;
+	return _Window::GetTextSize(t, s).x;
 }
 
 float texH(int l, float s)
 {
-	return l * IWindow::GetHeightForFontsize(s);
+	return l * _Window::GetHeightForFontsize(s);
 }
 
 void dc_game::DrawCreditsMenu()
@@ -2791,42 +2791,42 @@ void dc_game::DrawCreditsMenu()
 	float tY = g_Resolution.y*0.05f;
 	float fontSize = g_Resolution.y*0.1f;
 	char Buffer[128]; sprintf(Buffer,"DaiCastle");
-	IWindow::RenderTextB(tX, tY, Buffer, fontSize,225,225,225);
+	_Window::RenderTextB(tX, tY, Buffer, fontSize,225,225,225);
 	tY += texH(1, fontSize);
 
 	sprintf(Buffer, "Graphics: ");
 	fontSize = g_Resolution.y*0.05f;
-	IWindow::RenderTextB(tX, tY, Buffer, fontSize,192,192,192);
+	_Window::RenderTextB(tX, tY, Buffer, fontSize,192,192,192);
 	tX += texW("Graphics: ", fontSize);
 
 	sprintf(Buffer, "zENKII @ GlitchHub");
-	IWindow::RenderTextB(tX, tY, Buffer, fontSize,225,180,32);
+	_Window::RenderTextB(tX, tY, Buffer, fontSize,225,180,32);
 	tX = g_Resolution.x*0.06f;
 	tY += texH(1, fontSize);
 
 	sprintf(Buffer, "Sounds: ");
-	IWindow::RenderTextB(tX, tY, Buffer, fontSize, 192, 192, 192);
+	_Window::RenderTextB(tX, tY, Buffer, fontSize, 192, 192, 192);
 	tX += texW("Sounds: ", fontSize);
 	
 	auto tNpush = tX+max(texW("Gun Sounds: ", fontSize), max(texW("Bus Music: ", fontSize), texW("Footsteps: ", fontSize)));
 	sprintf(Buffer, "zENKII @ GlitchHub\nMarkvard\nYouTube @ Creative Commons");
-	IWindow::RenderTextB(tNpush, tY, Buffer, fontSize, 225, 180, 32);
+	_Window::RenderTextB(tNpush, tY, Buffer, fontSize, 225, 180, 32);
 	sprintf(Buffer, "Gun Sounds: ");
-	IWindow::RenderTextB(tNpush- texW("Gun Sounds: ", fontSize), tY, Buffer, fontSize, 192,192,192);
+	_Window::RenderTextB(tNpush- texW("Gun Sounds: ", fontSize), tY, Buffer, fontSize, 192,192,192);
 	sprintf(Buffer, "Bus Music: ");
-	IWindow::RenderTextB(tNpush - texW("Bus Music: ", fontSize), tY+texH(1, fontSize), Buffer, fontSize, 192,192,192);
+	_Window::RenderTextB(tNpush - texW("Bus Music: ", fontSize), tY+texH(1, fontSize), Buffer, fontSize, 192,192,192);
 	sprintf(Buffer, "Footsteps: ");
-	IWindow::RenderTextB(tNpush - texW("Footsteps: ", fontSize), tY + texH(2, fontSize), Buffer, fontSize, 192, 192, 192);
+	_Window::RenderTextB(tNpush - texW("Footsteps: ", fontSize), tY + texH(2, fontSize), Buffer, fontSize, 192, 192, 192);
 
 	tX = g_Resolution.x*0.06f;
 	tY += texH(3, fontSize);
 
 	sprintf(Buffer, "Programming: ");
-	IWindow::RenderTextB(tX, tY, Buffer, fontSize, 192, 192, 192);
+	_Window::RenderTextB(tX, tY, Buffer, fontSize, 192, 192, 192);
 	tX += texW("Programming: ", fontSize);
 
 	sprintf(Buffer, "zENKII @ GlitchHub");
-	IWindow::RenderTextB(tX, tY, Buffer, fontSize, 225, 180, 32);
+	_Window::RenderTextB(tX, tY, Buffer, fontSize, 225, 180, 32);
 	tX = g_Resolution.x*0.06f;
 	tY += texH(1, fontSize);
 
@@ -2876,8 +2876,8 @@ void dc_game::DoDemoMenu()
 
 	int RenderTotal = 20;
 	float textSize = g_Resolution.y*0.0225f;
-	float LineHeight = IWindow::GetHeightForFontsize(textSize);
-	float LineLength = IWindow::GetTextSize("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM", textSize).x;
+	float LineHeight = _Window::GetHeightForFontsize(textSize);
+	float LineLength = _Window::GetTextSize("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM", textSize).x;
 
 	//Selecting
 	for (int i = DemoCoordinate; i < demoNames.size() && i < DemoCoordinate + RenderTotal; i++)
@@ -2940,56 +2940,56 @@ void dc_game::DrawDemoMenu()
 	DrawMainMenuBg();
 	DrawBackButton();
 
-	IWindow::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.05f, g_Resolution.x*0.9f, g_Resolution.y*0.9f, 192, 192, 192, 64);
+	_Window::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.05f, g_Resolution.x*0.9f, g_Resolution.y*0.9f, 192, 192, 192, 64);
 
 	auto demoNames = GetAllDemoNames();
 
 	int RenderTotal = 20;
 	float textSize = g_Resolution.y*0.0225f;
-	float LineHeight = IWindow::GetHeightForFontsize(textSize);
-	float LineLength = IWindow::GetTextSize("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM", textSize).x;
+	float LineHeight = _Window::GetHeightForFontsize(textSize);
+	float LineLength = _Window::GetTextSize("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM", textSize).x;
 
-	IWindow::RenderOverlay(g_Resolution.x*0.075f, g_Resolution.y*0.075f, LineLength + 4, RenderTotal * LineHeight, 0, 0, 0, 192);
+	_Window::RenderOverlay(g_Resolution.x*0.075f, g_Resolution.y*0.075f, LineLength + 4, RenderTotal * LineHeight, 0, 0, 0, 192);
 
 	for (int i = DemoCoordinate; i < demoNames.size() && i < DemoCoordinate + RenderTotal; i++)
 	{
 		if (i == DemoSelected)
-			IWindow::RenderOverlay(g_Resolution.x*0.075f+2, g_Resolution.y*0.075f + (i-DemoCoordinate)*LineHeight, LineLength, LineHeight, 32, 128,192, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.075f+2, g_Resolution.y*0.075f + (i-DemoCoordinate)*LineHeight, LineLength, LineHeight, 32, 128,192, 255);
 
-		IWindow::RenderTextB(g_Resolution.x*0.075f + 2, g_Resolution.y*0.075f + (i - DemoCoordinate)*LineHeight, (char*)demoNames[i].c_str(), textSize);
+		_Window::RenderTextB(g_Resolution.x*0.075f + 2, g_Resolution.y*0.075f + (i - DemoCoordinate)*LineHeight, (char*)demoNames[i].c_str(), textSize);
 	}
 
 	if (g_Mouse.IsBetween(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.075f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y)
 		&& g_Mouse.IsClickValid() && g_Mouse.isHolding())
-		IWindow::RenderOverlay(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.075f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, 160, 120, 24, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.075f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, 160, 120, 24, 255);
 	else if (g_Mouse.IsBetween(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.075f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y))
-		IWindow::RenderOverlay(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.075f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, 255, 222, 64, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.075f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, 255, 222, 64, 255);
 	else 
-		IWindow::RenderOverlay(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.075f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, 225,180,32, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.075f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, 225,180,32, 255);
 
-	IWindow::RenderTextBMiddleC(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.075f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, "REFRESH", g_Resolution.y*0.03f, 0, 0, 0);
+	_Window::RenderTextBMiddleC(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.075f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, "REFRESH", g_Resolution.y*0.03f, 0, 0, 0);
 
 	if (g_Mouse.IsBetween(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.2f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y)
 		&& g_Mouse.IsClickValid() && g_Mouse.isHolding())
-		IWindow::RenderOverlay(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.2f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, 160, 120, 24, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.2f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, 160, 120, 24, 255);
 	else if (g_Mouse.IsBetween(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.2f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, g_Mouse.Coords.x, g_Mouse.Coords.y))
-		IWindow::RenderOverlay(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.2f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, 255, 222, 64, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.2f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, 255, 222, 64, 255);
 	else
-		IWindow::RenderOverlay(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.2f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, 225, 180, 32, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.2f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, 225, 180, 32, 255);
 
-	IWindow::RenderTextBMiddleC(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.2f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, "PLAY", g_Resolution.y*0.03f, 0, 0, 0);
+	_Window::RenderTextBMiddleC(g_Resolution.x*0.085f + LineLength, g_Resolution.y*0.2f, g_Resolution.x*0.925f - (g_Resolution.x*0.085f + LineLength), g_Resolution.y*0.1f, "PLAY", g_Resolution.y*0.03f, 0, 0, 0);
 
 
 	float fontsize = g_Resolution.y*0.03f;
 
-	IWindow::RenderOverlay(g_Resolution.x*0.075f, g_Resolution.y*0.085f+ RenderTotal * LineHeight, g_Resolution.y*0.08f, g_Resolution.y*0.08f, 128, 128, 128, 128);
+	_Window::RenderOverlay(g_Resolution.x*0.075f, g_Resolution.y*0.085f+ RenderTotal * LineHeight, g_Resolution.y*0.08f, g_Resolution.y*0.08f, 128, 128, 128, 128);
 
 	if (g_Config.m_record_replay.Value >= 1)
-		IWindow::RenderOverlay(g_Resolution.x*0.075f + 2, g_Resolution.y*0.085f + RenderTotal * LineHeight + 2, g_Resolution.y*0.08f - 4, g_Resolution.y*0.08f - 4, 64, 64, 192, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.075f + 2, g_Resolution.y*0.085f + RenderTotal * LineHeight + 2, g_Resolution.y*0.08f - 4, g_Resolution.y*0.08f - 4, 64, 64, 192, 255);
 
-	auto width = IWindow::GetTextSize("Record Demos", fontsize).x;
-	IWindow::RenderOverlay(g_Resolution.x*0.075f + g_Resolution.y*0.09f + 2, g_Resolution.y*0.095f + RenderTotal * LineHeight, width + 12, g_Resolution.y*0.06f, 192, 192, 192, 64);
-	IWindow::RenderTextBMiddleC(g_Resolution.x*0.075f + g_Resolution.y*0.09f + 2, g_Resolution.y*0.095f + RenderTotal * LineHeight, width + 12, g_Resolution.y*0.06f, "Record Demos", fontsize, 255, 255, 255, 255);
+	auto width = _Window::GetTextSize("Record Demos", fontsize).x;
+	_Window::RenderOverlay(g_Resolution.x*0.075f + g_Resolution.y*0.09f + 2, g_Resolution.y*0.095f + RenderTotal * LineHeight, width + 12, g_Resolution.y*0.06f, 192, 192, 192, 64);
+	_Window::RenderTextBMiddleC(g_Resolution.x*0.075f + g_Resolution.y*0.09f + 2, g_Resolution.y*0.095f + RenderTotal * LineHeight, width + 12, g_Resolution.y*0.06f, "Record Demos", fontsize, 255, 255, 255, 255);
 
 
 }

@@ -5,11 +5,11 @@
 #include <SFML\Audio.hpp>
 #include <iostream>
 #include "fastParser.h"
-#include "ITek.h"
+#include "_Tek.h"
 #include "FileSys.h"
 #include <chrono>
-#include "IWindow.h"
-#include "IAudio.h"
+#include "_Window.h"
+#include "_Audio.h"
 #include <vector>
 #include "Random.h"
 
@@ -32,12 +32,8 @@ static int llrand() {
 	return r & 0xFFFFFFFF;
 }
 
-static int Random(int RandMin, int RandMax) //5-25
+static int Random(int RandMin, int RandMax) 
 {
-	//int RandDifference = RandMax - RandMin + 1;  //20
-	//int ReturnValue = llrand() % RandDifference + RandMin;
-	//return ReturnValue;
-
 	return g_RandomDevice.RandomInt(RandMin, RandMax);
 
 }
@@ -47,13 +43,9 @@ static int Random(int RandMin, int RandMax) //5-25
 
 static float RandFloat()
 {
-	return float(Random(0, 10000)) / 10000;
+	return g_RandomDevice.RandomFloat(0, 1);
 }
 
-struct g_Instructions
-{
-	//static void SetupAnim(char* filename, int FullSizeX, int FullSizeY, int tilesizex, int tilesizey, float length);
-};
 
 struct coord
 {
@@ -92,14 +84,20 @@ struct keyboard_t
 	{
 		return last_keys[i] && !keys[i];
 	}
-
+	//////////////////////////////////////////////
+	/// Adds a new character 'add' at the end of a char-array
+	//////////////////////////////////////////////
 	void UpdateTextLastChar(char* text, char add, int* len)
 	{
 		text[*len] = add;
 		text[*len + 1] = '\0';
 		(*len)++;
 	}
-
+	//////////////////////////////////////////////
+	/// Hard-coded, the very bad way.
+	/// Check for key presses, and adds new characters to the char-array 'text' until it reaches 'maxlen'
+	/// TODO: Use the SFML equivalent of this
+	//////////////////////////////////////////////
 	void UpdateText(char* text, int* len, int maxlen)
 	{
 		if (*len != maxlen)
@@ -278,8 +276,10 @@ struct mouse_t
 		return true;
 	}
 
-	bool IsBetween(int x, int y, int w, int h, int checkx, int checky)
+	bool IsBetween(int x, int y, int w, int h, int checkx = INT32_MIN, int checky = INT32_MIN)
 	{
+		if (checkx == INT32_MIN)checkx = Coords.x;
+		if (checky == INT32_MIN)checky = Coords.y;
 		return x < checkx && y < checky && checkx < x + w && checky < y + h;
 	}
 
@@ -360,11 +360,17 @@ template<typename Ty> static int GetIndex(std::vector<Ty>& Vec, Ty elem)
  {
 	 std::chrono::time_point<std::chrono::steady_clock> last = std::chrono::high_resolution_clock::now();
 
-	 inline int GetDiff()
+	 //////////////////////////////////////////////
+	 /// Returns the time passed since the last Update() call in milliseconds
+	 //////////////////////////////////////////////
+	 inline int deltaTime()
 	 {
 		 auto now = std::chrono::high_resolution_clock::now();
 		 return std::chrono::duration_cast<std::chrono::milliseconds>(now - last).count();
 	 }
+	 //////////////////////////////////////////////
+	 /// Sets the clock's measuring point to the current time
+	 //////////////////////////////////////////////
 	 void Update()
 	 {
 		 last = std::chrono::high_resolution_clock::now();
@@ -402,6 +408,10 @@ extern bool IsEditor;
 
 extern std::string appLocation;
 
+//////////////////////////////////////////////
+/// Returns the application's location without the application name
+/// For example: C:\\Users\\BigFluffKat7\\Documents\\test.exe -> C:\\Users\\BigFluffKat7\\Documents\\
+//////////////////////////////////////////////
 static void ChopAppName(char* string)
 {
 	int lastPer = 0;
@@ -409,7 +419,7 @@ static void ChopAppName(char* string)
 	for (int i = 0; i < strlen(string); i++)
 		if (string[i] == '\\')lastPer = i+1;
 	
-	char* ApplicationLocation = new char[strlen(string) + 1];
+	char* ApplicationLocation = new char[lastPer + 1];
 	
 	sprintf(ApplicationLocation,"%.*s", lastPer, string);
 	appLocation = ApplicationLocation;
