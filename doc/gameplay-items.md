@@ -49,3 +49,24 @@ For healing items, there are 3 different types:
 **fAudibleDistance:** Distance in units that the weapon is audible in.  
 **iRarity:** Specifies the rarity of the healing item.  
 
+## Shooting a single-shot weapon
+Casts a ray, and if the ray hits a wall or player, damage gets applied.  
+## Shooting a multi-shot weapon
+Casts a ray for each pellet, checks if they hit a wall or player. Damage gets applied after compressing the damage data.  
+## Shooting a projectile weapon
+Projectiles cast very short rays every frame to check if they hit anything. If the projectile reaches its maximum range, or hits a player or wall, it disappears, and applies damage if needed.  
+## Shooting an explosive weapon
+Exploive projectiles cast very short rays every frame to check if they hit anything. In case of hitting anything, the explosive projectile can bounce back, or explode instantly. If the explosive projectile reaches its maximum range, it explodes.
+
+
+
+## Remarks and ideas
+### Automatic weapon shooting
+When shooting an automatic weapon, upon a weaponshot, the timer will get added `1 / fFireRate` instead of getting set to `1 / fFireRate`. This keeps the firerate of the weapon steady on framedrops and lower framerates.
+### Bloom mechanic
+Bloom mechanic was implemented to cover laser precision aiming. The way it works here is it randomly shoots bullets in an angle-territory. Moving characters should have less control on the gun, hence the bloomsize increases. Shooting also increases the bloom. Not shooting or standing still should help having more control over bloom.
+### Explosives
+Explosive projectiles, when destroyed cast 360 rays to calculate damage on objects in the explosion range. 
+### Lootpool
+The lootpool consists of all the weapons and healing items that are put into it, as many times as they are put into it. 
+Opening a chest will result of a non-consumable and a consumable item to spawn from the lootpool. Getting an item from the lootpool does not change the lootpool itself.
