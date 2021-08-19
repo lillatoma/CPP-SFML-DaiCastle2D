@@ -27,7 +27,7 @@ Hovering the mouse over a cosmetic will show it under the `Character View`, with
 In the top left corner, there is a yellow button with the text "Back".  
 Clicking on this button directs the user back to the `Main Menu`.
 
-### Quit button
+## Quit button
 On the top-right corner, a red button with an X in the middle is visible. Clicking on it opens the `Quit prompt`.
 The `Quit prompt` is a panel with a question "Would you like to quit?" and two buttons `No` and `Yes`. Clicking on `No` closes the `Quit prompt`. Clicking on `Yes` saves the profile information to `profile.md`, saves the configuration to `cfg\config.cfg` and closes the application.
 
