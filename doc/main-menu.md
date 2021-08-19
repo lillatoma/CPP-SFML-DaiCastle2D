@@ -2,6 +2,7 @@
 ## Left side
 ### Character View
 The Character View shows how the user's character looks like with the currently equipped cosmetics.  
+A random background ground-texture is drawn. Clicking on it changes the texture.  
 There are three render-modes for the character view:  
 - **Skin:** Shows the currently equipped character skin.  
 - **Glider:** Shows the currently equipped glider with the character under.  
