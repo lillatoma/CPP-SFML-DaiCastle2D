@@ -86,3 +86,9 @@ In arena gamemodes, the final zones will be out of the current zone.
 
 ## Calculating the current state of the storm
 The current storm phase can be obtained knowing the `ServerTime`. The weight `(ServerTime - phaseBeginTime) / (nextPhaseBeginTime - phaseBeginTime)` is going to be referenced as `lambda`. Knowing the current and next storm phase's values, we can use `lambda * nextPhaseValue + (1 - lambda) * currentPhaseValue` to calculate the values for the current state. 
+
+## Damaging
+The storm damages players with the `Damage` value of the current storm. Damaging only starts after a player has spent at least 1000 ms in the storm, and damaging applies every 1000 ms. For example, this means, that in Phase 16, the storm deals 100 damage in 10 seconds.
+
+
+
