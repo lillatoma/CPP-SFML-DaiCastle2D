@@ -62,3 +62,11 @@ Finalizes changes in `Resolution` and `Full screen` behaviour.
 ### Slider: Master volume
 The Master volume slider changes the overall loudness of the game.  
 Changes the value of `mastervolume` between 0 and 1.
+
+## Back button
+In the top left corner, there is a yellow button with the text "Back".  
+Clicking on this button directs the user back to the `Main Menu`.
+
+## Quit button
+On the top-right corner, a red button with an X in the middle is visible. Clicking on it opens the `Quit prompt`.
+The `Quit prompt` is a panel with a question "Would you like to quit?" and two buttons `No` and `Yes`. Clicking on `No` closes the `Quit prompt`. Clicking on `Yes` saves the profile information to `profile.md`, saves the configuration to `cfg\config.cfg` and closes the application.
