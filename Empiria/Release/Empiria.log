@@ -104,10 +104,1570 @@ h:\codes\daicastle 2d\base\empiria\includes.h(326): warning C4018: '<': signed/u
               _Ty=int,
               Ty=int
           ]
+  DC_Config.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+DC_Config.cpp(40): warning C4018: '<': signed/unsigned mismatch
+DC_Config.cpp(59): warning C4018: '<': signed/unsigned mismatch
+DC_Config.cpp(91): warning C4018: '<': signed/unsigned mismatch
+  DC_Console.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+DC_Console.cpp(175): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Console.cpp(176): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Console.cpp(177): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Console.cpp(179): warning C4018: '<': signed/unsigned mismatch
+DC_Console.cpp(183): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Console.cpp(191): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Console.cpp(197): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Console.cpp(199): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Console.cpp(200): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Console.cpp(202): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Console.cpp(207): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Console.cpp(479): warning C4018: '<': signed/unsigned mismatch
+DC_Console.cpp(511): warning C4018: '<': signed/unsigned mismatch
+DC_Console.cpp(560): warning C4018: '<': signed/unsigned mismatch
+DC_Console.cpp(572): warning C4018: '<': signed/unsigned mismatch
+DC_Console.cpp(587): warning C4018: '<': signed/unsigned mismatch
+DC_Console.cpp(607): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Console.cpp(617): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Console.cpp(627): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Console.cpp(637): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Console.cpp(647): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Console.cpp(657): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Console.cpp(667): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Console.cpp(677): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Console.cpp(687): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Console.cpp(697): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Console.cpp(707): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Console.cpp(1128): warning C4018: '<': signed/unsigned mismatch
+DC_Console.cpp(1185): warning C4018: '<': signed/unsigned mismatch
+DC_Console.cpp(1188): warning C4018: '<': signed/unsigned mismatch
+DC_Console.cpp(1209): warning C4018: '>': signed/unsigned mismatch
+DC_Console.cpp(1377): warning C4018: '<': signed/unsigned mismatch
+DC_Console.cpp(1383): warning C4018: '<': signed/unsigned mismatch
+DC_Console.cpp(1475): warning C4018: '<': signed/unsigned mismatch
+DC_Console.cpp(1481): warning C4018: '<': signed/unsigned mismatch
+DC_Console.cpp(1518): warning C4804: '>=': unsafe use of type 'bool' in operation
+DC_Console.cpp(1636): warning C4018: '>': signed/unsigned mismatch
+DC_Console.cpp(1661): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Console.cpp(1667): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+DC_Console.cpp(1668): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  DC_Demo.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+DC_Demo.cpp(58): warning C4018: '<': signed/unsigned mismatch
+DC_Demo.cpp(483): warning C4018: '<': signed/unsigned mismatch
+DC_Demo.cpp(489): warning C4018: '<': signed/unsigned mismatch
+DC_Demo.cpp(492): warning C4018: '<': signed/unsigned mismatch
+DC_Demo.cpp(495): warning C4018: '<': signed/unsigned mismatch
+DC_Demo.cpp(382): warning C4101: 'HP_Info': unreferenced local variable
+DC_Demo.cpp(532): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'char *'
+  DC_DemoPlayer.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+DC_DemoPlayer.cpp(119): warning C4018: '<': signed/unsigned mismatch
+DC_DemoPlayer.cpp(138): warning C4018: '<': signed/unsigned mismatch
+DC_DemoPlayer.cpp(140): warning C4018: '<': signed/unsigned mismatch
+DC_DemoPlayer.cpp(225): warning C4018: '<': signed/unsigned mismatch
+DC_DemoPlayer.cpp(299): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(323): warning C4018: '<': signed/unsigned mismatch
+DC_DemoPlayer.cpp(422): warning C4018: '<': signed/unsigned mismatch
+DC_DemoPlayer.cpp(427): warning C4018: '<': signed/unsigned mismatch
+DC_DemoPlayer.cpp(431): warning C4018: '<': signed/unsigned mismatch
+DC_DemoPlayer.cpp(436): warning C4018: '<': signed/unsigned mismatch
+DC_DemoPlayer.cpp(450): warning C4018: '<': signed/unsigned mismatch
+DC_DemoPlayer.cpp(487): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(500): warning C4018: '<': signed/unsigned mismatch
+DC_DemoPlayer.cpp(517): warning C4018: '<': signed/unsigned mismatch
+DC_DemoPlayer.cpp(524): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_DemoPlayer.cpp(538): warning C4018: '<': signed/unsigned mismatch
+DC_DemoPlayer.cpp(597): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(604): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(621): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(660): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(661): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(666): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(667): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(702): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(703): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(723): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(770): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(773): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(802): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(805): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(824): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(827): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(836): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(839): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(965): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
+DC_DemoPlayer.cpp(1009): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(1013): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(1020): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(1021): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(1022): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(1026): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_DemoPlayer.cpp(1026): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(1029): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_DemoPlayer.cpp(1097): warning C4018: '<': signed/unsigned mismatch
+DC_DemoPlayer.cpp(1158): warning C4018: '<': signed/unsigned mismatch
+  DC_Effects.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+DC_Effects.cpp(14): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Effects.cpp(25): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Effects.cpp(45): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(63): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+DC_Effects.cpp(75): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+DC_Effects.cpp(88): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(90): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(90): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Effects.cpp(102): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(103): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(104): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(105): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(100): warning C4473: 'sprintf' : not enough arguments passed for format string
+  DC_Effects.cpp(100): note: placeholders and their parameters expect 1 variadic arguments, but 0 were provided
+  DC_Effects.cpp(100): note: the missing variadic argument 1 is required by format string '%d'
+DC_Effects.cpp(129): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(137): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(141): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(147): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(172): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(180): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(184): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(190): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(200): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(201): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+DC_Effects.cpp(202): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+DC_Effects.cpp(211): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(216): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(219): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(225): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(229): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(232): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(248): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(249): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+DC_Effects.cpp(250): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+DC_Effects.cpp(259): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(264): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(267): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(273): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(277): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(280): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(301): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(322): warning C4018: '<': signed/unsigned mismatch
+DC_Effects.cpp(345): warning C4018: '<': signed/unsigned mismatch
+DC_Effects.cpp(364): warning C4018: '<': signed/unsigned mismatch
+DC_Effects.cpp(387): warning C4018: '<': signed/unsigned mismatch
+DC_Effects.cpp(403): warning C4018: '<': signed/unsigned mismatch
+DC_Effects.cpp(420): warning C4018: '<': signed/unsigned mismatch
+DC_Effects.cpp(441): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Effects.cpp(442): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Effects.cpp(446): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(448): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(457): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(467): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(468): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(469): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(469): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Effects.cpp(476): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(476): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Effects.cpp(478): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(478): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Effects.cpp(479): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(479): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Effects.cpp(481): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(481): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Effects.cpp(486): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(487): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(488): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(488): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Effects.cpp(494): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(494): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Effects.cpp(496): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(496): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Effects.cpp(497): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(497): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Effects.cpp(499): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(499): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Effects.cpp(525): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(531): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(532): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(537): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
+DC_Effects.cpp(542): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(543): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Effects.cpp(640): warning C4018: '<': signed/unsigned mismatch
+DC_Effects.cpp(645): warning C4018: '<': signed/unsigned mismatch
+  DC_Game.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+DC_Game.cpp(285): warning C4244: '=': conversion from 'float' to 'unsigned int', possible loss of data
+DC_Game.cpp(291): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Game.cpp(297): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Game.cpp(311): warning C4018: '<': signed/unsigned mismatch
+DC_Game.cpp(316): warning C4018: '<': signed/unsigned mismatch
+DC_Game.cpp(379): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Game.cpp(394): warning C4390: ';': empty controlled statement found; is this the intent?
+DC_Game.cpp(471): warning C4018: '<': signed/unsigned mismatch
+DC_Game.cpp(516): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Game.cpp(536): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Game.cpp(845): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+DC_Game.cpp(847): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+DC_Game.cpp(849): warning C4018: '<': signed/unsigned mismatch
+DC_Game.cpp(900): warning C4474: 'printf' : too many arguments passed for format string
+  DC_Game.cpp(900): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
+DC_Game.cpp(1064): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  DC_Item.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+DC_Item.cpp(67): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Item.cpp(68): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Item.cpp(142): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Item.cpp(153): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Item.cpp(1150): warning C4305: '=': truncation from 'double' to 'float'
+DC_Item.cpp(1179): warning C4305: '=': truncation from 'double' to 'float'
+DC_Item.cpp(1207): warning C4305: '=': truncation from 'double' to 'float'
+DC_Item.cpp(1235): warning C4305: '=': truncation from 'double' to 'float'
+DC_Item.cpp(1263): warning C4305: '=': truncation from 'double' to 'float'
+DC_Item.cpp(1460): warning C4305: '=': truncation from 'double' to 'float'
+DC_Item.cpp(1487): warning C4305: '=': truncation from 'double' to 'float'
+DC_Item.cpp(1514): warning C4305: '=': truncation from 'double' to 'float'
+DC_Item.cpp(1541): warning C4305: '=': truncation from 'double' to 'float'
+DC_Item.cpp(1568): warning C4305: '=': truncation from 'double' to 'float'
+DC_Item.cpp(2778): warning C4305: '=': truncation from 'double' to 'float'
+DC_Item.cpp(2805): warning C4305: '=': truncation from 'double' to 'float'
+DC_Item.cpp(2832): warning C4305: '=': truncation from 'double' to 'float'
+DC_Item.cpp(3200): warning C4018: '<': signed/unsigned mismatch
+  DC_Map.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+DC_Map.cpp(156): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(158): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(160): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+DC_Map.cpp(161): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+DC_Map.cpp(171): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+DC_Map.cpp(175): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(176): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(178): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+DC_Map.cpp(184): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(185): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(226): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(228): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(230): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+DC_Map.cpp(231): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+DC_Map.cpp(241): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+DC_Map.cpp(245): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(246): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(248): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+DC_Map.cpp(254): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(255): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(307): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(309): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(311): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+DC_Map.cpp(312): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+DC_Map.cpp(316): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+DC_Map.cpp(326): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+DC_Map.cpp(333): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+DC_Map.cpp(420): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Map.cpp(424): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(426): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(428): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+DC_Map.cpp(429): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+DC_Map.cpp(433): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+DC_Map.cpp(443): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+DC_Map.cpp(450): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+DC_Map.cpp(655): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(656): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(684): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Map.cpp(688): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Map.cpp(760): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(761): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(782): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(783): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(853): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Map.cpp(855): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(856): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(857): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(874): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(876): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(878): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(878): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Map.cpp(933): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Map.cpp(935): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(936): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(937): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(952): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(955): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Map.cpp(961): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(962): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(963): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(969): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(972): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Map.cpp(983): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Map.cpp(988): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(989): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(1000): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Map.cpp(1002): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(1003): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(1007): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Map.cpp(1010): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(1011): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(1012): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(1013): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Map.cpp(1054): warning C4018: '<': signed/unsigned mismatch
+DC_Map.cpp(1066): warning C4018: '<': signed/unsigned mismatch
+  DC_MapEditor.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+DC_MapEditor.cpp(55): warning C4018: '<': signed/unsigned mismatch
+DC_MapEditor.cpp(85): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_MapEditor.cpp(86): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_MapEditor.cpp(87): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_MapEditor.cpp(112): warning C4018: '<': signed/unsigned mismatch
+DC_MapEditor.cpp(148): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_MapEditor.cpp(148): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+DC_MapEditor.cpp(151): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
+DC_MapEditor.cpp(274): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_MapEditor.cpp(275): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_MapEditor.cpp(281): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_MapEditor.cpp(287): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_MapEditor.cpp(288): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_MapEditor.cpp(300): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_MapEditor.cpp(304): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_MapEditor.cpp(305): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_MapEditor.cpp(330): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_MapEditor.cpp(424): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_MapEditor.cpp(483): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_MapEditor.cpp(484): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_MapEditor.cpp(567): warning C4018: '<': signed/unsigned mismatch
+DC_MapEditor.cpp(584): warning C4018: '<': signed/unsigned mismatch
+DC_MapEditor.cpp(641): warning C4018: '<': signed/unsigned mismatch
+DC_MapEditor.cpp(657): warning C4018: '<': signed/unsigned mismatch
+DC_MapEditor.cpp(707): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  DC_Match.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+DC_Match.cpp(8): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(11): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(13): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(13): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(17): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(19): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(26): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(27): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(29): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(33): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(35): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(57): warning C4018: '<': signed/unsigned mismatch
+DC_Match.cpp(94): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(134): warning C4018: '<': signed/unsigned mismatch
+DC_Match.cpp(171): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(243): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
+DC_Match.cpp(250): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(251): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(253): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(254): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(316): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
+DC_Match.cpp(410): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
+DC_Match.cpp(540): warning C4305: '+=': truncation from 'double' to 'float'
+DC_Match.cpp(733): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(759): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(779): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(805): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(859): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(860): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(867): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(879): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(916): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(922): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(924): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(931): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(950): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(951): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(958): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(970): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(1131): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(1146): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(1165): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(1416): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(1418): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(1398): warning C4474: 'sprintf' : too many arguments passed for format string
+  DC_Match.cpp(1398): note: placeholders and their parameters expect 1 variadic arguments, but 3 were provided
+DC_Match.cpp(1588): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(1601): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(1628): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(1665): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(1692): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(1693): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(1701): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(1713): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(1754): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(1764): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(1766): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(1773): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(1797): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(1798): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(1805): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(1817): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(1943): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(1950): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(1952): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(2022): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(2023): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(2041): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(2048): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(2076): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2077): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2078): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2100): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2101): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2103): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2104): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2106): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2107): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2113): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2114): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2130): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2130): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(2132): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2132): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(2134): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2134): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(2138): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(2144): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2144): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(2157): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2157): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(2159): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2159): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(2174): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2175): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2187): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2188): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2190): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2191): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2202): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2203): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2205): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2206): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2217): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2218): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2220): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2221): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2231): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2232): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2234): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2235): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2245): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2246): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2248): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2249): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2271): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2277): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2286): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2286): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(2288): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2288): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(2290): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2290): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(2295): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(2301): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2301): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(2315): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2315): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(2317): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2317): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(2331): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2344): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2346): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2346): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(2350): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2353): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(2361): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2364): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2367): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2370): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2380): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2383): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2386): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2389): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2395): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2400): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2400): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(2403): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2411): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2413): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2413): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(2421): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2424): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2427): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2430): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2440): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2443): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2446): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2449): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2455): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2539): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2565): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(2569): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2573): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2574): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2575): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2596): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(2600): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2604): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2605): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2606): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2637): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(2642): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2646): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2647): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2649): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2656): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2682): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(2686): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2690): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2691): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2692): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2718): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(2722): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2726): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2727): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2728): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2829): warning C4018: '<': signed/unsigned mismatch
+DC_Match.cpp(2843): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2847): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2854): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2855): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2856): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2860): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(2860): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2863): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2972): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(2974): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3062): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3070): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3071): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3073): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3074): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3075): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3076): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3144): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3145): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3146): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3174): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3207): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3279): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3284): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3284): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(3288): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(3288): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3295): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(3295): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3302): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(3302): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3325): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3331): warning C4018: '<': signed/unsigned mismatch
+DC_Match.cpp(3347): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3348): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3349): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3398): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3399): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3401): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3402): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3403): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3404): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3416): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3417): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3418): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3450): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3451): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3453): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3454): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3455): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3456): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3531): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3532): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3533): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3536): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3628): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3629): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3630): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3633): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3644): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3652): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(3734): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3736): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3738): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3748): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3749): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3753): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3762): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3765): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3767): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3775): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3780): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3782): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3835): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3836): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(3892): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3903): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3916): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(3927): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(4061): warning C4018: '<': signed/unsigned mismatch
+DC_Match.cpp(4099): warning C4018: '<': signed/unsigned mismatch
+DC_Match.cpp(4126): warning C4018: '<': signed/unsigned mismatch
+DC_Match.cpp(4135): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(4151): warning C4018: '<': signed/unsigned mismatch
+DC_Match.cpp(4160): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(4328): warning C4018: '<': signed/unsigned mismatch
+DC_Match.cpp(4349): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(4351): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(4352): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(4367): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(4369): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(4406): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+DC_Match.cpp(4428): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(4428): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(4435): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(4443): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(4443): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(4500): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(4500): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Match.cpp(4505): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(4522): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(4599): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Match.cpp(4618): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(4687): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(4693): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+DC_Match.cpp(4935): warning C4018: '<': signed/unsigned mismatch
+DC_Match.cpp(5125): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
+DC_Match.cpp(5169): warning C4018: '<': signed/unsigned mismatch
+DC_Match.cpp(5206): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Match.cpp(5207): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(326): warning C4018: '<': signed/unsigned mismatch
+  DC_Match.cpp(5188): note: see reference to function template instantiation 'int GetIndex<int>(std::vector<int,std::allocator<_Ty>> &,Ty)' being compiled
+          with
+          [
+              _Ty=int,
+              Ty=int
+          ]
+  DC_MatchOtherStuff.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+DC_MatchOtherStuff.cpp(22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_MatchOtherStuff.cpp(24): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_MatchOtherStuff.cpp(34): warning C4018: '<': signed/unsigned mismatch
+DC_MatchOtherStuff.cpp(45): warning C4018: '<': signed/unsigned mismatch
+DC_MatchOtherStuff.cpp(58): warning C4018: '<': signed/unsigned mismatch
+DC_MatchOtherStuff.cpp(72): warning C4018: '<': signed/unsigned mismatch
+DC_MatchOtherStuff.cpp(93): warning C4018: '<': signed/unsigned mismatch
+DC_MatchOtherStuff.cpp(100): warning C4018: '<': signed/unsigned mismatch
+DC_MatchOtherStuff.cpp(178): warning C4018: '<': signed/unsigned mismatch
+DC_MatchOtherStuff.cpp(193): warning C4018: '<': signed/unsigned mismatch
+DC_MatchOtherStuff.cpp(208): warning C4018: '<': signed/unsigned mismatch
+DC_MatchOtherStuff.cpp(223): warning C4018: '<': signed/unsigned mismatch
+DC_MatchOtherStuff.cpp(239): warning C4018: '<': signed/unsigned mismatch
+DC_MatchOtherStuff.cpp(240): warning C4018: '<': signed/unsigned mismatch
+DC_MatchOtherStuff.cpp(241): warning C4018: '<': signed/unsigned mismatch
+DC_MatchOtherStuff.cpp(242): warning C4018: '<': signed/unsigned mismatch
+  DC_Menu.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(13): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(19): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(25): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(33): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(36): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(50): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(79): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(97): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+DC_Menu.cpp(101): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(102): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(112): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(122): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(133): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(143): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(160): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(162): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(186): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(187): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(188): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(189): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(196): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(199): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(207): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(210): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(222): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(223): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(226): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(227): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(229): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(231): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(232): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(235): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(236): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(279): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(299): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(302): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(302): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(304): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(308): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(309): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(310): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(312): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(314): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(319): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(321): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(327): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(328): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(329): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(330): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(332): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(333): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(335): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(337): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(348): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(354): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(360): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(361): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(362): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(363): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(375): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(376): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(377): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(378): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(387): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(388): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(392): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(406): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(408): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(410): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(420): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(422): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(425): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(430): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(430): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(432): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(480): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(483): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(485): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(487): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(491): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(493): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(496): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(499): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(501): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(503): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(507): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(509): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(517): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(518): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(523): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(532): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(535): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(538): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(541): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(543): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(545): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(549): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(551): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(555): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(558): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(560): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(562): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(566): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(568): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(596): warning C4838: conversion from 'int' to 'double' requires a narrowing conversion
+DC_Menu.cpp(605): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(618): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(621): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(623): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(628): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(634): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(641): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(652): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(662): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(673): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(674): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(676): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(679): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(680): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(682): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(684): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(685): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(689): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(690): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(693): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(695): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(698): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(699): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(701): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(703): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(704): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(708): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(709): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(717): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(746): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(752): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(736): warning C4474: 'printf' : too many arguments passed for format string
+  DC_Menu.cpp(736): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
+DC_Menu.cpp(764): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(765): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(767): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(770): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(771): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(773): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(775): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(776): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(780): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(781): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(784): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(786): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(789): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(790): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(792): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(794): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(795): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(799): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(800): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(805): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(807): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(810): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(811): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(813): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(815): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(816): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(820): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(821): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(825): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(826): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(839): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(854): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(857): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(861): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(863): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(865): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(869): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(871): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(876): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(876): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(879): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(879): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(881): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(882): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(882): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(883): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(883): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(917): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+DC_Menu.cpp(920): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+DC_Menu.cpp(925): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(925): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+DC_Menu.cpp(934): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(935): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(936): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(939): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(945): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(953): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(954): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(954): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(955): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(964): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(977): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(988): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1003): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1005): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1007): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1008): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1009): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1010): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1011): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1015): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1015): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1018): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1018): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1020): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1021): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1021): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1022): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1022): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1030): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1031): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1032): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1035): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1041): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1052): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1056): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1064): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1064): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1087): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1118): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1130): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1144): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1162): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1170): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1178): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(1179): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(1180): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(1186): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1186): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1195): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1207): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1228): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1230): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1231): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1237): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1239): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1240): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1245): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1247): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1248): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1253): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1255): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1256): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1261): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1263): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1264): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1264): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1271): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1273): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1274): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1280): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1282): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1283): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1288): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1299): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1301): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1302): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1335): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(1358): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(1377): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(1400): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(1416): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(1433): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(1458): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1467): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1468): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1469): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1475): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1475): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1476): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1476): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1478): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1478): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1482): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1483): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1484): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1490): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1490): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1491): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1491): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1493): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1493): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1496): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1521): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(1544): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(1563): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(1586): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(1602): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(1619): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(1645): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1655): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1656): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1657): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1663): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1663): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1664): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1664): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1665): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1665): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1666): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1666): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1670): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1671): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1672): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1679): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1679): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1680): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1680): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1682): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1682): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1683): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1683): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(1686): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1691): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1700): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1701): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1703): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1704): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1705): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1707): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1709): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1715): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1716): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1718): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1719): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1720): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1722): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1724): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1729): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1740): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1741): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1743): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1746): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1748): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1749): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1750): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1751): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1753): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1755): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1757): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1758): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1759): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1760): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1762): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1767): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1770): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1773): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1817): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1822): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1826): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1827): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1836): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1838): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1890): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1892): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1894): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1896): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1897): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1899): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1901): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1907): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1909): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1911): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1912): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1913): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1914): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1916): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1928): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1931): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1945): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(1953): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2019): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2043): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2045): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(2051): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2121): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2136): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2139): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2153): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(2158): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(2163): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(2183): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2184): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2187): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(2189): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2223): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2224): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2227): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(2230): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(2251): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(2255): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2329): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2333): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2341): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2341): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(2364): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2395): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2407): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2421): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2439): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2447): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2455): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(2456): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(2457): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(2463): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2463): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(2472): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2484): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2504): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2519): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2522): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2526): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2528): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2530): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2534): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2536): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2541): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2541): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(2544): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2544): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(2546): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2547): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2547): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(2548): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2548): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(2582): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+DC_Menu.cpp(2585): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+DC_Menu.cpp(2590): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2590): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+DC_Menu.cpp(2599): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2600): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2601): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2604): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2610): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2618): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2619): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2619): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(2620): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2629): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2642): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2653): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2668): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2670): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2672): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2673): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2674): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2675): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2676): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2680): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2680): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(2683): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2683): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(2685): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2686): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2686): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(2687): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2687): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+DC_Menu.cpp(2695): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2696): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2697): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2700): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2706): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2716): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2717): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2719): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2734): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2777): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2777): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(2782): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2782): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(2794): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2799): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2803): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2808): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2813): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2815): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2817): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2819): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2825): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2829): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2879): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2879): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(2880): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2880): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(2883): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(2886): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2892): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2902): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2907): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(2907): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2915): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(2929): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2923): warning C4477: 'sprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'std::string'
+DC_Menu.cpp(2943): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2949): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2949): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(2950): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2950): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+DC_Menu.cpp(2952): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2954): warning C4018: '<': signed/unsigned mismatch
+DC_Menu.cpp(2957): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2959): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2962): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2964): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2965): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2966): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2968): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2970): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2972): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2974): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2975): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2976): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2978): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2980): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2985): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2988): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2990): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2991): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Menu.cpp(2992): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  DC_Storm.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+DC_Storm.cpp(103): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Storm.cpp(103): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+DC_Storm.cpp(109): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Storm.cpp(109): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+DC_Storm.cpp(115): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Storm.cpp(115): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+DC_Storm.cpp(121): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Storm.cpp(121): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+DC_Storm.cpp(128): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Storm.cpp(128): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+DC_Storm.cpp(134): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Storm.cpp(134): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+DC_Storm.cpp(140): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Storm.cpp(140): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+DC_Storm.cpp(146): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Storm.cpp(146): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+DC_Storm.cpp(152): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+DC_Storm.cpp(152): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  DC_TextureManager.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+DC_TextureManager.cpp(21): warning C4018: '<': signed/unsigned mismatch
+DC_TextureManager.cpp(23): warning C4018: '<': signed/unsigned mismatch
+DC_TextureManager.cpp(38): warning C4244: 'argument': conversion from 'int64_t' to 'sf::Uint8', possible loss of data
+  DC_Unit.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+  _Window.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+_Window.cpp(11): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+_Window.cpp(12): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+_Window.cpp(48): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+_Window.cpp(52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+_Window.cpp(54): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+_Window.cpp(77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+_Window.cpp(99): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+_Window.cpp(111): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+_Window.cpp(140): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+  fastParser.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+fastParser.cpp(137): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+fastParser.cpp(168): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+h:\codes\daicastle 2d\base\empiria\fastParser.h(2): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
+  h:\codes\daicastle 2d\base\empiria\fastParser.h(2): note: command-line arguments:  see previous definition of '_CRT_SECURE_NO_WARNINGS'
+h:\codes\daicastle 2d\base\empiria\Random.h(30): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(58): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\Random.h(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(57): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(58): warning C4229: anachronism used: modifiers on data are ignored
+h:\codes\daicastle 2d\base\empiria\includes.h(105): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(250): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(251): warning C4800: 'SHORT': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\includes.h(290): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(308): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(369): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+h:\codes\daicastle 2d\base\empiria\includes.h(419): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(485): warning C4800: 'float': forcing value to bool 'true' or 'false' (performance warning)
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(887): warning C4018: '<': signed/unsigned mismatch
+h:\codes\daicastle 2d\base\empiria\DaiCastle.h(896): warning C4018: '<': signed/unsigned mismatch
+main.cpp(56): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Generating code
-  17 of 5401 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+  154 of 5401 functions ( 2.9%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    60 functions had inline decision re-evaluated but remain unchanged
+    175 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Empiria.vcxproj -> H:\Codes\DaiCastle 2D\Base\Release\DaiCastle.exe
   Empiria.vcxproj -> H:\Codes\DaiCastle 2D\Base\Release\DaiCastle.pdb (Full PDB)

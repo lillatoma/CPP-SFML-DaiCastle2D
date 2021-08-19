@@ -693,8 +693,8 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 		BotData[id].JumpoffDist = pow(g_RandomDevice.RandomFloat(18, ModifRadius), 1.f / 0.5f);
 
 		//Finding suitable chest to land to
-		auto GoodChests = GetAvailableChests(BusStartPosition + BotData[id].JumpoffTime*BUS_TRAVELSPEED*GetUnit(BusEndPosition - BusStartPosition), BotData[id].JumpoffDist);
-		GoodChests.push_back(GetClosestChestToPosition(BusStartPosition + BotData[id].JumpoffTime*BUS_TRAVELSPEED*GetUnit(BusEndPosition - BusStartPosition)));
+		auto GoodChests = GetAvailableChests(BusStartPosition + BotData[id].JumpoffTime*BUS_TRAVELSPEED*ToUnitVector(BusEndPosition - BusStartPosition), BotData[id].JumpoffDist);
+		GoodChests.push_back(GetClosestChestToPosition(BusStartPosition + BotData[id].JumpoffTime*BUS_TRAVELSPEED*ToUnitVector(BusEndPosition - BusStartPosition)));
 		float jumpprecisities[] = { 20.f,12.f,6.f,3.f };
 		float precRadius = pow((g_RandomDevice.RandomFloat(0,pow(jumpprecisities[BotData[id].botDifficulty],3))),0.333f);
 		float precAngle = g_RandomDevice.RandomFloat(0, 360.f);
@@ -710,7 +710,7 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 	for (int id = 1; id < 100; id++)
 	{
 		auto A = BusStartPosition;
-		auto U = GetUnit(BusEndPosition - BusStartPosition)*BUS_TRAVELSPEED;
+		auto U = ToUnitVector(BusEndPosition - BusStartPosition)*BUS_TRAVELSPEED;
 		auto L = BotData[id].JumpToPosition;
 		double s = UNIT_FREEFALL_SPEED;
 		auto D = A - L;
@@ -2071,7 +2071,7 @@ void dc_match::BotGoToZone(int id)
 
 		BotData[id].Changables.DistantTargetType = 3;
 		//BotData[id].Changables.DistantTargetPoint = Mid + GetUnit(players[id].vPosition - Mid)*(Size / 2);
-		BotData[id].Changables.DistantTargetPoint = players[id].vPosition + GetUnit(Mid - players[id].vPosition)*max(2.f,min(10.f, distance));
+		BotData[id].Changables.DistantTargetPoint = players[id].vPosition + ToUnitVector(Mid - players[id].vPosition)*max(2.f,min(10.f, distance));
 		if (BotData[id].Changables.DistantTargetType != 3 && BotData[id].Changables.DistantTargetType != 0)
 		BotData[id].move_path.clear();
 	}

@@ -390,7 +390,7 @@ template<typename Ty> static int GetIndex(std::vector<Ty>& Vec, Ty elem)
  }
 
 
- static sf::Vector2f GetUnit(sf::Vector2f a)
+ static sf::Vector2f ToUnitVector(sf::Vector2f a)
  {
 	 return a / GetDistance(a, sf::Vector2f(0, 0));
  }

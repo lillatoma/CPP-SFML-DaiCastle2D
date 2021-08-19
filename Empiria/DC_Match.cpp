@@ -516,8 +516,8 @@ void dc_match::GenerateBusRoute()
 	BusCurrentPosition = BusStartPosition - 200.f * AngleVector;
 
 
-	ConLog("===============\nDirection: %.2f\nAngleVector: %.2f %.2f\nPush: %.2f\nPoint A: %.2f %.2f\nPoint B: %.2f %.2f\nBusStartpont: %.2f %.2f\n-JumpStartpont: %.2f %.2f\nEndpont: %.2f %.2f\n==============="
-		, Direction, AngleVector.x, AngleVector.y, Push, p_a.x,p_a.y,p_b.x,p_b.y , BusCurrentPosition.x, BusCurrentPosition.y,BusStartPosition.x, BusStartPosition.y, BusEndPosition.x, BusEndPosition.y);
+	//ConLog("===============\nDirection: %.2f\nAngleVector: %.2f %.2f\nPush: %.2f\nPoint A: %.2f %.2f\nPoint B: %.2f %.2f\nBusStartpont: %.2f %.2f\n-JumpStartpont: %.2f %.2f\nEndpont: %.2f %.2f\n==============="
+	//	, Direction, AngleVector.x, AngleVector.y, Push, p_a.x,p_a.y,p_b.x,p_b.y , BusCurrentPosition.x, BusCurrentPosition.y,BusStartPosition.x, BusStartPosition.y, BusEndPosition.x, BusEndPosition.y);
 
 
 
@@ -549,20 +549,15 @@ void dc_match::SimulateBus()
 
 	DoBusMusic();
 	
-	static dc_clock Clock;
-
 	float TimeDiff = timeDiffSinceLastFrame;
 
-	Clock.Update();
 	if (TimeDiff > 1.f)TimeDiff = 0.f;
-	auto bus_unit = GetUnit(BusEndPosition - BusStartPosition);
+	auto bus_unit = ToUnitVector(BusEndPosition - BusStartPosition);
 
 	BusCurrentPosition = BusCurrentPosition+(TimeDiff*BUS_TRAVELSPEED)*bus_unit;
 
 
-
-
-	if (abs(GetDistance(BusCurrentPosition, BusStartPosition) + GetDistance(BusCurrentPosition, BusEndPosition) - GetDistance(BusStartPosition, BusEndPosition)) <= 0.1f)bBusJumpable = true;
+	if (ServerTime > 200.f / BUS_TRAVELSPEED)bBusJumpable = true;
 
 	
 	if (GetDistance(BusStartPosition, BusCurrentPosition) >= GetDistance(BusStartPosition, BusEndPosition))
@@ -589,9 +584,7 @@ void dc_match::SimulateBus()
 			}
 		}
 	}
-	//printf("\nBusUnit: %.2f %.2f", bus_unit.x, bus_unit.y);
-	//printf("\nTimeDiff: %.3f", TimeDiff);
-	//printf("\nBus: %.2f %.2f", BusCurrentPosition.x, BusCurrentPosition.y);
+
 
 }
 
@@ -641,6 +634,7 @@ void dc_match::PlayerDropWeapon(int player, int weaponslot)
 		Demo_SnapshotUpdateItemDrop(players[player].Items[weaponslot].GameIdx, newpos);
 		map.items[map.items.size() - 1].vPosition = newpos;
 
+		//For removing the item
 		players[player].Items[weaponslot].bValidated = false;
 
 		if (players[player].iSelectedWeapon == weaponslot)
@@ -652,14 +646,23 @@ void dc_match::PlayerDropWeapon(int player, int weaponslot)
 void dc_match::PlayerSwapWeaponInventory(int player, int slotFrom, int slotTo)
 {
 	if (slotFrom == slotTo)return;
-	else if (players[player].Items[slotFrom].bValidated && players[player].Items[slotTo].bValidated && players[player].Items[slotFrom].IsConsumable() && players[player].Items[slotTo].IsConsumable() && players[player].Items[slotTo].iBullets < players[player].Items[slotTo].iMaxBullets && players[player].Items[slotTo].id == players[player].Items[slotFrom].id)
+	//This is for checking if two consumables are getting swapped
+	//If the slot we swap to is not full with a consumable type, then we can add some from slotFrom
+	else if (players[player].Items[slotFrom].bValidated 
+		&& players[player].Items[slotTo].bValidated 
+		&& players[player].Items[slotFrom].IsConsumable() 
+		&& players[player].Items[slotTo].IsConsumable() 
+		&& players[player].Items[slotTo].iBullets < players[player].Items[slotTo].iMaxBullets 
+		&& players[player].Items[slotTo].id == players[player].Items[slotFrom].id)
 	{
 		auto addpossible = players[player].Items[slotTo].iMaxBullets - players[player].Items[slotTo].iBullets;
+		//Checking if slotFrom is supposed to be empty after the swap
 		if (addpossible >= players[player].Items[slotFrom].iBullets)
 		{
 			players[player].Items[slotTo].iBullets += players[player].Items[slotFrom].iBullets;
 			players[player].Items[slotFrom].iBullets = 0;
 			players[player].Items[slotFrom].bValidated = false;
+			//Swapping the selected weapon
 			if (players[player].iSelectedWeapon == slotFrom)players[player].iSelectedWeapon = slotTo;
 		}
 		else
@@ -670,10 +673,11 @@ void dc_match::PlayerSwapWeaponInventory(int player, int slotFrom, int slotTo)
 	}
 	else
 	{
+		//Triangle copy method
 		auto A = players[player].Items[slotFrom];
 		players[player].Items[slotFrom] = players[player].Items[slotTo];
 		players[player].Items[slotTo] = A;
-
+		//Swapping the selected weapon
 		if (players[player].iSelectedWeapon == slotFrom)players[player].iSelectedWeapon = slotTo;
 		else if (players[player].iSelectedWeapon == slotTo)players[player].iSelectedWeapon = slotFrom;
 	}
@@ -695,7 +699,10 @@ void dc_match::PlayerSwapWeapon(int player, int weaponslot)
 void dc_match::PlayerReloadWeapon(int player)
 {
 	if (players[player].fFreeFallHeight > 0.f)return;
-	if (players[player].Items[players[player].iSelectedWeapon].bValidated && !players[player].Items[players[player].iSelectedWeapon].IsConsumable() && players[player].Items[players[player].iSelectedWeapon].iBullets < players[player].Items[players[player].iSelectedWeapon].iMaxBullets && players[player].fReloadDelay <= 0.f)
+	if (players[player].Items[players[player].iSelectedWeapon].bValidated 
+		&& !players[player].Items[players[player].iSelectedWeapon].IsConsumable() 
+		&& players[player].Items[players[player].iSelectedWeapon].iBullets < players[player].Items[players[player].iSelectedWeapon].iMaxBullets 
+		&& players[player].fReloadDelay <= 0.f)
 	{
 		players[player].fReloadDelay = players[player].Items[players[player].iSelectedWeapon].fReloadTime;
 	}
@@ -726,6 +733,7 @@ damageinfo_t dc_match::SimulateBullet(int player)
 	sf::Vector2f anglevector(cos(angle*PI / 180), -sin(angle*PI / 180));
 	anglevector *= players[player].Items[players[player].iSelectedWeapon].fRange;
 
+	//Getting the ray tracing data of map objects
 	auto trace = map.trace_ray(players[player].vPosition, players[player].vPosition + anglevector);
 
 	dc_tracedata playertrace;
@@ -734,6 +742,8 @@ damageinfo_t dc_match::SimulateBullet(int player)
 	sf.clockBegin = ServerTime;
 	sf.start = trace.start;
 
+	//Here if the ray hit a wall
+	//We check if there is a player inbetween
 	if (trace.hit_object)
 	{
 		playertrace = TracePlayers(players[player].vPosition, trace.end, player);
@@ -822,7 +832,7 @@ void dc_match::SimulateProjectiles(float timediff, sf::Vector2f V)
 	{
 		auto& Pr = Projectiles[i];
 		bool should_delete = false;
-		sf::Vector2f DirVector = GetUnit(Pr.end - Pr.start);
+		sf::Vector2f DirVector = ToUnitVector(Pr.end - Pr.start);
 		sf::Vector2f CurrentPosition = Pr.start + DirVector*Pr.timeAlive*Pr.projectile_speed;
 		sf::Vector2f NextPosition = Pr.start + DirVector*(Pr.timeAlive + timediff)*Pr.projectile_speed;
 
@@ -1011,7 +1021,7 @@ void dc_match::DrawProjectiles(sf::Vector2f V)
 	{
 		auto& Pr = Projectiles[i];
 		bool should_delete = false;
-		sf::Vector2f DirVector = GetUnit(Pr.end - Pr.start);
+		sf::Vector2f DirVector = ToUnitVector(Pr.end - Pr.start);
 		sf::Vector2f CurrentPosition = Pr.start + DirVector*Pr.timeAlive*Pr.projectile_speed;
 		sf::Vector2f NextPosition = Pr.start + DirVector*(Pr.timeAlive + 1.f/60)*Pr.projectile_speed;
 
@@ -1047,7 +1057,7 @@ void dc_match::DrawProjectiles(sf::RenderTexture* T,sf::Vector2f V)
 	{
 		auto& Pr = Projectiles[i];
 		bool should_delete = false;
-		sf::Vector2f DirVector = GetUnit(Pr.end - Pr.start);
+		sf::Vector2f DirVector = ToUnitVector(Pr.end - Pr.start);
 		sf::Vector2f CurrentPosition = Pr.start + DirVector*Pr.timeAlive*Pr.projectile_speed;
 		sf::Vector2f NextPosition = Pr.start + DirVector*(Pr.timeAlive + 1.f / 60)*Pr.projectile_speed;
 
@@ -1192,7 +1202,7 @@ void dc_match::SimulateExplosives(float timediff, sf::Vector2f V)
 		auto& Exp = Explosives[i];
 		bool hit_simulated = false;
 		bool should_delete = false;
-		sf::Vector2f DirVector = GetUnit(Exp.end - Exp.start);
+		sf::Vector2f DirVector = ToUnitVector(Exp.end - Exp.start);
 		sf::Vector2f CurrentPosition = Exp.start;
 		sf::Vector2f NextPosition = Exp.start + DirVector*(Exp.timeAlive + timediff)*Exp.projectile_speed;
 		sf::Vector2f ExpPosition;
@@ -1303,7 +1313,7 @@ void dc_match::SimulateExplosives(float timediff, sf::Vector2f V)
 			}
 		}
 		{
-			ExpPosition -= GetUnit(ExpPosition - CurrentPosition)*0.05f;
+			ExpPosition -= ToUnitVector(ExpPosition - CurrentPosition)*0.05f;
 			if (NextPosition == Exp.end)should_delete = true;
 			if (Exp.timeAlive >= Exp.timeMax)should_delete = true;
 			if (Exp.projectile_speed == 0.f)ExpPosition = Exp.start;
@@ -1452,7 +1462,7 @@ void dc_match::DrawExplosives(sf::Vector2f V)
 		auto& Exp = Explosives[i];
 		bool hit_simulated = false;
 		bool should_delete = false;
-		sf::Vector2f DirVector = GetUnit(Exp.end - Exp.start);
+		sf::Vector2f DirVector = ToUnitVector(Exp.end - Exp.start);
 		sf::Vector2f CurrentPosition = Exp.start;
 		sf::Vector2f NextPosition = Exp.start + DirVector*(Exp.timeAlive + 1.f/60.f)*Exp.projectile_speed;
 		{
@@ -1516,7 +1526,7 @@ void dc_match::DrawExplosives(sf::RenderTexture* T,sf::Vector2f V)
 		auto& Exp = Explosives[i];
 		bool hit_simulated = false;
 		bool should_delete = false;
-		sf::Vector2f DirVector = GetUnit(Exp.end - Exp.start);
+		sf::Vector2f DirVector = ToUnitVector(Exp.end - Exp.start);
 		sf::Vector2f CurrentPosition = Exp.start;
 		sf::Vector2f NextPosition = Exp.start + DirVector*(Exp.timeAlive + 1.f / 60.f)*Exp.projectile_speed;
 		{
@@ -2007,6 +2017,7 @@ void dc_match::DrawCrosshair(sf::Vector2f V)
 {
 	if (camera_follows != 0)return;
 
+	//Drawing a circle that represents the size of the bullet spread on a distance
 	sf::Vector2i MouseC = sf::Vector2i(g_Mouse.Coords.x, g_Mouse.Coords.y);
 	float centdist = GetDistance(sf::Vector2f(MouseC.x, MouseC.y), sf::Vector2f(g_Resolution.x / 2, g_Resolution.y / 2));
 	float cradius = centdist * tan(players[0].fBloomSize * PI / 180.0);
@@ -2028,9 +2039,10 @@ void dc_match::DrawCrosshair(sf::Vector2f V)
 
 
 	auto trace = map.trace_ray(players[camera_follows].vPosition, map.screen_to_world(V.x,V.y,camera_width,g_Mouse.Coords.x,g_Mouse.Coords.y));
-
+	//Checking if there is an object in the way between the player and crosshair
 	if (trace.hit_object)
 	{
+		//Drawing an X
 		sf::RectangleShape R;
 		float rectsize = 8.f + 2 * cradius;
 		R.setPosition(MouseC.x, MouseC.y);
@@ -2050,23 +2062,27 @@ void dc_match::DrawCrosshair(sf::Vector2f V)
 
 void dc_match::DrawUI(sf::Vector2f V)
 {
-	_Window::RenderOverlay(g_Resolution.x*0.4f, g_Resolution.y*0.9f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 128, 128, 128, 128);
-	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.91f, g_Resolution.x*0.18f, g_Resolution.y*0.03f, 32,32,32, 255);
-	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.96f, g_Resolution.x*0.18f, g_Resolution.y*0.03f, 32, 32, 32, 255);
 	int health = players[camera_follows].iHealth;
 	int armor = players[camera_follows].iShield;
-
-	
-	char hbuf[16], sbuf[16];
-	sprintf(hbuf, "%d", health);
-	sprintf(sbuf, "%d", armor);
-
 	static int last_health = health;
 	static int visual_health = health;
 	static dc_clock hclock;
 	static int last_armor = armor;
 	static int visual_armor = armor;
 	static dc_clock aclock;
+	///////////////////////////////////////
+	/// Health and shield bars
+	///////////////////////////////////////
+	_Window::RenderOverlay(g_Resolution.x*0.4f, g_Resolution.y*0.9f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 128, 128, 128, 128);
+	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.91f, g_Resolution.x*0.18f, g_Resolution.y*0.03f, 32,32,32, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.96f, g_Resolution.x*0.18f, g_Resolution.y*0.03f, 32, 32, 32, 255);
+
+	
+	char hbuf[16], sbuf[16];
+	sprintf(hbuf, "%d", health);
+	sprintf(sbuf, "%d", armor);
+
+
 	
 	if (last_health != health)
 	{
@@ -2091,6 +2107,9 @@ void dc_match::DrawUI(sf::Vector2f V)
 	_Window::RenderTextB(g_Resolution.x*0.42f, g_Resolution.y*0.96f, sbuf, 16*g_Resolution.y/720);
 
 
+	///////////////////////////////////////
+	/// Inventory items
+	///////////////////////////////////////
 	int boxsize = g_Resolution.x*0.06f;
 	_Window::RenderOverlay(g_Resolution.x-boxsize*6 - g_Resolution.x*0.01f, g_Resolution.y-boxsize-g_Resolution.x*0.02f, boxsize*6+ g_Resolution.x*0.01f, boxsize+g_Resolution.y*0.04f, 128, 128, 128, 128);
 
@@ -2141,6 +2160,10 @@ void dc_match::DrawUI(sf::Vector2f V)
 
 		}
 	}
+	
+	///////////////////////////////////////
+	/// Current weapon's ammo
+	///////////////////////////////////////
 	if (players[camera_follows].Items[players[camera_follows].iSelectedWeapon].bValidated)
 	{
 		char biffer[16];
@@ -2151,7 +2174,9 @@ void dc_match::DrawUI(sf::Vector2f V)
 				_Window::RenderTextBMiddle(g_Resolution.x / 2 + i, g_Resolution.y*0.875f + j, 0, 0, biffer, 24 * g_Resolution.y / 720, 0, 0, 0, 255);
 		_Window::RenderTextBMiddle(g_Resolution.x / 2, g_Resolution.y*0.875f, 0, 0, biffer, 24 * g_Resolution.y / 720, 255,255,255, 255);
 	}
-
+	///////////////////////////////////////
+	/// Time left bars
+	///////////////////////////////////////
 	if (players[camera_follows].iOpeningChest != -1)
 	{
 		if (isnan(players[camera_follows].fOpeningTime))return;
@@ -2254,6 +2279,7 @@ void dc_match::DrawInventoryPage()
 	for (int i = 0; i < 5; i++)
 	{
 		sprute.setScale(skale, skale);
+		//Drawing box
 		if (players[camera_follows].iSelectedWeapon == i)
 		{
 			if (players[camera_follows].fPulloutDelay <= 0.f)
@@ -2263,6 +2289,7 @@ void dc_match::DrawInventoryPage()
 		}
 		_Window::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2, g_Resolution.y - boxsize - g_Resolution.x*0.01f, boxsize, boxsize, 32, 32, 32, 255);
 
+		//Drawing the weapon if available
 		if (players[camera_follows].Items[i].bValidated)
 		{
 			sprute.setPosition(g_Resolution.x - boxsize * 6 + i *boxsize*1.2, g_Resolution.y - boxsize - g_Resolution.x*0.01f);
@@ -2278,6 +2305,7 @@ void dc_match::DrawInventoryPage()
 			else sprute.setColor(sf::Color(255, 255,255, 255));
 			g_Window->draw(sprute);
 
+			//Ammo text
 			char Bifer[16];
 			sprintf(Bifer, "%d/%d\0", players[camera_follows].Items[i].iBullets, players[camera_follows].Items[i].iMaxBullets);
 
@@ -2291,8 +2319,9 @@ void dc_match::DrawInventoryPage()
 
 			if (weapon_selected_to_swap != -1)
 			{
-				if (i == 0)
+				if (i == weapon_selected_to_swap)  //Only rendering once
 				{
+					//Drawing it as selected item
 					auto Wpn = players[camera_follows].Items[weapon_selected_to_swap];
 					auto r = rarities[Wpn.iRarity].r;
 					auto g = rarities[Wpn.iRarity].g;
@@ -2324,6 +2353,7 @@ void dc_match::DrawInventoryPage()
 					sprute.setPosition(g_Mouse.Coords.x, g_Mouse.Coords.y);
 					g_Window->draw(sprute);
 
+					//Drawing information
 					if (Wpn.iType >= 4)
 					{
 						char Buffer[64];
@@ -2437,6 +2467,7 @@ void dc_match::DrawInventoryPage()
 void dc_match::DrawHelpButtons()
 {
 	static bool bRun = false;
+	static char* Empty = "UNBOUND";
 	static char* KeyNames[256];
 
 
@@ -2507,12 +2538,14 @@ void dc_match::DrawHelpButtons()
 
 	int fontSize = 0.03f*g_Resolution.y;
 
-	int TextHeight = _Window::GetTextSize("TEST\n", fontSize).y - _Window::GetTextSize("TEST", fontSize).y;
+	int TextHeight = _Window::GetHeightForFontsize(fontSize); 
 
 	int pusy = 0;
 
 	for (auto db : DrawButs)
 	{
+		//Chest
+		//Draws a box containing the button to press in order to open a chest
 		if (db.TYPE == 7)
 		{
 			auto ChestOpenButton = KeyBinds->find(DCK_SHOOT);
@@ -2542,6 +2575,8 @@ void dc_match::DrawHelpButtons()
 			_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x+butBufSize.x, 0.8f*g_Resolution.y + pusy, ToOpen, fontSize, 255, 255, 255);
 
 		}
+		//Air drop
+		//Draws a box containing the button to press in order to open an air drop
 		else if (db.TYPE == 9)
 		{
 			auto ChestOpenButton = KeyBinds->find(DCK_SHOOT);
@@ -2571,14 +2606,19 @@ void dc_match::DrawHelpButtons()
 			_Window::RenderTextB(0.5f*(g_Resolution.x - fullBufSize.x) + pressBufSize.x + butBufSize.x, 0.8f*g_Resolution.y + pusy, ToOpen, fontSize, 255, 255, 255);
 
 		}
+		//Item pickup
+		//Draws a box containing the button to press in order to pick up an item
+		//It contains two buttons in case of a full inventory
 		else if (db.TYPE == 8)
 		{
 			{
 				auto ChestOpenButton = KeyBinds->find(DCK_SHOOT);
 				if (ChestOpenButton == -1)continue;
 				char ButtonBuffer[32], PressBuffer[16] = "Press  ", ToPickup[16] = "  to pick up ", WeaponBuffer[64], FullBuffer[128];
-				sprintf(ButtonBuffer, KeyNames[ChestOpenButton]);
-
+				if(players[0].hasFreeSlot() != -1)
+					sprintf(ButtonBuffer, KeyNames[ChestOpenButton]);
+				else
+					sprintf(ButtonBuffer, "%s+%s",KeyNames[KeyBinds->find(DCK_ALTERNATIVE)], KeyNames[ChestOpenButton]);
 				sprintf(WeaponBuffer, "%s (%d/%d)", g_Items[db.WeaponListIndex].szName, db.WeaponBullets, g_Items[db.WeaponListIndex].iMaxBullets);
 				sprintf(FullBuffer, "%s%s%s%s", PressBuffer, ButtonBuffer, ToPickup, WeaponBuffer);
 				int rarity = g_Items[db.WeaponListIndex].iRarity;
@@ -2622,7 +2662,7 @@ void dc_match::DrawHelpButtons()
 	}
 
 	if (players[0].iHealth <= 0)return;
-
+	//Bus jump box
 	if (players[0].bOnBus && bBusJumpable)
 	{
 		{
@@ -2653,6 +2693,7 @@ void dc_match::DrawHelpButtons()
 
 		}
 	}
+	//Descend box
 	else if (players[0].fFreeFallHeight > 0.f && !players[0].bOnBus)
 	{
 		auto Button = KeyBinds->find(DCK_DESCEND);
@@ -2759,7 +2800,7 @@ void dc_match::SimulateAirdrops()
 
 		}
 
-		fTimeTillNextAirdrop = g_RandomDevice.RandomFloat(NEXT_AIRDROP_MINTIME, NEXT_AIRDROP_MAXTIME);
+		fTimeTillNextAirdrop += g_RandomDevice.RandomFloat(NEXT_AIRDROP_MINTIME, NEXT_AIRDROP_MAXTIME);
 
 
 
@@ -2792,7 +2833,7 @@ void dc_match::DrawEffects(sf::Vector2f V)
 		it.draw(0.02f*i*g_Resolution.y,camera_follows, 0.03f*KillPose*g_Resolution.y,ServerTime);
 		if (camera_follows == it.Killer)KillPose++;
 
-		if (camera_follows == it.Killer)
+		if (camera_follows == it.Killer) //It's because data from the players is inaccessible in an effect
 		{
 			auto y2 = 0.03f*KillPose*g_Resolution.y;
 			float diff = ServerTime - it.clockBegin;
@@ -2861,6 +2902,7 @@ void dc_match::DrawMark(sf::Vector2f Coords, sf::Color Color, bool ignore_onscre
 
 	//if (ignore_onscreen && MarkSCR.x >= 0 && MarkSCR.x <= g_Resolution.x && MarkSCR.y >= 0 && MarkSCR.y <= g_Resolution.y)return;
 
+	//If the marker is on screen
 	if (MarkSCR.x >= 0 && MarkSCR.x <= g_Resolution.x && MarkSCR.y >= 0 && MarkSCR.y <= g_Resolution.y)
 	{
 		auto vCamera = V;
@@ -3046,6 +3088,7 @@ void dc_match::DrawMinimap()
 
 			float tdiff = 0.001f * WaveClock.deltaTime();
 
+			//Drawing 31 small moving lines in a straight line to show the bus's route
 			std::vector<float> intersects;
 			std::vector<float> lengths;
 			for (int i = 0; i < 31; i++)
@@ -3085,7 +3128,7 @@ void dc_match::DrawMinimap()
 				WaveClock.Update();
 			}
 
-			//Blue on top
+			//Blue on top of the line
 			g_Window->draw(Rect);
 
 			//DrawBusOnTop
@@ -3163,10 +3206,10 @@ void dc_match::DrawMinimap()
 			{
 				auto Startpoint = sf::Vector2f(g_Resolution.x*0.8 + g_Resolution.x*0.075f, g_Resolution.y*0.05 + g_Resolution.x*0.075f);
 				float revarea = 50.f + camera_width;
-				auto DiffVector = GetUnit(StormMid[i] - players[camera_follows].vPosition);
+				auto DiffVector = ToUnitVector(StormMid[i] - players[camera_follows].vPosition);
 				DiffVector *= (Distance - Radiuses[i]);
 
-				auto AngleVector = GetUnit(DiffVector);
+				auto AngleVector = ToUnitVector(DiffVector);
 
 				float scaling = (float)(0.15f*g_Resolution.x) / revarea;
 
@@ -3334,6 +3377,9 @@ void dc_match::DrawStormOnMiniMap()
 
 	int CurrentPhase = GetCurrentStormPhase();
 	if (CurrentPhase == 17)return;
+	//Drawing current storm state, the storm state when it finishes and the next stormstate
+	//In a moving zone this shows the current storm, and where it reaches (2 times the latter)
+	//In a standing zone this shows the current storm state, the storm state when it finishes, which are the same, and the next stormstate
 	sf::Vector2f StormMid[] = { CurrentStormMid,StormMids[CurrentPhase],StormMids[CurrentPhase + 1] };
 	float Radiuses[] = { CurrentRadius,s_size[CurrentPhase]/2,s_size[CurrentPhase + 1]/2 };
 
@@ -3502,35 +3548,12 @@ void dc_match::DrawStorm(sf::Vector2f V)
 		_Window::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, StormColor.r, StormColor.g, StormColor.b, StormColor.a);
 	else
 	{
-		std::vector<sf::Vector2f> TopInters;
-		std::vector<sf::Vector2f> BottomInters;
-		std::vector<sf::Vector2f> LeftInters;
-		std::vector<sf::Vector2f> RightInters;
+
 
 		auto M = GetCurrentStormMiddle();
 		auto r = GetCurrentStormDiameter() / 2;
 
-		std::vector<float> Angles;
-		for (int i = 0; i < TopInters.size(); i++)
-		{
-			auto V = TopInters[i] - M;
-			Angles.push_back(vec2angle(V.x, V.y));
-		}
-		for (int i = 0; i < RightInters.size(); i++)
-		{
-			auto V = RightInters[i] - M;
-			Angles.push_back(vec2angle(V.x, V.y));
-		}
-		for (int i = 0; i < BottomInters.size(); i++)
-		{
-			auto V = BottomInters[i] - M;
-			Angles.push_back(vec2angle(V.x, V.y));
-		}
-		for (int i = 0; i < LeftInters.size(); i++)
-		{
-			auto V = LeftInters[i] - M;
-			Angles.push_back(vec2angle(V.x, V.y));
-		}
+
 
 		std::vector<sf::Vector2f> Points;
 		std::vector<sf::Vector2f> PointsOuter;
@@ -3547,6 +3570,7 @@ void dc_match::DrawStorm(sf::Vector2f V)
 			PointsOuter.push_back(SPO);
 		}
 		std::vector<sf::Vertex> Verts;
+		//This is drawing trapezoids which will look like a circle
 		for (int i = 0; i < 360; i++)
 		{
 			sf::Vertex A(Points[i], StormColor, sf::Vector2f());
@@ -3590,59 +3614,6 @@ void dc_match::DrawStorm(sf::Vector2f V)
 
 			g_Window->draw(&VertsA[0], VertsA.size(), sf::PrimitiveType::Quads);
 		}
-		/*
-		for (int i = 1; i < Angles.size(); i += 2)
-		{
-			float AngDiff = Angles[i] - Angles[i - 1];
-			while (AngDiff > 360.f)AngDiff -= 360.f;
-			while (AngDiff < 0.f)AngDiff += 360.f;
-
-			int Divs = ceil(AngDiff)+1;
-
-			std::vector<sf::Vector2f> StormEdgePoints;
-
-			if(Divs <= 180)
-			for (int j = 0; j < Divs; j++)
-			{
-				float cur_ang = Angles[i - 1] + (AngDiff*j) / (Divs-1);
-				sf::Vector2f Point = angle2vec(cur_ang)*r + M;
-				StormEdgePoints.push_back(Point);
-			}
-			else
-			{
-				AngDiff = 360.f - AngDiff;
-				Divs = ceil(AngDiff) + 1;
-				for (int j = Divs; j < 360; j++)
-				{
-					float cur_ang = Angles[i-1] + (AngDiff*j) / (Divs - 1);
-					sf::Vector2f Point = angle2vec(cur_ang)*r + M;
-					StormEdgePoints.push_back(Point);
-				}
-			}
-			std::vector<sf::Vertex> Verts;
-
-			for (int j = 0; j < StormEdgePoints.size(); j++)
-			{
-				auto SP = map.world_to_screen(V.x, V.y, camera_width, StormEdgePoints[j].x, StormEdgePoints[j].y);
-				Verts.push_back(sf::Vertex(SP, sf::Color(255, 255, 255, 255), sf::Vector2f()));
-			}
-
-
-			g_Window->draw(&Verts[0], Verts.size(), sf::PrimitiveType::LineStrip);
-
-			if (i == 1)
-			{
-				//ConLog("\nAngles (%d): ", Angles.size());
-				//for (int j = 0; j < Angles.size(); j++)printf("%.2f ", Angles[j]);
-			}
-			ConLog("\nAngles (%.2f,%.2f), diff: %.2f , Divs: %d, Edgepoints: %d", Angles[i], Angles[i - 1], AngDiff, Divs, StormEdgePoints.size());
-			//for (int j = 0; j < Verts.size(); j++)
-			//{
-			//	ConLog("\nVert: %.2f %.2f", Verts[j].position.x, Verts[j].position.y);
-			//}
-
-		}
-		*/
 	}
 
 }
@@ -3820,13 +3791,14 @@ void dc_match::DrawAll()
 	if (Clock.deltaTime() > 1000)Clock.Update();
 	float timediff = timeDiffSinceLastFrame;
 
-	//auto V = map.cursor_to_world(players[camera_follows].vPosition.x, players[camera_follows].vPosition.y, camera_width);
+
 	auto vC = GetCameraPosition();
+	//Essentially this line below makes the player be on the other side of the screen
 	auto V = map.cursor_to_world(vC.x, vC.y, camera_width);
 	DrawMap(V);
 	DrawPlayers(V);
 
-	//map.drawitems(players[camera_follows].vPosition.x, players[camera_follows].vPosition.y, camera_width);
+
 	map.drawitems(V.x, V.y, camera_width);
 	
 	if (bBusMoving)DrawBus(V);
@@ -3958,105 +3930,105 @@ void dc_match::CheckCollisions(int i, float t)
 		}
 	}
 
-	//Fix this, bots get stuck for some reason
-	return;
+	////Fix this, bots get stuck for some reason
+	//return;
 
-	float Xs[] = { players[i].vPosition.x + 0.25f,players[i].vPosition.x + 0.25f,players[i].vPosition.x - 0.25f,players[i].vPosition.x - 0.25f };
-	float Ys[] = { players[i].vPosition.y + 0.25f,players[i].vPosition.y - 0.25f,players[i].vPosition.y + 0.25f,players[i].vPosition.y - 0.25f };
+	//float Xs[] = { players[i].vPosition.x + 0.25f,players[i].vPosition.x + 0.25f,players[i].vPosition.x - 0.25f,players[i].vPosition.x - 0.25f };
+	//float Ys[] = { players[i].vPosition.y + 0.25f,players[i].vPosition.y - 0.25f,players[i].vPosition.y + 0.25f,players[i].vPosition.y - 0.25f };
 
-	
+	//
 
-	for (int j = 0; j < 4; j++)
+	//for (int j = 0; j < 4; j++)
 
-	{
+	//{
 
-		float plX = Xs[j];
-		float plY = Ys[j];
-		int x = (int)Xs[j];
-		int y = (int)Ys[j];
+	//	float plX = Xs[j];
+	//	float plY = Ys[j];
+	//	int x = (int)Xs[j];
+	//	int y = (int)Ys[j];
 
-		if (x >= map.size.x - 1 || y >= map.size.y - 1 || x <= 0 || y <= 0)continue;
+	//	if (x >= map.size.x - 1 || y >= map.size.y - 1 || x <= 0 || y <= 0)continue;
 
-		if (players[i].vVelocity.x < -0.01)
-		{
-			if (map.lines[y].blocks[x].walls[0].iHealth > 0)
-			{
-				if (plX + players[i].vVelocity.x*t < x)
-				{
-					//players[i].vPosition.x = float(x) + 0.26;
-					players[i].vVelocity.x = 0;
-				}
-			}
-		}
-		else if (players[i].vVelocity.x > 0.01)
-		{
-			if (map.lines[y].blocks[x + 1].walls[0].iHealth > 0)
-			{
-				if (plX + players[i].vVelocity.x*t > x + 1)
-				{
-					//players[i].vPosition.x = float(x + 1) - 0.26;
-					players[i].vVelocity.x = 0;
-				}
-			}
-		}
+	//	if (players[i].vVelocity.x < -0.01)
+	//	{
+	//		if (map.lines[y].blocks[x].walls[0].iHealth > 0)
+	//		{
+	//			if (plX + players[i].vVelocity.x*t < x)
+	//			{
+	//				//players[i].vPosition.x = float(x) + 0.26;
+	//				players[i].vVelocity.x = 0;
+	//			}
+	//		}
+	//	}
+	//	else if (players[i].vVelocity.x > 0.01)
+	//	{
+	//		if (map.lines[y].blocks[x + 1].walls[0].iHealth > 0)
+	//		{
+	//			if (plX + players[i].vVelocity.x*t > x + 1)
+	//			{
+	//				//players[i].vPosition.x = float(x + 1) - 0.26;
+	//				players[i].vVelocity.x = 0;
+	//			}
+	//		}
+	//	}
 
-		if (players[i].vVelocity.y > 0.01)
-		{
+	//	if (players[i].vVelocity.y > 0.01)
+	//	{
 
-			if (map.lines[y].blocks[x].walls[1].iHealth > 0)
-			{
-				if (plY - players[i].vVelocity.y*t < y)
-				{
-					//players[i].vPosition.y = float(y) + 0.26;
-					players[i].vVelocity.y = 0;
-				}
-			}
-		}
-		else if (players[i].vVelocity.y < -0.01)
-		{
-			if (map.lines[y + 1].blocks[x].walls[1].iHealth > 0)
-			{
-				if (plY - players[i].vVelocity.y*t > y + 1)
-				{
-					//players[i].vPosition.y = float(y + 1) - 0.26;
-					players[i].vVelocity.y = 0;
-				}
-			}
-		}
-	}
+	//		if (map.lines[y].blocks[x].walls[1].iHealth > 0)
+	//		{
+	//			if (plY - players[i].vVelocity.y*t < y)
+	//			{
+	//				//players[i].vPosition.y = float(y) + 0.26;
+	//				players[i].vVelocity.y = 0;
+	//			}
+	//		}
+	//	}
+	//	else if (players[i].vVelocity.y < -0.01)
+	//	{
+	//		if (map.lines[y + 1].blocks[x].walls[1].iHealth > 0)
+	//		{
+	//			if (plY - players[i].vVelocity.y*t > y + 1)
+	//			{
+	//				//players[i].vPosition.y = float(y + 1) - 0.26;
+	//				players[i].vVelocity.y = 0;
+	//			}
+	//		}
+	//	}
+	//}
 }
 
 void dc_match::Start(int bs)
 {
+	//loading themap
 	map.load("BigSize");
-	ConLog("\nMap generated...");
+	//Creating storm and bus
+	GenerateBusRoute();
+	GenerateStorms();
+	//Getting all the walls for faster trace ray calculations
+	map.begin_lines();
+
+	//Killing all bots previously
 	for (int i = 1; i < 100; i++)
 	{
 		players[i].iHealth = 0;
 	}
 	players[0].iHealth = 100;
-	players[0].vPosition.x = map.size.x - Random(100, 900);
-	players[0].vPosition.y = map.size.y - Random(100, 900);
+	players[0].vPosition = BusCurrentPosition;
 
 	int shrink = 25;
+	//Resurrecting enough bots
 	for (int i = 1; i < bs; i++)
 	{
 		players[i].iHealth = 100;
-		players[i].vPosition.x = Random(shrink, map.size.x - shrink);
-		players[i].vPosition.y = Random(shrink, map.size.y - shrink);
-		//players[i].Items[0].create(3, sf::Vector2f());
-		//players[i].Items[1].create(5, sf::Vector2f());
-		//players[i].Items[2].create(6, sf::Vector2f());
-		//players[i].Items[3].create(21, sf::Vector2f());
-		//players[i].Items[4].create(2, sf::Vector2f());
+		players[i].vPosition = BusCurrentPosition;
 	}
 
 
 
-	map.begin_lines();
 
-	GenerateBusRoute();
-	GenerateStorms();
+
+	//Creating the bots
 	BotBegin(EasyCases, NormalCases, HardCases, ExpertCases);
 	bBusMoving = true;
 
@@ -4069,12 +4041,14 @@ void dc_match::Start(int bs)
 
 	fTimeTillNextAirdrop = NEXT_AIRDROP_MINTIME + g_RandomDevice.RandomFloat(NEXT_AIRDROP_MINTIME, NEXT_AIRDROP_MAXTIME);
 
+	//Starting a demo
 	if (DemoRecord == 1)
 	{
 		Demo_CreateSnapshotPointers();
 		dc_demo_metadata meData;
 		meData.Setup(this);
 		std::thread TH(Demo_Convert,this,meData);
+		//Detaching so it can run when this scope ends
 		TH.detach();
 	}
 
@@ -4222,9 +4196,9 @@ void dc_match::PlayerPickupItem(int player, int slot, int itemid)
 {
 	if (players[player].fFreeFallHeight > 0.f)return;
 	auto &ch = map.items[itemid];
-	auto chcopy = map.items[itemid];
 
 	if (ch.bOwned || GetDistance(players[player].vPosition, ch.vPosition) > 2.0f)return;
+	//For consumables
 	if(ch.IsConsumable())
 	{
 		auto fslot = players[player].hasFreeSlot();
@@ -4232,9 +4206,12 @@ void dc_match::PlayerPickupItem(int player, int slot, int itemid)
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				if (!ch.bOwned && players[player].Items[i].bValidated && players[player].Items[i].IsConsumable() && players[player].Items[i].id == ch.id && players[player].Items[i].iBullets < players[player].Items[i].iMaxBullets)
+				if (!ch.bOwned 
+					&& players[player].Items[i].bValidated 
+					&& players[player].Items[i].IsConsumable() 
+					&& players[player].Items[i].id == ch.id 
+					&& players[player].Items[i].iBullets < players[player].Items[i].iMaxBullets)
 				{
-					if (!players[player].Items[i].bValidated)continue;
 					int addpossible = players[player].Items[i].iMaxBullets - players[player].Items[i].iBullets;
 
 					if (addpossible >= ch.iBullets)
@@ -4259,18 +4236,17 @@ void dc_match::PlayerPickupItem(int player, int slot, int itemid)
 				
 			}
 
-			if (ch.bOwned)
-			{
-				//map.delete_items();
-			}
 		}
+		//For consumables
 		else
 		{
 
-			int good_id = -1;
 			for (int i = 0; i < 5; i++)
 			{
-				if (!ch.bOwned && players[player].Items[i].IsConsumable() && players[player].Items[i].id == ch.id && players[player].Items[i].iBullets < players[player].Items[i].iMaxBullets)
+				if (!ch.bOwned
+					&& players[player].Items[i].IsConsumable()
+					&& players[player].Items[i].id == ch.id
+					&& players[player].Items[i].iBullets < players[player].Items[i].iMaxBullets)
 				{
 					auto addpossible = players[player].Items[i].iMaxBullets - players[player].Items[i].iBullets;
 
@@ -5148,7 +5124,8 @@ void dc_match::ScrollMap()
 
 void dc_match::DoCheatStuff()
 {
-	if (g_Config.ch_debug_mode.Value < 1.f)return;
+	if (g_Config.ch_debug_mode.Value < 1.f
+		|| g_Config.gm_cheats.Value < 1.f)return;
 	if (g_Keyboard.keys[VK_F2]) {
 		players[0].iHealth = 100; players[0].iShield = 100;
 	}
@@ -5239,7 +5216,7 @@ void dc_match::FinishMatch()
 void dc_match::Do()
 {
 	static dc_clock Clock;
-	if (Clock.deltaTime() > 500)Clock.Update();
+	if (Clock.deltaTime() > 500)Clock.Update(); //lag nullification
 	
 	if (bMatchEnded != 1)
 	timeDiffSinceLastFrame = 0.001f*Clock.deltaTime();
@@ -5269,6 +5246,7 @@ void dc_match::Do()
 	
 	if (players[0].iHealth > 0)camera_follows = 0;
 
+	//Deleting items that have been picked up
 	map.delete_items();
 	ClearUnreachableItems();
 

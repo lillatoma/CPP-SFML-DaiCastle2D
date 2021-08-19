@@ -741,13 +741,13 @@ struct dc_stormclosingeffect
 //////////////////////////////////////////////
 struct dc_effects
 {
-	std::vector<dc_damageeffect> dmg_effects;
-	std::vector<dc_shoteffect> sht_effects;
-	std::vector<dc_killnoticeeffect> kilnot_effects;
-	std::vector<dc_deatheffect> dth_effects;
-	std::vector<dc_shieldbreakeffect> shb_effects;
-	std::vector<dc_airdropeffect> ade_effects;
-	std::vector<dc_stormclosingeffect> sce_effects;
+	std::vector<dc_damageeffect> dmg_effects; //Damage Effects
+	std::vector<dc_shoteffect> sht_effects; //Shot Effects
+	std::vector<dc_killnoticeeffect> kilnot_effects; //Kill Notice Effects
+	std::vector<dc_deatheffect> dth_effects; // Death Effects
+	std::vector<dc_shieldbreakeffect> shb_effects; //Shieldbreak effect
+	std::vector<dc_airdropeffect> ade_effects; //Airdrop effect
+	std::vector<dc_stormclosingeffect> sce_effects; //Storm closing effect
 };
 
 //////////////////////////////////////////////

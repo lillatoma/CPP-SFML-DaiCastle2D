@@ -314,7 +314,7 @@ void dc_demo_viewer::JumpToTime(float time)
 	float timeToTick = time / tickTime;
 	float diffFromPrev = time - tickTime*prev_tick;
 	
-	auto DiffVec = GetUnit(Match.BusEndPosition - Match.BusStartPosition)*BUS_TRAVELSPEED;
+	auto DiffVec = ToUnitVector(Match.BusEndPosition - Match.BusStartPosition)*BUS_TRAVELSPEED;
 
 	Match.BusCurrentPosition = Demo.MetaData.BusBegin + time * DiffVec;
 
