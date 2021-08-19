@@ -11,10 +11,10 @@ Replay your favourite moments and highlights.
 - SFML (for devs only): https://www.sfml-dev.org/download.php
 
 ## Installation:
-Unzip the file called "DaiCastle Game.rar".  
-It contains 2 executables, DaiCastle.exe is the game application.  
-For map editing purposes, launch DaiCastle MapEditor v2.exe.  
+Unzip the file called `DaiCastle Game.rar`.  
+It contains 2 executables, `DaiCastle.exe` is the game application.  
+For map editing purposes, launch `DaiCastle MapEditor v2.exe`.  
 Removing any default files from the folder may cause the game to not function properly.
 
 ## For documentation:
-Check the doc/ folder and source code (DaiCastle.h highlighted) 
+Check the `doc\` folder and source code (`Empiria\DaiCastle.h` highlighted) 
