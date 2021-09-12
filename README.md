@@ -18,3 +18,6 @@ Removing any default files from the folder may cause the game to not function pr
 
 ## For documentation:
 Check the `doc\` folder and source code (`Empiria\DaiCastle.h` highlighted) 
+
+## Video content:
+[YouTube: Map, day-night cycle, raytracing](https://www.youtube.com/watch?v=7elYxK1GJxU)
