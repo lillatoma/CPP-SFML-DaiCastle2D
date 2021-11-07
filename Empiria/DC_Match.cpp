@@ -1990,8 +1990,7 @@ void dc_match::PlayerShootWeapon(int player)
 	if (player < 0 || player >99)return;
 	if (players[player].fFreeFallHeight > 0.f)return;
 	if (!players[player].Items[players[player].iSelectedWeapon].bValidated 
-		|| players[player].Items[players[player].iSelectedWeapon].iBullets <= 0
-		|| players[player].fOpeningTime > 0.f 
+		|| players[player].Items[players[player].iSelectedWeapon].iBullets <= 0 
 		|| players[player].fPulloutDelay > 0.f 
 		|| (players[player].fReloadDelay > 0.f && players[player].GetCurrentWeapon().iReloadMethod == 1)//This last one allows the user to shoot a shotgun if the magazine isn't empty while reloading (the reloading cancels)
 		|| players[player].fShootDelay > 0.f 
@@ -2007,6 +2006,9 @@ void dc_match::PlayerShootWeapon(int player)
 	if (players[player].GetCurrentWeapon().iType == 1)PlayerShootWeapon1(player);
 	if (players[player].GetCurrentWeapon().iType == 2)PlayerShootWeapon2(player);
 	if (players[player].GetCurrentWeapon().iType == 3)PlayerShootWeapon3(player);
+
+	players[player].iOpeningChest = -1;
+	players[player].iOpeningAirdrop = -1;
 
 	if (players[player].GetCurrentWeapon().IsConsumable() && players[player].GetCurrentWeapon().iBullets == 0)players[player].GetCurrentWeapon().bValidated = false;
 
@@ -2070,12 +2072,14 @@ void dc_match::DrawUI(sf::Vector2f V)
 	static int last_armor = armor;
 	static int visual_armor = armor;
 	static dc_clock aclock;
+	static dc_clock lastCallClock;
+
+	static float invAlpha = 1.f;
+	static float hpAlpha = 1.f;
 	///////////////////////////////////////
 	/// Health and shield bars
 	///////////////////////////////////////
-	_Window::RenderOverlay(g_Resolution.x*0.4f, g_Resolution.y*0.9f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 128, 128, 128, 128);
-	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.91f, g_Resolution.x*0.18f, g_Resolution.y*0.03f, 32,32,32, 255);
-	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.96f, g_Resolution.x*0.18f, g_Resolution.y*0.03f, 32, 32, 32, 255);
+
 
 	
 	char hbuf[16], sbuf[16];
@@ -2096,22 +2100,52 @@ void dc_match::DrawUI(sf::Vector2f V)
 		visual_armor = last_armor;
 	}
 	last_armor = armor;
+	if (g_Mouse.IsBetween(g_Resolution.x*0.4f, g_Resolution.y*0.9f, g_Resolution.x*0.2f, g_Resolution.y*0.1f))
+	{
+		hpAlpha -= 0.00266f*lastCallClock.deltaTime();
+		if (hpAlpha < 0.33f)
+			hpAlpha = 0.33f;
+	}
+	else
+	{
+		hpAlpha += 0.00266f*lastCallClock.deltaTime();
+		if (hpAlpha > 1.f)
+			hpAlpha = 1.f;
+	}
 
-	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.91f, g_Resolution.x*0.18f*visual_health / 100, g_Resolution.y*0.03f, 219, 88, 66, max(0, 255 * (1000 - hclock.deltaTime()) / 1000));
-	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.91f, g_Resolution.x*0.18f*health / 100, g_Resolution.y*0.03f, 98, 219, 66, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.4f, g_Resolution.y*0.9f, g_Resolution.x*0.2f, g_Resolution.y*0.1f, 128, 128, 128, hpAlpha*128);
+	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.91f, g_Resolution.x*0.18f, g_Resolution.y*0.03f, 32, 32, 32, hpAlpha *255);
+	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.96f, g_Resolution.x*0.18f, g_Resolution.y*0.03f, 32, 32, 32, hpAlpha *255);
 
-	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.96f, g_Resolution.x*0.18f*visual_armor / 100, g_Resolution.y*0.03f, 100, 190, 255, max(0, 255 * (1000 - aclock.deltaTime()) / 1000));
-	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.96f, g_Resolution.x*0.18f*armor / 100, g_Resolution.y*0.03f, 72, 141, 226, 255);
+	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.91f, g_Resolution.x*0.18f*visual_health / 100, g_Resolution.y*0.03f, 219, 88, 66, hpAlpha*max(0, 255 * (1000 - hclock.deltaTime()) / 1000));
+	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.91f, g_Resolution.x*0.18f*health / 100, g_Resolution.y*0.03f, 98, 219, 66, hpAlpha *255);
 
-	_Window::RenderTextB(g_Resolution.x*0.42f, g_Resolution.y*0.91f, hbuf, 16*g_Resolution.y/720);
-	_Window::RenderTextB(g_Resolution.x*0.42f, g_Resolution.y*0.96f, sbuf, 16*g_Resolution.y/720);
+	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.96f, g_Resolution.x*0.18f*visual_armor / 100, g_Resolution.y*0.03f, 100, 190, 255, hpAlpha*max(0, 255 * (1000 - aclock.deltaTime()) / 1000));
+	_Window::RenderOverlay(g_Resolution.x*0.41f, g_Resolution.y*0.96f, g_Resolution.x*0.18f*armor / 100, g_Resolution.y*0.03f, 72, 141, 226, hpAlpha *255);
+
+	_Window::RenderTextB(g_Resolution.x*0.42f, g_Resolution.y*0.91f, hbuf, 16 * g_Resolution.y / 720, 255, 255, 255, hpAlpha * 255);
+	_Window::RenderTextB(g_Resolution.x*0.42f, g_Resolution.y*0.96f, sbuf, 16 * g_Resolution.y / 720, 255, 255, 255, hpAlpha * 255);
 
 
 	///////////////////////////////////////
 	/// Inventory items
 	///////////////////////////////////////
 	int boxsize = g_Resolution.x*0.06f;
-	_Window::RenderOverlay(g_Resolution.x-boxsize*6 - g_Resolution.x*0.01f, g_Resolution.y-boxsize-g_Resolution.x*0.02f, boxsize*6+ g_Resolution.x*0.01f, boxsize+g_Resolution.y*0.04f, 128, 128, 128, 128);
+	if (g_Mouse.IsBetween(g_Resolution.x - boxsize * 6 - g_Resolution.x*0.01f, g_Resolution.y - boxsize - g_Resolution.x*0.02f, boxsize * 6 + g_Resolution.x*0.01f, boxsize + g_Resolution.y*0.04f))
+	{
+		invAlpha -= 0.00266f*lastCallClock.deltaTime();
+		if (invAlpha < 0.33f)
+			invAlpha = 0.33f;
+	}
+	else
+	{
+		invAlpha += 0.00266f*lastCallClock.deltaTime();
+		if (invAlpha > 1.f)
+			invAlpha = 1.f;
+	}
+
+
+	_Window::RenderOverlay(g_Resolution.x-boxsize*6 - g_Resolution.x*0.01f, g_Resolution.y-boxsize-g_Resolution.x*0.02f, boxsize*6+ g_Resolution.x*0.01f, boxsize+g_Resolution.y*0.04f, 128, 128, 128, invAlpha*128);
 
 
 	static sf::Sprite sprute;
@@ -2126,12 +2160,28 @@ void dc_match::DrawUI(sf::Vector2f V)
 		
 		if (players[camera_follows].iSelectedWeapon == i)
 		{
-			if(players[camera_follows].fPulloutDelay <= 0.f)
-				_Window::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 - 2, g_Resolution.y - boxsize - g_Resolution.x*0.01f - 2, boxsize + 4, boxsize + 4, 255,255,255, 255);
+			if (players[camera_follows].fPulloutDelay <= 0.f)
+			{
+				sf::RectangleShape rect;
+				rect.setPosition(sf::Vector2f(g_Resolution.x - boxsize * 6 + i *boxsize*1.2, g_Resolution.y - boxsize - g_Resolution.x*0.01f));
+				rect.setSize(sf::Vector2f(boxsize, boxsize ));
+				rect.setFillColor(sf::Color::Transparent);
+				rect.setOutlineThickness(2.f);
+				rect.setOutlineColor(sf::Color(255,255,255,invAlpha*255));
+				g_Window->draw(rect);
+			}
 			else
-				_Window::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 - 2, g_Resolution.y - boxsize - g_Resolution.x*0.01f - 2, boxsize + 4, boxsize + 4, 192,192,192, 255);
+			{
+				sf::RectangleShape rect;
+				rect.setPosition(sf::Vector2f(g_Resolution.x - boxsize * 6 + i *boxsize*1.2, g_Resolution.y - boxsize - g_Resolution.x*0.01f));
+				rect.setSize(sf::Vector2f(boxsize, boxsize));
+				rect.setFillColor(sf::Color::Transparent);
+				rect.setOutlineThickness(2.f);
+				rect.setOutlineColor(sf::Color(192,192,192, invAlpha * 255));
+				g_Window->draw(rect);
+			}
 		}
-		_Window::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2, g_Resolution.y - boxsize - g_Resolution.x*0.01f, boxsize, boxsize, 32, 32, 32, 255);
+		_Window::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2, g_Resolution.y - boxsize - g_Resolution.x*0.01f, boxsize, boxsize, 32, 32, 32, invAlpha *255);
 		
 		if (players[camera_follows].Items[i].bValidated)
 		{
@@ -2140,12 +2190,12 @@ void dc_match::DrawUI(sf::Vector2f V)
 			auto r = rarities[players[camera_follows].Items[i].iRarity].r;
 			auto g = rarities[players[camera_follows].Items[i].iRarity].g;
 			auto b = rarities[players[camera_follows].Items[i].iRarity].b;
-			auto a = rarities[players[camera_follows].Items[i].iRarity].a;
+			auto a = invAlpha*rarities[players[camera_follows].Items[i].iRarity].a;
 			_Window::RenderOverlay(g_Resolution.x - boxsize * 6 + i *boxsize*1.2, g_Resolution.y - boxsize - g_Resolution.x*0.01f, boxsize, boxsize, r,g,b,a);
 
 			if(players[camera_follows].Items[i].iType > 3)
-				sprute.setColor(sf::Color(255,255,255, 255));
-			else sprute.setColor(sf::Color(255,255,255, 255));
+				sprute.setColor(sf::Color(255,255,255, invAlpha *255));
+			else sprute.setColor(sf::Color(255,255,255, invAlpha *255));
 			g_Window->draw(sprute);
 
 			char Bifer[16];
@@ -2154,9 +2204,9 @@ void dc_match::DrawUI(sf::Vector2f V)
 			auto texts = _Window::GetTextSize(Bifer, 16);
 			for(int XX = -1; XX <= 1; XX++)
 				for(int YY = -1; YY <= 1; YY++)
-					_Window::RenderTextB(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 + boxsize - texts.x+XX, g_Resolution.y - boxsize - g_Resolution.x*0.01f + boxsize - texts.y - 4.f+YY, Bifer, 16, 0,0,0, 255);
+					_Window::RenderTextB(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 + boxsize - texts.x+XX, g_Resolution.y - boxsize - g_Resolution.x*0.01f + boxsize - texts.y - 4.f+YY, Bifer, 16, 0,0,0, invAlpha*invAlpha *255);
 
-			_Window::RenderTextB(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 + boxsize - texts.x, g_Resolution.y - boxsize - g_Resolution.x*0.01f + boxsize - texts.y-4.f, Bifer, 16, 255, 255, 255, 255);
+			_Window::RenderTextB(g_Resolution.x - boxsize * 6 + i *boxsize*1.2 + boxsize - texts.x, g_Resolution.y - boxsize - g_Resolution.x*0.01f + boxsize - texts.y-4.f, Bifer, 16, 255, 255, 255, invAlpha *255);
 
 		}
 	}
@@ -2261,6 +2311,8 @@ void dc_match::DrawUI(sf::Vector2f V)
 
 	//Drawing Text
 	DrawHelpButtons();
+
+	lastCallClock.Update();
 }
 
 void dc_match::DrawInventoryPage()
@@ -2334,9 +2386,7 @@ void dc_match::DrawInventoryPage()
 					sprute.setScale(skile, skile);
 					sprute.setPosition(g_Resolution.x*0.99f - boxsize * 3 - 32.f*skile, g_Resolution.y*0.125f - 32.f*skile);
 
-					if (Wpn.iType > 3)
-						sprute.setColor(sf::Color(255, 255, 255, 255));
-					else sprute.setColor(sf::Color(0, 0, 0, 255));
+
 
 					g_Window->draw(sprute);
 
@@ -3164,18 +3214,34 @@ void dc_match::DrawMinimap()
 	}
 	else 
 	{
+		static float minimapAlpha = 1.f;
+
+		if (g_Mouse.IsBetween(g_Resolution.x*0.8, 0, g_Resolution.x*0.2, g_Resolution.x*0.15+g_Resolution.y*0.0833))
+		{
+			minimapAlpha -= 2.66f * timeDiffSinceLastFrame;
+			if (minimapAlpha < 0.33f)
+				minimapAlpha = 0.33f;
+		}
+		else
+		{
+			minimapAlpha += 2.66f * timeDiffSinceLastFrame;
+			if (minimapAlpha > 1.f)
+				minimapAlpha = 1.f;
+		}
+
 		auto dirvec = BusEndPosition - BusStartPosition;
 
 		auto busang = vec2angle(dirvec.x, dirvec.y) + 180.f;
 		map.show_minimapui(players[camera_follows].vPosition.x, players[camera_follows].vPosition.y, camera_width+players[camera_follows].bOnBus*60.f, BusCurrentPosition.x, BusCurrentPosition.y, busang,GetCurrentStormMiddle(),GetCurrentStormDiameter()/2);
-	
+		
+
 		//DrawCirclePlayer
 		sf::CircleShape Cshape;
 		Cshape.setPosition(g_Resolution.x*0.8+g_Resolution.x*0.075f, g_Resolution.y*0.05 + g_Resolution.x*0.075f);
 		Cshape.setRadius(g_Resolution.y*0.005f);
 		Cshape.setOrigin(g_Resolution.y*0.005f, g_Resolution.y*0.005f);
-		Cshape.setFillColor(sf::Color(255, 255, 255));
-		Cshape.setOutlineColor(sf::Color(0, 0, 0));
+		Cshape.setFillColor(sf::Color(255, 255, 255, minimapAlpha*255));
+		Cshape.setOutlineColor(sf::Color(0, 0, 0, minimapAlpha * 255));
 		Cshape.setOutlineThickness(1.f);
 		g_Window->draw(Cshape);
 		
@@ -3217,8 +3283,8 @@ void dc_match::DrawMinimap()
 				if (abs(DiffVector.x) < revarea/2 && abs(DiffVector.y) < revarea/2)
 				{
 					auto Endpoint = Startpoint + DiffVector*scaling;
-					sf::Vertex V[] = { sf::Vertex(Startpoint,sf::Color(255,255,255),sf::Vector2f()),
-						sf::Vertex(Endpoint,sf::Color(255,255,255),sf::Vector2f())};
+					sf::Vertex V[] = { sf::Vertex(Startpoint,sf::Color(255,255,255,minimapAlpha*255),sf::Vector2f()),
+						sf::Vertex(Endpoint,sf::Color(255,255,255,minimapAlpha*255),sf::Vector2f())};
 					g_Window->draw(V, 2, sf::PrimitiveType::Lines);
 				}
 				else
@@ -3237,8 +3303,8 @@ void dc_match::DrawMinimap()
 					auto dist = GetLength(DiffVector);
 
 					auto Endpoint = Startpoint + DiffVector*scaling;
-					sf::Vertex V[] = { sf::Vertex(Startpoint,sf::Color(255,255,255),sf::Vector2f()),
-						sf::Vertex(Endpoint,sf::Color(255,255,255),sf::Vector2f()) };
+					sf::Vertex V[] = { sf::Vertex(Startpoint,sf::Color(255,255,255,minimapAlpha*255),sf::Vector2f()),
+						sf::Vertex(Endpoint,sf::Color(255,255,255,minimapAlpha*255),sf::Vector2f()) };
 					g_Window->draw(V, 2, sf::PrimitiveType::Lines);
 				}
 
@@ -3246,7 +3312,7 @@ void dc_match::DrawMinimap()
 
 
 		}
-
+		DrawStormOnMinimapUI();
 
 		//DrawInformation
 		float timetillnext = GetTimeTillNextStormPhase();
@@ -3267,7 +3333,7 @@ void dc_match::DrawMinimap()
 		markersprite.setTextureRect(sf::IntRect(logo*64, 0, 64, 64));
 
 		markersprite.setPosition(0.8f*g_Resolution.x, 0.05f*g_Resolution.y + 0.15f*g_Resolution.x);
-
+		markersprite.setColor(sf::Color(255, 255, 255, minimapAlpha * 255));
 		int minutesleft = 0;
 		int secondsleft = 0;
 
@@ -3281,25 +3347,25 @@ void dc_match::DrawMinimap()
 		char TimeBuffer[16];
 		sprintf(TimeBuffer, "%d:%s%d", minutesleft, ((secondsleft < 10) ? "0" : ""), secondsleft);
 
-		_Window::RenderOverlay(0.8f*g_Resolution.x, 0.05f*g_Resolution.y + 0.15f*g_Resolution.x, 0.15*g_Resolution.x, g_Resolution.y*0.0333f, 0, 0, 0, 64);
+		_Window::RenderOverlay(0.8f*g_Resolution.x, 0.05f*g_Resolution.y + 0.15f*g_Resolution.x, 0.15*g_Resolution.x, g_Resolution.y*0.0333f, 0, 0, 0, minimapAlpha*64);
 
 		if (GetCurrentStormPhase() != 17) {
 			g_Window->draw(markersprite);
-			_Window::RenderTextB(0.8f*g_Resolution.x + scale*72.f, 0.055f*g_Resolution.y + 0.15f*g_Resolution.x, TimeBuffer, 0.0223*g_Resolution.y, 255, 255, 255, 255);
+			_Window::RenderTextB(0.8f*g_Resolution.x + scale*72.f, 0.055f*g_Resolution.y + 0.15f*g_Resolution.x, TimeBuffer, 0.0223*g_Resolution.y, 255, 255, 255, minimapAlpha*255);
 		}
 		markersprite.setTextureRect(sf::IntRect(1 * 64, 0, 64, 64));
 		markersprite.setPosition(0.85f*g_Resolution.x, 0.05f*g_Resolution.y + 0.15f*g_Resolution.x);
 		g_Window->draw(markersprite);
 
 		sprintf(TimeBuffer, "%d", GetAlivePlayers());
-		_Window::RenderTextB(0.85f*g_Resolution.x + scale*72.f, 0.055f*g_Resolution.y + 0.15f*g_Resolution.x, TimeBuffer, 0.0223*g_Resolution.y, 255, 255, 255, 255);
+		_Window::RenderTextB(0.85f*g_Resolution.x + scale*72.f, 0.055f*g_Resolution.y + 0.15f*g_Resolution.x, TimeBuffer, 0.0223*g_Resolution.y, 255, 255, 255, minimapAlpha*255);
 
 		markersprite.setTextureRect(sf::IntRect(0 * 64, 0, 64, 64));
 		markersprite.setPosition(0.9f*g_Resolution.x, 0.05f*g_Resolution.y + 0.15f*g_Resolution.x);
 		g_Window->draw(markersprite);
 
 		sprintf(TimeBuffer, "%d", players[camera_follows].Stats.iEliminations);
-		_Window::RenderTextB(0.9f*g_Resolution.x + scale*72.f, 0.055f*g_Resolution.y + 0.15f*g_Resolution.x, TimeBuffer, 0.0223*g_Resolution.y, 255, 255, 255, 255);
+		_Window::RenderTextB(0.9f*g_Resolution.x + scale*72.f, 0.055f*g_Resolution.y + 0.15f*g_Resolution.x, TimeBuffer, 0.0223*g_Resolution.y, 255, 255, 255, minimapAlpha*255);
 
 	}
 }
@@ -3367,13 +3433,25 @@ void dc_match::DrawPlayersOnMinimapCheat()
 void dc_match::DrawStormOnMiniMap()
 {
 
+	static sf::RenderTexture rendText;
+	static bool runFirst = false;
+	static sf::Vector2i resolution = g_Resolution;
 
+	if (!runFirst || resolution != g_Resolution)
+	{
+		rendText.create(g_Resolution.x*0.5, g_Resolution.x*0.5);
+		runFirst = true;
+		resolution = g_Resolution;
+	}
+	rendText.clear(sf::Color::Transparent);
 
 
 	sf::Vector2f CurrentStormMid = GetCurrentStormMiddle();
 	sf::Vector2f NextStormMid = GetNextStormMiddle();
 	float CurrentRadius = GetCurrentStormDiameter()/2;
 	float NextRadius = GetNextStormDiameter()/2;
+
+
 
 	int CurrentPhase = GetCurrentStormPhase();
 	if (CurrentPhase == 17)return;
@@ -3405,13 +3483,13 @@ void dc_match::DrawStormOnMiniMap()
 		auto radius = GetDistance(sf::Vector2f(mileft, mitop), sf::Vector2f(moleft, motop));
 
 		sf::CircleShape c;
-		c.setPosition(mileft, mitop);
+		c.setPosition(mileft-g_Resolution.x*0.25f, mitop-g_Resolution.y*0.5f+g_Resolution.x*0.25f);
 		c.setOrigin(radius+1.f, radius+1.f);
 		c.setRadius(radius+1.f);
 		c.setFillColor(sf::Color::Transparent);
 		c.setOutlineColor(sf::Color::White);
 		c.setOutlineThickness(2.f);
-		g_Window->draw(c);
+		rendText.draw(c);
 
 		auto charp = map.screen_to_world(players[camera_follows].vPosition.x, players[camera_follows].vPosition.y, camera_width, g_Resolution.x / 2, g_Resolution.y / 2);
 		float chtop = g_Resolution.y*0.5 - g_Resolution.x*0.25 + g_Resolution.x*0.5*(charp.y) / 1000;
@@ -3423,20 +3501,110 @@ void dc_match::DrawStormOnMiniMap()
 		{
 			sf::Vector2f Cpoint = radius*sf::Vector2f(chleft, chtop) + (distfrommid - radius)*sf::Vector2f(mileft, mitop);
 			Cpoint /= distfrommid;
-
+			Cpoint.x -= g_Resolution.x*0.25;
+			Cpoint.y -= -g_Resolution.x*0.25 + g_Resolution.y*0.5;
 			sf::Vertex v[] =
 			{
-				sf::Vertex(sf::Vector2f(chleft,chtop),sf::Color(255,255,255,255),sf::Vector2f()),
+				sf::Vertex(sf::Vector2f(chleft-g_Resolution.x*0.25,chtop + g_Resolution.x*0.25 - g_Resolution.y*0.5),sf::Color(255,255,255,255),sf::Vector2f()),
 				sf::Vertex(Cpoint, sf::Color(255, 255, 255, 255), sf::Vector2f())
 			};
-			g_Window->draw(v, 2, sf::PrimitiveType::Lines);
+			rendText.draw(v, 2, sf::PrimitiveType::Lines);
 		}
-
-
+		sf::Sprite sprite;
+		sprite.setTexture(rendText.getTexture());
+		sprite.setPosition(sf::Vector2f(g_Resolution.x*0.5f, g_Resolution.y*0.5f));
+		sprite.setOrigin(sf::Vector2f(g_Resolution.x*0.25f, g_Resolution.x*0.25f));
+		sprite.setScale(1.f, -1.f);
+		g_Window->draw(sprite);
 
 	}
 
 	
+
+}
+
+void dc_match::DrawStormOnMinimapUI()
+{
+	static sf::RenderTexture rendText;
+	static sf::Vector2i resolution = g_Resolution;
+	static bool setup = false;
+
+	if (!setup || resolution != g_Resolution)
+	{
+		rendText.create(g_Resolution.x*0.15, g_Resolution.x*0.15);
+		resolution = g_Resolution;
+		setup = true;
+	}
+	rendText.clear(sf::Color::Transparent);
+	sf::Vector2f CurrentStormMid = GetCurrentStormMiddle();
+	sf::Vector2f NextStormMid = GetNextStormMiddle();
+	float CurrentRadius = GetCurrentStormDiameter() / 2;
+	float NextRadius = GetNextStormDiameter() / 2;
+
+	int CurrentPhase = GetCurrentStormPhase();
+	if (CurrentPhase == 17)return;
+	//Drawing current storm state, the storm state when it finishes and the next stormstate
+	//In a moving zone this shows the current storm, and where it reaches (2 times the latter)
+	//In a standing zone this shows the current storm state, the storm state when it finishes, which are the same, and the next stormstate
+	sf::Vector2f StormMid[] = { CurrentStormMid,StormMids[CurrentPhase],StormMids[CurrentPhase + 1] };
+	float Radiuses[] = { CurrentRadius,s_size[CurrentPhase] / 2,s_size[CurrentPhase + 1] / 2 };
+
+
+
+	float revarea = 50.f + camera_width + players[camera_follows].bOnBus*60.f;
+	float unitSize = (float)(g_Resolution.x*0.15) / revarea;
+
+
+
+	for (int i = 0; i < 3; i++)
+	{
+		if (CurrentPhase <= 2)
+		{
+			if (i > 0)continue;
+		}
+		if (CurrentPhase == 3 || CurrentPhase == 5 || CurrentPhase == 7 || CurrentPhase == 9 || CurrentPhase == 11)
+		{
+			if (i == 1)continue;
+		}
+		else if (i > 1)continue;
+
+		auto stmid = unitSize*(StormMid[i] - players[camera_follows].vPosition) + 0.5f*sf::Vector2f(g_Resolution.x*0.15,g_Resolution.x*0.15);
+		auto strad = Radiuses[i] * unitSize;
+
+		sf::CircleShape c;
+		c.setPosition(stmid);
+		c.setRadius(strad);
+		c.setOrigin(sf::Vector2f(strad, strad));
+		c.setFillColor(sf::Color::Transparent);
+		c.setOutlineColor(sf::Color::White);
+		c.setOutlineThickness(2.f);
+		c.setPointCount(90);
+		rendText.draw(c);
+
+		//float distfrommid = GetDistance(StormMid[i], players[camera_follows].vPosition);
+
+		//if (distfrommid > Radiuses[i])
+		//{
+		//	sf::Vector2f Cpoint = radius*sf::Vector2f(chleft, chtop) + (distfrommid - radius)*sf::Vector2f(mileft, mitop);
+		//	Cpoint /= distfrommid;
+
+		//	sf::Vertex v[] =
+		//	{
+		//		sf::Vertex(sf::Vector2f(chleft,chtop),sf::Color(255,255,255,255),sf::Vector2f()),
+		//		sf::Vertex(Cpoint, sf::Color(255, 255, 255, 255), sf::Vector2f())
+		//	};
+		//	g_Window->draw(v, 2, sf::PrimitiveType::Lines);
+		//}
+
+
+
+	}
+	sf::Sprite rendSprite;
+	rendSprite.setTexture(rendText.getTexture());
+	rendSprite.setPosition(g_Resolution.x*0.8, g_Resolution.y*0.05f+g_Resolution.x*0.15);
+	rendSprite.setScale(1.f, -1.f);
+	g_Window->draw(rendSprite);
+
 
 }
 
@@ -4890,14 +5058,20 @@ void dc_match::LoopPlayers()
 			{
 				if (players[i].iOpeningChest != -1)
 				{
+					if (GetDistance(players[i].vPosition, map.chests[players[i].iOpeningChest].vPosition) >= 2.f)
+					{
+						players[i].iOpeningChest = -1;
+					}
+
 					//Checking if the chest hasn't been opened by another unit, and if it's still in range
-					if (!map.chests[players[i].iOpeningChest].bOpen && GetDistance(players[i].vPosition, map.chests[players[i].iOpeningChest].vPosition) < 2.f) 
+					if (players[i].iOpeningChest != -1 && !map.chests[players[i].iOpeningChest].bOpen) 
 					{
 						map.chests[players[i].iOpeningChest].bOpen = true;
 						dc_item weapon, heal; //In a chest we want to spawn a weapon and a consumable
 						auto pos = map.chests[players[i].iOpeningChest].vPosition;
 						weapon.id = 10000; heal.id = 0;
-						while (weapon.IsConsumable()) // should have used do-while
+						//TODO: Remove the weapon
+						while (weapon.IsConsumable()) // should have used do-while 
 						{
 							int r = weapon.GetRandomWeaponID();
 							pos = map.chests[players[i].iOpeningChest].vPosition + sf::Vector2f(-RandFloat()*0.25f, RandFloat()*0.5f - 0.25f);
@@ -4921,8 +5095,8 @@ void dc_match::LoopPlayers()
 						Demo_SnapshotUpdateItemDrop(heal.GameIdx,heal.vPosition);
 						map.items.push_back(heal);
 						players[i].Stats.Chests.push_back(players[i].iOpeningChest);
+						Demo_SnapshotUpdateChest(players[i].iOpeningChest);
 					}
-					Demo_SnapshotUpdateChest(players[i].iOpeningChest);
 				}
 				else if (players[i].iOpeningAirdrop != -1)
 				{
@@ -4930,6 +5104,12 @@ void dc_match::LoopPlayers()
 					for (int j = 0; j < AirDrops.size(); j++)
 					{
 						if (AirDrops[j].airdropid == players[i].iOpeningAirdrop)AirDropInd = j;
+					}
+
+					if (GetDistance(players[i].vPosition, AirDrops[AirDropInd].vPosition) >= 2.f)
+					{
+						AirDropInd = -1;
+						players[i].iOpeningAirdrop = -1;
 					}
 					if (AirDropInd != -1)
 					{
@@ -5124,8 +5304,7 @@ void dc_match::ScrollMap()
 
 void dc_match::DoCheatStuff()
 {
-	if (g_Config.ch_debug_mode.Value < 1.f
-		|| g_Config.gm_cheats.Value < 1.f)return;
+	if (g_Config.gm_cheats.Value < 1.f)return;
 	if (g_Keyboard.keys[VK_F2]) {
 		players[0].iHealth = 100; players[0].iShield = 100;
 	}

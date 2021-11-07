@@ -96,12 +96,17 @@ void dc_mapeditor::DrawAll()
 {
 	map.draw(vecCamera.x, vecCamera.y, camera_width);
 	DrawForSelectedMode();
-	DrawUI();
+
 	if (show_minimap) {
-		map.show_minimap(vecCamera.x, vecCamera.y, camera_width, false,sf::Vector2f(500,500),2000);
+		map.show_minimap(vecCamera.x, vecCamera.y, camera_width, false, sf::Vector2f(500, 500), 2000);
 		__debug_draw_label_circles();
 	}
+	else
+		DrawPOICircles();
+	DrawUI();
 }
+
+
 
 void dc_mapeditor::Start()
 {
@@ -263,6 +268,37 @@ void dc_mapeditor::DrawUI()
 	sprintf(wall_hp_buf, "%d HP", wall_health);
 	_Window::RenderTextBMiddle(1076, 300, 128, 40, wall_hp_buf, 24, 0, 0, 0, 255);
 
+}
+
+void dc_mapeditor::DrawPOICircles()
+{
+	float width = camera_width;
+	float blockWidth = (1.f*g_Resolution.x) / width;
+	
+
+	for (auto label : map.labels)
+	{
+		sf::Vector2f labelMid = map.world_to_screen(vecCamera.x,vecCamera.y,width,label.vPosition.x,label.vPosition.y);
+		sf::CircleShape circle;
+		float radius = label.size * blockWidth;
+		circle.setRadius(radius);
+		circle.setOrigin(sf::Vector2f(radius, radius));
+		circle.setPosition(labelMid);
+		circle.setFillColor(sf::Color(255, 222, 64, 32));
+		circle.setOutlineColor(sf::Color::Black);
+		circle.setOutlineThickness(2.f);
+		circle.setPointCount(180);
+		g_Window->draw(circle);
+
+		radius = 5.f;
+		circle.setFillColor(sf::Color(255, 222, 64, 128));
+		circle.setRadius(radius);
+		circle.setOrigin(sf::Vector2f(radius, radius));
+		g_Window->draw(circle);
+		char Buf[16];
+		sprintf(Buf, "%.2f", label.size);
+		_Window::RenderTextBMiddleC(labelMid.x, labelMid.y, 0, 24, Buf, 16, 0, 0, 0, 255);
+	}
 }
 
 void dc_mapeditor::DrawForSelectedMode()
@@ -538,6 +574,21 @@ void dc_mapeditor::ChestBrush()
 
 void dc_mapeditor::Save()
 {
+	for (int _X = 0; _X < map.size.x; _X++)
+	{
+		for (int _Y = 0; _Y < map.size.y; _Y++)
+		{
+			if (map.lines[_Y].blocks[_X].iTexture == 30 || map.lines[_Y].blocks[_X].iTexture == 8 || map.lines[_Y].blocks[_X].iTexture == 64)
+			{
+				if (map.lines[_Y].blocks[_X].walls[0].iHealth == 0)map.lines[_Y].blocks[_X].walls[0].iHealth = 100;
+				if (map.lines[_Y].blocks[_X].walls[1].iHealth == 0)map.lines[_Y].blocks[_X].walls[1].iHealth = 100;
+				if (map.is_on_map(sf::Vector2i(_X + 1, _Y)) && map.lines[_Y].blocks[_X + 1].walls[0].iHealth == 0)map.lines[_Y].blocks[_X + 1].walls[0].iHealth = 100;
+				if (map.is_on_map(sf::Vector2i(_X, _Y + 1)) && map.lines[_Y + 1].blocks[_X].walls[1].iHealth == 0)map.lines[_Y + 1].blocks[_X].walls[1].iHealth = 100;
+
+			}
+		}
+	}
+
 	printf("\nStarting...");
 	char* map_buffer = new char[1000000 * sizeof(dc_block)];
 	printf("\nBufferCreated...");
@@ -549,6 +600,7 @@ void dc_mapeditor::Save()
 			{
 				map_buffer[(y * 1000 + x) * sizeof(dc_block) + i] = *(((char*)(&map.lines[y].blocks[x]))+i);
 			}
+
 		}
 		//printf("\n%.1f", (float)y / 10);
 	}
@@ -569,7 +621,7 @@ void dc_mapeditor::Save()
 			for (int i = 0; i < sizeof(dc_chest); i++)
 			{
 				chest_buffer[c * sizeof(dc_chest) + i] = *(((char*)(&map.chests[c])) + i);
-
+				
 			}
 		}
 		file_t F;

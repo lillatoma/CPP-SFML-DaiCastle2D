@@ -832,6 +832,10 @@ void dc_map::show_minimapui(float& mx, float &my, float width, float busx, float
 	static sf::Sprite spr;
 	static dc_clock clock;
 	static bool run_first = false;
+	static dc_clock lastCallClock;
+	static float minimapAlpha = 1.f;
+
+
 
 	if (clock.deltaTime() > 1000 || !run_first)
 	{
@@ -875,8 +879,22 @@ void dc_map::show_minimapui(float& mx, float &my, float width, float busx, float
 
 	spr.setPosition(g_Resolution.x*0.8, g_Resolution.y*0.05);
 	spr.setScale(scale, scale);
+
+	if (g_Mouse.IsBetween(g_Resolution.x*0.8, 0, g_Resolution.x*0.2, g_Resolution.x*0.15 + g_Resolution.y*0.0833))
+	{
+		minimapAlpha -= 0.00266f * lastCallClock.deltaTime();
+		if (minimapAlpha < 0.33f)
+			minimapAlpha = 0.33f;
+	}
+	else
+	{
+		minimapAlpha += 0.00266f * lastCallClock.deltaTime();
+		if (minimapAlpha > 1.f)
+			minimapAlpha = 1.f;
+	}
+
 	spr.setTextureRect(sf::IntRect(mx - 0.5*revarea, my - 0.5*revarea, revarea, revarea));
-	spr.setColor(sf::Color(255, 255, 255, 128));
+	spr.setColor(sf::Color(255, 255, 255, minimapAlpha*128));
 
 
 	g_Window->draw(spr);
@@ -899,10 +917,11 @@ void dc_map::show_minimapui(float& mx, float &my, float width, float busx, float
 	if (0.8f*g_Resolution.x > _X-500.f*bscale || 0.95f*g_Resolution.x < _X+ 500.f*bscale || 0.05f*g_Resolution.y > _Y- 500.f*bscale || (0.05f*g_Resolution.y + 0.15*g_Resolution.x) < _Y+ 500.f*bscale)return;
 
 	sprb.setPosition(_X,_Y);
-	sprb.setColor(sf::Color(255, 255, 255, 128));
+	sprb.setColor(sf::Color(255, 255, 255, minimapAlpha * 128));
 	g_Window->draw(sprb);
 
-
+	lastCallClock.Update();
+	
 }
 
 void dc_map::show_minimap(float& mx, float &my, float width, bool show_only_player, sf::Vector2f StormMid, float StormRadius)

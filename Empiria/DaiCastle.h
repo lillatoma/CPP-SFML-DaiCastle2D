@@ -81,7 +81,6 @@ struct dc_item
 	float fPulloutTime;
 	float fWeaponWeight = 0.0f;
 
-	int iHealType; //0 - health, 1 - shield, 2- progressive
 	int iHealAmount;
 	int iHealMax;
 	float fHealTime;
@@ -1001,7 +1000,8 @@ struct dc_match
 	std::vector<dc_explosive> Explosives;
 
 	int EasyCases = 450, NormalCases = 370, HardCases = 150, ExpertCases = 30;
-	std::vector<float> s_times = { 0.f,45.f,75.f, 150.f,240.f , 330.f,420.f , 480.f,525.f , 570.f,600.0f , 630.f,660.f ,690.0f,705.f,720.0f,730.0f,2500.f };
+	std::vector<float> s_times = //{ 0.f,45.f,75.f, 150.f,240.f , 330.f,420.f , 480.f,525.f , 570.f,600.0f , 630.f,660.f ,690.0f,705.f,720.0f,730.0f,2500.f };
+	{ 0.f,6.f,12.f, 24.f,36.f , 48.f,57.f , 66.f,72.f , 78.f,82.0f , 87.f,91.f ,96.0f,98.f,101.0f,103.0f,2500.f };
 	std::vector<int> s_damage = { 1,1,1,1,1,1,1,2,2,5,5,7,10,10,10,10,10,10,10,10,10,10 };
 	std::vector<float> s_size = { 2000.f,2000.f,2000.f, 2000.f,750.f , 750.f,350.f , 350.f,180.f , 180.f,90.f , 90.f,50.f ,30.f,15.f,5.f,0.f,0.f };
 
@@ -1211,6 +1211,10 @@ struct dc_match
 	/// Draws the current and next storm on the minimap
 	//////////////////////////////////////////////
 	void DrawStormOnMiniMap();
+	
+	void DrawStormOnMinimapUI();
+	
+	
 	//////////////////////////////////////////////
 	/// Draws all unopened airdrops on the minimap
 	//////////////////////////////////////////////
@@ -1891,6 +1895,9 @@ struct dc_mapeditor
 	/// Draws the entire UI
 	//////////////////////////////////////////////
 	void DrawUI();
+
+	void DrawPOICircles();
+
 	//////////////////////////////////////////////
 	/// Draws the map, the elements for the selected mode, and the UI
 	//////////////////////////////////////////////

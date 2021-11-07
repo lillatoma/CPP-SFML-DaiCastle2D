@@ -67,17 +67,17 @@ int main(int argc, char **argv)
 	ChopAppName(myPath);
 	MakeNeededFolders();
 	dc_game Game;
-	//if (IsEditor)
-	//{
-	//	Editor->Start();
-	//	g_Resolution = sf::Vector2i(1280, 720);
-	//	g_Window->create(sf::VideoMode(g_Resolution.x, g_Resolution.y), "DaiCastle 2D Battle Royale | Map Editor", (sf::Style::Titlebar | sf::Style::Close));
-	//}
-	//else
+	if (IsEditor)
+	{
+		Editor = new dc_mapeditor();
+		Editor->Start();
+		g_Resolution = sf::Vector2i(1280, 720);
+		g_Window->create(sf::VideoMode(g_Resolution.x, g_Resolution.y), "DaiCastle 2D Battle Royale | Map Editor", (sf::Style::Titlebar | sf::Style::Close));
+	}
+	else
 	{
 		g_Map.load("BigSize");
-		FreeConsole();
-		
+		//FreeConsole();
 		Game.Setup();
 		_Window::CreateTheWindow();
 	}
@@ -125,6 +125,7 @@ int main(int argc, char **argv)
 		//	printf(g_Mes[i]);
 		//g_Mes.clear();
 
+		//Editor->Do();
 		Game.Do();
 		if (g_Window->isOpen())
 		g_Window->display();

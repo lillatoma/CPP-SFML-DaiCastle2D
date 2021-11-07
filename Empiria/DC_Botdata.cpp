@@ -756,28 +756,9 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 
 			if (mNev != 0.f && Disc >= 0.f)
 			{
-				//ConLog("\n%d | solution 1: %.3f (-> %.3f) | solution 2: %.3f (-> %.3f)", id, -m1Szam / mNev, F(-m1Szam / mNev), -m2Szam / mNev, F(-m2Szam / mNev));
-
 				if (F(-m1Szam / mNev) < F(-m2Szam / mNev))CorrectedJumpTime = -m1Szam / mNev;
 				else CorrectedJumpTime = -m2Szam / mNev;
 			}
-			else if (mNev == 0.f && Disc < 0.f)
-			{
-				//ConLog("\n%d | Both are bad | Nev: %.3f, Disc: %.3f", id, mNev, Disc);
-			}
-			else if (mNev == 0.f)
-			{
-				//ConLog("\n%d | Divisor is bad | Nevezo 0", id);
-			}
-			else if (Disc < 0.f)
-			{
-				//ConLog("\n%d | Discriminant is bad | Disc: %.3f | BS: %.f %.f | JP: %.f %.f", id, Disc, A.x, A.y, L.x, L.y);
-			}
-			else
-			{
-				//ConLog("\n%d | Ungabunga this shouldn't happen | %.3f %.3f", id, mNev, Disc);
-			}
-
 		}
 
 		if (CorrectedJumpTime < 0.f)CorrectedJumpTime = 0.f;
@@ -786,8 +767,6 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 		float BotCorrection = 0.001f*Random(BotCorrMins[BotData[id].botDifficulty] * 1000, BotCorrMaxs[BotData[id].botDifficulty] * 1000);
 
 		BotData[id].JumpoffTime = (1.f - BotCorrection)*BotData[id].JumpoffTime + (BotCorrection)*CorrectedJumpTime;
-
-		//BotData[id].JumpoffTime = CorrectedJumpTime;
 	}
 	//GeneratingStormFearLevels
 	for(int id = 1; id<100; id++)

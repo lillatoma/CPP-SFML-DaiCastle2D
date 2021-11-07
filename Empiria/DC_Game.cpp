@@ -769,6 +769,7 @@ void dc_game::EvaluateMatchForArenaPoints()
 
 	ArenaReward += elims * 15;
 
+
 	ThePlayer.ArenaPoints += ArenaReward;
 }
 

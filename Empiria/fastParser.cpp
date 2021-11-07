@@ -505,11 +505,11 @@ void file_t::Dump(char* location, bool drawscr)
 		}
 		//last_was_enter = current_enter;
 
-	//	if (i% 1000 == 0 && clock.GetDiff() > 16)
-	//	{
-	//		dc_mapeditor::DrawSaveScreen(location, (float(i) / size));
-	//		clock.Update();
-	//	}
+		//if (i% 1000 == 0 && clock.deltaTime() > 16)
+		//{
+		//	dc_mapeditor::DrawSaveScreen(location, (float(i) / size));
+		//	clock.Update();
+		//}
 
 	}
 	of_.close();

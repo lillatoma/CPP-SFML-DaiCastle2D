@@ -3191,11 +3191,11 @@ void dc_item::define_all()
 	it.fBloomMovingDecrease = 1.f;
 	it.fReloadTime = 1.8f;
 	it.fPulloutTime = 0.5f;
-	sprintf(it.szName, "Fuckton");
+	sprintf(it.szName, "The best");
 	it.iTexture = 15;
 	it.id = 200;
 	//g_Items.push_back(it);
-
+	//add_to_lootpool(96, 1);
 
 	for (int i = 0; i < g_Items.size(); i++)
 	{
