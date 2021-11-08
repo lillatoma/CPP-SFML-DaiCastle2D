@@ -285,6 +285,7 @@ void dc_demo_viewer::Setup()
 	{
 		Match.StormMids[i] = Demo.MetaData.StormMids[i];
 		Match.s_size[i] = Demo.MetaData.StormSizes[i];
+		Match.s_times[i] = Demo.MetaData.StormTimes[i];
 	}
 
 	float tickTime = 1.f / Demo.MetaData.DemoTickBase;

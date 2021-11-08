@@ -92,75 +92,135 @@ int dc_match::GetCurrentStormPhaseLogo()
 
 void dc_match::GenerateStorms()
 {
-	t_clock.Update();
-
-	StormMids[0] = sf::Vector2f(500, 500); //Bus Starts
-	StormMids[1] = sf::Vector2f(500, 500); //Bus ends
-	StormMids[2] = sf::Vector2f(500, 500); //Storm forms
-	StormMids[3] = sf::Vector2f(500, 500); //First storm starts moving
-	float length, angle, r;
-	r = 250;
-	length = sqrt(Random(0, r*r));
-	angle = 0.1f*Random(0, 3600);
-	StormMids[4] = sf::Vector2f(500, 500) + angle2vec(angle)*length; // First storm ends
-	StormMids[5] = StormMids[4]; //Second storm starts moving
-	
-	r = s_size[4] - s_size[6]; r /= 2.f;
-	length = sqrt(Random(0, r*r));
-	angle = 0.1f*Random(0, 3600);
-	StormMids[6] = StormMids[4] + angle2vec(angle)*length; // Second storm ends
-	StormMids[7] = StormMids[6];
-
-	r = s_size[6] - s_size[8]; r /= 2.f;
-	length = sqrt(Random(0, r*r));
-	angle = 0.1f*Random(0, 3600);
-	StormMids[8] = StormMids[6] + angle2vec(angle)*length; //Third storm ends
-	StormMids[9] = StormMids[8];
-
-	r = s_size[8] - s_size[10]; r /= 2.f;
-	length = sqrt(Random(0, r*r));
-	if (MatchType == 1)length = 0.5f*s_size[8]; //Half-in half-out
-	angle = 0.1f*Random(0, 3600);
-	StormMids[10] = StormMids[8] + angle2vec(angle)*length; //Fourth storm ends
-	StormMids[11] = StormMids[10];
-
-	r = s_size[11] - s_size[12]; r /= 2.f;
-	length = sqrt(Random(0, r*r));
-	if (MatchType == 1)length = 0.1f*Random(450,600);
-	angle = 0.1f*Random(0, 3600);
-	StormMids[12] = StormMids[11] + angle2vec(angle)*length;
-
-	r = s_size[12] - s_size[13]; r /= 2.f;
-	length = sqrt(Random(0, r*r));
-	if (MatchType == 1)length = 0.1f*Random(250, 500);
-	angle = 0.1f*Random(0, 3600);
-	StormMids[13] = StormMids[12] + angle2vec(angle)*length;
-
-	r = s_size[13] - s_size[14]; r /= 2.f;
-	length = sqrt(Random(0, r*r));
-	if (MatchType == 1)length = 0.1f*Random(300, 500);
-	angle = 0.1f*Random(0, 3600);
-	StormMids[14] = StormMids[13] + angle2vec(angle)*length;
-
-	r = s_size[14] - s_size[15]; r /= 2.f;
-	length = sqrt(Random(0, r*r));
-	if (MatchType == 1)length = 0.1f*Random(300, 500);
-	angle = 0.1f*Random(0, 3600);
-	StormMids[15] = StormMids[14] + angle2vec(angle)*length;
-
-	r = s_size[15] - s_size[16]; r /= 2.f;
-	length = sqrt(Random(0, r*r));
-	if (MatchType == 1)length = 0.1f*Random(200, 400);
-	angle = 0.1f*Random(0, 3600);
-	StormMids[16] = StormMids[15] + angle2vec(angle)*length;
-
-	StormMids[17] = StormMids[16];
-
-
-
-	for (int i = 0; i < 17; i++)
+	if (Gamemode != 1)
 	{
-		ConLog("\n#%d | TimeStart: %.1f | Middle: %.1f %.1f | Radius: %.1f | Damage: %d", i, s_times[i], StormMids[i].x, StormMids[i].y, s_size[i], s_damage[i]);
+		t_clock.Update();
+
+		StormMids[0] = sf::Vector2f(500, 500); //Bus Starts
+		StormMids[1] = sf::Vector2f(500, 500); //Bus ends
+		StormMids[2] = sf::Vector2f(500, 500); //Storm forms
+		StormMids[3] = sf::Vector2f(500, 500); //First storm starts moving
+		float length, angle, r;
+		r = 250;
+		length = sqrt(Random(0, r*r));
+		angle = 0.1f*Random(0, 3600);
+		StormMids[4] = sf::Vector2f(500, 500) + angle2vec(angle)*length; // First storm ends
+		StormMids[5] = StormMids[4]; //Second storm starts moving
+
+		r = s_size[4] - s_size[6]; r /= 2.f;
+		length = sqrt(Random(0, r*r));
+		angle = 0.1f*Random(0, 3600);
+		StormMids[6] = StormMids[4] + angle2vec(angle)*length; // Second storm ends
+		StormMids[7] = StormMids[6];
+
+		r = s_size[6] - s_size[8]; r /= 2.f;
+		length = sqrt(Random(0, r*r));
+		angle = 0.1f*Random(0, 3600);
+		StormMids[8] = StormMids[6] + angle2vec(angle)*length; //Third storm ends
+		StormMids[9] = StormMids[8];
+
+		r = s_size[8] - s_size[10]; r /= 2.f;
+		length = sqrt(Random(0, r*r));
+		if (MatchType == 1)length = 0.5f*s_size[8]; //Half-in half-out
+		angle = 0.1f*Random(0, 3600);
+		StormMids[10] = StormMids[8] + angle2vec(angle)*length; //Fourth storm ends
+		StormMids[11] = StormMids[10];
+
+		r = s_size[11] - s_size[12]; r /= 2.f;
+		length = sqrt(Random(0, r*r));
+		if (MatchType == 1)length = 0.1f*Random(450, 600);
+		angle = 0.1f*Random(0, 3600);
+		StormMids[12] = StormMids[11] + angle2vec(angle)*length;
+
+		r = s_size[12] - s_size[13]; r /= 2.f;
+		length = sqrt(Random(0, r*r));
+		if (MatchType == 1)length = 0.1f*Random(250, 500);
+		angle = 0.1f*Random(0, 3600);
+		StormMids[13] = StormMids[12] + angle2vec(angle)*length;
+
+		r = s_size[13] - s_size[14]; r /= 2.f;
+		length = sqrt(Random(0, r*r));
+		if (MatchType == 1)length = 0.1f*Random(300, 500);
+		angle = 0.1f*Random(0, 3600);
+		StormMids[14] = StormMids[13] + angle2vec(angle)*length;
+
+		r = s_size[14] - s_size[15]; r /= 2.f;
+		length = sqrt(Random(0, r*r));
+		if (MatchType == 1)length = 0.1f*Random(300, 500);
+		angle = 0.1f*Random(0, 3600);
+		StormMids[15] = StormMids[14] + angle2vec(angle)*length;
+
+		r = s_size[15] - s_size[16]; r /= 2.f;
+		length = sqrt(Random(0, r*r));
+		if (MatchType == 1)length = 0.1f*Random(200, 400);
+		angle = 0.1f*Random(0, 3600);
+		StormMids[16] = StormMids[15] + angle2vec(angle)*length;
+
+		StormMids[17] = StormMids[16];
+
+
+
+		for (int i = 0; i < 17; i++)
+		{
+			ConLog("\n#%d | TimeStart: %.1f | Middle: %.1f %.1f | Radius: %.1f | Damage: %d", i, s_times[i], StormMids[i].x, StormMids[i].y, s_size[i], s_damage[i]);
+		}
+	}
+	else
+	{
+		sf::Vector2f finalStormMid;
+		finalStormMid.x = RandFloat(250, 750);
+		finalStormMid.y = RandFloat(250, 750);
+		StormMids[0] = sf::Vector2f(500, 500); //Bus Starts
+		StormMids[1] = sf::Vector2f(500, 500); //Bus ends, storm starts moving
+		float r = (s_times[2] - s_times[1]) / (s_times[16] - s_times[1]);
+		StormMids[2] = r * finalStormMid + (1 - r) * sf::Vector2f(500, 500);
+		StormMids[3] = StormMids[2];
+
+		r = (s_times[4] - s_times[1]) / (s_times[16] - s_times[1]);
+		StormMids[4] = r * finalStormMid + (1 - r) * sf::Vector2f(500, 500);
+		StormMids[5] = StormMids[4];
+		
+		r = (s_times[6] - s_times[1]) / (s_times[16] - s_times[1]);
+		StormMids[6] = r * finalStormMid + (1 - r) * sf::Vector2f(500, 500);
+		StormMids[7] = StormMids[6];
+
+		r = (s_times[8] - s_times[1]) / (s_times[16] - s_times[1]);
+		StormMids[8] = r * finalStormMid + (1 - r) * sf::Vector2f(500, 500);
+		StormMids[9] = StormMids[8];
+
+		r = (s_times[10] - s_times[1]) / (s_times[16] - s_times[1]);
+		StormMids[10] = r * finalStormMid + (1 - r) * sf::Vector2f(500, 500);
+		StormMids[11] = StormMids[10];
+
+		r = (s_times[12] - s_times[1]) / (s_times[16] - s_times[1]);
+		StormMids[12] = r * finalStormMid + (1 - r) * sf::Vector2f(500, 500);
+		StormMids[13] = StormMids[12];
+
+		r = (s_times[14] - s_times[1]) / (s_times[16] - s_times[1]);
+		StormMids[14] = r * finalStormMid + (1 - r) * sf::Vector2f(500, 500);
+		StormMids[15] = StormMids[14];
+
+		StormMids[16] = finalStormMid;
+		StormMids[17] = finalStormMid;
+	}
+
+}
+
+void dc_match::SetupStormVars()
+{
+	if (Gamemode != 1)
+	{
+		s_times = { 0.f,45.f,75.f, 150.f,240.f , 330.f,420.f , 480.f,525.f , 570.f,600.0f , 630.f,660.f ,690.0f,705.f,720.0f,730.0f,2500.f };
+		//{ 0.f,6.f,12.f, 24.f,36.f , 48.f,57.f , 66.f,72.f , 78.f,82.0f , 87.f,91.f ,96.0f,98.f,101.0f,103.0f,2500.f };
+		s_damage = { 1,1,1,1,1,1,1,2,2,5,5,7,10,10,10,10,10,10,10,10,10,10 };
+		s_size = { 2000.f,2000.f,2000.f, 2000.f,750.f , 750.f,350.f , 350.f,180.f , 180.f,90.f , 90.f,50.f ,30.f,15.f,5.f,0.f,0.f };
+	}
+	else
+	{
+		s_times = { 0.f,45.f,115.f, 115.f,160.f , 160.f,205.f , 205.f,250.f , 250.f,295.0f , 295.f,340.f ,340.0f,385.f,385.f,415.0f,2500.f };
+		//{ 0.f,4.5f,11.5f, 11.5f,16.f , 16.f,20.5f , 20.5f,25.f , 25.f,29.50f , 29.5f,34.f ,34.0f,38.5f,38.50f,41.5f,2500.f };
+		s_damage = { 1,1,1,1,1,1,1,2,2,5,5,7,10,10,10,10,10,10,10,10,10,10 };
+		s_size = { 2000.f,2000.f,1400.f, 1400.f,1000.f , 1000.f,600.f , 600.f,450.f , 450.f,300.f , 300.f,200.f ,200.f,100.f,100.f,0.f,0.f };
 	}
 }
 

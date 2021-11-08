@@ -888,8 +888,11 @@ void dc_match::SimulateProjectiles(float timediff, sf::Vector2f V)
 					{
 						dc_elimdata Elim;
 						Elim.shooterPos = players[player].vPosition;
+						Elim.shooterHealth = players[player].iHealth;
 						Elim.targetPos = players[playertrace.targetid].vPosition;
-						Elim.WeaponListindex = Pr.wpnListIndex;
+						Elim.targetHeight = players[playertrace.targetid].fFreeFallHeight;
+						Elim.shooterWeaponListindex = Pr.wpnListIndex;
+						Elim.targetWeaponListIndex = players[playertrace.targetid].GetCurrentWeapon().ListIndex;
 						players[player].Stats.Elims.push_back(Elim);
 
 						PlayerRewardForKill(player);
@@ -978,8 +981,11 @@ void dc_match::SimulateProjectiles(float timediff, sf::Vector2f V)
 					{
 						dc_elimdata Elim;
 						Elim.shooterPos = players[player].vPosition;
+						Elim.shooterHealth = players[player].iHealth;
 						Elim.targetPos = players[playertrace.targetid].vPosition;
-						Elim.WeaponListindex = Pr.wpnListIndex;
+						Elim.targetHeight = players[playertrace.targetid].fFreeFallHeight;
+						Elim.shooterWeaponListindex = Pr.wpnListIndex;
+						Elim.targetWeaponListIndex = players[playertrace.targetid].GetCurrentWeapon().ListIndex;
 						players[player].Stats.Elims.push_back(Elim);
 
 						PlayerRewardForKill(player);
@@ -1342,8 +1348,38 @@ void dc_match::SimulateExplosives(float timediff, sf::Vector2f V)
 							players[data.iVictim].gotHitLastItemID = Exp.wpnListIndex;
 						}
 
+						if (Exp.projectiletype == 4)
+						{
+							sf::Vector2f distanceVector = players[data.iVictim].vPosition - ExpPosition;
+							if (distanceVector == sf::Vector2f(0, 0))
+								distanceVector = sf::Vector2f(0.1f, 0);
+							float playerDistance = GetLength(distanceVector);
+							sf::Vector2f unitVector = distanceVector / playerDistance;
 
+							dc_impulseeffect impulseEffect;
+							impulseEffect.playerID = data.iVictim;
+							impulseEffect.dirVector = unitVector;
+							impulseEffect.power = 50.f / (4.f + playerDistance);
+							ImpulseContainer.push_back(impulseEffect);
+						}
+						else if (Exp.projectiletype == 6)
+						{
+							sf::Vector2f distanceVector = ExpPosition - players[data.iVictim].vPosition;
+							if (distanceVector == sf::Vector2f(0, 0))
+								distanceVector = sf::Vector2f(0.1f, 0);
+							float playerDistance = GetLength(distanceVector);
+							sf::Vector2f unitVector = distanceVector / playerDistance;
 
+							dc_impulseeffect impulseEffect;
+							impulseEffect.playerID = data.iVictim;
+							impulseEffect.dirVector = unitVector;
+							impulseEffect.power = 50.f / (4.f + playerDistance);
+							ImpulseContainer.push_back(impulseEffect);
+						}
+						else if (Exp.projectiletype == 5)
+						{
+							players[data.iVictim].fFreeFallHeight = 10.f;
+						}
 
 						//Damage Effect
 							dc_damageeffect ef;
@@ -1352,7 +1388,8 @@ void dc_match::SimulateExplosives(float timediff, sf::Vector2f V)
 							ef.position = data.mapCoord / (float)(data.mapCoordWeight);
 							if (iVictimShield > 0)ef.color = sf::Color(48, 192, 255, 255);
 							else ef.color = sf::Color(233, 211, 199, 255);
-							effects.dmg_effects.push_back(ef);
+							if(ef.damage > 0)
+								effects.dmg_effects.push_back(ef);
 						//Shield Break Effect
 						if (iVictimShield > 0 && players[data.iVictim].iShield == 0)
 						{
@@ -1367,8 +1404,11 @@ void dc_match::SimulateExplosives(float timediff, sf::Vector2f V)
 						{
 							dc_elimdata Elim;
 							Elim.shooterPos = players[player].vPosition;
+							Elim.shooterHealth = players[player].iHealth;
 							Elim.targetPos = players[data.iVictim].vPosition;
-							Elim.WeaponListindex = Exp.wpnListIndex;
+							Elim.targetHeight = players[data.iVictim].fFreeFallHeight;
+							Elim.shooterWeaponListindex = Exp.wpnListIndex;
+							Elim.targetWeaponListIndex = players[data.iVictim].GetCurrentWeapon().ListIndex;
 							players[player].Stats.Elims.push_back(Elim);
 
 							players[Exp.userid].Stats.iEliminations++;
@@ -1727,8 +1767,11 @@ void dc_match::PlayerShootWeapon0(int player)
 					PlayerRewardForKill(player);
 					dc_elimdata Elim;
 					Elim.shooterPos = players[player].vPosition;
+					Elim.shooterHealth = players[player].iHealth;
 					Elim.targetPos = players[playertrace.targetid].vPosition;
-					Elim.WeaponListindex = players[player].GetCurrentWeapon().ListIndex;
+					Elim.targetHeight = players[playertrace.targetid].fFreeFallHeight;
+					Elim.shooterWeaponListindex = players[player].GetCurrentWeapon().ListIndex;
+					Elim.targetWeaponListIndex = players[playertrace.targetid].GetCurrentWeapon().ListIndex;
 					players[player].Stats.Elims.push_back(Elim);
 
 					Demo_SnapshotUpdateElimination(player, playertrace.targetid);
@@ -1830,8 +1873,11 @@ void dc_match::PlayerShootWeapon0(int player)
 					PlayerRewardForKill(player);
 					dc_elimdata Elim;
 					Elim.shooterPos = players[player].vPosition;
+					Elim.shooterHealth = players[player].iHealth;
 					Elim.targetPos = players[playertrace.targetid].vPosition;
-					Elim.WeaponListindex = players[player].GetCurrentWeapon().ListIndex;
+					Elim.targetHeight = players[playertrace.targetid].fFreeFallHeight;
+					Elim.shooterWeaponListindex = players[player].GetCurrentWeapon().ListIndex;
+					Elim.targetWeaponListIndex = players[playertrace.targetid].GetCurrentWeapon().ListIndex;
 					players[player].Stats.Elims.push_back(Elim);
 					Demo_SnapshotUpdateElimination(player, playertrace.targetid);
 					PlayerKill(playertrace.targetid);
@@ -1917,8 +1963,12 @@ void dc_match::PlayerShootWeapon1(int player)
 
 					dc_elimdata Elim;
 					Elim.shooterPos = players[data.iShooter].vPosition;
+					Elim.shooterHealth = players[data.iShooter].iHealth;
 					Elim.targetPos = players[data.iVictim].vPosition;
-					Elim.WeaponListindex = players[data.iShooter].GetCurrentWeapon().ListIndex;
+					Elim.targetHeight = players[data.iVictim].fFreeFallHeight;
+					Elim.shooterWeaponListindex = players[data.iShooter].GetCurrentWeapon().ListIndex;
+					Elim.targetWeaponListIndex = players[data.iVictim].GetCurrentWeapon().ListIndex;
+				
 					players[data.iShooter].Stats.Elims.push_back(Elim);
 
 					players[data.iShooter].Stats.iEliminations++;
@@ -2009,6 +2059,7 @@ void dc_match::PlayerShootWeapon(int player)
 
 	players[player].iOpeningChest = -1;
 	players[player].iOpeningAirdrop = -1;
+	players[player].fOpeningTime = -0.01f;
 
 	if (players[player].GetCurrentWeapon().IsConsumable() && players[player].GetCurrentWeapon().iBullets == 0)players[player].GetCurrentWeapon().bValidated = false;
 
@@ -3323,8 +3374,10 @@ void dc_match::DrawMinimap()
 			dc_stormclosingeffect sce;
 			sce.clockBegin = ServerTime;
 			sce.lifetime = GetTimeTillNextStormPhase();
-			effects.sce_effects.push_back(sce);
+			if(Gamemode != 1 || (Gamemode == 1 && GetCurrentStormPhase() == 4))
+				effects.sce_effects.push_back(sce);
 		}
+		
 
 		static sf::Sprite markersprite;
 		markersprite.setTexture(*g_Textures.get(51));
@@ -3995,6 +4048,19 @@ void dc_match::DrawAll()
 	Clock.Update();
 }
 
+void dc_match::SimulateImpulseEffects(float diffTime)
+{
+	for (int i = ImpulseContainer.size() - 1; i >= 0; i--)
+	{
+		dc_impulseeffect& imp = ImpulseContainer[i];
+		players[imp.playerID].vPosition += diffTime * imp.power *imp.dirVector;
+		imp.power -= diffTime * IMPULSE_POWER_REDUCTION;
+
+		if (imp.power <= 0)
+			ImpulseContainer.erase(ImpulseContainer.begin() + i);
+	}
+}
+
 void dc_match::CheckCollisions(int i, float t)
 {
 
@@ -4172,6 +4238,7 @@ void dc_match::Start(int bs)
 	map.load("BigSize");
 	//Creating storm and bus
 	GenerateBusRoute();
+	SetupStormVars();
 	GenerateStorms();
 	//Getting all the walls for faster trace ray calculations
 	map.begin_lines();
@@ -4191,10 +4258,6 @@ void dc_match::Start(int bs)
 		players[i].iHealth = 100;
 		players[i].vPosition = BusCurrentPosition;
 	}
-
-
-
-
 
 	//Creating the bots
 	BotBegin(EasyCases, NormalCases, HardCases, ExpertCases);
@@ -4988,6 +5051,62 @@ void dc_match::SimulateFootsteps()
 	}
 }
 
+bool dc_match::CheckWeaponEligibility(int itemIndex, bool airdrop)
+{
+	if (!airdrop)
+	{
+		if (Gamemode == 1)
+		{
+			if (g_Items[itemIndex].iRarity <= 1)
+				return false;
+		}
+		else if (Gamemode == 2)
+		{
+			if (g_Items[itemIndex].iRarity <= 3)
+				return false;
+		}
+		else if (Gamemode == 3)
+		{
+			if (!g_Items[itemIndex].IsSniper())
+				return false;
+		}
+		else if (Gamemode == 4)
+		{
+			if (!g_Items[itemIndex].IsShotgun())
+				return false;
+		}
+		else if (Gamemode == 5)
+		{
+			if (g_Items[itemIndex].iRarity > 0)
+				return false;
+		}
+	}
+	else
+	{
+		if (Gamemode == 2)
+		{
+			if (g_Items[itemIndex].iRarity <= 4)
+				return false;
+		}
+		else if (Gamemode == 3)
+		{
+			if (!g_Items[itemIndex].IsSniper())
+				return false;
+		}
+		else if (Gamemode == 4)
+		{
+			if (!g_Items[itemIndex].IsShotgun())
+				return false;
+		}
+		else if (Gamemode == 5)
+		{
+			if (g_Items[itemIndex].iRarity > 0)
+				return false;
+		}
+	}
+	return true;
+}
+
 void dc_match::LoopPlayers()
 {
 
@@ -5002,6 +5121,7 @@ void dc_match::LoopPlayers()
 		if (players[i].fFreeFallHeight > 0)PlayerDescent(i, diff, 1.5f); //Automatic descend
 
 		players[i].SimulateSlurp(diff); //For healing
+		//players[i].SimulateImpulseEffects(diff);
 		CheckCollisions(i, diff);
 		players[i].vPosition.x += players[i].vVelocity.x * diff;
 		players[i].vPosition.y -= players[i].vVelocity.y * diff; //This is inverted
@@ -5074,8 +5194,15 @@ void dc_match::LoopPlayers()
 						while (weapon.IsConsumable()) // should have used do-while 
 						{
 							int r = weapon.GetRandomWeaponID();
+
+
 							pos = map.chests[players[i].iOpeningChest].vPosition + sf::Vector2f(-RandFloat()*0.25f, RandFloat()*0.5f - 0.25f);
 							weapon.create(r, pos);
+							if (!CheckWeaponEligibility(weapon.ListIndex))
+							{
+								weapon.id = 10000;
+								continue;
+							}
 							//weapon.vPosition = pos;
 						}
 						weapon.GameIdx = TotalItems; TotalItems++;
@@ -5127,10 +5254,15 @@ void dc_match::LoopPlayers()
 							{
 								Items[j].id = 10000;
 								int r = Items[j].GetRandomWeaponID();
-								while (Items[j].IsConsumable() || Items[j].iRarity < 4)
+								while (Items[j].IsConsumable() || (Items[j].iRarity < 4 && Gamemode != 5))
 								{
 									int r = Items[j].GetRandomWeaponID();
 									Items[j].create(r, pos+0.5f*angle2vec(j*72.f));
+									if (!CheckWeaponEligibility(Items[j].ListIndex,true))
+									{
+										Items[j].id = 10000;
+										continue;
+									}
 								}
 							}
 							else
@@ -5197,6 +5329,7 @@ void dc_match::LoopPlayers()
 						players[i].iHealth += healamount;
 						if (players[i].iHealth > healmax)players[i].iHealth = healmax;
 						players[i].Items[players[i].iSelectedWeapon].iBullets--;
+						players[i].Stats.iWhiteHealsUsed++;
 					}
 				}
 				else if (healtype == 1)
@@ -5206,6 +5339,7 @@ void dc_match::LoopPlayers()
 						players[i].iShield += healamount;
 						if (players[i].iShield > healmax)players[i].iShield = healmax;
 						players[i].Items[players[i].iSelectedWeapon].iBullets--;
+						players[i].Stats.iShieldsUsed++;
 					}
 				}
 				else
@@ -5217,6 +5351,7 @@ void dc_match::LoopPlayers()
 
 					players[i].SlurpContainer.push_back(H);
 					players[i].Items[players[i].iSelectedWeapon].iBullets--;
+					players[i].Stats.iSlurpsUsed++;
 				}
 
 				if (players[i].Items[players[i].iSelectedWeapon].iBullets <= 0)players[i].Items[players[i].iSelectedWeapon].bValidated = false;
@@ -5292,6 +5427,7 @@ void dc_match::LoopPlayers()
 
 	//When the game is close to end, we check for it
 	if (playercount <= 5)FinishMatch();
+	SimulateImpulseEffects(diff);
 }
 
 void dc_match::ScrollMap()

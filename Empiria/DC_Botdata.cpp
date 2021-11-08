@@ -664,6 +664,7 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 
 	for (int id = 1; id < 100; id++)
 	{
+		ConLog("\n%d", id);
 		for (int i = 0; i < map.chests.size(); i++)
 		{ if(!map.chests[i].bOpen)
 			{ 
@@ -2395,6 +2396,7 @@ void dc_match::BotRaid(int id)
 	auto nextStormMid = GetNextStormMiddle();
 	auto nextStormRadius = GetNextStormDiameter() / 2;
 	nextStormRadius = min(nextStormRadius, 300.f);
+	nextStormRadius = max(nextStormRadius, 10.f);
 	sf::Vector2f nPoint(6000, 6000);
 	auto distanceFromNextStorm = max(0,GetDistance(players[id].vPosition, nextStormMid) - nextStormRadius);
 	float rad = distanceFromNextStorm + 100;

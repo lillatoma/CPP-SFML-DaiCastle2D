@@ -210,6 +210,7 @@ int dc_demo_metadata::GetSizeOf()
 	Size += sizeof(int); //How Many Storm Phases
 	Size += sizeof(sf::Vector2f)*StormMids.size(); //Variable of Storm
 	Size += sizeof(float)*StormSizes.size(); //Variable of Storm
+	Size += sizeof(float)*StormTimes.size();
 	Size += sizeof(char) * 64 * 100; //Playernames
 	Size += sizeof(int) * 3 * 100; //Player skin data
 
@@ -226,8 +227,10 @@ void dc_demo_metadata::Setup(void* N)
 	StormPhases = 18;
 	for (int i = 0; i < StormPhases; i++)
 	{
+		ConLog("%d", i);
 		StormMids.push_back(M->StormMids[i]);
 		StormSizes.push_back(M->s_size[i]);
+		StormTimes.push_back(M->s_times[i]);
 	}
 	for (int i = 0; i < 100; i++)
 	{
@@ -258,6 +261,7 @@ char* dc_demo_metadata::GetPrinted(int* Size)
 	{
 		*(sf::Vector2f*)(buffer + xPos) = StormMids[i]; xPos += sizeof(sf::Vector2f);
 		*(float*)(buffer + xPos) = StormSizes[i]; xPos += sizeof(float);
+		*(float*)(buffer + xPos) = StormTimes[i]; xPos += sizeof(float);
 	}
 	for (int i = 0; i < 100; i++)
 	{
@@ -284,6 +288,7 @@ int dc_demo_metadata::ReadFrom(char* p)
 	{
 		StormMids.push_back(*(sf::Vector2f*)(p + xPos)); xPos += sizeof(sf::Vector2f);
 		StormSizes.push_back( *(float*)(p + xPos)); xPos += sizeof(float);
+		StormTimes.push_back(*(float*)(p + xPos)); xPos += sizeof(float);
 	}
 	for (int i = 0; i < 100; i++)
 	{

@@ -196,8 +196,11 @@ extern std::vector<dc_item> g_Items;
 struct dc_elimdata
 {
 	sf::Vector2f shooterPos;
+	int shooterHealth;
 	sf::Vector2f targetPos;
-	int WeaponListindex;
+	float targetHeight;
+	int shooterWeaponListindex;
+	int targetWeaponListIndex;
 };
 
 //////////////////////////////////////////////
@@ -213,6 +216,11 @@ struct dc_stats
 	float fTimeAlive = 0.f;
 	int iShotsTaken = 0;
 	int iShotsHit = 0;
+
+	int iWhiteHealsUsed = 0;
+	int iShieldsUsed = 0;
+	int iSlurpsUsed = 0;
+
 	sf::Vector2f LandingPosition = sf::Vector2f(-1.f,-1.f);
 	std::vector<dc_elimdata> Elims;
 	std::vector<int> Chests;
@@ -259,12 +267,20 @@ struct dc_stats
 #define KILL_OWNERTIME 15.f
 #define BUS_AUDIBLEDISTANCE 250.f
 
+#define IMPULSE_POWER_REDUCTION 7.f
 
 struct dc_slurptypeheal
 {
 	int healLeft = 0;
 	float fHealRate;
 	float fHealTimeLeft;
+};
+
+struct dc_impulseeffect
+{
+	int playerID;
+	sf::Vector2f dirVector;
+	float power;
 };
 
 //////////////////////////////////////////////
@@ -414,6 +430,8 @@ struct dc_unit
 			if (s.healLeft <= 0)SlurpContainer.erase(SlurpContainer.begin() + i);
 		}
 	}
+
+
 };
 
 //////////////////////////////////////////////
@@ -849,6 +867,8 @@ struct dc_botdata
 	float BotMemoryAfterVanish; //How long the bot remembers another player after it loses another player out of sight - so the bot keeps shooting for a while
 	
 	std::vector<sf::Vector2f> move_path;
+
+	char padding[64];
 };
 
 //////////////////////////////////////////////
@@ -982,7 +1002,7 @@ struct dc_match
 	bool ALLOW_CHEATS = true;
 	dc_keybinds* KeyBinds;
 	dc_map map;
-	dc_unit players[100];
+
 	std::vector<dc_airdrop> AirDrops;
 	float fTimeTillNextAirdrop;
 	int TotalAirdrops = 0;
@@ -990,6 +1010,7 @@ struct dc_match
 	int TotalProjectiles = 0;
 	int TotalExplosives = 0;
 	int MatchType = 0; //0 - Solo Casual, 1 - Solo Competitive
+	int Gamemode = 0; //0 - Default, 1 - Blitz, 2 - Only gold, 3 - Sniper only, 4 - Close quarters, 5 - Gray Guns
 	int PlayerHealReward = 0;
 	int weapon_selected_to_swap = -1;
 	int camera_follows = 1;
@@ -999,9 +1020,13 @@ struct dc_match
 	std::vector<dc_projectile> Projectiles;
 	std::vector<dc_explosive> Explosives;
 
+
+
+	
+
 	int EasyCases = 450, NormalCases = 370, HardCases = 150, ExpertCases = 30;
-	std::vector<float> s_times = //{ 0.f,45.f,75.f, 150.f,240.f , 330.f,420.f , 480.f,525.f , 570.f,600.0f , 630.f,660.f ,690.0f,705.f,720.0f,730.0f,2500.f };
-	{ 0.f,6.f,12.f, 24.f,36.f , 48.f,57.f , 66.f,72.f , 78.f,82.0f , 87.f,91.f ,96.0f,98.f,101.0f,103.0f,2500.f };
+	std::vector<float> s_times = { 0.f,45.f,75.f, 150.f,240.f , 330.f,420.f , 480.f,525.f , 570.f,600.0f , 630.f,660.f ,690.0f,705.f,720.0f,730.0f,2500.f };
+	//{ 0.f,6.f,12.f, 24.f,36.f , 48.f,57.f , 66.f,72.f , 78.f,82.0f , 87.f,91.f ,96.0f,98.f,101.0f,103.0f,2500.f };
 	std::vector<int> s_damage = { 1,1,1,1,1,1,1,2,2,5,5,7,10,10,10,10,10,10,10,10,10,10 };
 	std::vector<float> s_size = { 2000.f,2000.f,2000.f, 2000.f,750.f , 750.f,350.f , 350.f,180.f , 180.f,90.f , 90.f,50.f ,30.f,15.f,5.f,0.f,0.f };
 
@@ -1035,7 +1060,7 @@ struct dc_match
 
 	dc_effects effects;
 	dc_botdata BotData[100]; //0 is unused as the player is not controlled by the computer
-
+	char padding3[256];
 
 	void Demo_SnapshotUpdateProjectileAdd(sf::Vector2f spawn, float angle, float projspeed);
 	void Demo_SnapshotProjectileEnd(int index);
@@ -1304,6 +1329,10 @@ struct dc_match
 	/// Launches demo recording if it's active in the settings
 	//////////////////////////////////////////////
 	void Start(int bs);
+
+	void SetupStormVars();
+
+	bool CheckWeaponEligibility(int itemIndex, bool airdrop = false);
 
 	//////////////////////////////////////////////
 	/// Deletes items that are far out in the storm, with no player nearby
@@ -1835,6 +1864,11 @@ struct dc_match
 	//////////////////////////////////////////////
 	sf::Vector2f Bounce(sf::Vector2f inDirVector, sf::Vector2f wallA, sf::Vector2f wallB);
 
+	std::vector<dc_impulseeffect> ImpulseContainer;
+
+	void SimulateImpulseEffects(float diffTime);
+
+	dc_unit players[100];
 private:
 	bool p_bShouldUpdatelines = true;
 };
@@ -2408,9 +2442,32 @@ struct dc_quest
 	void Init();
 };
 
+struct dc_globalquest
+{
+	bool Finished = false;
+	int index = 0;
+	int iProgress = 0;
+	int iNeeded = 0;
+
+	int xpReward = 0;
+	int tierReward = 0;
+	char* questName;
+	char* questDescription;
+};
+
 struct dc_questdoneeffect
 {
 	dc_quest Quest;
+	dc_clock Clock;
+	//////////////////////////////////////////////
+	/// Draws an animated effect
+	//////////////////////////////////////////////
+	void draw();
+};
+
+struct dc_globalquestdoneeffect
+{
+	dc_globalquest Quest;
 	dc_clock Clock;
 	//////////////////////////////////////////////
 	/// Draws an animated effect
@@ -2431,15 +2488,19 @@ struct dc_lockergoteffect
 
 struct dc_gameeffect
 {
+	std::vector<dc_globalquestdoneeffect> GQD_Effects;
 	std::vector<dc_questdoneeffect> QD_Effects;
 	std::vector<dc_lockergoteffect> LG_Effects;
+
 };
+
 //////////////////////////////////////////////
 /// Contains all statistics and information of the user
 /// TODO: Remove previous match data or process it
 //////////////////////////////////////////////
 struct dc_playerprofile
 {
+	int Version = 3;
 	int lastGamemode = 0; //0 - Regular Solo, 1 - Arena Solo
 	int Level = 0;
 	int Xp = 0;
@@ -2484,12 +2545,15 @@ struct dc_playerprofile
 	dc_quest Quests[2];
 
 	int ArenaPoints = 0;
+	dc_globalquest GlobalQuests[30];
 	char padding[32];
 
 	dc_playerprofile() {};
 	dc_playerprofile(const dc_playerprofile& right)
 	{
-
+		Version = right.Version;
+		for (int i = 0; i < 30; i++)
+			GlobalQuests[i] = right.GlobalQuests[i];
 		ArenaPoints = right.ArenaPoints;
 		DistanceTravelledHigh = right.DistanceTravelledHigh;
 		DistanceTravelledLow = right.DistanceTravelledLow;
@@ -2532,7 +2596,9 @@ struct dc_playerprofile
 
 	dc_playerprofile operator=(const dc_playerprofile& right)
 	{
-
+		Version = right.Version;
+		for (int i = 0; i < 30; i++)
+			GlobalQuests[i] = right.GlobalQuests[i];
 		ArenaPoints = right.ArenaPoints;
 		DistanceTravelledHigh = right.DistanceTravelledHigh;
 		DistanceTravelledLow = right.DistanceTravelledLow;
@@ -2602,7 +2668,7 @@ struct dc_game
 
 	int console_pos = 0;
 	std::vector<dc_consolelog*> ConsoleLogs;
-	int GM_STATE = 0; // 0- Lobby, 1 - InGame, 2 - Player Statistics, 3 - Settings, 4 - Demo Menu, 5 - Locker, 6 - Credits, 7 - In Demo
+	int GM_STATE = 0; // 0- Lobby, 1 - InGame, 2 - Player Statistics, 3 - Settings, 4 - Demo Menu, 5 - Locker, 6 - Credits, 7 - In Demo, 8 - GlobalQuests
 	int MatchType = 0; //0- Solo, 1 - Arena Solo
 	dc_match* Match = nullptr;
 	dc_demo_viewer* DViewer = nullptr;
@@ -2619,6 +2685,9 @@ struct dc_game
 	int ConsoleMessageIndex = 0; //This is for scrolling in the console
 
 	dc_gameeffect Effects;
+
+	void SetupQuests();
+
 
 	//////////////////////////////////////////////
 	/// Draws the locker unlock and quest finished effects
@@ -2695,6 +2764,9 @@ struct dc_game
 	/// If a quest is finished, it creates a quest-done effect, and generates a new quest
 	//////////////////////////////////////////////
 	void EvaluateMatchForQuests();
+
+	void EvaluateMatchForGlobalQuests();
+
 	//////////////////////////////////////////////
 	/// Checks progress for both quests from the stats of the current match
 	/// Returns the extra progress that has been done without changing any metrics
@@ -2927,6 +2999,9 @@ struct dc_game
 	//////////////////////////////////////////////
 	void DoStatisticsMenu();
 
+	int QuestPage = 0; //0 - Left Quests, 1 - Completed
+	void DrawGlobalQuestsMenu();
+	void DoGlobalQuestsMenu();
 
 	int SettingKeySelected = -1;
 	int SettingPrimerity = -1; // 0 - Primary, 1 - Secondary

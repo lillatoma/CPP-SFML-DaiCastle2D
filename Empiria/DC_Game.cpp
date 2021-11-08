@@ -198,7 +198,7 @@ void dc_game::StartNewMatch()
 			Match->Start(100);
 			Match->KeyBinds = &this->Binds;
 		}
-		else
+		else if (MatchType == 1)
 		{
 			Match = new dc_match;
 			if (g_Config.m_record_replay.Value >= 1)Match->DemoRecord = 1;
@@ -221,6 +221,91 @@ void dc_game::StartNewMatch()
 			Match->players[0].iSkinTexture = ThePlayer.SelectedSkin;
 			Match->players[0].iWeaponWrapTexture = ThePlayer.SelectedWrap;
 
+			Match->Start(100);
+			Match->KeyBinds = &this->Binds;
+		}
+		else if (MatchType == 2)
+		{
+
+			Match = new dc_match;
+			if (g_Config.m_record_replay.Value >= 1)Match->DemoRecord = 1;
+			else Match->DemoRecord = 0;
+
+			if (Match->DemoRecord != 1)Match->canDelete = true;
+
+			sprintf(Match->players[0].szName, ThePlayer.szName);
+			Match->players[0].iGliderTexture = ThePlayer.SelectedGlider;
+			Match->players[0].iSkinTexture = ThePlayer.SelectedSkin;
+			Match->players[0].iWeaponWrapTexture = ThePlayer.SelectedWrap;
+			Match->Gamemode = 1;
+			Match->Start(100);
+			Match->KeyBinds = &this->Binds;
+		}
+		else if (MatchType == 3)
+		{
+
+			Match = new dc_match;
+			if (g_Config.m_record_replay.Value >= 1)Match->DemoRecord = 1;
+			else Match->DemoRecord = 0;
+
+			if (Match->DemoRecord != 1)Match->canDelete = true;
+
+			sprintf(Match->players[0].szName, ThePlayer.szName);
+			Match->players[0].iGliderTexture = ThePlayer.SelectedGlider;
+			Match->players[0].iSkinTexture = ThePlayer.SelectedSkin;
+			Match->players[0].iWeaponWrapTexture = ThePlayer.SelectedWrap;
+			Match->Gamemode = 2;
+			Match->Start(100);
+			Match->KeyBinds = &this->Binds;
+		}
+		else if (MatchType == 4)
+		{
+
+			Match = new dc_match;
+			if (g_Config.m_record_replay.Value >= 1)Match->DemoRecord = 1;
+			else Match->DemoRecord = 0;
+
+			if (Match->DemoRecord != 1)Match->canDelete = true;
+
+			sprintf(Match->players[0].szName, ThePlayer.szName);
+			Match->players[0].iGliderTexture = ThePlayer.SelectedGlider;
+			Match->players[0].iSkinTexture = ThePlayer.SelectedSkin;
+			Match->players[0].iWeaponWrapTexture = ThePlayer.SelectedWrap;
+			Match->Gamemode = 3;
+			Match->Start(100);
+			Match->KeyBinds = &this->Binds;
+		}
+		else if (MatchType == 5)
+		{
+
+			Match = new dc_match;
+			if (g_Config.m_record_replay.Value >= 1)Match->DemoRecord = 1;
+			else Match->DemoRecord = 0;
+
+			if (Match->DemoRecord != 1)Match->canDelete = true;
+
+			sprintf(Match->players[0].szName, ThePlayer.szName);
+			Match->players[0].iGliderTexture = ThePlayer.SelectedGlider;
+			Match->players[0].iSkinTexture = ThePlayer.SelectedSkin;
+			Match->players[0].iWeaponWrapTexture = ThePlayer.SelectedWrap;
+			Match->Gamemode = 4;
+			Match->Start(100);
+			Match->KeyBinds = &this->Binds;
+		}
+		else if (MatchType == 6)
+		{
+
+			Match = new dc_match;
+			if (g_Config.m_record_replay.Value >= 1)Match->DemoRecord = 1;
+			else Match->DemoRecord = 0;
+
+			if (Match->DemoRecord != 1)Match->canDelete = true;
+
+			sprintf(Match->players[0].szName, ThePlayer.szName);
+			Match->players[0].iGliderTexture = ThePlayer.SelectedGlider;
+			Match->players[0].iSkinTexture = ThePlayer.SelectedSkin;
+			Match->players[0].iWeaponWrapTexture = ThePlayer.SelectedWrap;
+			Match->Gamemode = 5;
 			Match->Start(100);
 			Match->KeyBinds = &this->Binds;
 		}
@@ -360,6 +445,7 @@ void dc_game::Setup()
 {
 	ThePlayer.Quests[0].Init();
 	ThePlayer.Quests[1].Init();
+
 	SetupDefaultBinds();
 	dc_consolelog* m = new dc_consolelog("\0", sf::Color());
 	OldConsoleMessages.push_back(m);
@@ -379,7 +465,7 @@ void dc_game::Setup()
 	SettingFullscreen = g_Config.g_fullscreen.Value;
 	sf::Vector2i Resolutions[] = { sf::Vector2i(640,480),sf::Vector2i(800,600),sf::Vector2i(1024,768),sf::Vector2i(1280,960),sf::Vector2i(1440,1080), sf::Vector2i(640,360),sf::Vector2i(1024,576),sf::Vector2i(1280,720),sf::Vector2i(1600,900),sf::Vector2i(1920,1080), sf::Vector2i(640,400),sf::Vector2i(1280,800),sf::Vector2i(1680,1050),sf::Vector2i(1680,720) };
 	for (int i = 0; i < 14; i++)if (Resolutions[i] == g_Resolution)SelectedVideoSetting = i;
-	
+
 	CheckLevels();
 	CheckTiers();
 	//cmdClear("");
@@ -404,6 +490,7 @@ void dc_game::Setup()
 	DViewer = nullptr;
 
 	ThePlayer.szName[63] = '\0';
+	SetupQuests();
 }
 
 void dc_game::LogMessage(char* msg, sf::Color color)
@@ -553,6 +640,8 @@ int dc_game::CalcExpForMatch()
 	return Xp;
 }
 
+
+
 int dc_game::GetEvaluateMatchForQuests(int i)
 {
 
@@ -572,19 +661,19 @@ int dc_game::GetEvaluateMatchForQuests(int i)
 				}
 				if (ThePlayer.Quests[i].killweapontype == 0)
 					extraprog++;
-				else if (ThePlayer.Quests[i].killweapontype == 1 && g_Items[e.WeaponListindex].IsPistol())
+				else if (ThePlayer.Quests[i].killweapontype == 1 && g_Items[e.shooterWeaponListindex].IsPistol())
 					extraprog++;
-				else if (ThePlayer.Quests[i].killweapontype == 2 && g_Items[e.WeaponListindex].IsSmg())
+				else if (ThePlayer.Quests[i].killweapontype == 2 && g_Items[e.shooterWeaponListindex].IsSmg())
 					extraprog++;
-				else if (ThePlayer.Quests[i].killweapontype == 3 && g_Items[e.WeaponListindex].IsShotgun())
+				else if (ThePlayer.Quests[i].killweapontype == 3 && g_Items[e.shooterWeaponListindex].IsShotgun())
 					extraprog++;
-				else if (ThePlayer.Quests[i].killweapontype == 4 && g_Items[e.WeaponListindex].IsRifle())
+				else if (ThePlayer.Quests[i].killweapontype == 4 && g_Items[e.shooterWeaponListindex].IsRifle())
 					extraprog++;
-				else if (ThePlayer.Quests[i].killweapontype == 5 && g_Items[e.WeaponListindex].IsSniper())
+				else if (ThePlayer.Quests[i].killweapontype == 5 && g_Items[e.shooterWeaponListindex].IsSniper())
 					extraprog++;
-				else if (ThePlayer.Quests[i].killweapontype == 6 && g_Items[e.WeaponListindex].IsExplosive())
+				else if (ThePlayer.Quests[i].killweapontype == 6 && g_Items[e.shooterWeaponListindex].IsExplosive())
 					extraprog++;
-				else if (ThePlayer.Quests[i].killweapontype == 7 && g_Items[e.WeaponListindex].IsMachinegun())
+				else if (ThePlayer.Quests[i].killweapontype == 7 && g_Items[e.shooterWeaponListindex].IsMachinegun())
 					extraprog++;
 			}
 		}
@@ -650,6 +739,551 @@ int dc_game::GetEvaluateMatchForQuests(int i)
 		return extraprog;
 }
 
+void dc_game::SetupQuests()
+{
+	//Global Quest Number 0: 100 Kills
+	//Global Quest Number 1: 1000 Chests
+	//Global Quest Number 2: Kill a flying enemy
+	//Global Quest Number 3: Eliminate an opponent with a grenade
+	//Global Quest Number 4: Kill an opponent with 1 HP
+	//Global Quest Number 5: Kill a sniper opponent with a sniper
+	//Global Quest Number 6: Kill an opponent while being dead
+	//Global Quest Number 7: 50 Mythic weapon eliminations
+	//Global Quest Number 8: Kill with 5 different weapon types in a single match;
+	//Global Quest Number 9: Visit 7 named POIs in one match
+	//Global Quest Number 10: 2000 Damage in a single match
+	//Global Quest Number 11: Single weapon win
+	//Global Quest Number 12: Win a match without eliminations
+	//Global Quest Number 13: Eliminate a swimming opponent while swimming
+	//Global Quest Number 14: Get 20 eliminations in a single match
+	//Global Quest Number 15: Win a match without healing or drinking shields
+	//Global Quest Number 16: Play an arena match
+	//Global Quest Number 17: Win an arena match
+	//Global Quest Number 18: Eliminate an opponent with a sniper within 3 meters
+	//Global Quest Number 19: Complete 10 quests from the previous ones
+
+	ThePlayer.GlobalQuests[0].iNeeded = 100;
+	ThePlayer.GlobalQuests[0].questName = "Bloodthirst";
+	ThePlayer.GlobalQuests[0].questDescription = "Get 100 eliminations";
+	ThePlayer.GlobalQuests[0].xpReward = 2500;
+	ThePlayer.GlobalQuests[0].tierReward = 5;
+	
+	ThePlayer.GlobalQuests[1].iNeeded = 1000;
+	ThePlayer.GlobalQuests[1].questName = "Looter";
+	ThePlayer.GlobalQuests[1].questDescription = "Open 1000 chests";
+	ThePlayer.GlobalQuests[1].xpReward = 2500;
+	ThePlayer.GlobalQuests[1].tierReward = 5;
+	
+	ThePlayer.GlobalQuests[2].iNeeded = 1;
+	ThePlayer.GlobalQuests[2].questName = "Duck Hunt";
+	ThePlayer.GlobalQuests[2].questDescription = "Eliminate a flying opponent";
+	ThePlayer.GlobalQuests[2].xpReward = 1250;
+	ThePlayer.GlobalQuests[2].tierReward = 0;
+	
+	ThePlayer.GlobalQuests[3].iNeeded = 1;
+	ThePlayer.GlobalQuests[3].questName = "Ka-boom!";
+	ThePlayer.GlobalQuests[3].questDescription = "Eliminate an opponent with a grenade";
+	ThePlayer.GlobalQuests[3].xpReward = 2000;
+	ThePlayer.GlobalQuests[3].tierReward = 0;
+	
+	ThePlayer.GlobalQuests[4].iNeeded = 1;
+	ThePlayer.GlobalQuests[4].questName = "With my last breath";
+	ThePlayer.GlobalQuests[4].questDescription = "Eliminate an opponent with 1 health";
+	ThePlayer.GlobalQuests[4].xpReward = 2500;
+	ThePlayer.GlobalQuests[4].tierReward = 5;
+
+	ThePlayer.GlobalQuests[5].iNeeded = 1;
+	ThePlayer.GlobalQuests[5].questName = "Eye to eye";
+	ThePlayer.GlobalQuests[5].questDescription = "Eliminate a sniper opponent with a sniper";
+	ThePlayer.GlobalQuests[5].xpReward = 2000;
+	ThePlayer.GlobalQuests[5].tierReward = 0;
+
+	ThePlayer.GlobalQuests[6].iNeeded = 1;
+	ThePlayer.GlobalQuests[6].questName = "From the grave";
+	ThePlayer.GlobalQuests[6].questDescription = "Eliminate an opponent after being eliminated";
+	ThePlayer.GlobalQuests[6].xpReward = 5000;
+	ThePlayer.GlobalQuests[6].tierReward = 10;
+
+	ThePlayer.GlobalQuests[7].iNeeded = 50;
+	ThePlayer.GlobalQuests[7].questName = "The best of its kind";
+	ThePlayer.GlobalQuests[7].questDescription = "Eliminate 50 opponents with mythic weapons";
+	ThePlayer.GlobalQuests[7].xpReward = 5000;
+	ThePlayer.GlobalQuests[7].tierReward = 10;
+
+	ThePlayer.GlobalQuests[8].iNeeded = 5;
+	ThePlayer.GlobalQuests[8].questName = "Weapon Tester";
+	ThePlayer.GlobalQuests[8].questDescription = "Eliminate with 5 different weapon types in a single match";
+	ThePlayer.GlobalQuests[8].xpReward = 2500;
+	ThePlayer.GlobalQuests[8].tierReward = 5;
+
+	ThePlayer.GlobalQuests[9].iNeeded = 7;
+	ThePlayer.GlobalQuests[9].questName = "Visitor";
+	ThePlayer.GlobalQuests[9].questDescription = "Visit 7 named POIs in a single match";
+	ThePlayer.GlobalQuests[9].xpReward = 2500;
+	ThePlayer.GlobalQuests[9].tierReward = 5;
+
+	ThePlayer.GlobalQuests[10].iNeeded = 2000;
+	ThePlayer.GlobalQuests[10].questName = "Rampage";
+	ThePlayer.GlobalQuests[10].questDescription = "Deal 2000 damage in a single match";
+	ThePlayer.GlobalQuests[10].xpReward = 2500;
+	ThePlayer.GlobalQuests[10].tierReward = 5;
+
+	ThePlayer.GlobalQuests[11].iNeeded = 1;
+	ThePlayer.GlobalQuests[11].questName = "My Favourite";
+	ThePlayer.GlobalQuests[11].questDescription = "Win a match with only eliminating with the same weapon";
+	ThePlayer.GlobalQuests[11].xpReward = 5000;
+	ThePlayer.GlobalQuests[11].tierReward = 10;
+
+	ThePlayer.GlobalQuests[12].iNeeded = 1;
+	ThePlayer.GlobalQuests[12].questName = "Peacelover";
+	ThePlayer.GlobalQuests[12].questDescription = "Win a match without eliminations";
+	ThePlayer.GlobalQuests[12].xpReward = 10000;
+	ThePlayer.GlobalQuests[12].tierReward = 25;
+
+	ThePlayer.GlobalQuests[13].iNeeded = 1;
+	ThePlayer.GlobalQuests[13].questName = "Fishy";
+	ThePlayer.GlobalQuests[13].questDescription = "Eliminate a swimming opponent while swimming";
+	ThePlayer.GlobalQuests[13].xpReward = 2000;
+	ThePlayer.GlobalQuests[13].tierReward = 0;
+
+	ThePlayer.GlobalQuests[14].iNeeded = 20;
+	ThePlayer.GlobalQuests[14].questName = "Headhunter";
+	ThePlayer.GlobalQuests[14].questDescription = "Eliminate 20 opponents in a single match";
+	ThePlayer.GlobalQuests[14].xpReward = 10000;
+	ThePlayer.GlobalQuests[14].tierReward = 25;
+
+	ThePlayer.GlobalQuests[15].iNeeded = 1;
+	ThePlayer.GlobalQuests[15].questName = "Naturist";
+	ThePlayer.GlobalQuests[15].questDescription = "Win a match without healing or drinking shields";
+	ThePlayer.GlobalQuests[15].xpReward = 5000;
+	ThePlayer.GlobalQuests[15].tierReward = 10;
+
+	ThePlayer.GlobalQuests[16].iNeeded = 1;
+	ThePlayer.GlobalQuests[16].questName = "Ranked";
+	ThePlayer.GlobalQuests[16].questDescription = "Play an Arena match";
+	ThePlayer.GlobalQuests[16].xpReward = 1000;
+	ThePlayer.GlobalQuests[16].tierReward = 0;
+
+	ThePlayer.GlobalQuests[17].iNeeded = 1;
+	ThePlayer.GlobalQuests[17].questName = "The champion";
+	ThePlayer.GlobalQuests[17].questDescription = "Win an Arena match";
+	ThePlayer.GlobalQuests[17].xpReward = 2500;
+	ThePlayer.GlobalQuests[17].tierReward = 5;
+
+	ThePlayer.GlobalQuests[18].iNeeded = 1;
+	ThePlayer.GlobalQuests[18].questName = "Noscoped";
+	ThePlayer.GlobalQuests[18].questDescription = "Eliminate an opponent with a sniper within 3 meters";
+	ThePlayer.GlobalQuests[18].xpReward = 2500;
+	ThePlayer.GlobalQuests[18].tierReward = 5;
+
+	ThePlayer.GlobalQuests[19].iNeeded = 10;
+	ThePlayer.GlobalQuests[19].questName = "Completionist";
+	ThePlayer.GlobalQuests[19].questDescription = "Complete 10 quests";
+	ThePlayer.GlobalQuests[19].xpReward = 2500;
+	ThePlayer.GlobalQuests[19].tierReward = 5;
+}
+
+void dc_game::EvaluateMatchForGlobalQuests()
+{
+	//Global Quest Number 0: 100 Kills
+	//Global Quest Number 1: 1000 Chests
+	//Global Quest Number 2: Kill a flying enemy
+	//Global Quest Number 3: Eliminate an opponent with a grenade
+	//Global Quest Number 4: Kill an opponent with 1 HP
+	//Global Quest Number 5: Kill a sniper opponent with a sniper
+	//Global Quest Number 6: Kill an opponent while being dead
+	//Global Quest Number 7: 50 Mythic weapon eliminations
+	//Global Quest Number 8: Kill with 5 different weapon types in a single match;
+	//Global Quest Number 9: Visit 7 named POIs in one match
+	//Global Quest Number 10: 2000 Damage in a single match
+	//Global Quest Number 11: Single weapon win
+	//Global Quest Number 12: Win a match without eliminations
+	//Global Quest Number 13: Eliminate a swimming opponent while swimming
+	//Global Quest Number 14: Get 20 eliminations in a single match
+	//Global Quest Number 15: Win a match without healing or drinking shields
+	//Global Quest Number 16: Play an arena match
+	//Global Quest Number 17: Win an arena match
+	//Global Quest Number 18: Eliminate an opponent with a sniper within 3 meters
+	//Global Quest Number 19: Complete 10 quests from the previous ones
+
+	int cq = 0;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		ThePlayer.GlobalQuests[cq].iProgress += Match->players[0].Stats.Elims.size();
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 1;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		ThePlayer.GlobalQuests[cq].iProgress += Match->players[0].Stats.Chests.size();
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 2;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		for (int i = 0; i < Match->players[0].Stats.Elims.size(); i++)
+		{
+			if (Match->players[0].Stats.Elims[i].targetHeight > 0.f)
+				ThePlayer.GlobalQuests[cq].iProgress++;
+		}
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 3;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		for (int i = 0; i < Match->players[0].Stats.Elims.size(); i++)
+		{
+			if (Match->players[0].Stats.Elims[i].shooterWeaponListindex == 78)
+				ThePlayer.GlobalQuests[cq].iProgress++;
+		}
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 4;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		for (int i = 0; i < Match->players[0].Stats.Elims.size(); i++)
+		{
+			if (Match->players[0].Stats.Elims[i].shooterHealth == 1)
+				ThePlayer.GlobalQuests[cq].iProgress++;
+		}
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 5;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		for (int i = 0; i < Match->players[0].Stats.Elims.size(); i++)
+		{
+			if (g_Items[Match->players[0].Stats.Elims[i].shooterWeaponListindex].IsSniper() &&
+				g_Items[Match->players[0].Stats.Elims[i].targetWeaponListIndex].IsSniper())
+				ThePlayer.GlobalQuests[cq].iProgress++;
+		}
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 6;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		for (int i = 0; i < Match->players[0].Stats.Elims.size(); i++)
+		{
+			if (Match->players[0].Stats.Elims[i].shooterHealth <= 0)
+				ThePlayer.GlobalQuests[cq].iProgress++;
+		}
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 7;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		for (int i = 0; i < Match->players[0].Stats.Elims.size(); i++)
+		{
+			if (g_Items[Match->players[0].Stats.Elims[i].shooterWeaponListindex].iRarity == 5)
+				ThePlayer.GlobalQuests[cq].iProgress++;
+		}
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 8;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		bool pistol = false;
+		bool shotgun = false;
+		bool smg = false;
+		bool rifle = false;
+		bool sniper = false;
+		bool machinegun = false;
+		bool explosive = false;
+		for (int i = 0; i < Match->players[0].Stats.Elims.size(); i++)
+		{
+			if (g_Items[Match->players[0].Stats.Elims[i].shooterWeaponListindex].IsPistol())
+				pistol = true;
+			else if (g_Items[Match->players[0].Stats.Elims[i].shooterWeaponListindex].IsShotgun())
+				shotgun = true;
+			else if (g_Items[Match->players[0].Stats.Elims[i].shooterWeaponListindex].IsSmg())
+				smg = true;
+			else if (g_Items[Match->players[0].Stats.Elims[i].shooterWeaponListindex].IsRifle())
+				rifle = true;
+			else if (g_Items[Match->players[0].Stats.Elims[i].shooterWeaponListindex].IsSniper())
+				sniper = true;
+			else if (g_Items[Match->players[0].Stats.Elims[i].shooterWeaponListindex].IsMachinegun())
+				machinegun = true;
+			else if (g_Items[Match->players[0].Stats.Elims[i].shooterWeaponListindex].IsExplosive())
+				explosive = true;
+				
+		}
+
+		ThePlayer.GlobalQuests[cq].iProgress = max(ThePlayer.GlobalQuests[cq].iProgress,
+			pistol + shotgun + smg + rifle + sniper + machinegun + explosive);
+
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 9;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		ThePlayer.GlobalQuests[cq].iProgress = max(Match->players[0].Stats.VisitedPositions.size(),
+			ThePlayer.GlobalQuests[cq].iProgress);
+
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 10;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		ThePlayer.GlobalQuests[cq].iProgress = max(Match->players[0].Stats.iDamageDealt,
+			ThePlayer.GlobalQuests[cq].iProgress);
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+		}
+	}
+	cq = 11;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		int firstType = -1;
+		for (int i = 0; i < Match->players[0].Stats.Elims.size(); i++)
+		{
+			if (i == 0)
+				firstType = Match->players[0].Stats.Elims[i].shooterWeaponListindex;
+			else if (firstType != Match->players[0].Stats.Elims[i].shooterWeaponListindex)
+				firstType = -1;
+		}
+		if (firstType != -1 && Match->players[0].Stats.iPlacement <= 1)
+			ThePlayer.GlobalQuests[cq].iProgress++;
+
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 12;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		if (Match->players[0].Stats.iPlacement<= 1 && Match->players[0].Stats.iEliminations <= 0)
+			ThePlayer.GlobalQuests[cq].iProgress++;
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 13;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		for (int i = 0; i < Match->players[0].Stats.Elims.size(); i++)
+		{
+			int plX = Match->players[0].Stats.Elims[i].shooterPos.x;
+			int plY = Match->players[0].Stats.Elims[i].shooterPos.y;
+			int taX = Match->players[0].Stats.Elims[i].targetPos.x;
+			int taY = Match->players[0].Stats.Elims[i].targetPos.y;
+
+
+
+			if (g_Map.is_on_map(sf::Vector2f(plX, plY)) && g_Map.lines[plY].blocks[plX].iTexture == 29
+				|| g_Map.lines[plY].blocks[plX].iTexture == 6)
+			{
+				if (g_Map.is_on_map(sf::Vector2f(taX, taY)) && g_Map.lines[taY].blocks[taX].iTexture == 29
+					|| g_Map.lines[taY].blocks[taX].iTexture == 6)
+				{
+					ThePlayer.GlobalQuests[cq].iProgress++;
+				}
+			}
+		}
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 14;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		if (Match->players[0].Stats.iEliminations >= 20)
+			ThePlayer.GlobalQuests[cq].iProgress++;
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 15;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		if (Match->players[0].Stats.iPlacement <= 1 && Match->players[0].Stats.iShieldsUsed + Match->players[0].Stats.iWhiteHealsUsed + Match->players[0].Stats.iSlurpsUsed == 0)
+			ThePlayer.GlobalQuests[cq].iProgress++;
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 16;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		if (Match->MatchType == 1)
+			ThePlayer.GlobalQuests[cq].iProgress++;
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 17;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		if (Match->MatchType == 1 && Match->players[0].Stats.iPlacement <= 1)
+			ThePlayer.GlobalQuests[cq].iProgress++;
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 18;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		for (int i = 0; i < Match->players[0].Stats.Elims.size(); i++)
+		{
+			if (g_Items[Match->players[0].Stats.Elims[i].shooterWeaponListindex].IsSniper() &&
+				GetDistance(Match->players[0].Stats.Elims[i].shooterPos,Match->players[0].Stats.Elims[i].targetPos) <= 3.f)
+				ThePlayer.GlobalQuests[cq].iProgress++;
+		}
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+	cq = 19;
+	if (!ThePlayer.GlobalQuests[cq].Finished)
+	{
+		ThePlayer.GlobalQuests[cq].iProgress = 0;
+		for (int i = 0; i < 18; i++)
+		{
+			if (ThePlayer.GlobalQuests[i].Finished)
+				ThePlayer.GlobalQuests[cq].iProgress++;
+		}
+		if (ThePlayer.GlobalQuests[cq].iProgress >= ThePlayer.GlobalQuests[cq].iNeeded)
+		{
+			ThePlayer.GlobalQuests[cq].Finished = true;
+			ThePlayer.Xp += ThePlayer.GlobalQuests[cq].xpReward;
+			ThePlayer.TierStars += ThePlayer.GlobalQuests[cq].tierReward;
+			dc_globalquestdoneeffect QDE;
+			QDE.Quest = ThePlayer.GlobalQuests[cq];
+			Effects.GQD_Effects.push_back(QDE);
+		}
+	}
+}
+
 
 void dc_game::EvaluateMatchForQuests()
 {
@@ -670,19 +1304,19 @@ void dc_game::EvaluateMatchForQuests()
 				}
 				if (ThePlayer.Quests[i].killweapontype == 0)
 					ThePlayer.Quests[i].needed--;
-				else if (ThePlayer.Quests[i].killweapontype == 1 && g_Items[e.WeaponListindex].IsPistol())
+				else if (ThePlayer.Quests[i].killweapontype == 1 && g_Items[e.shooterWeaponListindex].IsPistol())
 					ThePlayer.Quests[i].needed--;
-				else if (ThePlayer.Quests[i].killweapontype == 2 && g_Items[e.WeaponListindex].IsSmg())
+				else if (ThePlayer.Quests[i].killweapontype == 2 && g_Items[e.shooterWeaponListindex].IsSmg())
 					ThePlayer.Quests[i].needed--;
-				else if (ThePlayer.Quests[i].killweapontype == 3 && g_Items[e.WeaponListindex].IsShotgun())
+				else if (ThePlayer.Quests[i].killweapontype == 3 && g_Items[e.shooterWeaponListindex].IsShotgun())
 					ThePlayer.Quests[i].needed--;
-				else if (ThePlayer.Quests[i].killweapontype == 4 && g_Items[e.WeaponListindex].IsRifle())
+				else if (ThePlayer.Quests[i].killweapontype == 4 && g_Items[e.shooterWeaponListindex].IsRifle())
 					ThePlayer.Quests[i].needed--;
-				else if (ThePlayer.Quests[i].killweapontype == 5 && g_Items[e.WeaponListindex].IsSniper())
+				else if (ThePlayer.Quests[i].killweapontype == 5 && g_Items[e.shooterWeaponListindex].IsSniper())
 					ThePlayer.Quests[i].needed--;
-				else if (ThePlayer.Quests[i].killweapontype == 6 && g_Items[e.WeaponListindex].IsExplosive())
+				else if (ThePlayer.Quests[i].killweapontype == 6 && g_Items[e.shooterWeaponListindex].IsExplosive())
 					ThePlayer.Quests[i].needed--;
-				else if (ThePlayer.Quests[i].killweapontype == 7 && g_Items[e.WeaponListindex].IsMachinegun())
+				else if (ThePlayer.Quests[i].killweapontype == 7 && g_Items[e.shooterWeaponListindex].IsMachinegun())
 					ThePlayer.Quests[i].needed--;
 			}
 		}
@@ -851,7 +1485,7 @@ void dc_game::EvaluateMatch()
 	{
 		auto elim = Match->players[0].Stats.Elims[i];
 		
-		auto item = g_Items[elim.WeaponListindex];
+		auto item = g_Items[elim.shooterWeaponListindex];
 
 		ThePlayer.TotalKills++;
 
@@ -874,6 +1508,7 @@ void dc_game::EvaluateMatch()
 
 	ThePlayer.Xp += CalcExpForMatch();
 	EvaluateMatchForQuests();
+	EvaluateMatchForGlobalQuests();
 }
 
 
@@ -886,7 +1521,6 @@ void dc_game::Quit()
 			{
 				Match->players[0].iHealth = 0;
 				Match->PlayerKill(0);
-
 			}
 
 			GM_STATE = 0;
@@ -989,6 +1623,12 @@ void dc_game::Do()
 			DViewer->Do();
 		}
 		else GM_STATE = 4;
+	}
+	else if (GM_STATE == 8)
+	{
+		DrawGlobalQuestsMenu();
+		if (!LockInput)
+			DoGlobalQuestsMenu();
 	}
 	if (OW_STATUS == 0);
 	else if (OW_STATUS == 1)

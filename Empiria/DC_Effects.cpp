@@ -289,6 +289,90 @@ void dc_stormclosingeffect::draw(float ServerTime)
 
 }
 
+void dc_globalquestdoneeffect::draw()
+{
+	float diff = 0.001f*Clock.deltaTime();
+
+	float DefOverlayAlpha = 128;
+	if (diff < 0.25f)DefOverlayAlpha = diff * 512;
+	else if (diff > 2.75)DefOverlayAlpha = (3.f - diff) * 512;
+
+	_Window::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y, 0, 0, 0, DefOverlayAlpha);
+
+
+
+	char Buffer[256];
+	sprintf(Buffer, Quest.questName);
+	
+
+
+	float newprogress = max(0.f, min(1.f, (diff - 0.5) / 1.25f));
+	float underprogress = max(0.f, min(1.f, (diff - 0.5) / 1.25f - 0.125));
+	float ChScale = 1.f;
+	if (diff >= 0.25f && diff <= 0.5f)ChScale = 1.f + (0.5f - diff) * 4.f;
+	int ChAlpha = 255;
+	if (diff >= 0.25f && diff <= 0.5f)ChAlpha = 255 + (diff - 0.5f) * 255 * 4;
+	if (diff < 0.25f || diff > 2.75f)ChAlpha = 0;
+	if (diff >= 2.5f && diff < 2.75f)ChAlpha = 255 - (diff - 2.5f) * 255 * 4;
+
+
+	auto x = g_Resolution.x*0.25f;
+	auto y = g_Resolution.y*0.4f;
+	auto w = g_Resolution.x*0.5f;
+	auto h = g_Resolution.y*0.2f;
+
+	int fontsize = g_Resolution.y*(0.1f*w / (g_Resolution.x));
+
+
+	auto lineheight = _Window::GetHeightForFontsize(fontsize);
+	auto texH = 1*lineheight;
+	h = max(h, texH);
+
+	auto BufLength = _Window::GetTextSize(Buffer, fontsize);
+	int tier = 5;
+	if (tier == 5)
+	{
+		_Window::RenderOverlay(x - (ChScale - 1)*w, y - (ChScale - 1)*(g_Resolution.y*0.005f + 18), ChScale*w, ChScale*(h + g_Resolution.y*0.005f + 18), 32, 32, 128, ChAlpha);
+		_Window::RenderOverlay(x - (ChScale - 1)*(w*0.0125f), y - (ChScale - 1)*(h + g_Resolution.y*0.005f + 18), ChScale*w*0.0125f, ChScale*(h + g_Resolution.y*0.005f + 18), 64, 64, 255, ChAlpha);
+		_Window::RenderTextB(x + 0.02631*w - (ChScale - 1)*BufLength.x, y - (ChScale - 1)*(g_Resolution.y*0.005f + 10), Buffer, fontsize, 255, 255, 255, ChAlpha);
+
+
+		char ProgressBuffer[16];
+		sprintf(ProgressBuffer, "FINISHED");
+		int leee = _Window::GetTextSize(ProgressBuffer, fontsize).x;
+
+		_Window::RenderTextB(x + 0.97368421052*w - leee, y + h + 0.005f*g_Resolution.y - lineheight, ProgressBuffer, fontsize, 255, 255, 255, max(0, min(ChAlpha, (diff - 1.7f) * 510)));
+
+		_Window::RenderOverlay(x + 0.02631*w - (ChScale - 1)*0.9473f*w, y + h + 0.005f*g_Resolution.y + (ChScale - 1) * 8, (ChScale)*0.9473f*w, ChScale * 8, 0, 0, 0, ChAlpha);
+		_Window::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, ChScale*newprogress*(0.9473f*w - 2), 6, 0, 177, 222, ChAlpha);
+
+		_Window::RenderOverlay(x + 0.02631*w + ChScale*underprogress*(0.9473f*w - 2), y + h + 0.005f*g_Resolution.y + 1, ChScale*(newprogress - underprogress)*(0.9473f*w - 2), 6, 64, 222, 255, ChAlpha);
+
+	}
+	else if (tier == 10)
+	{
+		_Window::RenderOverlay(x - (ChScale - 1)*w, y - (ChScale - 1)*(g_Resolution.y*0.005f + 18), ChScale*w, ChScale*(h + g_Resolution.y*0.005f + 18), 128, 32, 32, ChAlpha);
+		_Window::RenderOverlay(x - (ChScale - 1)*(w*0.0125f), y - (ChScale - 1)*(h + g_Resolution.y*0.005f + 18), ChScale*w*0.0125f, ChScale*(h + g_Resolution.y*0.005f + 18), 255, 64, 64, ChAlpha);
+		_Window::RenderTextB(x + 0.02631*w - (ChScale - 1)*BufLength.x, y - (ChScale - 1)*(g_Resolution.y*0.005f + 10), Buffer, fontsize, 255, 255, 255, ChAlpha);
+
+		char ProgressBuffer[16];
+		sprintf(ProgressBuffer, "FINISHED");
+		int leee = _Window::GetTextSize(ProgressBuffer, fontsize).x;
+
+		_Window::RenderTextB(x + 0.97368421052*w - leee, y + h + 0.005f*g_Resolution.y - lineheight, ProgressBuffer, fontsize, 255, 255, 255, max(0, min(ChAlpha, (diff - 1.7f) * 510)));
+
+		_Window::RenderOverlay(x + 0.02631*w - (ChScale - 1)*0.9473f*w, y + h + 0.005f*g_Resolution.y + (ChScale - 1) * 8, (ChScale)*0.9473f*w, ChScale * 8, 0, 0, 0, ChAlpha);
+		_Window::RenderOverlay(x + 0.02631*w, y + h + 0.005f*g_Resolution.y + 1, ChScale*newprogress*(0.9473f*w - 2), 6, 225, 128, 32, ChAlpha);
+
+		_Window::RenderOverlay(x + 0.02631*w + ChScale*underprogress*(0.9473f*w - 2), y + h + 0.005f*g_Resolution.y + 1, ChScale*(newprogress - underprogress)*(0.9473f*w - 2), 6, 255, 210, 64, ChAlpha);
+
+	}
+
+	if (g_Sounds.CheckDynamicSound(555) == -1 && diff < 0.5f)
+	{
+		g_Sounds.AddNewDynamicSound(555, 39, 10000, sf::Vector2f(0, 0), g_Config.mastervolume.Value, sf::Vector2f(0, 0), 0.f, 0.16f);
+	}
+}
 
 void dc_questdoneeffect::draw()
 {
@@ -614,6 +698,8 @@ void dc_game::RemoveExpiredEffects()
 {
 	for (int i = Effects.QD_Effects.size() - 1; i >= 0; i--)
 		if (Effects.QD_Effects[i].Clock.deltaTime() > 3000)Effects.QD_Effects.erase(Effects.QD_Effects.begin() + i);
+	for (int i = Effects.GQD_Effects.size() - 1; i >= 0; i--)
+		if (Effects.GQD_Effects[i].Clock.deltaTime() > 3000)Effects.GQD_Effects.erase(Effects.GQD_Effects.begin() + i);
 	for (int i = Effects.LG_Effects.size() - 1; i >= 0; i--)
 		if (Effects.LG_Effects[i].Clock.deltaTime() > 3000)Effects.LG_Effects.erase(Effects.LG_Effects.begin() + i);
 
@@ -625,6 +711,8 @@ void dc_game::RemoveExpiredEffects()
 int dc_game::TotalEffectCount()
 {
 	int R = 0;
+	for (int i = Effects.GQD_Effects.size() - 1; i >= 0; i--)
+		R++;
 	for (int i = Effects.QD_Effects.size() - 1; i >= 0; i--)
 		R++;
 	for (int i = Effects.LG_Effects.size() - 1; i >= 0; i--)
@@ -636,7 +724,11 @@ void dc_game::DrawEffects()
 {
 	RemoveExpiredEffects();
 	bool drawing = false;
-
+	for (int i = 0; i < Effects.GQD_Effects.size(); i++)
+	{
+		if (drawing)Effects.GQD_Effects[i].Clock.Update();
+		else { Effects.GQD_Effects[i].draw(); drawing = true; }
+	}
 	for (int i = 0; i < Effects.QD_Effects.size(); i++)
 	{
 		if (drawing)Effects.QD_Effects[i].Clock.Update();

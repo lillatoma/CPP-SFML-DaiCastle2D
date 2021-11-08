@@ -316,6 +316,7 @@ struct dc_demo_metadata
 	int StormPhases;
 	std::vector<sf::Vector2f> StormMids;
 	std::vector<float> StormSizes;
+	std::vector<float> StormTimes;
 	
 	char playerNames[100][64];
 	int playerSkins[100];

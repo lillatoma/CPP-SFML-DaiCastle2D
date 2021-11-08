@@ -69,7 +69,6 @@ void _Window::RenderTextB(int x, int y, char* text, int fontsize, int r, int g, 
 		font.loadFromMemory(f.loc_in_mem, f.size);
 		loaded = true;
 	}
-
 	static sf::Text Text;
 	Text.setFont(font);
 	Text.setString(text);

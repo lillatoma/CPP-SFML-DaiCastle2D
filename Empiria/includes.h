@@ -38,7 +38,10 @@ static int Random(int RandMin, int RandMax)
 
 }
 
-
+static float RandFloat(float RandMin, float RandMax)
+{
+	return g_RandomDevice.RandomFloat(RandMin, RandMax);
+}
 
 
 static float RandFloat()

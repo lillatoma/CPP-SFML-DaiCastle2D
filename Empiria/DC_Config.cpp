@@ -9,10 +9,10 @@ bool dc_game::LoadProfile()
 	if (File.size < profilesize-32)return false;
 
 	//For Whatever the heck the reason was, I couldn't copy memory from the file to the profile
-
+	
 	auto right = (dc_playerprofile*)File.loc_in_mem;
-
-	ThePlayer = *right;
+	if(right->Version == ThePlayer.Version)
+		ThePlayer = *right;
 
 	delete[] File.loc_in_mem;
 	return true;

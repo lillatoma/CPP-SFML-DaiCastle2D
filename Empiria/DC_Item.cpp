@@ -3138,6 +3138,117 @@ void dc_item::define_all()
 	add_to_lootpool(94, 1);
 	add_to_lootpool(95, 1);
 
+
+	////////////////////////////////////////////////////////////////
+	//                     Impulse Grenade
+	////////////////////////////////////////////////////////////////
+
+	it.fAudibleDistance = 30.f;
+	it.iSoundID = 35;
+	it.fVolumeMulti = 0.35f;
+
+	it.fWeaponWeight = 0.025f;
+	//Uncommon
+	it.iType = 3;
+	it.bAuto = false;
+	it.iRarity = 1;
+	it.iDamageStart = 0;
+	it.iDamageEnd = 0;
+	it.fExplosionRange = 4.f;
+	it.fExplosiveLifetime = 0.75f;
+	it.iExplosiveType = 4;
+	it.fRange = 100;
+	it.fFirerate = 1.f;
+	it.iBullets = 3;
+	it.iMaxBullets = 6;
+	it.iPellets = 1;
+	it.iBulletConsumption = 1;
+	it.iBulletType = 2;
+	it.iReloadMethod = 1;
+	it.fBloomMinSize = 0.f;
+	it.fBloomMaxSize = 2.f;
+	it.fBloomMovingMinSize = 2.f;
+	it.fBloomShootIncrease = 5.f;
+	it.fBloomStandingDecrease = 18.f;
+	it.fBloomMovingDecrease = 3.4f;
+	it.fReloadTime = 3.f;
+	it.fPulloutTime = 0.35f;
+	it.fProjectileSpeed = 8.f;
+	it.fProjectileSpeedMax = 12.f;
+	sprintf(it.szName, "Impulse Grenade");
+	it.iTexture = 31;
+	it.id = 1201;
+	g_Items.push_back(it);
+
+	add_to_lootpool(96, 45);
+
+	//Epic
+	it.iType = 3;
+	it.bAuto = false;
+	it.iRarity = 3;
+	it.iDamageStart = 0;
+	it.iDamageEnd = 0;
+	it.fExplosionRange = 4.f;
+	it.fExplosiveLifetime = 0.75f;
+	it.iExplosiveType = 5;
+	it.fRange = 100;
+	it.fFirerate = 1.f;
+	it.iBullets = 3;
+	it.iMaxBullets = 6;
+	it.iPellets = 1;
+	it.iBulletConsumption = 1;
+	it.iBulletType = 2;
+	it.iReloadMethod = 1;
+	it.fBloomMinSize = 0.f;
+	it.fBloomMaxSize = 2.f;
+	it.fBloomMovingMinSize = 2.f;
+	it.fBloomShootIncrease = 5.f;
+	it.fBloomStandingDecrease = 18.f;
+	it.fBloomMovingDecrease = 3.4f;
+	it.fReloadTime = 3.f;
+	it.fPulloutTime = 0.35f;
+	it.fProjectileSpeed = 8.f;
+	it.fProjectileSpeedMax = 12.f;
+	sprintf(it.szName, "Launch Grenade");
+	it.iTexture = 31;
+	it.id = 1202;
+	g_Items.push_back(it);
+
+	add_to_lootpool(97, 25);
+
+	//Uncommon
+	it.iType = 3;
+	it.bAuto = false;
+	it.iRarity = 1;
+	it.iDamageStart = 0;
+	it.iDamageEnd = 0;
+	it.fExplosionRange = 4.f;
+	it.fExplosiveLifetime = 0.75f;
+	it.iExplosiveType = 6;
+	it.fRange = 100;
+	it.fFirerate = 1.f;
+	it.iBullets = 3;
+	it.iMaxBullets = 6;
+	it.iPellets = 1;
+	it.iBulletConsumption = 1;
+	it.iBulletType = 2;
+	it.iReloadMethod = 1;
+	it.fBloomMinSize = 0.f;
+	it.fBloomMaxSize = 2.f;
+	it.fBloomMovingMinSize = 2.f;
+	it.fBloomShootIncrease = 5.f;
+	it.fBloomStandingDecrease = 18.f;
+	it.fBloomMovingDecrease = 3.4f;
+	it.fReloadTime = 3.f;
+	it.fPulloutTime = 0.35f;
+	it.fProjectileSpeed = 8.f;
+	it.fProjectileSpeedMax = 12.f;
+	sprintf(it.szName, "Reverse Impulse Grenade");
+	it.iTexture = 32;
+	it.id = 1203;
+	g_Items.push_back(it);
+
+	add_to_lootpool(98, 45);
 	//TODO: Upgrade toolkit
 	//TODO: Impulse grenade
 	//TODO: Shockwave grenade

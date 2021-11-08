@@ -26,8 +26,8 @@ void dc_game::DoMainMenu()
 		g_Mouse.IsClickValid() && g_Mouse.hasReleased())
 		MatchType++;
 
-	if (MatchType < 0)MatchType = 1;
-	else if (MatchType > 1)MatchType = 0;
+	if (MatchType < 0)MatchType = 6;
+	else if (MatchType > 6)MatchType = 0;
 
 	//PLAYERNAME
 	if (g_Mouse.IsBetween(g_Resolution.x*0.75f, g_Resolution.y*0.1f, g_Resolution.x*0.2f, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
@@ -180,7 +180,7 @@ void dc_game::DrawMainMenuPlayButton()
 
 	//Text Above
 	//TODO: All other gamemodes
-	char* TextAbove[] = { "Solo","Arena Solo","Duo","Duo Fill","Trio","Trio Fill","Squad","Squad Fill","50v50" };
+	char* TextAbove[] = { "Solo","Arena Solo","Blitz Solo","Golden Solo", "Bullseye Solo","Shortguns Solo","Gray Guns Solo","Duo","Duo Fill","Trio","Trio Fill","Squad","Squad Fill","50v50" };
 	{
 		float fontsize = 0.03f*g_Resolution.y;
 		auto lineHeight = _Window::GetTextSize("a\n", fontsize).y - _Window::GetTextSize("a", fontsize).y;
@@ -525,14 +525,99 @@ void dc_game::DoLeftSideMenubar()
 	{
 		GM_STATE = 3;
 	}
+	if (g_Mouse.IsBetween(0.05f*g_Resolution.x, g_Resolution.y*0.555f, 0.25f*g_Resolution.x, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
+		g_Mouse.IsClickValid() && g_Mouse.hasReleased())
+	{
+		GM_STATE = 8;
+	}
 }
+
+
 
 void dc_game::DrawLeftSideMenubar()
 {
 	_Window::RenderOverlay(g_Resolution.x*0.05f, g_Resolution.y*0.45f, g_Resolution.x*0.25f, g_Resolution.y*0.3f, 192, 192, 192, 64);
 
+	
+
 	float fontsize = g_Resolution.y*0.03f;
 	auto lineHeight = _Window::GetHeightForFontsize(fontsize);
+
+	bool questsLeft = false;
+	float mostProgress = 0.f;
+	int mostProgressID = 0;
+
+	static dc_clock clockHere;
+	static float hoverTime = 0.f;
+
+	//Quests Button
+	if (g_Mouse.IsBetween(0.05f*g_Resolution.x, g_Resolution.y*0.555f, 0.25f*g_Resolution.x, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
+		g_Mouse.IsClickValid() && g_Mouse.isHolding())
+	{
+		_Window::RenderOverlay(0.05f*g_Resolution.x, g_Resolution.y*0.555f, 0.25f*g_Resolution.x, lineHeight + 4, 180, 150, 16, 255);
+	}
+	else if (g_Mouse.IsBetween(0.05f*g_Resolution.x, g_Resolution.y*0.555f, 0.25f*g_Resolution.x, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y))
+	{
+		_Window::RenderOverlay(0.05f*g_Resolution.x, g_Resolution.y*0.555f, 0.25f*g_Resolution.x, lineHeight + 4, 255, 255, 64, 255);
+
+	}
+	else
+		_Window::RenderOverlay(0.05f*g_Resolution.x, g_Resolution.y*0.555f, 0.25f*g_Resolution.x, lineHeight + 4, 240, 215, 32, 255);
+
+	_Window::RenderTextBMiddleC(0.05f*g_Resolution.x, g_Resolution.y*0.555f, 0.25f*g_Resolution.x, lineHeight + 4, "Quests", fontsize, 0, 0, 0);
+
+
+	for (int i = 0; i < 20; i++)
+	{
+		if (!ThePlayer.GlobalQuests[i].Finished)
+		{
+			questsLeft = true;
+			float progress = (1.f * ThePlayer.GlobalQuests[i].iProgress) / (1.f* ThePlayer.GlobalQuests[i].iNeeded);
+			if (progress > mostProgress)
+			{
+				mostProgress = progress;
+				mostProgressID = i;
+			}
+		}
+	}
+	if (questsLeft)
+	{
+		_Window::RenderOverlay(g_Resolution.x*0.055f, g_Resolution.y*0.455f, g_Resolution.x*0.24f, g_Resolution.y*0.1f, 64, 64, 192, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.0575f, g_Resolution.y*0.4575f, g_Resolution.x*0.235f, g_Resolution.y*0.095f, 32, 32, 96, 255);
+		_Window::RenderTextB(g_Resolution.x*0.065f, g_Resolution.y*0.465f, ThePlayer.GlobalQuests[mostProgressID].questName, 24, 255, 255, 0, 255);
+		
+		//Progress
+		_Window::RenderOverlay(g_Resolution.x*0.0575f, g_Resolution.y*0.5425f, g_Resolution.x*0.235f, g_Resolution.y*0.01f, 0, 0, 0, 255);
+		_Window::RenderOverlay(g_Resolution.x*0.06f, g_Resolution.y*0.545f, g_Resolution.x*0.23f*mostProgress, g_Resolution.y*0.005f, 255, 255, 0, 255);
+
+		char Buffer[48];
+		sprintf(Buffer, "%d XP", ThePlayer.GlobalQuests[mostProgressID].xpReward);
+		if (ThePlayer.GlobalQuests[mostProgressID].tierReward > 0)
+			sprintf(Buffer, "%s + %d Tier bars", Buffer, ThePlayer.GlobalQuests[mostProgressID].tierReward);
+
+		float fontSize = 0.0075f*g_Resolution.x;
+		float textLen = _Window::GetTextSize(Buffer, fontSize).x;
+		float textHeight = _Window::GetHeightForFontsize(fontSize);
+		_Window::RenderTextB(g_Resolution.x*0.2925f - textLen, g_Resolution.y*0.54f - textHeight,
+			Buffer, fontSize);
+
+		if (g_Mouse.IsBetween(g_Resolution.x*0.055f, g_Resolution.y*0.455f, g_Resolution.x*0.24f, g_Resolution.y*0.1f))
+			hoverTime += 0.001f*clockHere.deltaTime();
+		else hoverTime = 0;
+		if (hoverTime > 0.4f)
+		{
+			char Buffer[256];
+			sprintf(Buffer, "%s\nProgress: %d/%d", ThePlayer.GlobalQuests[mostProgressID].questDescription, ThePlayer.GlobalQuests[mostProgressID].iProgress,
+				ThePlayer.GlobalQuests[mostProgressID].iNeeded);
+			sf::Vector2i textSize = _Window::GetTextSize(Buffer, 16);
+			_Window::RenderOverlay(g_Mouse.Coords.x + 15, g_Mouse.Coords.y, textSize.x + 6, textSize.y + 6,0,0,0,255);
+			_Window::RenderOverlay(g_Mouse.Coords.x + 16, g_Mouse.Coords.y + 1, textSize.x + 4, textSize.y + 4, 32, 32, 96, 255);
+			_Window::RenderTextBMiddleC(g_Mouse.Coords.x + 16, g_Mouse.Coords.y + 1, textSize.x + 4, textSize.y + 4, Buffer, 16);
+		}
+	}
+	clockHere.Update();
+
+
 
 	//Credits Button
 	if (g_Mouse.IsBetween(0.05f*g_Resolution.x, g_Resolution.y*0.75f - (lineHeight + 4), 0.25f*g_Resolution.x, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
@@ -567,6 +652,188 @@ void dc_game::DrawLeftSideMenubar()
 
 	_Window::RenderTextBMiddleC(0.05f*g_Resolution.x, g_Resolution.y*0.75f - 2*(lineHeight + 4)-1, 0.25f*g_Resolution.x, lineHeight + 4, "Settings", fontsize, 0, 0, 0);
 
+}
+
+void dc_game::DoGlobalQuestsMenu()
+{
+	DoBackButton();
+
+	float Length = g_Resolution.x*0.45f - 2;
+	auto fontsize = g_Resolution.x*0.03f;
+	auto lineHeight = _Window::GetHeightForFontsize(fontsize);
+
+
+
+	//Buttons
+	for (int i = 0; i < 2; i++)
+	{
+		if (g_Mouse.IsBetween(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
+			g_Mouse.IsClickValid() && g_Mouse.hasReleased())
+		{
+			QuestPage = i;
+		}
+
+	}
+}
+
+void dc_game::DrawGlobalQuestsMenu()
+{
+	DrawMainMenuBg();
+	DrawBackButton();
+
+	char* PageNames[2] = { "In progress", "Completed" };
+	float Length = g_Resolution.x*0.45f - 2;
+	auto fontsize = g_Resolution.x*0.03f;
+	auto lineHeight = _Window::GetHeightForFontsize(fontsize);
+
+
+
+
+
+
+	//Buttons
+	for (int i = 0; i < 2; i++)
+	{
+		if (g_Mouse.IsBetween(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y) &&
+			g_Mouse.IsClickValid() && g_Mouse.isHolding())
+		{
+			_Window::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 180, 150, 16, 255);
+		}
+		else if (i == QuestPage)
+		{
+			_Window::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 180, 150, 16, 255);
+		}
+		else if (g_Mouse.IsBetween(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, g_Mouse.Coords.x, g_Mouse.Coords.y))
+		{
+			_Window::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 255, 255, 64, 255);
+
+		}
+		else
+			_Window::RenderOverlay(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, 240, 215, 32, 255);
+
+		_Window::RenderTextBMiddleC(0.05f*g_Resolution.x + i*(1 + Length), g_Resolution.y*0.05f, Length, lineHeight + 4, PageNames[i], fontsize, 0, 0, 0);
+	}
+
+	static dc_clock hereClock;
+	static float hoverTime = 0.f;
+
+	int hoveringOne = 0;
+	if (QuestPage == 0)
+	{
+		std::vector<dc_globalquest> inProgressQuests;
+		for (int i = 0; i < 20; i++)
+			if (!ThePlayer.GlobalQuests[i].Finished)
+				inProgressQuests.push_back(ThePlayer.GlobalQuests[i]);
+
+		for (int i = 0; i < inProgressQuests.size(); i++)
+		{
+			int High = i / 5;
+			int Low = i % 5;
+			_Window::RenderOverlay(g_Resolution.x*0.105f + Low*g_Resolution.x*0.16f, g_Resolution.y*0.2f + High*g_Resolution.y*0.175f, g_Resolution.x*0.15f, g_Resolution.y*0.165f, 64, 64, 192, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.1075f + Low*g_Resolution.x*0.16f, g_Resolution.y*0.2025f + High*g_Resolution.y*0.175f, g_Resolution.x*0.145f, g_Resolution.y*0.16f, 32,32,96, 255);
+
+			//Progress
+			float progress = (1.f*inProgressQuests[i].iProgress) / (1.f*inProgressQuests[i].iNeeded);
+			_Window::RenderOverlay(g_Resolution.x*0.1075f + Low*g_Resolution.x*0.16f, g_Resolution.y*0.3525f + High*g_Resolution.y*0.175f, g_Resolution.x*0.145f, g_Resolution.y*0.01f, 0,0,0, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.11f + Low*g_Resolution.x*0.16f, g_Resolution.y*0.355f + High*g_Resolution.y*0.175f, g_Resolution.x*0.14f * progress, g_Resolution.y*0.005f, 255, 255, 0, 255);
+
+			float fontSize = 0.015f*g_Resolution.x;
+			_Window::RenderTextBMiddleC(g_Resolution.x*0.105f + Low*g_Resolution.x*0.16f, g_Resolution.y*0.2f + High*g_Resolution.y*0.175f, g_Resolution.x*0.15f, g_Resolution.y*0.05f,
+				inProgressQuests[i].questName, fontSize);
+
+			char Buffer[48];
+			sprintf(Buffer, "%d XP", inProgressQuests[i].xpReward);
+			if(inProgressQuests[i].tierReward > 0)
+				sprintf(Buffer, "%s + %d Tier bars", Buffer, inProgressQuests[i].tierReward);
+
+			fontSize = 0.0075f*g_Resolution.x;
+			float textLen = _Window::GetTextSize(Buffer, fontSize).x;
+			float textHeight = _Window::GetHeightForFontsize(fontSize);
+			_Window::RenderTextB(g_Resolution.x*0.25f - textLen + Low*g_Resolution.x*0.16f, g_Resolution.y*0.35f - textHeight + High*g_Resolution.y*0.175f,
+				Buffer, fontSize);
+		}
+
+
+		for (int i = 0; i < inProgressQuests.size(); i++)
+		{
+			hoveringOne++;
+			int High = i / 5;
+			int Low = i % 5;
+			if (hoverTime > 0.4f && g_Mouse.IsBetween(g_Resolution.x*0.105f + Low*g_Resolution.x*0.16f, g_Resolution.y*0.2f + High*g_Resolution.y*0.175f, g_Resolution.x*0.15f, g_Resolution.y*0.165f))
+			{
+				char Buffer[256];
+				sprintf(Buffer, "%s\nProgress: %d/%d", inProgressQuests[i].questDescription, inProgressQuests[i].iProgress,
+					inProgressQuests[i].iNeeded);
+				sf::Vector2i textSize = _Window::GetTextSize(Buffer, 16);
+				_Window::RenderOverlay(g_Mouse.Coords.x + 15, g_Mouse.Coords.y, textSize.x + 6, textSize.y + 6, 0, 0, 0, 255);
+				_Window::RenderOverlay(g_Mouse.Coords.x + 16, g_Mouse.Coords.y + 1, textSize.x + 4, textSize.y + 4, 32, 32, 96, 255);
+				_Window::RenderTextBMiddleC(g_Mouse.Coords.x + 16, g_Mouse.Coords.y + 1, textSize.x + 4, textSize.y + 4, Buffer, 16);
+
+			}
+		}
+	}
+	if (QuestPage == 1)
+	{
+		std::vector<dc_globalquest> inProgressQuests;
+		for (int i = 0; i < 20; i++)
+			if (ThePlayer.GlobalQuests[i].Finished)
+				inProgressQuests.push_back(ThePlayer.GlobalQuests[i]);
+
+		for (int i = 0; i < inProgressQuests.size(); i++)
+		{
+			int High = i / 5;
+			int Low = i % 5;
+			_Window::RenderOverlay(g_Resolution.x*0.105f + Low*g_Resolution.x*0.16f, g_Resolution.y*0.2f + High*g_Resolution.y*0.175f, g_Resolution.x*0.15f, g_Resolution.y*0.165f, 64, 64, 192, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.1075f + Low*g_Resolution.x*0.16f, g_Resolution.y*0.2025f + High*g_Resolution.y*0.175f, g_Resolution.x*0.145f, g_Resolution.y*0.16f, 32, 32, 96, 255);
+
+			//Progress
+			float progress = (1.f*inProgressQuests[i].iNeeded) / (1.f*inProgressQuests[i].iNeeded);
+			_Window::RenderOverlay(g_Resolution.x*0.1075f + Low*g_Resolution.x*0.16f, g_Resolution.y*0.3525f + High*g_Resolution.y*0.175f, g_Resolution.x*0.145f, g_Resolution.y*0.01f, 0, 0, 0, 255);
+			_Window::RenderOverlay(g_Resolution.x*0.11f + Low*g_Resolution.x*0.16f, g_Resolution.y*0.355f + High*g_Resolution.y*0.175f, g_Resolution.x*0.14f * progress, g_Resolution.y*0.005f, 255, 255, 0, 255);
+
+			float fontSize = 0.015f*g_Resolution.x;
+			_Window::RenderTextBMiddleC(g_Resolution.x*0.105f + Low*g_Resolution.x*0.16f, g_Resolution.y*0.2f + High*g_Resolution.y*0.175f, g_Resolution.x*0.15f, g_Resolution.y*0.05f,
+				inProgressQuests[i].questName, fontSize);
+
+			char Buffer[48];
+			sprintf(Buffer, "%d XP", inProgressQuests[i].xpReward);
+			if (inProgressQuests[i].tierReward > 0)
+				sprintf(Buffer, "%s + %d Tier bars", Buffer, inProgressQuests[i].tierReward);
+
+			fontSize = 0.0075f*g_Resolution.x;
+			float textLen = _Window::GetTextSize(Buffer, fontSize).x;
+			float textHeight = _Window::GetHeightForFontsize(fontSize);
+			_Window::RenderTextB(g_Resolution.x*0.25f - textLen + Low*g_Resolution.x*0.16f, g_Resolution.y*0.35f - textHeight + High*g_Resolution.y*0.175f,
+				Buffer, fontSize);
+		}
+
+
+		for (int i = 0; i < inProgressQuests.size(); i++)
+		{
+			hoveringOne++;
+			int High = i / 5;
+			int Low = i % 5;
+			if (hoverTime > 0.4f && g_Mouse.IsBetween(g_Resolution.x*0.105f + Low*g_Resolution.x*0.16f, g_Resolution.y*0.2f + High*g_Resolution.y*0.175f, g_Resolution.x*0.15f, g_Resolution.y*0.165f))
+			{
+				char Buffer[256];
+				sprintf(Buffer, "%s\nProgress: %d/%d", inProgressQuests[i].questDescription, inProgressQuests[i].iNeeded,
+					inProgressQuests[i].iNeeded);
+				sf::Vector2i textSize = _Window::GetTextSize(Buffer, 16);
+				_Window::RenderOverlay(g_Mouse.Coords.x + 15, g_Mouse.Coords.y, textSize.x + 6, textSize.y + 6, 0, 0, 0, 255);
+				_Window::RenderOverlay(g_Mouse.Coords.x + 16, g_Mouse.Coords.y + 1, textSize.x + 4, textSize.y + 4, 32, 32, 96, 255);
+				_Window::RenderTextBMiddleC(g_Mouse.Coords.x + 16, g_Mouse.Coords.y + 1, textSize.x + 4, textSize.y + 4, Buffer, 16);
+
+			}
+		}
+	}
+	if (hoveringOne == 0)
+	{
+		hoverTime -= 0.0005f* hereClock.deltaTime();
+		if (hoverTime < 0)
+			hoverTime = 0;
+	}
+	else hoverTime += 0.001f* hereClock.deltaTime();
+	hereClock.Update();
 }
 
 void dc_game::DrawMainMenu()
@@ -2463,6 +2730,27 @@ void dc_game::DoSettingsMenu()
 		if (g_Mouse.IsBetween(T.x, g_Resolution.y*0.71, g_Resolution.y*0.08f, g_Resolution.y*0.08f, g_Mouse.Coords.x, g_Mouse.Coords.y)
 			&& g_Mouse.IsClickValid() && g_Mouse.hasReleased())
 			SettingFullscreen = !SettingFullscreen;
+		width = _Window::GetTextSize("Full screen", fontsize).x;
+		if (g_Mouse.IsBetween(T.x + g_Resolution.y*0.11f + 12 + width, g_Resolution.y*0.71, g_Resolution.y*0.08f, g_Resolution.y*0.08f)
+			&& g_Mouse.IsClickValid() && g_Mouse.hasReleased())
+		{
+			if (g_Config.fps_enable.Value >= 1.f)
+				g_Config.fps_enable.Value = 0.f;
+			else
+				g_Config.fps_enable.Value = 1.f;
+		}
+
+		
+		_Window::RenderOverlay(T.x + g_Resolution.y*0.09f + 2, g_Resolution.y*0.71, width + 12, g_Resolution.y*0.08f, 192, 192, 192, 64);
+		_Window::RenderTextBMiddleC(T.x + g_Resolution.y*0.09f + 2, g_Resolution.y*0.71, width + 12, g_Resolution.y*0.08f, "Full screen", fontsize, 255, 255, 255, 255);
+
+		_Window::RenderOverlay(T.x + g_Resolution.y*0.11f + 12 + width, g_Resolution.y*0.71, g_Resolution.y*0.08f, g_Resolution.y*0.08f, 128, 128, 128, 128);
+		if (g_Config.fps_enable.Value >= 1.f)
+			_Window::RenderOverlay(T.x + g_Resolution.y*0.11f + 14 + width, g_Resolution.y*0.71 + 2, g_Resolution.y*0.08f - 4, g_Resolution.y*0.08f - 4, 64, 64, 192, 255);
+		int width2 = _Window::GetTextSize("Show FPS", fontsize).x;
+		_Window::RenderOverlay(T.x + g_Resolution.y*0.2f + 16 + width, g_Resolution.y*0.71, width2 + 12, g_Resolution.y*0.08f, 192, 192, 192, 64);
+		_Window::RenderTextBMiddleC(T.x + g_Resolution.y*0.2f + 16 + width, g_Resolution.y*0.71, width2 + 12, g_Resolution.y*0.08f, "Show FPS", fontsize, 255, 255, 255, 255);
+
 	}
 
 
@@ -2686,6 +2974,12 @@ void dc_game::DrawSettingsMenu()
 		_Window::RenderOverlay(T.x+g_Resolution.y*0.09f+2, g_Resolution.y*0.71, width + 12, g_Resolution.y*0.08f, 192, 192, 192, 64);
 		_Window::RenderTextBMiddleC(T.x + g_Resolution.y*0.09f+2, g_Resolution.y*0.71, width + 12,g_Resolution.y*0.08f, "Full screen", fontsize, 255, 255, 255, 255);
 
+		_Window::RenderOverlay(T.x + g_Resolution.y*0.11f + 12 + width, g_Resolution.y*0.71, g_Resolution.y*0.08f, g_Resolution.y*0.08f, 128, 128, 128, 128);
+		if(g_Config.fps_enable.Value >= 1.f)
+			_Window::RenderOverlay(T.x + g_Resolution.y*0.11f + 14 + width, g_Resolution.y*0.71+2, g_Resolution.y*0.08f-4, g_Resolution.y*0.08f-4, 64, 64, 192, 255);
+		int width2 = _Window::GetTextSize("Show FPS", fontsize).x;
+		_Window::RenderOverlay(T.x + g_Resolution.y*0.2f + 16 + width, g_Resolution.y*0.71, width2 + 12, g_Resolution.y*0.08f, 192, 192, 192, 64);
+		_Window::RenderTextBMiddleC(T.x + g_Resolution.y*0.2f + 16 + width, g_Resolution.y*0.71, width2 + 12, g_Resolution.y*0.08f, "Show FPS", fontsize, 255, 255, 255, 255);
 
 	}
 
@@ -2799,7 +3093,7 @@ void dc_game::DrawCreditsMenu()
 	_Window::RenderTextB(tX, tY, Buffer, fontSize,192,192,192);
 	tX += texW("Graphics: ", fontSize);
 
-	sprintf(Buffer, "zENKII @ GlitchHub");
+	sprintf(Buffer, "Lilla @ GlitchHub");
 	_Window::RenderTextB(tX, tY, Buffer, fontSize,225,180,32);
 	tX = g_Resolution.x*0.06f;
 	tY += texH(1, fontSize);
@@ -2809,7 +3103,7 @@ void dc_game::DrawCreditsMenu()
 	tX += texW("Sounds: ", fontSize);
 	
 	auto tNpush = tX+max(texW("Gun Sounds: ", fontSize), max(texW("Bus Music: ", fontSize), texW("Footsteps: ", fontSize)));
-	sprintf(Buffer, "zENKII @ GlitchHub\nMarkvard\nYouTube @ Creative Commons");
+	sprintf(Buffer, "Lilla @ GlitchHub\nMarkvard\nYouTube");
 	_Window::RenderTextB(tNpush, tY, Buffer, fontSize, 225, 180, 32);
 	sprintf(Buffer, "Gun Sounds: ");
 	_Window::RenderTextB(tNpush- texW("Gun Sounds: ", fontSize), tY, Buffer, fontSize, 192,192,192);
@@ -2825,7 +3119,7 @@ void dc_game::DrawCreditsMenu()
 	_Window::RenderTextB(tX, tY, Buffer, fontSize, 192, 192, 192);
 	tX += texW("Programming: ", fontSize);
 
-	sprintf(Buffer, "zENKII @ GlitchHub");
+	sprintf(Buffer, "Lilla @ GlitchHub");
 	_Window::RenderTextB(tX, tY, Buffer, fontSize, 225, 180, 32);
 	tX = g_Resolution.x*0.06f;
 	tY += texH(1, fontSize);
