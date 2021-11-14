@@ -3093,7 +3093,7 @@ void dc_game::DrawCreditsMenu()
 	_Window::RenderTextB(tX, tY, Buffer, fontSize,192,192,192);
 	tX += texW("Graphics: ", fontSize);
 
-	sprintf(Buffer, "Lilla @ GlitchHub");
+	sprintf(Buffer, "Lilla Toma @ GlitchHub");
 	_Window::RenderTextB(tX, tY, Buffer, fontSize,225,180,32);
 	tX = g_Resolution.x*0.06f;
 	tY += texH(1, fontSize);
@@ -3103,7 +3103,7 @@ void dc_game::DrawCreditsMenu()
 	tX += texW("Sounds: ", fontSize);
 	
 	auto tNpush = tX+max(texW("Gun Sounds: ", fontSize), max(texW("Bus Music: ", fontSize), texW("Footsteps: ", fontSize)));
-	sprintf(Buffer, "Lilla @ GlitchHub\nMarkvard\nYouTube");
+	sprintf(Buffer, "Lilla Toma @ GlitchHub\nMarkvard\nYouTube");
 	_Window::RenderTextB(tNpush, tY, Buffer, fontSize, 225, 180, 32);
 	sprintf(Buffer, "Gun Sounds: ");
 	_Window::RenderTextB(tNpush- texW("Gun Sounds: ", fontSize), tY, Buffer, fontSize, 192,192,192);
@@ -3119,7 +3119,7 @@ void dc_game::DrawCreditsMenu()
 	_Window::RenderTextB(tX, tY, Buffer, fontSize, 192, 192, 192);
 	tX += texW("Programming: ", fontSize);
 
-	sprintf(Buffer, "Lilla @ GlitchHub");
+	sprintf(Buffer, "Lilla Toma @ GlitchHub");
 	_Window::RenderTextB(tX, tY, Buffer, fontSize, 225, 180, 32);
 	tX = g_Resolution.x*0.06f;
 	tY += texH(1, fontSize);

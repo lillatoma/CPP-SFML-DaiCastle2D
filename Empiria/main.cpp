@@ -77,9 +77,13 @@ int main(int argc, char **argv)
 	else
 	{
 		g_Map.load("BigSize");
-		//FreeConsole();
+		FreeConsole();
 		Game.Setup();
 		_Window::CreateTheWindow();
+		sf::Image icon;
+		file_t iconFile = g_Files.GetFileByName("256logo.png");
+		icon.loadFromMemory(iconFile.loc_in_mem,iconFile.size); // File/Image/Pixel
+		g_Window->setIcon(icon.getSize().x,icon.getSize().y,icon.getPixelsPtr());
 	}
 
 
@@ -94,7 +98,8 @@ int main(int argc, char **argv)
 			switch (_event.type)
 			{
 			case sf::Event::Closed:
-				Game.Quit();
+				if(!IsEditor)
+					Game.Quit();
 				g_Window->close();
 				break;
 			case sf::Event::MouseMoved:

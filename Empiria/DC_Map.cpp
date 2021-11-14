@@ -919,7 +919,7 @@ void dc_map::show_minimapui(float& mx, float &my, float width, float busx, float
 	sprb.setPosition(_X,_Y);
 	sprb.setColor(sf::Color(255, 255, 255, minimapAlpha * 128));
 	g_Window->draw(sprb);
-
+	ConLog("\nMinimapAlpha: %f", minimapAlpha);
 	lastCallClock.Update();
 	
 }

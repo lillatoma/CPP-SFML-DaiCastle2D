@@ -1330,9 +1330,38 @@ void dc_match::SimulateExplosives(float timediff, sf::Vector2f V)
 				auto Expsim = SimulateExplosion(ExpPosition, Exp.explosionRange, Exp.DamageStart, Exp.DamageEnd);
 				g_Sounds.AddNewSound(36, 60.f, ExpPosition, g_Config.mastervolume.Value*100.f, players[camera_follows].vPosition, 0.5f);
 				Expsim.compress();
-
+				int iterations = 0;
 				for (auto data : Expsim.totalDamages)
 				{
+
+
+					if (Exp.projectiletype == 6)
+					{
+						if (iterations == 0)
+						{
+							for (int i = 0; i < 100; i++)
+							{
+								if (players[i].iHealth <= 0)
+									continue;
+								if (GetDistance(players[i].vPosition, ExpPosition) > Exp.explosionRange)
+									continue;
+								sf::Vector2f distanceVector = ExpPosition - players[i].vPosition;
+								if (distanceVector == sf::Vector2f(0, 0))
+									distanceVector = sf::Vector2f(0.1f, 0);
+								float playerDistance = GetLength(distanceVector);
+								sf::Vector2f unitVector = distanceVector / playerDistance;
+
+								dc_impulseeffect impulseEffect;
+								impulseEffect.playerID = i;
+								impulseEffect.dirVector = unitVector;
+								impulseEffect.power = 50.f / (4.f + playerDistance);
+								ImpulseContainer.push_back(impulseEffect);
+								iterations++;
+							}
+						}
+
+					}
+
 					if (data.iType == 0)
 					{
 						int iVictimShield = players[data.iVictim].iShield;
@@ -1351,20 +1380,6 @@ void dc_match::SimulateExplosives(float timediff, sf::Vector2f V)
 						if (Exp.projectiletype == 4)
 						{
 							sf::Vector2f distanceVector = players[data.iVictim].vPosition - ExpPosition;
-							if (distanceVector == sf::Vector2f(0, 0))
-								distanceVector = sf::Vector2f(0.1f, 0);
-							float playerDistance = GetLength(distanceVector);
-							sf::Vector2f unitVector = distanceVector / playerDistance;
-
-							dc_impulseeffect impulseEffect;
-							impulseEffect.playerID = data.iVictim;
-							impulseEffect.dirVector = unitVector;
-							impulseEffect.power = 50.f / (4.f + playerDistance);
-							ImpulseContainer.push_back(impulseEffect);
-						}
-						else if (Exp.projectiletype == 6)
-						{
-							sf::Vector2f distanceVector = ExpPosition - players[data.iVictim].vPosition;
 							if (distanceVector == sf::Vector2f(0, 0))
 								distanceVector = sf::Vector2f(0.1f, 0);
 							float playerDistance = GetLength(distanceVector);
@@ -3581,6 +3596,22 @@ void dc_match::DrawStormOnMinimapUI()
 	static sf::RenderTexture rendText;
 	static sf::Vector2i resolution = g_Resolution;
 	static bool setup = false;
+	static dc_clock lastCallClock;
+	static float minimapAlpha = 1.f;
+
+	if (g_Mouse.IsBetween(g_Resolution.x*0.8, 0, g_Resolution.x*0.2, g_Resolution.x*0.15 + g_Resolution.y*0.0833))
+	{
+		minimapAlpha -= 0.00266f * lastCallClock.deltaTime();
+		if (minimapAlpha < 0.33f)
+			minimapAlpha = 0.33f;
+	}
+	else
+	{
+		minimapAlpha += 0.00266f * lastCallClock.deltaTime();
+		if (minimapAlpha > 1.f)
+			minimapAlpha = 1.f;
+	}
+	lastCallClock.Update();
 
 	if (!setup || resolution != g_Resolution)
 	{
@@ -3656,6 +3687,7 @@ void dc_match::DrawStormOnMinimapUI()
 	rendSprite.setTexture(rendText.getTexture());
 	rendSprite.setPosition(g_Resolution.x*0.8, g_Resolution.y*0.05f+g_Resolution.x*0.15);
 	rendSprite.setScale(1.f, -1.f);
+	rendSprite.setColor(sf::Color(255, 255, 255, minimapAlpha * 255));
 	g_Window->draw(rendSprite);
 
 

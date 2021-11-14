@@ -175,7 +175,7 @@ void dc_game::DrawConsole()
 	_Window::RenderOverlay(0, 0, g_Resolution.x, g_Resolution.y*0.45f, 0, 0, 32, 192);
 	_Window::RenderOverlay(0, g_Resolution.y*0.40f, g_Resolution.x, g_Resolution.y*0.05f, 0, 0, 96, 192);
 	_Window::RenderOverlay(0, g_Resolution.y*0.45f, g_Resolution.x, g_Resolution.y*0.005f, 0, 0, 192, 255);
-
+	ConLog(".");
 	for (int i = console_pos; i < console_pos + 15 && i < ConsoleLogs.size(); i++)
 	{
 		int RelativePos = i-console_pos;

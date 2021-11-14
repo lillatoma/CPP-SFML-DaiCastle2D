@@ -41,6 +41,7 @@ void filesystem::LoadAll()
 	LoadTEK("texx.tek");
 	LoadTEK("dctextures.tek");
 	LoadTEK("dcsounds.tek");
+	LoadTEK("dclogo.tek");
 	if (!IsEditor)
 	{
 		LoadFile("BotNamesEasy.txt");

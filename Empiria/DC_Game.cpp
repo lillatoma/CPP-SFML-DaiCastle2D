@@ -416,28 +416,44 @@ void dc_game::SetupUnlockables()
 	Unlockables.push_back(dc_lockerunlockable(1, 0, -1, 0, "Default Glider"));
 	Unlockables.push_back(dc_lockerunlockable(2, 0, -1, 0, "Default Wrap"));
 
-	Unlockables.push_back(dc_lockerunlockable(0, 1, 5, 1,"Camouflage"));
-	Unlockables.push_back(dc_lockerunlockable(0, 5, 10, 2, "Dark"));
-	Unlockables.push_back(dc_lockerunlockable(0, 7, 15, 2, "Love"));
-	Unlockables.push_back(dc_lockerunlockable(0, 2, 20, 3, "Red Arrow"));
-	Unlockables.push_back(dc_lockerunlockable(0, 6, 25, 3, "Earth Ball"));
-	Unlockables.push_back(dc_lockerunlockable(0, 9, 30, 2, "Radar"));
-	Unlockables.push_back(dc_lockerunlockable(0, 8, 35, 3, "Super Ball"));
-	Unlockables.push_back(dc_lockerunlockable(0, 4, 40, 4, "Basketball"));
-	Unlockables.push_back(dc_lockerunlockable(0, 3, 45, 4, "Pac Monster"));
+	Unlockables.push_back(dc_lockerunlockable(0, 1, 4, 1,"Camouflage"));
+	Unlockables.push_back(dc_lockerunlockable(0, 10, 8, 1, "Sandstormer"));
+	Unlockables.push_back(dc_lockerunlockable(0, 5, 12, 2, "Dark"));
+	Unlockables.push_back(dc_lockerunlockable(0, 11, 16, 2, "Yogi"));
+	Unlockables.push_back(dc_lockerunlockable(0, 7, 20, 2, "Love"));
+	Unlockables.push_back(dc_lockerunlockable(0, 16, 24, 2, "Happy Face"));
+	Unlockables.push_back(dc_lockerunlockable(0, 2, 28, 3, "Red Arrow"));
+	Unlockables.push_back(dc_lockerunlockable(0, 14, 32, 2, "The Watcher"));
+	Unlockables.push_back(dc_lockerunlockable(0, 6, 36, 3, "Earth Ball"));
+	Unlockables.push_back(dc_lockerunlockable(0, 15, 40, 4, "Equality"));
+	Unlockables.push_back(dc_lockerunlockable(0, 9, 44, 2, "Radar"));
+	Unlockables.push_back(dc_lockerunlockable(0, 12, 48, 3, "Wavedash"));
+	Unlockables.push_back(dc_lockerunlockable(0, 8, 52, 3, "Super Ball"));
+	Unlockables.push_back(dc_lockerunlockable(0, 18, 56, 2, "Lightball"));
+	Unlockables.push_back(dc_lockerunlockable(0, 4, 60, 4, "Basketball"));
+	Unlockables.push_back(dc_lockerunlockable(0, 13, 64, 3, "Ticking"));
+	Unlockables.push_back(dc_lockerunlockable(0, 17, 68, 3, "Fractal"));
+	Unlockables.push_back(dc_lockerunlockable(0, 3, 72, 4, "Pac Monster"));
+	Unlockables.push_back(dc_lockerunlockable(0, 19, 76, 4, "Pizza"));
 
 	Unlockables.push_back(dc_lockerunlockable(1, 3, 6, 1, "Black"));
 	Unlockables.push_back(dc_lockerunlockable(1, 1, 11, 2, "Umbrella"));
-	Unlockables.push_back(dc_lockerunlockable(1, 4, 18, 3, "Blue Arrow"));
-	Unlockables.push_back(dc_lockerunlockable(1, 2, 26, 4, "Red Umbrella"));
+	Unlockables.push_back(dc_lockerunlockable(1, 7, 19, 2, "Paper"));
+	Unlockables.push_back(dc_lockerunlockable(1, 4, 25, 3, "Blue Arrow"));
+	Unlockables.push_back(dc_lockerunlockable(1, 2, 31, 4, "Red Umbrella"));
+	Unlockables.push_back(dc_lockerunlockable(1, 5, 41, 3, "Rocket"));
+	Unlockables.push_back(dc_lockerunlockable(1, 6, 57, 4, "Neonbrella"));
 
 	Unlockables.push_back(dc_lockerunlockable(2, 2, 3, 1, "All Black"));
 	Unlockables.push_back(dc_lockerunlockable(2, 1, 9, 1, "All White"));
-	Unlockables.push_back(dc_lockerunlockable(2, 5, 13, 2, "Inverted"));
-	Unlockables.push_back(dc_lockerunlockable(2, 7, 16, 2, "Leafy"));
-	Unlockables.push_back(dc_lockerunlockable(2, 4, 22, 3, "Golden"));
-	Unlockables.push_back(dc_lockerunlockable(2, 6, 27, 4, "Corrupted"));
-	Unlockables.push_back(dc_lockerunlockable(2, 3, 32, 4, "Misty"));
+	Unlockables.push_back(dc_lockerunlockable(2, 5, 15, 2, "Inverted"));
+	Unlockables.push_back(dc_lockerunlockable(2, 7, 18, 2, "Leafy"));
+	Unlockables.push_back(dc_lockerunlockable(2, 8, 26, 2, "Holy"));
+	Unlockables.push_back(dc_lockerunlockable(2, 6, 30, 4, "Corrupted"));
+	Unlockables.push_back(dc_lockerunlockable(2, 9, 38, 3, "Sky"));
+	Unlockables.push_back(dc_lockerunlockable(2, 4, 43, 3, "Golden"));
+	Unlockables.push_back(dc_lockerunlockable(2, 3, 54, 4, "Misty"));
+
 
 }
 
@@ -491,6 +507,7 @@ void dc_game::Setup()
 
 	ThePlayer.szName[63] = '\0';
 	SetupQuests();
+	CheckAlreadyUnlockedItems();
 }
 
 void dc_game::LogMessage(char* msg, sf::Color color)
@@ -551,6 +568,36 @@ void dc_game::CheckLevels()
 	}
 
 	CheckTiers();
+}
+
+
+void dc_game::CheckAlreadyUnlockedItems()
+{
+	for (int i = 0; i < Unlockables.size(); i++)
+	{
+		auto ul = Unlockables[i];
+		if (ul.Tier <= ThePlayer.Tier)
+		{
+			if (ul.Type == 0)
+				if (!ThePlayer.SkinUnlocked[ul.Index])
+				{
+					ThePlayer.SkinUnlocked[ul.Index] = true;
+
+				}
+			if (ul.Type == 1)
+				if (!ThePlayer.GliderUnlocked[ul.Index])
+				{
+					ThePlayer.GliderUnlocked[ul.Index] = true;
+
+				}
+			if (ul.Type == 2)
+				if (!ThePlayer.WrapUnlocked[ul.Index])
+				{
+					ThePlayer.WrapUnlocked[ul.Index] = true;
+
+				}
+		}
+	}
 }
 
 void dc_game::CheckTiers()

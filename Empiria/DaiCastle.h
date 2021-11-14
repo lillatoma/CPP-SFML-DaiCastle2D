@@ -228,9 +228,9 @@ struct dc_stats
 
 };
 
-#define ALL_SKINTEXTURES 10
-#define ALL_GLIDERTEXTURES 5
-#define ALL_WEAPONWRAPTEXTURES 8
+#define ALL_SKINTEXTURES 20
+#define ALL_GLIDERTEXTURES 8
+#define ALL_WEAPONWRAPTEXTURES 10
 
 #define CHEST_OPENTIME 0.45f
 #define AIRDROP_OPENTIME 4.f
@@ -2688,6 +2688,7 @@ struct dc_game
 
 	void SetupQuests();
 
+	void CheckAlreadyUnlockedItems();
 
 	//////////////////////////////////////////////
 	/// Draws the locker unlock and quest finished effects

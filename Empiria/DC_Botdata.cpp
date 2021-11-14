@@ -1395,7 +1395,7 @@ void dc_match::BotBegin(int easyCase, int normalCase, int hardCase, int expertCa
 			players[i].iGliderTexture = Random(0, ALL_GLIDERTEXTURES - 1);
 
 			players[i].iWeaponWrapTexture = Random(0, ALL_WEAPONWRAPTEXTURES - 1);
-
+			
 		}
 		if (BotData[i].botDifficulty == 2)
 		{

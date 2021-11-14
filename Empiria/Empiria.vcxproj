@@ -121,6 +121,7 @@
     <ClInclude Include="fastParser.h" />
     <ClInclude Include="FileSys.h" />
     <ClInclude Include="gameHeaders.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="_Audio.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="_Tek.h" />
@@ -158,6 +159,13 @@
     </ClCompile>
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="ThreadManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DaiCastle.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\resources\256logo.ico" />
+    <Image Include="icon1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
